@@ -1,0 +1,12 @@
+static/images/physics.png filter=lfs diff=lfs merge=lfs -text
+static/mindmaps/*.svg filter=lfs diff=lfs merge=lfs -text
+static/**/*.svg filter=lfs diff=lfs merge=lfs -text
+static/**/*.png filter=lfs diff=lfs merge=lfs -text
+static/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+static/**/*.pdf filter=lfs diff=lfs merge=lfs -text
+static/**/*.h5 filter=lfs diff=lfs merge=lfs -text
+static/**/*.hdf5 filter=lfs diff=lfs merge=lfs -text
+static/**/*.woff2 filter=lfs diff=lfs merge=lfs -text
+static/**/*.woff filter=lfs diff=lfs merge=lfs -text
+static/**/*.ttf filter=lfs diff=lfs merge=lfs -text
+static/**/*.eot filter=lfs diff=lfs merge=lfs -text
