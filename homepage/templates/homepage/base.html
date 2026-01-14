@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+    <noscript>
+        <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
+    </noscript>
+
+</head>
+
+<body id="page-top">
+
+    {% include 'navbar.html' %}
+    {% block content %}
+
+    {% endblock content %}
+
+    <!-- Footer -->
+    <div id="footer" style="background-color: #392525;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Contact -->
+                    <section class="contact">
+                        <header>
+                            <h3>Want to get in touch?</h3>
+                        </header>
+                        <p>Feel free to contact me via bluesky DMs or email at Nihar (dot) Gupte (at) aei.mpg.de.</p>
+                        <ul class="icons">
+                            <li><a href="https://bsky.app/profile/did:plc:rkjchye6bu4gf7hch3mqz2bj" class="icon brands"><img src="{% static 'homepage/images/bluesky_logo.png' %}" alt="Bluesky" style="width: 1em; height: 1em;"><span class="label">Bluesky</span></a></li>
+                            <li><a href="https://www.instagram.com/mosfet_arts2/?hl=ja" class="icon brands fa-instagram"><span class="label">Instagram</span></a>
+                            </li>
+                            <li><a href="https://www.linkedin.com/in/nihar-gupte-403b74173/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a>
+                            </li>
+                            <li><a href="https://scholar.google.com/citations?user=o5K5zP0AAAAJ&hl=en" class="icon brands fa-google"><span class="label">Google</span></a></li>
+                            <li><a href="https://bsky.app/profile/did:plc:rkjchye6bu4gf7hch3mqz2bj" class="icon brands"><img src="{% static 'homepage/images/inspireHEP.jpg' %}" alt="Bluesky" style="width: 1em; height: 1em;"><span class="label">Bluesky</span></a></li>
+                        </ul>
+                    </section>
+
+                    <!-- Copyright -->
+                    <div class="copyright">
+                        <ul class="menu">
+                            <li>&copy; 2025 Nihar Gupte. All rights reserved.</li>
+                            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+    <script src="{% static 'assets/js/browser.min.js' %}"></script>
+    <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/util.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+
+</html>

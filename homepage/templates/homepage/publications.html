@@ -1,0 +1,159 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Header -->
+<div id="header">
+    <!-- Inner -->
+    <div class="inner">
+        <header>
+            <h1><a id="logo">Nihar Gupte</a></h1>
+            <hr />
+            <p>Gravitational wave physicist</p>
+        </header>
+        <footer>
+            <a href="#banner" class="button circled scrolly">Start</a>
+        </footer>
+    </div>
+</div>
+
+<!-- Banner -->
+<section id="banner">
+    <header>
+        <h2>Publications and Projects </h2>
+        <p>
+            Here are a few projects/papers that I'm particularly proud of! <br>
+            To see a full list of my publications please see <strong><a
+                    href="https://inspirehep.net/authors/2866862?ui-citation-summary=true&ui-exclude-self-citations=true">InspireHEP</a></strong>
+                    or my CV.
+            </h2>
+        </p>
+    </header>
+</section>
+
+<!-- Carousel -->
+
+<section class="carousel">
+    <div class="reel" style="overflow: visible; transform: translate(-140px, 0px);">
+
+        <div class="thumbnail-container">
+            <article class="">
+                <a href="#" class="image featured"><img src="{% static 'homepage/images/violinplot.png' %}" alt=""></a>
+                <header>
+                    <h3><a href="#">Evidence for eccentricity in Binary Black Holes</a></h3>
+                </header>
+                <p>After measuring the properties of 57 Binary Black holes, we found that three of them had signs of
+                    eccentric inspirals. Furthermore, we found a >99% probability that one of the 57 systems
+                    is measurably eccentric. This hints that binary black holes may form from chaotic interactions 
+                    in dense stellar environments.
+                </p>
+            </article>
+        </div>
+
+        <a href="https://www.fireneuralnetwork.com/">
+            <div class="thumbnail-container">
+                <article class="">
+                    <a href="https://www.fireneuralnetwork.com/" class="image featured"><img
+                            src="{% static 'homepage/images/fnn_plot.png' %}" alt=""></a>
+                    <header>
+                        <h3><a href="https://www.fireneuralnetwork.com/">Localizing fires with satellite data </a>
+                        </h3>
+                    </header>
+                    <p style="font-size: 0.8em;"> Using Geospatial data from NOAA, we localized fires in California.
+                        This was done using a real-time ML pipeline and updates authorities every 5 minutes. It has now become a
+                        successful startup extending to lighting detection and drone monitoring. 
+                    </p>
+                </article>
+            </div>
+        </a>
+
+        <div class="thumbnail-container">
+            <article class="">
+                <a href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.101.123008" class="image featured"><img
+                        src="{% static 'homepage/images/genetic_algorithm_covering.png' %}" alt=""></a>
+                <header>
+                    <h3><a href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.101.123008">Genetic
+                            algorithms for optimal polygon tilings on spheres</a></h3>
+                </header>
+                <p> We developed an algorithm which covers polygons embedded on spheres using circles.
+                    This is applied to covering gravitational wave skymaps with electromagnetic telescopes.
+                </p>
+            </article>
+        </div>
+
+        <div class="thumbnail-container">
+            <article class="">
+                <a href="https://www.nature.com/articles/s41586-025-08593-z" class="image featured"><img
+                        src="{% static 'homepage/images/dingo-bns.png' %}" alt=""></a>
+                <header>
+                    <h3><a href="https://www.nature.com/articles/s41586-025-08593-z">Real-time inference for binary neutron star mergers using machine learning</a></h3>
+                </header>
+                <p> In a project led by M. Dax, we developed a machine learning 
+                    algorithm to accurately infer the properties of a binary neutron star within one 
+                    second and even before the merger. 
+                </p>
+            </article>
+        </div>
+
+        <div class="thumbnail-container">
+            <article class="">
+                <a href="https://github.com/dingo-gw/dingo" class="image featured"><img
+                        src="{% static 'homepage/images/dingo-logo.png' %}" alt=""></a>
+                <header>
+                    <h3><a href="https://github.com/dingo-gw/dingo">DINGO: Inferring the properties of compact binaries</a></h3>
+                </header>
+                <p> I'm a developer for "DINGO", a machine-learning code which quickly and 
+                    accurately infers the properties of compact binaries which emit 
+                    gravitational waves. This code is now being used by the LIGO-Virgo-KAGRA
+                    collaboration. 
+                </p>
+            </article>
+        </div>
+
+    </div>
+    <span class="forward" style=""></span><span class="backward" style=""></span>
+</section>
+
+</div>
+<span class="forward" style=""></span><span class="backward" style=""></span>
+</section>
+
+<!-- About me -->
+<section id="about-me" style="margin: 0 2em; display: flex; align-items: center; margin-top: 2em;">
+    <div style="flex: 1; padding-right: 1em;">
+        <img src="{% static 'homepage/images/profile_pic.jpg' %}" alt="Your Photo" style="width: 100%; border-radius: 10px;">
+    </div>
+    <div style="flex: 2;">
+        <h2>About Me</h2>
+        <p>
+            Hello! I'm Nihar Gupte, a PhD student in the field of
+            gravitational physics. My work focuses on using Bayesian inference
+            to understand the properties of binary black holes and neutron stars.
+            My current research interests revolve around understanding the
+            population properties of eccentric binary black holes and
+            developing machine learning algorithms for gravitational wave
+            parameter estimation. I am currently based in Potsdam, Germany
+            at the <a href="https://www.aei.mpg.de/person/126460/2784">Max Planck Institute for Gravitational
+                Physics</a>. I have also
+            been a member of the LIGO Scientific Collaboration since 2021.
+            In my free time I love to draw, rock climb, play volleyball and
+            play the flute. 
+
+        </p>
+    </div>
+</section>
+
+<!-- Additional section with horizontal image -->
+<section id="about-me" style="margin: 0 2em; display: flex; align-items: center; margin-top: 2em;">
+    <div style="flex: 2;">
+        <h2>Section Title</h2>
+        <p>
+            Add your text content here. This section features a horizontal banner image above the text content.
+        </p>
+    </div>
+    <div style="margin-bottom: 2em;">
+        <img src="{% static 'homepage/images/presentation_pic.jpg' %}" alt="Horizontal Banner" style="width: 100%; height: 500px; object-fit: cover; border-radius: 10px;">
+    </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+.thumbnail-container {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.thumbnail-container img {
+    width: 200px;
+    /* Set the desired width */
+    height: auto;
+    /* Maintain aspect ratio */
+    transition: transform 0.3s ease !important;
+}
+
+.thumbnail-container img:hover {
+    transform: scale(1.02) !important;
+}

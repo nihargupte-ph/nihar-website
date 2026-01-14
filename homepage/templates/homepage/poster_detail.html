@@ -1,0 +1,60 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        background: {{ poster.background_color }} !important;
+    }
+    
+    .poster-container {
+        background: {{ poster.background_color }};
+        min-height: 100vh;
+        padding: 2em 0;
+    }
+    
+    .poster-container h2, .poster-container p {
+        color: {{ poster.text_color }};
+    }
+    
+    .poster-container .button {
+        background: rgba(255, 255, 255, 0.2);
+        color: {{ poster.text_color }};
+        border: 2px solid {{ poster.text_color }};
+    }
+    
+    .poster-container .button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        color: {{ poster.text_color }};
+    }
+</style>
+
+<div class="poster-container">
+    <!-- Poster Display -->
+    <section id="poster-display" style="margin: 2em; text-align: center;">
+        {% if poster.title and poster.description %}
+        <header style="margin-bottom: 2em;">
+            <h2></h2>
+        </header>
+        {% endif %}
+        
+        <div style="max-width: 100%; overflow: hidden;">
+            <img src="{% static poster.image_path %}" 
+                 alt="{{ poster.title }} Poster" 
+                 style="width: 100%; max-width: 1200px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+        </div>
+        
+        {% if poster.pdf_path %}
+        <!-- Optional: Add a download link -->
+        <div style="margin-top: 2em;">
+            <a href="{% static poster.pdf_path %}" 
+               class="button" 
+               download="{{ poster.title|slugify }}_poster.pdf">
+               Download PDF
+            </a>
+        </div>
+        {% endif %}
+    </section>
+</div>
+
+{% endblock content %}
