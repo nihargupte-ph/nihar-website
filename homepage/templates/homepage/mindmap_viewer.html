@@ -1,0 +1,297 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .mindmap-container {
+        background: #1a1a2e;
+        min-height: 100vh;
+        padding: 0;
+    }
+
+    .mindmap-header {
+        padding: 1em 2em;
+        color: #ffffff;
+        text-align: center;
+        background: #1a1a2e;
+    }
+
+    .mindmap-header h2 {
+        color: #ffffff;
+        margin-bottom: 0.5em;
+    }
+
+    .mindmap-header p {
+        color: #cccccc;
+        margin-bottom: 0;
+    }
+
+    .viewer-wrapper {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 200px);
+        min-height: 500px;
+        background: #1F2429;
+        border: 1px solid #333;
+        overflow: hidden;
+    }
+
+    #svg-container {
+        width: 100%;
+        height: 100%;
+        cursor: grab;
+    }
+
+    #svg-container:active {
+        cursor: grabbing;
+    }
+
+    #svg-container object {
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    /* Control buttons */
+    .viewer-controls {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .viewer-controls button {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .viewer-controls button:hover {
+        background: #ffffff;
+    }
+
+    .viewer-controls button:active {
+        background: #e0e0e0;
+    }
+
+    /* Loading indicator */
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 10, 21, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        color: #fff;
+        font-size: 1.2em;
+    }
+
+    .loading-overlay.hidden {
+        display: none;
+    }
+
+    /* Fullscreen styles */
+    .viewer-wrapper:fullscreen {
+        height: 100vh !important;
+        max-height: 100vh;
+    }
+
+    .viewer-wrapper:-webkit-full-screen {
+        height: 100vh !important;
+    }
+
+    .viewer-wrapper:-moz-full-screen {
+        height: 100vh !important;
+    }
+
+    .keyboard-hints {
+        color: #888;
+        font-size: 0.85em;
+        margin-top: 0.5em;
+    }
+
+    .keyboard-hints kbd {
+        background: #333;
+        padding: 2px 6px;
+        border-radius: 3px;
+        color: #fff;
+    }
+</style>
+
+<div class="mindmap-container">
+    <div class="mindmap-header">
+        <h2>{{ mindmap_title }}</h2>
+        <p>{{ mindmap_description }}</p>
+        <p class="keyboard-hints">
+            <kbd>+</kbd>/<kbd>-</kbd> zoom &nbsp;
+            <kbd>H</kbd> home &nbsp;
+            <kbd>F</kbd> fullscreen &nbsp;
+            Scroll to zoom, drag to pan
+        </p>
+    </div>
+
+    <div class="viewer-wrapper" id="viewer-wrapper">
+        <div class="loading-overlay" id="loading-overlay">
+            Loading mindmap...
+        </div>
+
+        <div class="viewer-controls">
+            <button id="zoom-in-btn" title="Zoom In">+</button>
+            <button id="zoom-out-btn" title="Zoom Out">−</button>
+            <button id="reset-btn" title="Reset View">⌂</button>
+            <button id="fullscreen-btn" title="Fullscreen">⛶</button>
+        </div>
+
+        <div id="svg-container">
+            <object id="svg-object" type="image/svg+xml" data="{% static svg_path %}">
+                Your browser does not support SVG
+            </object>
+        </div>
+    </div>
+</div>
+
+<!-- Panzoom library -->
+<script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const svgObject = document.getElementById('svg-object');
+    const container = document.getElementById('svg-container');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const viewerWrapper = document.getElementById('viewer-wrapper');
+
+    let panzoomInstance = null;
+
+    // Wait for SVG to load
+    svgObject.addEventListener('load', function() {
+        // Hide loading overlay
+        loadingOverlay.classList.add('hidden');
+
+        // Initialize panzoom on the object element
+        panzoomInstance = Panzoom(svgObject, {
+            maxScale: 50,
+            minScale: 0.1,
+            startScale: 0.5,
+            contain: false,
+            cursor: 'grab',
+        });
+
+        // Enable mouse wheel zoom
+        container.addEventListener('wheel', function(event) {
+            panzoomInstance.zoomWithWheel(event);
+        });
+
+        // Custom drag handling (since pointer-events: none blocks native drag)
+        let isDragging = false;
+        let startX, startY;
+
+        container.addEventListener('mousedown', function(e) {
+            if (e.button !== 0) return; // Only left mouse button
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            container.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+
+            // Get current pan values and add delta
+            const pan = panzoomInstance.getPan();
+            panzoomInstance.pan(pan.x + dx, pan.y + dy, { animate: false });
+
+            // Update start position for next move
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                container.style.cursor = 'grab';
+            }
+        });
+
+        // Zoom buttons
+        document.getElementById('zoom-in-btn').addEventListener('click', function() {
+            panzoomInstance.zoomIn();
+        });
+
+        document.getElementById('zoom-out-btn').addEventListener('click', function() {
+            panzoomInstance.zoomOut();
+        });
+
+        // Reset button
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            panzoomInstance.reset();
+        });
+
+        // Fullscreen button
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            if (!document.fullscreenElement) {
+                viewerWrapper.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            switch(e.key.toLowerCase()) {
+                case '+':
+                case '=':
+                    panzoomInstance.zoomIn();
+                    e.preventDefault();
+                    break;
+                case '-':
+                    panzoomInstance.zoomOut();
+                    e.preventDefault();
+                    break;
+                case 'h':
+                case 'home':
+                    panzoomInstance.reset();
+                    e.preventDefault();
+                    break;
+                case 'f':
+                    if (!document.fullscreenElement) {
+                        viewerWrapper.requestFullscreen();
+                    } else {
+                        document.exitFullscreen();
+                    }
+                    e.preventDefault();
+                    break;
+            }
+        });
+    });
+
+    // Handle load error
+    svgObject.addEventListener('error', function() {
+        loadingOverlay.textContent = 'Failed to load mindmap. Please try refreshing.';
+    });
+});
+</script>
+
+{% endblock content %}

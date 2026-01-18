@@ -58,4 +58,5 @@ python manage.py collectstatic    # Collect static files
 ## Related Documentation
 
 - [Django 5.0 Docs](https://docs.djangoproject.com/en/5.0/)
-- [Django Settings Reference](https://docs.djangoproject.com/en/5.0/ref/settings/)
+- [Django Settings Reference](httI saved it to @static/mindmaps/physics.svg, can you implement the
+  feature?ps://docs.djangoproject.com/en/5.0/ref/settings/)
