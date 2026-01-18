@@ -35,6 +35,7 @@
         background: #1F2429;
         border: 1px solid #333;
         overflow: hidden;
+        margin-top: 2em;
     }
 
     #svg-container {
@@ -94,17 +95,56 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(10, 10, 21, 0.9);
+        background: rgba(10, 10, 21, 0.85);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         z-index: 999;
         color: #fff;
-        font-size: 1.2em;
+        transition: opacity 0.4s ease-out;
     }
 
     .loading-overlay.hidden {
-        display: none;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .loading-text {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+    }
+
+    .loading-bar-container {
+        width: 200px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .loading-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #4a9eff, #7b68ee);
+        border-radius: 2px;
+        transition: width 0.3s ease-out;
+    }
+
+    .loading-bar.indeterminate {
+        width: 30%;
+        animation: indeterminate 1.5s ease-in-out infinite;
+    }
+
+    @keyframes indeterminate {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(400%);
+        }
     }
 
     /* Fullscreen styles */
@@ -121,35 +161,19 @@
         height: 100vh !important;
     }
 
-    .keyboard-hints {
-        color: #888;
-        font-size: 0.85em;
-        margin-top: 0.5em;
-    }
-
-    .keyboard-hints kbd {
-        background: #333;
-        padding: 2px 6px;
-        border-radius: 3px;
-        color: #fff;
-    }
 </style>
 
 <div class="mindmap-container">
     <div class="mindmap-header">
         <h2>{{ mindmap_title }}</h2>
-        <p>{{ mindmap_description }}</p>
-        <p class="keyboard-hints">
-            <kbd>+</kbd>/<kbd>-</kbd> zoom &nbsp;
-            <kbd>H</kbd> home &nbsp;
-            <kbd>F</kbd> fullscreen &nbsp;
-            Scroll to zoom, drag to pan
-        </p>
     </div>
 
     <div class="viewer-wrapper" id="viewer-wrapper">
         <div class="loading-overlay" id="loading-overlay">
-            Loading mindmap...
+            <div class="loading-text">Loading mindmap...</div>
+            <div class="loading-bar-container">
+                <div class="loading-bar indeterminate" id="loading-bar"></div>
+            </div>
         </div>
 
         <div class="viewer-controls">
@@ -175,20 +199,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const svgObject = document.getElementById('svg-object');
     const container = document.getElementById('svg-container');
     const loadingOverlay = document.getElementById('loading-overlay');
+    const loadingBar = document.getElementById('loading-bar');
     const viewerWrapper = document.getElementById('viewer-wrapper');
 
     let panzoomInstance = null;
 
     // Wait for SVG to load
     svgObject.addEventListener('load', function() {
-        // Hide loading overlay
-        loadingOverlay.classList.add('hidden');
+        // Animate loading bar to 100% then hide overlay
+        loadingBar.classList.remove('indeterminate');
+        loadingBar.style.width = '100%';
+
+        setTimeout(function() {
+            loadingOverlay.classList.add('hidden');
+        }, 400);
 
         // Initialize panzoom on the object element
         panzoomInstance = Panzoom(svgObject, {
             maxScale: 50,
             minScale: 0.1,
-            startScale: 0.5,
+            startScale: 10,
             contain: false,
             cursor: 'grab',
         });
@@ -289,7 +319,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle load error
     svgObject.addEventListener('error', function() {
-        loadingOverlay.textContent = 'Failed to load mindmap. Please try refreshing.';
+        const loadingText = loadingOverlay.querySelector('.loading-text');
+        loadingText.textContent = 'Failed to load mindmap. Please try refreshing.';
+        loadingBar.classList.remove('indeterminate');
+        loadingBar.style.background = '#ff6b6b';
+        loadingBar.style.width = '100%';
     });
 });
 </script>
