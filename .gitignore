@@ -97,14 +97,15 @@ celerybeat-schedule.*
 # SageMath parsed files 
 *.sage.py 
 
-# Environments 
-.env 
-.venv 
-env/ 
-venv/ 
-ENV/ 
-env.bak/ 
-venv.bak/ 
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+django-nihar-website/
 
 # mkdocs documentation 
 /site 
@@ -136,3 +137,7 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# Large files
+static/mindmaps/physics-original.svg
+static/images/physics.png
