@@ -1,3 +1,5 @@
+static/mindmaps/cs-stat.svg filter=lfs diff=lfs merge=lfs -text
+static/mindmaps/physics.svg filter=lfs diff=lfs merge=lfs -text
 static/images/physics.png filter=lfs diff=lfs merge=lfs -text
 static/mindmaps/*.svg filter=lfs diff=lfs merge=lfs -text
 static/**/*.svg filter=lfs diff=lfs merge=lfs -text
