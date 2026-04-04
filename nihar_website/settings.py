@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-&)amsrc&o1$bhx9_3g05a2#4=lnrkrwh-esny!a)up2j@ba4m2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ["nihargupteph.pythonanywhere.com"]
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # custom
     'homepage.apps.HomepageConfig',
+    'blog'
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import Http404
-from .models import Poster
 
 
 def publications(request):
@@ -17,10 +16,31 @@ def projects(request):
 
 def poster_detail(request, poster_slug):
     """Display individual poster detail page"""
-    poster = get_object_or_404(Poster, slug=poster_slug, is_active=True)
+    posters = {
+        'eccentric-binary-black-holes': {
+            'title': 'Eccentric Binary Black Holes',
+            'description': '',
+            'image': 'images/posters/eccentric_poster.jpg',
+            'pdf': 'images/posters/eccentric_poster.pdf',
+            'background_color': '#453e5d',
+            'text_color': '#ffffff',
+        },
+        'binary-neutron-star-inference': {
+            'title': 'Binary Neutron Star Inference',
+            'description': '',
+            'image': 'images/posters/dingo_bns_poster.jpg',
+            'pdf': 'images/posters/dingo_bns_poster.pdf',
+            'background_color': '#2b2220',
+            'text_color': '#ffffff',
+        },
+    }
+
+    if poster_slug not in posters:
+        raise Http404(f"Poster '{poster_slug}' not found")
+
     context = {
-        'poster': poster,
-        'poster_slug': poster_slug
+        'poster': posters[poster_slug],
+        'poster_slug': poster_slug,
     }
     return render(request, 'homepage/poster_detail.html', context)
 

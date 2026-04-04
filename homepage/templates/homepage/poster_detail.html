@@ -39,7 +39,7 @@
         {% endif %}
         
         <div style="max-width: 100%; overflow: hidden;">
-            <img src="{{ poster.image.url }}"
+            <img src="{% static poster.image %}"
                  alt="{{ poster.title }} Poster"
                  style="width: 100%; max-width: 1200px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
         </div>
@@ -47,7 +47,7 @@
         {% if poster.pdf %}
         <!-- Optional: Add a download link -->
         <div style="margin-top: 2em;">
-            <a href="{{ poster.pdf.url }}"
+            <a href="{% static poster.pdf %}"
                class="button"
                download="{{ poster.title|slugify }}_poster.pdf">
                Download PDF
