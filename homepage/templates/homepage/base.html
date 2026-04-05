@@ -17,6 +17,7 @@
     <noscript>
         <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
     </noscript>
+    {% block extra_css %}{% endblock %}
 
 </head>
 
@@ -74,6 +75,7 @@
     <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
     <script src="{% static 'assets/js/util.js' %}"></script>
     <script src="{% static 'assets/js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 
 </html>

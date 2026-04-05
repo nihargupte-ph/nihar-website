@@ -1,5 +1,209 @@
 {% extends "homepage/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog/blog-common.css' %}">
+<link rel="stylesheet" href="{% static 'css/blog/analyzing-eccentric-bbh.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>Analyzing Eccentric Binary Black Holes</h1>
+<div class="bbh-blog">
+
+    <!-- Intro Description -->
+    <div class="bbh-intro">
+        <p>Black holes are well, black, you can't see them with your naked eye. However, if you have two black holes orbitting each other, they release "gravitational waves". You also can't see these with your eyes but we've built detectors to find these gravitational waves. In the following blogpost, Enn and Palis will show you how to simulate a binary black hole and what the emitted waves look like. Then they will show you how given the data in the detectors what the properties of the black holes are and what these properties tell us about nature.</p>
+    </div>
+
+    <!-- SECTION 1: Parameter Selection -->
+    <section class="bbh-section" id="section-1">
+        <div class="section1-layout">
+
+            <!-- Controls Area (left/center) -->
+            <div class="controls-area">
+                <div class="control-row">
+
+                    <!-- Box 1: Black Hole 1 -->
+                    <div class="bbh-control-box">
+                        <canvas id="bh1-canvas" class="bbh-animation-canvas"></canvas>
+                        <h3>Black Hole 1</h3>
+                        <div class="control-pad-2d" id="bh1-pad">
+                            <canvas class="pad-bg"></canvas>
+                            <div class="pad-marker"></div>
+                        </div>
+                        <div class="pad-labels">
+                            <span>Mass (M&#9737;) &rarr;</span>
+                            <span>&uarr; Spin</span>
+                        </div>
+                        <div class="value-readout" id="bh1-values">Mass: 25 M&#9737; | Spin: 0.10</div>
+                    </div>
+
+                    <!-- Box 2: Black Hole 2 -->
+                    <div class="bbh-control-box">
+                        <canvas id="bh2-canvas" class="bbh-animation-canvas"></canvas>
+                        <h3>Black Hole 2</h3>
+                        <div class="control-pad-2d" id="bh2-pad">
+                            <canvas class="pad-bg"></canvas>
+                            <div class="pad-marker"></div>
+                        </div>
+                        <div class="pad-labels">
+                            <span>Mass (M&#9737;) &rarr;</span>
+                            <span>&uarr; Spin</span>
+                        </div>
+                        <div class="value-readout" id="bh2-values">Mass: 20 M&#9737; | Spin: 0.10</div>
+                    </div>
+
+                    <!-- Box 3: Orbit Shape -->
+                    <div class="bbh-control-box">
+                        <canvas id="orbit-canvas" class="bbh-animation-canvas"></canvas>
+                        <h3>Orbit</h3>
+                        <div class="control-pad-2d" id="orbit-pad">
+                            <canvas class="pad-bg"></canvas>
+                            <div class="pad-marker"></div>
+                        </div>
+                        <div class="pad-labels">
+                            <span>Eccentricity &rarr;</span>
+                            <span>&uarr; Anomaly</span>
+                        </div>
+                        <div class="value-readout" id="orbit-values">Ecc: 0.20 | Anomaly: 180&deg;</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Character Area (right) -->
+            <div class="character-area">
+                <div class="speech-bubble" id="speech-bubble"></div>
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/welcome.png' %}" alt="Guide character">
+            </div>
+
+        </div>
+
+        <!-- Simulate Button with divider lines -->
+        <div class="simulate-btn-wrap">
+            <div class="section-divider-line"></div>
+            <button id="simulate-btn" type="button" data-simulate-url="{% url 'blog:simulate-bbh' %}">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/simulate_1.png' %}" class="btn-normal" alt="Simulate">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/simulate_2.png' %}" class="btn-hover" alt="Simulate">
+            </button>
+            <div class="section-divider-line"></div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Simulation Results -->
+    <section class="bbh-section" id="section-2" style="display: none;">
+        <div class="section2-layout">
+
+            <!-- Left: Character + Speech Bubble -->
+            <div class="section2-character-area">
+                <div class="speech-bubble" id="speech-bubble-2"></div>
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/welcome.png' %}" alt="Guide character">
+            </div>
+
+            <!-- Right: Simulation Panels -->
+            <div class="section2-panels">
+                <div class="panel-loading" id="loading-panels">
+                    <div class="loading-spinner"></div>
+                    <p>Simulating waveform...</p>
+                </div>
+                <div class="panel-content" id="content-panels" style="display: none;">
+                    <canvas id="trajectory-canvas"></canvas>
+                    <canvas id="hp-canvas"></canvas>
+                    <canvas id="h1-strain-canvas"></canvas>
+                    <canvas id="l1-strain-canvas"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Divider between Section 2 and 3 -->
+    <div class="full-divider-line" id="divider-2-3" style="display: none;"></div>
+
+    <!-- SECTION 3: Transition paragraphs + Analyze button -->
+    <section class="bbh-section" id="section-3" style="display: none;">
+
+        <!-- Paragraph 1: text left, character right -->
+        <div class="bbh-paragraph-row">
+            <div class="bbh-paragraph-text">
+                <p>But in reality, we can't create binary black holes, they happen somewhere far away and we just see the data (the gray lines in the bottom two plots). Even worse, since there is noise in our detectors, we can't easily look at the data and extract the parameters of the binary black hole. It's like finding a needle (the gravitational wave) in a haystack (the data)!</p>
+            </div>
+            <div class="bbh-paragraph-character">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/welcome.png' %}" alt="Character">
+            </div>
+        </div>
+
+        <!-- Paragraph 2: character left, text right -->
+        <div class="bbh-paragraph-row reverse">
+            <div class="bbh-paragraph-character">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/welcome.png' %}" alt="Character" class="flipped">
+            </div>
+            <div class="bbh-paragraph-text">
+                <p>Finding this needle can take a long time. We've trained a machine learning model called "DINGO" to help us find the signal in the data. This model can run in just seconds. Click below to reconstruct the signal from the data!</p>
+            </div>
+        </div>
+
+        <!-- Analyze Button with divider lines -->
+        <div class="simulate-btn-wrap">
+            <div class="section-divider-line"></div>
+            <button id="analyze-btn" type="button" data-analyze-url="{% url 'blog:analyze-bbh' %}">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/analyze_1.png' %}" class="btn-normal" alt="Analyze">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/analyze_2.png' %}" class="btn-hover" alt="Analyze">
+            </button>
+            <div class="section-divider-line"></div>
+        </div>
+
+    </section>
+
+    <!-- SECTION 4: Posterior distributions -->
+    <section class="bbh-section" id="section-4" style="display: none;">
+        <div class="section4-layout">
+
+            <!-- Left: Character + Speech Bubble -->
+            <div class="section4-character-area">
+                <div class="speech-bubble" id="speech-bubble-4"></div>
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/welcome.png' %}" alt="Guide character" class="flipped">
+            </div>
+
+            <!-- Right: 6 posterior histograms -->
+            <div class="section4-posteriors">
+                <div class="panel-loading" id="loading-posteriors">
+                    <div class="loading-spinner"></div>
+                    <p>DINGO is analyzing the data...</p>
+                </div>
+                <div class="posteriors-grid" id="posteriors-grid" style="display: none;">
+                    <canvas id="post-m1"></canvas>
+                    <canvas id="post-m2"></canvas>
+                    <canvas id="post-s1z"></canvas>
+                    <canvas id="post-s2z"></canvas>
+                    <canvas id="post-ecc"></canvas>
+                    <canvas id="post-anomaly"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Why is this useful button with divider lines -->
+        <div class="simulate-btn-wrap" id="useful-btn-wrap" style="display: none;">
+            <div class="section-divider-line"></div>
+            <button id="useful-btn" type="button">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/why_is_this_useful_1.png' %}" class="btn-normal" alt="Why is this useful?">
+                <img src="{% static 'images/blogs/analyzing_eccentric_binary_black_holes/why_is_this_useful_2.png' %}" class="btn-hover" alt="Why is this useful?">
+            </button>
+            <div class="section-divider-line"></div>
+        </div>
+    </section>
+
+    <!-- SECTION 5 placeholder -->
+    <section class="bbh-section" id="section-5" style="display: none;">
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/blog/blog-common.js' %}"></script>
+<script src="{% static 'js/blog/analyzing-eccentric-bbh-section1.js' %}"></script>
+<script src="{% static 'js/blog/analyzing-eccentric-bbh-section2.js' %}"></script>
+<script src="{% static 'js/blog/analyzing-eccentric-bbh-section4.js' %}"></script>
 {% endblock %}

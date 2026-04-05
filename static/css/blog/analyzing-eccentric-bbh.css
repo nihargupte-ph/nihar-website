@@ -1,0 +1,450 @@
+/* ==========================================================================
+   Analyzing Eccentric Binary Black Holes — Section 1
+   ========================================================================== */
+
+.bbh-blog {
+    background-color: #12253A;
+    min-height: 100vh;
+}
+
+/* Hide default navbar/footer backgrounds that conflict */
+.bbh-blog + #footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Intro description */
+.bbh-intro {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 3rem 2rem 0;
+    text-align: left;
+}
+
+.bbh-intro p {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+/* Section 1 layout */
+#section-1 {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.section1-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 1600px;
+    padding: 0 2rem;
+}
+
+/* Controls area (left/center) */
+.controls-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.control-row {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+/* Character area (right) */
+.character-area {
+    position: relative;
+    flex-shrink: 0;
+    width: 520px;
+    margin-top: -2rem;
+    margin-right: -2rem;
+}
+
+.character-area img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Speech bubble overlaid on the blue rectangle in the image */
+.character-area .speech-bubble {
+    top: 22%;
+    left: 2%;
+    width: 48%;
+    height: 40%;
+    display: flex;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.character-area .speech-bubble::-webkit-scrollbar {
+    display: none;
+}
+
+/* Simulate button with divider lines */
+.simulate-btn-wrap {
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.simulate-btn-wrap .section-divider-line {
+    flex: 1;
+    height: 2px;
+    background-color: #A74949;
+}
+
+#simulate-btn,
+#analyze-btn,
+#useful-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    width: 600px;
+    flex-shrink: 0;
+    outline: none;
+}
+
+#simulate-btn img,
+#analyze-btn img,
+#useful-btn img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#simulate-btn .btn-hover,
+#analyze-btn .btn-hover,
+#useful-btn .btn-hover {
+    display: none;
+}
+
+#simulate-btn:hover .btn-normal,
+#analyze-btn:hover .btn-normal,
+#useful-btn:hover .btn-normal {
+    display: none;
+}
+
+#simulate-btn:hover .btn-hover,
+#analyze-btn:hover .btn-hover,
+#useful-btn:hover .btn-hover {
+    display: block;
+}
+
+@keyframes bbh-shake {
+    0%, 100% { transform: translateX(0); }
+    15% { transform: translateX(-3px) rotate(-1.5deg); }
+    30% { transform: translateX(3px) rotate(1.5deg); }
+    45% { transform: translateX(-2px) rotate(-1deg); }
+    60% { transform: translateX(2px) rotate(1deg); }
+    75% { transform: translateX(-1px) rotate(-0.5deg); }
+}
+
+#simulate-btn:hover,
+#analyze-btn:hover,
+#useful-btn:hover {
+    animation: bbh-shake 0.4s ease-in-out;
+}
+
+#simulate-btn:disabled,
+#analyze-btn:disabled,
+#useful-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+    animation: none;
+}
+
+/* ==========================================================================
+   Section 1 — Locked state
+   ========================================================================== */
+
+.bbh-section.locked {
+    position: relative;
+    pointer-events: none;
+}
+
+.bbh-section.locked::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 37, 58, 0.55);
+    z-index: 100;
+}
+
+/* ==========================================================================
+   Section 2 — Simulation Results
+   ========================================================================== */
+
+#section-2 {
+    padding: 2rem 1.5rem;
+}
+
+.section2-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Left: character area (same style as Section 1 but mirrored) */
+.section2-character-area {
+    position: relative;
+    flex-shrink: 0;
+    width: 420px;
+}
+
+.section2-character-area img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: scaleX(-1);
+}
+
+.section2-character-area .speech-bubble {
+    top: 22%;
+    right: 2%;
+    left: auto;
+    width: 48%;
+    height: 40%;
+    display: flex;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.section2-character-area .speech-bubble::-webkit-scrollbar {
+    display: none;
+}
+
+/* Right: simulation panels */
+.section2-panels {
+    flex: 1;
+    position: relative;
+    min-height: 500px;
+}
+
+.panel-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.panel-loading p {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: #ef8376;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.panel-content canvas {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+}
+
+#trajectory-canvas {
+    height: 250px;
+}
+
+#hp-canvas {
+    height: 150px;
+}
+
+#h1-strain-canvas, #l1-strain-canvas {
+    height: 150px;
+}
+
+/* ==========================================================================
+   Section 3 — Transition paragraphs + Analyze button
+   ========================================================================== */
+
+.full-divider-line {
+    height: 2px;
+    background-color: #A74949;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.bbh-paragraph-row {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto 2.5rem;
+    padding: 0 2rem;
+}
+
+.bbh-paragraph-row.reverse {
+    flex-direction: row-reverse;
+}
+
+.bbh-paragraph-text {
+    flex: 1;
+}
+
+.bbh-paragraph-text p {
+    color: rgba(255, 255, 255, 0.75);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.bbh-paragraph-character {
+    flex: 1;
+}
+
+.bbh-paragraph-character img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.bbh-paragraph-character img.flipped {
+    transform: scaleX(-1);
+}
+
+/* ==========================================================================
+   Section 4 — Posterior distributions
+   ========================================================================== */
+
+.section4-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section4-character-area {
+    position: relative;
+    flex-shrink: 0;
+    width: 420px;
+}
+
+.section4-character-area img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.section4-character-area img.flipped {
+    transform: scaleX(-1);
+}
+
+.section4-character-area .speech-bubble {
+    top: 22%;
+    right: 2%;
+    left: auto;
+    width: 48%;
+    height: 40%;
+    display: flex;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.section4-character-area .speech-bubble::-webkit-scrollbar {
+    display: none;
+}
+
+.section4-posteriors {
+    flex: 1;
+    position: relative;
+    min-height: 400px;
+}
+
+.posteriors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.posteriors-grid canvas {
+    width: 100%;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+    .section2-character-area,
+    .section4-character-area {
+        display: none;
+    }
+
+    .bbh-paragraph-character {
+        display: none;
+    }
+
+    .posteriors-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+    .character-area {
+        display: none;
+    }
+
+    .section1-layout {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 740px) {
+    .control-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bbh-section {
+        padding: 2rem 1rem;
+    }
+}
