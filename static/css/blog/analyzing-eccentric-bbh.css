@@ -405,10 +405,152 @@
 
 .posteriors-grid canvas {
     width: 100%;
-    height: 180px;
+    height: 220px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 6px;
+}
+
+/* ==========================================================================
+   Section 5 — Astrophysical Implications
+   ========================================================================== */
+
+.section5-layout {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section5-sub {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+    min-height: 500px;
+}
+
+/* Hidden subsections still take up space */
+#sub-sims, #sub-hists {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#galaxy-canvas {
+    width: 100%;
+    height: 450px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+}
+
+/* Arrows between subsections */
+.s5-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+    width: 2rem;
+}
+
+/* Simulation boxes */
+.sim-box, .hist-box {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    padding: 0.4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.nsc-border { border: 1px solid rgba(255, 107, 107, 0.3); }
+.gc-border  { border: 1px solid rgba(77, 166, 255, 0.3); }
+.iso-border { border: 1px solid rgba(102, 187, 106, 0.3); }
+
+.sim-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.sim-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.nsc-color { color: #ff6b6b; }
+.gc-color  { color: #4da6ff; }
+.iso-color { color: #66bb6a; }
+
+.sim-slider-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.sim-slider-label input[type="range"] {
+    width: 80px;
+    height: 4px;
+    accent-color: #ef8376;
+}
+
+.sim-canvas {
+    width: 100%;
+    height: 120px;
+    border-radius: 4px;
+}
+
+.hist-canvas {
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+}
+
+/* Section 5 buttons */
+.s5-btn {
+    display: block;
+    margin: 0.5rem auto 0;
+    padding: 0.5rem 1.5rem;
+    background: rgba(167, 73, 73, 0.6);
+    border: 1px solid #A74949;
+    border-radius: 4px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.s5-btn:hover {
+    background: rgba(167, 73, 73, 0.9);
+    color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+    .section5-layout {
+        flex-direction: column;
+    }
+
+    .s5-arrow {
+        transform: rotate(90deg);
+        width: auto;
+        height: 2rem;
+    }
 }
 
 /* Responsive */

@@ -211,44 +211,217 @@ def analyze_bbh(request):
 
         n_samples = 5000
 
-        # Estimate SNR-like scaling: lower distance = higher SNR = tighter posteriors
-        # At d=2000 Mpc with these masses, SNR is low (~5-15)
-        # Use a rough SNR proxy based on total mass and distance
-        total_mass = m1 + m2
-        snr_proxy = total_mass / 40.0 * 10.0  # rough SNR ~5-15
+        # Ensure m1 >= m2
+        if m2 > m1:
+            m1, m2 = m2, m1
+            s1, s2 = s2, s1
 
-        # Width of Gaussian posteriors: sigma ~ param_scale / SNR
-        # Add random offset so the peak isn't always exactly at injection
+        # Compute well-measured PE quantities
+        # Chirp mass: Mc = (m1*m2)^(3/5) / (m1+m2)^(1/5)
+        total_mass = m1 + m2
+        eta = m1 * m2 / total_mass ** 2
+        mc_inj = total_mass * eta ** 0.6
+        # Effective spin: chi_eff = (m1*s1 + m2*s2) / (m1+m2)
+        chi_eff_inj = (m1 * s1 + m2 * s2) / total_mass
+        q_inj = m1 / m2  # mass ratio q >= 1
+
+        # SNR proxy for width scaling
+        snr_proxy = total_mass / 40.0 * 10.0
+
         rng = np.random.default_rng()
 
-        params_info = [
-            {'name': 'm1', 'injected': m1, 'scale': 5.0, 'min': 5, 'max': 100, 'label': 'Mass 1 (M\u2609)'},
-            {'name': 'm2', 'injected': m2, 'scale': 5.0, 'min': 5, 'max': 100, 'label': 'Mass 2 (M\u2609)'},
-            {'name': 's1z', 'injected': s1, 'scale': 0.15, 'min': 0, 'max': 1.0, 'label': 'Spin 1'},
-            {'name': 's2z', 'injected': s2, 'scale': 0.15, 'min': 0, 'max': 1.0, 'label': 'Spin 2'},
-            {'name': 'ecc', 'injected': ecc, 'scale': 0.1, 'min': 0, 'max': 1.0, 'label': 'Eccentricity'},
-            {'name': 'anomaly', 'injected': anomaly, 'scale': 40.0, 'min': 0, 'max': 360, 'label': 'Mean Anomaly (\u00b0)'},
-        ]
+        # Sample Gaussians in the well-measured space: (Mc, chi_eff, ecc, anomaly)
+        sigma_mc = 1.5 / max(snr_proxy, 1.0)
+        sigma_chi = 0.08 / max(snr_proxy, 1.0)
+        sigma_ecc = 0.1 / max(snr_proxy, 1.0)
+        sigma_anom = 40.0 / max(snr_proxy, 1.0)
 
-        posteriors = {}
-        for p in params_info:
-            sigma = p['scale'] / max(snr_proxy, 1.0)
-            # Random offset: shift the peak by up to 0.5 sigma
-            offset = rng.normal(0, 0.5 * sigma)
-            center = p['injected'] + offset
+        # Small random offsets so peak isn't always at injection
+        mc_samples = rng.normal(mc_inj + rng.normal(0, 0.3 * sigma_mc), sigma_mc, n_samples)
+        chi_eff_samples = rng.normal(chi_eff_inj + rng.normal(0, 0.3 * sigma_chi), sigma_chi, n_samples)
+        mc_samples = np.clip(mc_samples, 1.0, 200.0)
+        chi_eff_samples = np.clip(chi_eff_samples, -1.0, 1.0)
 
-            samples = rng.normal(center, sigma, size=n_samples)
-            # Clip to physical bounds
-            samples = np.clip(samples, p['min'], p['max'])
+        # Mass ratio: broader posterior, weakly correlated with Mc
+        sigma_q = 0.8 / max(snr_proxy, 1.0)
+        q_samples = rng.normal(q_inj + rng.normal(0, 0.3 * sigma_q), sigma_q, n_samples)
+        q_samples = np.clip(q_samples, 1.0, 10.0)
 
-            posteriors[p['name']] = {
-                'samples': samples.tolist(),
-                'injected': p['injected'],
-                'label': p['label'],
-            }
+        # Derive component masses from (Mc, q):
+        # Mc = M_total * eta^(3/5), eta = q/(1+q)^2
+        # M_total = Mc / eta^(3/5), m1 = M_total * q/(1+q), m2 = M_total / (1+q)
+        eta_samples = q_samples / (1 + q_samples) ** 2
+        mtot_samples = mc_samples / eta_samples ** 0.6
+        m1_samples = mtot_samples * q_samples / (1 + q_samples)
+        m2_samples = mtot_samples / (1 + q_samples)
+        m1_samples = np.clip(m1_samples, 1.0, 200.0)
+        m2_samples = np.clip(m2_samples, 1.0, 200.0)
+
+        # Derive component spins from (chi_eff, q):
+        # chi_eff = (m1*s1 + m2*s2)/(m1+m2) = (q*s1 + s2)/(1+q)
+        # Assign: s1 ~ chi_eff + noise, s2 ~ chi_eff + noise, adjusted to match chi_eff
+        # This gives broad individual spin posteriors (poorly constrained) but correlated
+        spin_noise = rng.normal(0, 0.15, n_samples)
+        s1_samples = chi_eff_samples + spin_noise
+        s2_samples = chi_eff_samples * (1 + q_samples) / q_samples - s1_samples * 1.0 / q_samples
+        # Add extra noise to s2 (it's even less constrained)
+        s2_samples += rng.normal(0, 0.1, n_samples)
+        s1_samples = np.clip(s1_samples, 0, 1.0)
+        s2_samples = np.clip(s2_samples, 0, 1.0)
+
+        # Eccentricity and anomaly: direct Gaussians (independent)
+        ecc_samples = rng.normal(ecc + rng.normal(0, 0.3 * sigma_ecc), sigma_ecc, n_samples)
+        anom_samples = rng.normal(anomaly + rng.normal(0, 0.3 * sigma_anom), sigma_anom, n_samples)
+        ecc_samples = np.clip(ecc_samples, 0, 1.0)
+        anom_samples = np.clip(anom_samples, 0, 360)
+
+        posteriors = {
+            'm1': {'samples': m1_samples.tolist(), 'injected': m1, 'label': 'Mass 1 (M\u2609)'},
+            'm2': {'samples': m2_samples.tolist(), 'injected': m2, 'label': 'Mass 2 (M\u2609)'},
+            's1z': {'samples': s1_samples.tolist(), 'injected': s1, 'label': 'Spin 1'},
+            's2z': {'samples': s2_samples.tolist(), 'injected': s2, 'label': 'Spin 2'},
+            'ecc': {'samples': ecc_samples.tolist(), 'injected': ecc, 'label': 'Eccentricity'},
+            'anomaly': {'samples': anom_samples.tolist(), 'injected': anomaly, 'label': 'Mean Anomaly (\u00b0)'},
+        }
 
         return JsonResponse({'status': 'ok', 'posteriors': posteriors})
 
     except Exception as e:
         logger.exception("Analysis failed")
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+
+def _peters_a(c0, e):
+    """Peters (1964) semi-major axis from eccentricity."""
+    return c0 * e ** (12.0 / 19.0) * (1 + 121.0 / 304.0 * e ** 2) ** (870.0 / 2299.0) / (1 - e ** 2)
+
+
+def _solve_e_from_a(c0, a_target):
+    """Numerically invert Peters' relation using bisection (robust for high e)."""
+    lo, hi = 1e-8, 1 - 1e-12
+    for _ in range(200):
+        mid = (lo + hi) / 2
+        a_mid = _peters_a(c0, mid)
+        if a_mid < a_target:
+            lo = mid
+        else:
+            hi = mid
+        if (hi - lo) < 1e-12:
+            break
+    return (lo + hi) / 2
+
+
+def _capture_eccentricity_distribution(sigma_1d_kms, Mtot_solar=45.0, mu_solar=11.25,
+                                       Niter=200, Nrp=500, f_orb_ref=10.0):
+    """
+    Monte Carlo forward model p(e | sigma) for single-single GW captures.
+    Ported from ecc_dist_cole_checkpoint.ipynb.
+
+    sigma_1d_kms: 1D velocity dispersion in km/s
+    Mtot_solar: total mass in solar masses
+    mu_solar: reduced mass in solar masses
+    Returns array of eccentricities at f_orb_ref Hz.
+    """
+    import math
+
+    GMsun = 1.3271244e26   # cm^3/s^2
+    cspeed = 2.998e10      # cm/s
+
+    sigma_1d = sigma_1d_kms * 1e5  # km/s -> cm/s
+    sigma_3d = math.sqrt(3.0) * sigma_1d
+    sigma_rel = math.sqrt(2.0) * sigma_3d
+
+    atarg = (GMsun * Mtot_solar / (4.0 * math.pi ** 2 * f_orb_ref)) ** (1.0 / 3.0)
+
+    rng = np.random.default_rng()
+    e_samples_list = []
+    n_accepted = 0
+
+    while n_accepted < Niter:
+        batch_size = max(2 * (Niter - n_accepted), 100)
+        x_batch = np.abs(rng.standard_normal(batch_size))
+        y_batch = rng.random(batch_size)
+        accept_mask = y_batch < np.power(x_batch, 3.0 / 7.0)
+        x_accepted = x_batch[accept_mask]
+        if len(x_accepted) == 0:
+            continue
+
+        n_needed = Niter - n_accepted
+        x_use = x_accepted[:n_needed]
+        n_accepted += len(x_use)
+
+        vinf = x_use * sigma_rel
+
+        coeff = (85.0 * math.pi / (6.0 * math.sqrt(2.0))) ** (2.0 / 7.0)
+        coeff *= GMsun * (mu_solar * Mtot_solar ** 2.5) ** (2.0 / 7.0)
+        coeff /= cspeed ** (10.0 / 7.0)
+        rpmax = coeff / np.power(vinf, 4.0 / 7.0)
+
+        j_idx = np.arange(Nrp) + 0.5
+        drp = rpmax / Nrp
+        rp = np.outer(drp, j_idx)
+        C = 1.76 * rp
+
+        # Vectorized bisection for eccentricity
+        emin_arr = np.zeros_like(rp)
+        emax_arr = np.ones_like(rp)
+
+        for _ in range(60):
+            emid = 0.5 * (emin_arr + emax_arr)
+            emid_safe = np.maximum(emid, 1e-15)
+            a_val = C / (
+                np.power(emid_safe, -12.0 / 19.0)
+                * (1.0 - emid * emid)
+                * np.power(1.0 + 121.0 * emid * emid / 304.0, -870.0 / 2299.0)
+            )
+            too_high = a_val > atarg
+            emax_arr = np.where(too_high, emid, emax_arr)
+            emin_arr = np.where(~too_high, emid, emin_arr)
+
+        e_final = 0.5 * (emin_arr + emax_arr)
+        valid_mask = (e_final > 0) & (e_final < 1)
+        e_samples_list.append(e_final[valid_mask].ravel())
+
+    if e_samples_list:
+        e_arr = np.concatenate(e_samples_list)
+    else:
+        e_arr = np.array([])
+
+    # Filter to reasonable range
+    e_arr = e_arr[(e_arr > 1e-12) & (e_arr < 10 ** (-0.1))]
+    return e_arr
+
+
+@csrf_exempt
+@require_POST
+def eccentricity_distribution(request):
+    """Generate eccentricity distribution samples for a given formation channel."""
+    try:
+        data = json.loads(request.body)
+        channel = data.get('channel', 'gc')
+        sigma = float(data.get('sigma', 10.0))
+        m1 = float(data.get('m1', 25.0))
+        m2 = float(data.get('m2', 20.0))
+
+        Mtot = m1 + m2
+        mu = m1 * m2 / Mtot
+
+        if channel == 'isolated':
+            log_samples = np.random.normal(-11, 0.5, size=5000).tolist()
+        else:
+            eccs = _capture_eccentricity_distribution(
+                sigma, Mtot_solar=Mtot, mu_solar=mu, Niter=100, Nrp=500
+            )
+            eccs = eccs[eccs > 1e-15]
+            log_samples = np.log10(eccs).tolist()
+
+        return JsonResponse({
+            'status': 'ok',
+            'samples': log_samples,
+            'sigma': sigma,
+            'channel': channel,
+        })
+
+    except Exception as e:
+        logger.exception("Eccentricity distribution failed")
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)

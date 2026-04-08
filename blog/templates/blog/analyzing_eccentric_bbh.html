@@ -194,8 +194,63 @@
         </div>
     </section>
 
-    <!-- SECTION 5 placeholder -->
+    <!-- SECTION 5: Astrophysical Implications -->
     <section class="bbh-section" id="section-5" style="display: none;">
+        <div class="section5-layout">
+
+            <!-- Subsection 1: Milky Way -->
+            <div class="section5-sub" id="sub-galaxy">
+                <canvas id="galaxy-canvas"></canvas>
+                <button class="s5-btn" id="zoom-btn">Zoom In</button>
+            </div>
+
+            <!-- Arrow 1→2 -->
+            <div class="s5-arrow" id="arrow-1-2" style="display: none;">&#9654;</div>
+
+            <!-- Subsection 2: Particle Simulations -->
+            <div class="section5-sub" id="sub-sims">
+                <div class="sim-box gc-border">
+                    <div class="sim-header">
+                        <span class="sim-label gc-color">Globular Cluster</span>
+                        <label class="sim-slider-label">&#963; <input type="range" id="gc-sigma" min="1" max="20" value="10"> <span id="gc-sigma-val">10</span> km/s</label>
+                    </div>
+                    <canvas id="gc-sim-canvas" class="sim-canvas"></canvas>
+                </div>
+                <div class="sim-box nsc-border">
+                    <div class="sim-header">
+                        <span class="sim-label nsc-color">Nuclear Star Cluster</span>
+                        <label class="sim-slider-label">&#963; <input type="range" id="nsc-sigma" min="20" max="200" value="100"> <span id="nsc-sigma-val">100</span> km/s</label>
+                    </div>
+                    <canvas id="nsc-sim-canvas" class="sim-canvas"></canvas>
+                </div>
+                <div class="sim-box iso-border">
+                    <div class="sim-header">
+                        <span class="sim-label iso-color">Isolated Binary</span>
+                        <label class="sim-slider-label">e&#8320; <input type="range" id="iso-ecc" min="0.05" max="0.8" step="0.05" value="0.3"> <span id="iso-ecc-val">0.30</span></label>
+                    </div>
+                    <canvas id="iso-sim-canvas" class="sim-canvas"></canvas>
+                </div>
+                <button class="s5-btn" id="sim-channels-btn" data-ecc-url="{% url 'blog:ecc-dist' %}">Simulate</button>
+            </div>
+
+            <!-- Arrow 2→3 -->
+            <div class="s5-arrow" id="arrow-2-3" style="display: none;">&#9654;</div>
+
+            <!-- Subsection 3: Eccentricity Histograms -->
+            <div class="section5-sub" id="sub-hists">
+                <div class="hist-box gc-border">
+                    <canvas id="hist-gc" class="hist-canvas"></canvas>
+                </div>
+                <div class="hist-box nsc-border">
+                    <canvas id="hist-nsc" class="hist-canvas"></canvas>
+                </div>
+                <div class="hist-box iso-border">
+                    <canvas id="hist-iso" class="hist-canvas"></canvas>
+                </div>
+                <a class="s5-btn" id="paper-btn" href="https://arxiv.org/abs/2603.29019" target="_blank" rel="noopener">Link to Paper</a>
+            </div>
+
+        </div>
     </section>
 
 </div>
@@ -206,4 +261,5 @@
 <script src="{% static 'js/blog/analyzing-eccentric-bbh-section1.js' %}"></script>
 <script src="{% static 'js/blog/analyzing-eccentric-bbh-section2.js' %}"></script>
 <script src="{% static 'js/blog/analyzing-eccentric-bbh-section4.js' %}"></script>
+<script src="{% static 'js/blog/analyzing-eccentric-bbh-section5.js' %}"></script>
 {% endblock %}

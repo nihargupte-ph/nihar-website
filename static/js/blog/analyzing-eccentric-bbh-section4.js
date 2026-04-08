@@ -25,8 +25,8 @@ class HistogramPlot {
 
         this.ml = 10;
         this.mr = 10;
-        this.mt = 24;
-        this.mb = 28;
+        this.mt = 36;
+        this.mb = 36;
 
         this._computeBins();
     }
@@ -102,22 +102,22 @@ class HistogramPlot {
 
             // Injected label
             ctx.fillStyle = 'rgba(126, 200, 227, ' + lineAlpha + ')';
-            ctx.font = '9px Courier New';
-            ctx.fillText('injected', injX + 3, mt + 10);
+            ctx.font = '18px Courier New';
+            ctx.fillText('injected', injX + 5, mt + 18);
         }
 
         // Title label
         ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-        ctx.font = '11px Courier New';
-        ctx.fillText(this.label, ml + 2, mt - 8);
+        ctx.font = '22px Courier New';
+        ctx.fillText(this.label, ml + 4, mt - 8);
 
         // X-axis tick labels
         ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-        ctx.font = '9px Courier New';
+        ctx.font = '18px Courier New';
         ctx.textAlign = 'left';
-        ctx.fillText(this.xMin.toPrecision(3), ml, h - 4);
+        ctx.fillText(this.xMin.toPrecision(3), ml, h - 6);
         ctx.textAlign = 'right';
-        ctx.fillText(this.xMax.toPrecision(3), w - mr, h - 4);
+        ctx.fillText(this.xMax.toPrecision(3), w - mr, h - 6);
         ctx.textAlign = 'left';
     }
 }
