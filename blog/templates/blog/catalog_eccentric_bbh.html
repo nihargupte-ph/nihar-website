@@ -1,0 +1,177 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog/blog-common.css' %}">
+<link rel="stylesheet" href="{% static 'css/blog/catalog-eccentric-bbh.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="catalog-blog" data-posteriors-url="{% url 'blog:catalog-posteriors' %}">
+
+    <header class="catalog-intro">
+        <h1 class="catalog-title">A Catalog of Eccentric Binary Black Holes</h1>
+
+        <div class="mode-selector">
+            <span class="mode-sentence">Give me the</span>
+            <span class="mode-toggle">
+                <button type="button" class="mode-btn is-active"
+                        data-mode="pretty">short explanation</button><!--
+             --><button type="button" class="mode-btn"
+                        data-mode="expert">long explanation, I'm a GW physicist!</button>
+            </span>
+        </div>
+
+        <div class="intro-text intro-pretty">
+            <p>
+                Black holes orbit each other far away in space, the same way 
+                as the Earth and Sun orbit each other! Sometimes, black holes orbit each other in elongated,
+                egg-shaped paths instead of perfect circles. These are
+                called <em>eccentric</em> binary binary black holes. Eccentric binaries usually 
+                come from chaotic two or three body interactions and so are 
+                of interest to astronomers who want to know the formation history of binary black holes.
+
+            </p>
+                
+            <p>
+            Each card below shows a pair of black holes spiraling together and
+            merging. The ripples in the background grid are gravitational
+            waves&mdash;stretches in the fabric of spacetime that LIGO and Virgo
+            can detect [<a href="https://arxiv.org/abs/1411.4547">1</a>, <a
+            href="https://arxiv.org/abs/1408.3978">2</a>, <a
+            href="https://arxiv.org/abs/1602.03837">3</a>]. The waveform trace
+            underneath is the signal a detector on Earth would see. So yes, 
+            each of these are real binary black hole orbits humanity has detected!
+
+            </p>
+            <p>
+                Since there is noise in the GW detectors, we can't be fully sure about the 
+                parameters. Hover any event name to see how confident we are about
+                the masses, spins, and eccentricity of each system.
+
+            </p>
+            <p>
+                Finally, from the astrophysics literature we have estimate on how common eccentric systems are. 
+                However, these are subject to modelling assumptions and have a range of values. 
+                Use the prior selector below to explore how our
+                assumptions about how common eccentric systems are
+                changes what we infer [<a href="https://arxiv.org/abs/2404.14286">4</a>, <a href="https://arxiv.org/abs/2603.29019">5</a>, <a href="https://arxiv.org/abs/2112.06952">6</a>, <a href="https://arxiv.org/abs/2412.12823">7</a>].
+            </p>
+        </div>
+
+        <div class="intro-text intro-expert" hidden>
+            <p>
+                A subset of LIGO&ndash;Virgo&ndash;KAGRA binary black holes
+                detected through O1, O2, O3 and O4a re-analyzed with an eccentric waveform
+                model [<a href="https://arxiv.org/abs/2404.14286">1</a>, <a href="https://arxiv.org/abs/2603.29019">2</a>, <a href="https://arxiv.org/abs/2112.06952">3</a>, <a href="https://arxiv.org/abs/2412.12823">4</a>].
+                The orbit and <em>h<sub>+</sub></em> strain playback displays the
+                maximum-a-posteriori two-body solution. This is calculated using the
+                effective-one-body framework [<a href="https://arxiv.org/abs/gr-qc/9811091">5</a>]. We are
+                assuming spins aligned (or anti-aligned) with the orbital angular momentum. This is
+                displayed by a spinning white tick on the border of the black hole. We compute the remnant
+                final spin and mass using numerical relativity fits [<a href="https://arxiv.org/abs/1508.07250">6</a>, <a href="https://arxiv.org/abs/1611.00332">7</a>, <a href="https://arxiv.org/abs/1610.09713">8</a>, <a href="https://arxiv.org/abs/1612.09566">9</a>].
+                Hover any event name for the posterior distribution in mass, spin, and eccentricity.
+            </p>
+            <p>
+                The background mesh represents the spacetime as seen by an
+                observer co-moving with the center of mass. Near each black
+                hole the mesh is deformed with an approximate Kerr solution
+                (a visualization shortcut for the strong-field region, we cannot do fully numerical relativity with 
+                javascript)!
+                Outside the orbital radius&mdash;the wave zone&mdash;the mesh
+                is tidally displaced by the tidal effect of <em>h<sub>+</sub></em> and
+                <em>h<sub>&times;</sub></em> polarizations. 
+            </p>
+            <p>
+                <strong>Prior re-weighting.</strong> The prior on eccentricity stongly affects
+                the recovered eccentricity. We can set a
+                a sharp two-bin population prior at
+                <code>e&nbsp;=&nbsp;0.05</code> (0.05 is effectively quasicircular at O1-O4 LVK sensitivity [<a href="https://arxiv.org/abs/1806.05350">10</a>]).
+                Pick the fraction
+                <em>f</em> of events you expect to be eccentric; the per-event
+                posterior weights are multiplied by
+                <code>(1&minus;f)&#8239;/&#8239;0.1</code> for quasicircular
+                samples and <code>f&#8239;/&#8239;0.9</code> for eccentric
+                ones (the original analyses used a uniform
+                prior on <em>e</em>&nbsp;&isin;&nbsp;[0,&nbsp;0.5]). The
+                displayed orbit is the maximum-a-posteriori sample under the new prior. The more
+                robust way to do this is also to let the events inform the recovered
+                population rates/prior (see) Ref. [<a href="https://arxiv.org/abs/2404.14286">1</a>].
+            </p>
+        </div>
+    </header>
+
+    <div class="prior-selector">
+        <p class="prior-sentence">
+            I
+            <span class="prior-belief-toggle">
+                <button type="button" class="prior-belief-btn"
+                        data-belief="do">do</button><!--
+             --><button type="button" class="prior-belief-btn is-active"
+                        data-belief="do-not">do not</button>
+            </span>
+            believe every eccentricity is equally likely.
+        </p>
+        <p class="prior-fraction-sentence">
+            I believe
+            <span class="prior-fraction-buttons">
+                <button type="button" class="prior-btn is-active"
+                        data-fraction="0.023">2.3%</button><!--
+             --><button type="button" class="prior-btn"
+                        data-fraction="0.001">0.1%</button>
+            </span>
+            of events are eccentric.
+        </p>
+        <p class="event-filter-sentence">
+            Show
+            <span class="event-filter-toggle">
+                <button type="button" class="filter-btn is-active"
+                        data-filter="analyzed">analyzed events only</button><!--
+             --><button type="button" class="filter-btn"
+                        data-filter="all">all events (includes low significance triggers)</button>
+            </span>
+        </p>
+    </div>
+
+    <section class="catalog-box" id="run-O1">
+        <header class="run-heading">
+            <h2 class="run-name">O1</h2>
+            <p class="run-dates">Sept&nbsp;2015 &ndash; Jan&nbsp;2016</p>
+        </header>
+        <p class="o4a-loading">Loading posteriors&hellip;</p>
+        <div class="o4a-event-grid" hidden></div>
+    </section>
+
+    <section class="catalog-box" id="run-O2">
+        <header class="run-heading">
+            <h2 class="run-name">O2</h2>
+            <p class="run-dates">Nov&nbsp;2016 &ndash; Aug&nbsp;2017</p>
+        </header>
+        <p class="o4a-loading">Loading posteriors&hellip;</p>
+        <div class="o4a-event-grid" hidden></div>
+    </section>
+
+    <section class="catalog-box" id="run-O3">
+        <header class="run-heading">
+            <h2 class="run-name">O3</h2>
+            <p class="run-dates">Apr&nbsp;2019 &ndash; Mar&nbsp;2020</p>
+        </header>
+        <p class="o4a-loading">Loading posteriors&hellip;</p>
+        <div class="o4a-event-grid" hidden></div>
+    </section>
+
+    <section class="catalog-box" id="run-O4a">
+        <header class="run-heading">
+            <h2 class="run-name">O4a</h2>
+            <p class="run-dates">May&nbsp;2023 &ndash; Jan&nbsp;2024</p>
+        </header>
+        <p class="o4a-loading">Loading posteriors&hellip;</p>
+        <div class="o4a-event-grid" hidden></div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/blog/catalog-eccentric-bbh.js' %}"></script>
+{% endblock %}

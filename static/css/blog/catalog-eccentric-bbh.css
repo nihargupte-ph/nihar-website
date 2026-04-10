@@ -1,0 +1,439 @@
+/* ==========================================================================
+   Catalog of Eccentric Binary Black Holes — page styles
+   --------------------------------------------------------------------------
+   Palette:
+     #292626  background (deep charcoal)
+     #dee6ee  primary text / strong outline
+     #acb4bd  secondary text / soft outline
+     #942941  accent magenta-red
+     #e63929  accent red
+     #838383  muted grey
+     #520000  deep maroon
+     #108bac  accent teal
+     #29e6ff  accent cyan / glow
+   ========================================================================== */
+
+.catalog-blog {
+    background: #000000;
+    min-height: 100vh;
+    padding: 5rem 3rem 5rem;
+    color: #dee6ee;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    /* Large gap between observing runs so each is visually its own
+     * "chapter" of the catalog. */
+    gap: 5rem;
+}
+
+/* Each observing run is its own section, anchored by a heading. */
+.catalog-box {
+    position: relative;
+    background: transparent;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ----- Intro header ----- */
+
+.catalog-intro {
+    max-width: 860px;
+    margin: 0 auto 2rem;
+    padding: 0 0 1.2rem;
+    border-bottom: 1px solid #292626;
+}
+
+.catalog-intro .catalog-title {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 1.9rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #dee6ee;
+    margin: 0 0 1.1rem;
+}
+
+.catalog-intro p {
+    color: #acb4bd;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0 0 0.8rem;
+}
+
+.catalog-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.catalog-intro code {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: #29e6ff;
+    background: rgba(41, 230, 255, 0.06);
+    border: 1px solid rgba(41, 230, 255, 0.18);
+    padding: 0.04rem 0.35rem;
+    border-radius: 3px;
+}
+
+.catalog-intro a {
+    color: #29e6ff;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(41, 230, 255, 0.4);
+}
+
+.catalog-intro a:hover {
+    border-bottom-style: solid;
+}
+
+/* ----- Mode selector (pretty / expert) ----- */
+
+.mode-selector {
+    margin: 0 0 1rem;
+}
+
+.mode-sentence {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.92rem;
+    color: #acb4bd;
+    line-height: 2;
+}
+
+.mode-toggle {
+    display: inline;
+}
+
+.mode-btn {
+    appearance: none;
+    display: inline-block;
+    background: transparent;
+    border: 1px solid #4a4a4a;
+    color: #acb4bd;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.3px;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    vertical-align: baseline;
+    transition: color 120ms ease, border-color 120ms ease,
+                background 120ms ease, box-shadow 120ms ease;
+}
+
+.mode-btn:hover {
+    color: #29e6ff;
+    border-color: #108bac;
+}
+
+.mode-btn.is-active {
+    color: #29e6ff;
+    border-color: #29e6ff;
+    background: rgba(41, 230, 255, 0.08);
+    box-shadow: 0 0 10px rgba(41, 230, 255, 0.15);
+}
+
+.intro-text[hidden] {
+    display: none;
+}
+
+/* ----- Population-prior selector ----- */
+
+.prior-selector {
+    padding: 0.9rem 1.2rem;
+    border: 1px solid #292626;
+    border-radius: 6px;
+    background: rgba(16, 139, 172, 0.04);
+    margin-bottom: -2.5rem;
+}
+
+.prior-sentence,
+.prior-fraction-sentence {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.92rem;
+    color: #acb4bd;
+    line-height: 2;
+    margin: 0;
+}
+
+.prior-fraction-sentence[hidden] {
+    display: none;
+}
+
+.event-filter-sentence {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.92rem;
+    color: #acb4bd;
+    line-height: 2;
+    margin: 0.4rem 0 0;
+}
+
+.event-filter-toggle {
+    display: inline;
+}
+
+/* Shared inline-button style for both the belief toggle and the
+ * fraction pills. Slightly smaller than body text so they read as
+ * interactive tokens inside a sentence. */
+.prior-belief-btn,
+.prior-btn,
+.filter-btn {
+    appearance: none;
+    display: inline-block;
+    background: transparent;
+    border: 1px solid #4a4a4a;
+    color: #acb4bd;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.3px;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    vertical-align: baseline;
+    transition: color 120ms ease, border-color 120ms ease,
+                background 120ms ease, box-shadow 120ms ease;
+}
+
+.prior-belief-btn:hover,
+.prior-btn:hover,
+.filter-btn:hover {
+    color: #29e6ff;
+    border-color: #108bac;
+}
+
+.prior-belief-btn.is-active,
+.prior-btn.is-active,
+.filter-btn.is-active {
+    color: #29e6ff;
+    border-color: #29e6ff;
+    background: rgba(41, 230, 255, 0.08);
+    box-shadow: 0 0 10px rgba(41, 230, 255, 0.15);
+}
+
+.prior-belief-toggle,
+.prior-fraction-buttons {
+    display: inline;
+}
+
+/* ----- Per-run heading ----- */
+
+.run-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 0 0 1.25rem 0;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #292626;
+}
+
+.run-heading .run-name {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #dee6ee;
+    margin: 0;
+}
+
+.run-heading .run-dates {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #838383;
+    letter-spacing: 0.6px;
+    margin: 0;
+}
+
+.o4a-loading {
+    text-align: center;
+    color: #4a4a4a;
+    font-style: italic;
+    padding: 4rem 0;
+}
+
+/* ----- Per-event grid + cards ----- */
+
+.o4a-event-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.o4a-event-card {
+    position: relative;
+    padding: 0.4rem 0.4rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: transparent;
+}
+
+.o4a-event-card .ev-name {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.72rem;
+    color: #4a4a4a;
+    letter-spacing: 0.6px;
+    cursor: help;
+    user-select: none;
+    align-self: flex-start;
+}
+
+.o4a-event-card .ev-orbit {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: block;
+}
+
+.o4a-event-card .ev-hp {
+    width: 100%;
+    height: 56px;
+    display: block;
+}
+
+.o4a-event-card .ev-no-waveform {
+    margin: 0;
+    text-align: center;
+    color: #838383;
+    font-style: italic;
+    font-size: 0.78rem;
+    padding: 2rem 0;
+}
+
+/* ----- "No eccentricity data" cards ----- */
+
+.o4a-event-card.no-ecc-data {
+    opacity: 0.35;
+    display: none;
+}
+
+.catalog-blog.show-all-events .o4a-event-card.no-ecc-data {
+    display: flex;
+}
+
+.o4a-event-card.no-ecc-data .ev-name {
+    cursor: default;
+}
+
+.o4a-event-card .ev-no-ecc-data {
+    margin: 0;
+    text-align: center;
+    color: #4a4a4a;
+    font-style: italic;
+    font-size: 0.78rem;
+    padding: 2rem 0;
+}
+
+/* ----- Hover tooltip with posterior heatmaps ----- */
+
+.o4a-tooltip {
+    position: fixed;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.96);
+    border: 1px solid #108bac;
+    border-radius: 8px;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    box-shadow: 0 0 24px rgba(41, 230, 255, 0.18);
+    pointer-events: auto;
+}
+
+.o4a-tooltip[hidden] {
+    display: none;
+}
+
+.o4a-tooltip .tt-panel-row {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.o4a-tooltip .tt-panel {
+    display: block;
+    width: 176px;
+    height: 176px;
+}
+
+/* ----- Median + 90% CI stats block ----- */
+
+/* The stats block mirrors the 3-heatmap row above it: three 160px
+ * columns (one per panel) with two stats each (e.g. column 1 holds m1
+ * then m2, column 2 holds chi_1 then chi_2). ``grid-auto-flow: column``
+ * plus an explicit ``grid-template-rows`` fills the cells in that
+ * order, so every stat sits under its heatmap. */
+.o4a-tooltip .tt-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 176px);
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    column-gap: 0.4rem;
+    row-gap: 0.55rem;
+    padding: 0.6rem 0 0.25rem;
+    margin-top: 0.35rem;
+    border-top: 1px solid rgba(172, 180, 189, 0.18);
+}
+
+.o4a-tooltip .tt-stat-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.66rem;
+    line-height: 1;
+    color: #dee6ee;
+    /* Align the stat text with the heatmap's plot area, which is
+     * inset by ml = 36px inside the 160px canvas. */
+    padding-left: 36px;
+}
+
+.o4a-tooltip .tt-stat-label {
+    color: #acb4bd;
+    letter-spacing: 0.3px;
+    min-width: 1.2em;
+}
+
+.o4a-tooltip .tt-stat-value {
+    color: #29e6ff;
+    font-variant-numeric: tabular-nums;
+}
+
+.o4a-tooltip .tt-stat-ci {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    color: #838383;
+    font-size: 0.52rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.o4a-tooltip .tt-stat-ci sup,
+.o4a-tooltip .tt-stat-ci sub {
+    display: block;
+    font-size: 1em;
+    line-height: 1;
+    vertical-align: baseline;
+}
+
+.o4a-tooltip .tt-stat-unit {
+    color: #838383;
+    font-size: 0.62rem;
+    margin-left: 0.05rem;
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 1400px) {
+    .o4a-event-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 1100px) {
+    .o4a-event-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+    .o4a-event-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+    .o4a-event-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+    .catalog-blog {
+        padding: 2rem 1.25rem 4rem;
+        gap: 1.5rem;
+    }
+}

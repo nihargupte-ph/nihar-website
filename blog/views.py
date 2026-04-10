@@ -10,70 +10,34 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from pyseobnr.generate_waveform import GenerateWaveform
+
+from blog.catalog_helpers import (
+    CATALOG_POSTERIOR_COLUMNS,
+    CATALOG_POSTERIOR_PRECISION,
+    CATALOG_RUNS,
+    GWTC_TO_HDF5_ALIASES,
+    QC_BOUNDARY,
+    TRAJECTORY_DECIMAL_COLS,
+    TRAJECTORY_SIGFIG_COLS,
+    round_sig,
+)
+from blog.simulate_helpers import (
+    capture_eccentricity_distribution,
+    downsample,
+    load_asd,
+    whiten_signal_and_generate_noise,
+)
+from blog.waveforms import generate_eccentric_bbh_waveform
 
 logger = logging.getLogger(__name__)
 
-G_OVER_C3 = 4.925491025543576e-6  # seconds per solar mass
 
+# ---------------------------------------------------------------------------
+# Simulate your own eccentric BBH
+# ---------------------------------------------------------------------------
 
 def analyzing_eccentric_bbh(request):
-    return render(request, 'blog/analyzing_eccentric_bbh.html')
-
-
-def _load_asd():
-    """Load fiducial ASD for H1 and L1 from static data."""
-    path = os.path.join(settings.STATICFILES_DIRS[0], 'data', 'asd_fiducial.hdf5')
-    with h5py.File(path, 'r') as f:
-        h1_asd = f['asds/H1'][0]
-        l1_asd = f['asds/L1'][0]
-    return h1_asd, l1_asd
-
-
-def _downsample(arr, max_points=3000):
-    """Downsample array to max_points by uniform striding."""
-    if len(arr) <= max_points:
-        return arr
-    stride = max(1, len(arr) // max_points)
-    return arr[::stride]
-
-
-def _whiten_signal_and_generate_noise(hp_td, dt, asd, delta_f_asd=0.0625):
-    """
-    Whiten a TD signal using the ASD and generate a noise realization.
-
-    Returns time array, whitened noise+signal, and whitened signal alone.
-    """
-    n = len(hp_td)
-
-    # FFT the signal
-    hp_fd = np.fft.rfft(hp_td) * dt
-    freqs_signal = np.fft.rfftfreq(n, d=dt)
-
-    # ASD frequency grid
-    freqs_asd = np.arange(len(asd)) * delta_f_asd
-
-    # Interpolate ASD to signal frequency grid
-    asd_interp = np.interp(freqs_signal, freqs_asd, asd)
-    # Avoid division by zero at DC
-    asd_interp[asd_interp < 1e-30] = 1e-30
-
-    # Whiten signal in FD
-    delta_f_signal = freqs_signal[1] - freqs_signal[0] if len(freqs_signal) > 1 else 1.0
-    signal_whitened_fd = np.sqrt(4 * delta_f_signal) * hp_fd / asd_interp
-
-    # Generate Gaussian noise (unit variance whitened noise)
-    noise_fd = (np.random.randn(len(freqs_signal)) + 1j * np.random.randn(len(freqs_signal)))
-
-    # Combined whitened strain
-    combined_fd = signal_whitened_fd + noise_fd
-
-    # IFFT back
-    signal_td = np.fft.irfft(signal_whitened_fd, n=n)
-    combined_td = np.fft.irfft(combined_fd, n=n)
-
-    t = np.arange(n) * dt
-    return t, np.real(combined_td), np.real(signal_td)
+    return render(request, 'blog/simulate_your_own_eccentric_bbh.html')
 
 
 @csrf_exempt
@@ -88,100 +52,52 @@ def simulate_bbh(request):
         eccentricity = float(data['eccentricity'])
         mean_anomaly_deg = float(data['mean_anomaly'])
 
-        # Ensure m1 >= m2
-        if m2 > m1:
-            m1, m2 = m2, m1
-            s1, s2 = s2, s1
-
-        # Generate waveform with pyseobnr
-        params = {
-            'mass1': m1,
-            'mass2': m2,
-            'spin1z': s1,
-            'spin2z': s2,
-            'eccentricity': eccentricity,
-            'rel_anomaly': mean_anomaly_deg * pi / 180.0,
-            'distance': 2000.0,
-            'inclination': 0.4,
-            'deltaT': 1.0 / 2048.0,
-            'f22_start': 20.0,
-            'f_max': 1024.0,
-            'approximant': 'SEOBNRv5EHM',
-        }
-
-        wf = GenerateWaveform(params)
-        hp_lal, hc_lal = wf.generate_td_polarizations()
-
-        # Extract polarizations
-        hp_data = hp_lal.data.data
-        hc_data = hc_lal.data.data
-        epoch = float(hp_lal.epoch)
-        dt = hp_lal.deltaT
-        t_wf = epoch + np.arange(len(hp_data)) * dt
-
-        # Extract dynamics and convert to two-body
-        dyn = wf.model.dynamics
-        m1_frac = wf.model.m_1  # fractional mass m1/M
-        m2_frac = wf.model.m_2  # fractional mass m2/M
-        M_total = wf.model.M    # total mass in solar masses
-
-        # Convert dynamics time from geometric units (M) to physical seconds
-        t_dyn = dyn[:, 0] * M_total * G_OVER_C3
-        # Align dynamics end to waveform peak (merger)
-        # Dynamics stop at merger; waveform continues into ringdown
-        peak_idx = int(np.argmax(np.abs(hp_data)))
-        t_peak = epoch + peak_idx * dt
-        t_dyn = t_dyn - t_dyn[-1] + t_peak
-
-        r = dyn[:, 1]    # separation in units of M
-        phi = dyn[:, 2]   # orbital phase
-
-        # Two-body positions relative to center of mass
-        # Body 1 orbits at r1 = (m2/M)*r from COM
-        # Body 2 orbits at r2 = (m1/M)*r from COM, opposite side
-        x1 = m2_frac * r * np.cos(phi)
-        y1 = m2_frac * r * np.sin(phi)
-        x2 = -m1_frac * r * np.cos(phi)
-        y2 = -m1_frac * r * np.sin(phi)
-
-        # Generate whitened strain for H1 and L1
-        h1_asd, l1_asd = _load_asd()
-
-        t_strain_h1, h1_combined, h1_signal = _whiten_signal_and_generate_noise(
-            hp_data, dt, h1_asd
+        result = generate_eccentric_bbh_waveform(
+            m1=m1,
+            m2=m2,
+            spin1z=s1,
+            spin2z=s2,
+            eccentricity=eccentricity,
+            rel_anomaly_rad=mean_anomaly_deg * pi / 180.0,
         )
-        t_strain_l1, l1_combined, l1_signal = _whiten_signal_and_generate_noise(
-            hp_data, dt, l1_asd
-        )
-        # Shift strain time to match waveform epoch
-        t_strain_h1 = t_strain_h1 + epoch
-        t_strain_l1 = t_strain_l1 + epoch
+        traj = result['trajectory']
+        pol = result['polarizations']
+        meta = result['meta']
 
-        # Downsample for JSON transport
+        h1_asd, l1_asd = load_asd()
+        t_strain_h1, h1_combined, h1_signal = whiten_signal_and_generate_noise(
+            pol['hp'], meta['dt'], h1_asd
+        )
+        t_strain_l1, l1_combined, l1_signal = whiten_signal_and_generate_noise(
+            pol['hp'], meta['dt'], l1_asd
+        )
+        t_strain_h1 = t_strain_h1 + meta['epoch']
+        t_strain_l1 = t_strain_l1 + meta['epoch']
+
         response = {
             'status': 'ok',
             'trajectory': {
-                't': _downsample(t_dyn).tolist(),
-                'x1': _downsample(x1).tolist(),
-                'y1': _downsample(y1).tolist(),
-                'x2': _downsample(x2).tolist(),
-                'y2': _downsample(y2).tolist(),
+                't': downsample(traj['t']).tolist(),
+                'x1': downsample(traj['x1']).tolist(),
+                'y1': downsample(traj['y1']).tolist(),
+                'x2': downsample(traj['x2']).tolist(),
+                'y2': downsample(traj['y2']).tolist(),
             },
             'polarizations': {
-                't': _downsample(t_wf).tolist(),
-                'hp': _downsample(hp_data).tolist(),
-                'hc': _downsample(hc_data).tolist(),
+                't': downsample(pol['t']).tolist(),
+                'hp': downsample(pol['hp']).tolist(),
+                'hc': downsample(pol['hc']).tolist(),
             },
             'strain': {
                 'H1': {
-                    't': _downsample(t_strain_h1).tolist(),
-                    'noise_plus_signal': _downsample(h1_combined).tolist(),
-                    'signal': _downsample(h1_signal).tolist(),
+                    't': downsample(t_strain_h1).tolist(),
+                    'noise_plus_signal': downsample(h1_combined).tolist(),
+                    'signal': downsample(h1_signal).tolist(),
                 },
                 'L1': {
-                    't': _downsample(t_strain_l1).tolist(),
-                    'noise_plus_signal': _downsample(l1_combined).tolist(),
-                    'signal': _downsample(l1_signal).tolist(),
+                    't': downsample(t_strain_l1).tolist(),
+                    'noise_plus_signal': downsample(l1_combined).tolist(),
+                    'signal': downsample(l1_signal).tolist(),
                 },
             },
         }
@@ -291,107 +207,6 @@ def analyze_bbh(request):
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
 
-def _peters_a(c0, e):
-    """Peters (1964) semi-major axis from eccentricity."""
-    return c0 * e ** (12.0 / 19.0) * (1 + 121.0 / 304.0 * e ** 2) ** (870.0 / 2299.0) / (1 - e ** 2)
-
-
-def _solve_e_from_a(c0, a_target):
-    """Numerically invert Peters' relation using bisection (robust for high e)."""
-    lo, hi = 1e-8, 1 - 1e-12
-    for _ in range(200):
-        mid = (lo + hi) / 2
-        a_mid = _peters_a(c0, mid)
-        if a_mid < a_target:
-            lo = mid
-        else:
-            hi = mid
-        if (hi - lo) < 1e-12:
-            break
-    return (lo + hi) / 2
-
-
-def _capture_eccentricity_distribution(sigma_1d_kms, Mtot_solar=45.0, mu_solar=11.25,
-                                       Niter=200, Nrp=500, f_orb_ref=10.0):
-    """
-    Monte Carlo forward model p(e | sigma) for single-single GW captures.
-    Ported from ecc_dist_cole_checkpoint.ipynb.
-
-    sigma_1d_kms: 1D velocity dispersion in km/s
-    Mtot_solar: total mass in solar masses
-    mu_solar: reduced mass in solar masses
-    Returns array of eccentricities at f_orb_ref Hz.
-    """
-    import math
-
-    GMsun = 1.3271244e26   # cm^3/s^2
-    cspeed = 2.998e10      # cm/s
-
-    sigma_1d = sigma_1d_kms * 1e5  # km/s -> cm/s
-    sigma_3d = math.sqrt(3.0) * sigma_1d
-    sigma_rel = math.sqrt(2.0) * sigma_3d
-
-    atarg = (GMsun * Mtot_solar / (4.0 * math.pi ** 2 * f_orb_ref)) ** (1.0 / 3.0)
-
-    rng = np.random.default_rng()
-    e_samples_list = []
-    n_accepted = 0
-
-    while n_accepted < Niter:
-        batch_size = max(2 * (Niter - n_accepted), 100)
-        x_batch = np.abs(rng.standard_normal(batch_size))
-        y_batch = rng.random(batch_size)
-        accept_mask = y_batch < np.power(x_batch, 3.0 / 7.0)
-        x_accepted = x_batch[accept_mask]
-        if len(x_accepted) == 0:
-            continue
-
-        n_needed = Niter - n_accepted
-        x_use = x_accepted[:n_needed]
-        n_accepted += len(x_use)
-
-        vinf = x_use * sigma_rel
-
-        coeff = (85.0 * math.pi / (6.0 * math.sqrt(2.0))) ** (2.0 / 7.0)
-        coeff *= GMsun * (mu_solar * Mtot_solar ** 2.5) ** (2.0 / 7.0)
-        coeff /= cspeed ** (10.0 / 7.0)
-        rpmax = coeff / np.power(vinf, 4.0 / 7.0)
-
-        j_idx = np.arange(Nrp) + 0.5
-        drp = rpmax / Nrp
-        rp = np.outer(drp, j_idx)
-        C = 1.76 * rp
-
-        # Vectorized bisection for eccentricity
-        emin_arr = np.zeros_like(rp)
-        emax_arr = np.ones_like(rp)
-
-        for _ in range(60):
-            emid = 0.5 * (emin_arr + emax_arr)
-            emid_safe = np.maximum(emid, 1e-15)
-            a_val = C / (
-                np.power(emid_safe, -12.0 / 19.0)
-                * (1.0 - emid * emid)
-                * np.power(1.0 + 121.0 * emid * emid / 304.0, -870.0 / 2299.0)
-            )
-            too_high = a_val > atarg
-            emax_arr = np.where(too_high, emid, emax_arr)
-            emin_arr = np.where(~too_high, emid, emin_arr)
-
-        e_final = 0.5 * (emin_arr + emax_arr)
-        valid_mask = (e_final > 0) & (e_final < 1)
-        e_samples_list.append(e_final[valid_mask].ravel())
-
-    if e_samples_list:
-        e_arr = np.concatenate(e_samples_list)
-    else:
-        e_arr = np.array([])
-
-    # Filter to reasonable range
-    e_arr = e_arr[(e_arr > 1e-12) & (e_arr < 10 ** (-0.1))]
-    return e_arr
-
-
 @csrf_exempt
 @require_POST
 def eccentricity_distribution(request):
@@ -409,7 +224,7 @@ def eccentricity_distribution(request):
         if channel == 'isolated':
             log_samples = np.random.normal(-11, 0.5, size=5000).tolist()
         else:
-            eccs = _capture_eccentricity_distribution(
+            eccs = capture_eccentricity_distribution(
                 sigma, Mtot_solar=Mtot, mu_solar=mu, Niter=100, Nrp=500
             )
             eccs = eccs[eccs > 1e-15]
@@ -425,3 +240,149 @@ def eccentricity_distribution(request):
     except Exception as e:
         logger.exception("Eccentricity distribution failed")
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+
+# ---------------------------------------------------------------------------
+# Catalog of eccentric BBH
+# ---------------------------------------------------------------------------
+
+def catalog_eccentric_bbh(request):
+    return render(request, 'blog/catalog_eccentric_bbh.html')
+
+
+def catalog_posteriors(request):
+    """Return the eccentric BBH posteriors for every observing run as JSON.
+
+    The output shape is::
+
+        {
+          status: 'ok',
+          runs: {
+            'O1':  { '<event>': {
+                '<col>': [...], ...,
+                'll_max_qc': float | None,
+                'll_max_ecc': float | None,
+                'trajectories': {
+                    'qc':  { 't': [...], ..., 'ml': {...} } | absent,
+                    'ecc': { 't': [...], ..., 'ml': {...} } | absent,
+                },
+            } },
+            'O2':  { ... }, 'O3': { ... }, 'O4a': { ... },
+          }
+        }
+
+    Each event ships its full posterior cloud (column -> list of samples)
+    plus up to two precomputed pyseobnr trajectories: one MAP from
+    ``e < QC_BOUNDARY`` and one from ``e >= QC_BOUNDARY``. The two
+    ``ll_max_*`` scalars are the maximum log-likelihood within each bin
+    so the JS can compute the bin-wise log-posterior under any of the
+    catalog page's prior options without recomputing it from the full
+    log_likelihood column.
+    """
+    posteriors_path = os.path.join(
+        settings.STATICFILES_DIRS[0], 'data', 'posteriors_ecc.h5'
+    )
+    trajectories_path = os.path.join(
+        settings.STATICFILES_DIRS[0], 'data', 'trajectories_ecc.h5'
+    )
+
+    runs: dict[str, dict] = {run: {} for run in CATALOG_RUNS}
+    # event_name -> event dict, for fast trajectory attach below.
+    event_index: dict[str, dict] = {}
+
+    with h5py.File(posteriors_path, 'r') as f:
+        for run in CATALOG_RUNS:
+            if run not in f:
+                continue
+            run_grp = f[run]
+            for event_name in run_grp.keys():
+                grp = run_grp[event_name]
+
+                event: dict = {}
+                for col in CATALOG_POSTERIOR_COLUMNS:
+                    if col not in grp:
+                        continue
+                    # Cast to float64 before rounding so the JSON encoder
+                    # writes the short repr (38.16, not 38.15999984741211).
+                    arr = grp[col][...].astype(np.float64)
+                    decimals = CATALOG_POSTERIOR_PRECISION.get(col)
+                    if decimals is not None:
+                        arr = np.round(arr, decimals)
+                    event[col] = arr.tolist()
+
+                # Per-bin max log-likelihood — needed by the JS to score
+                # the qc vs ecc trajectories under each prior option.
+                ecc_arr = grp['eccentricity'][...]
+                ll_arr = grp['log_likelihood'][...]
+                qc_mask = ecc_arr < QC_BOUNDARY
+                event['ll_max_qc'] = (
+                    float(ll_arr[qc_mask].max()) if qc_mask.any() else None
+                )
+                event['ll_max_ecc'] = (
+                    float(ll_arr[~qc_mask].max()) if (~qc_mask).any() else None
+                )
+
+                # Per-event original prior P(qc). The eccentricity prior
+                # was uniform on [0, e_max] where e_max varies by event
+                # (0.5 for most O3 events, up to ~0.8 for some O4a).
+                # Using max(ecc samples) as a proxy for e_max.
+                e_max = float(ecc_arr.max())
+                e_max = max(e_max, QC_BOUNDARY + 0.01)  # safety floor
+                event['p_orig_qc'] = round(QC_BOUNDARY / e_max, 4)
+
+                event['trajectories'] = {}
+
+                runs[run][event_name] = event
+                event_index[event_name] = event
+
+    if os.path.exists(trajectories_path):
+        with h5py.File(trajectories_path, 'r') as f:
+            for event_name in f.keys():
+                event = event_index.get(event_name)
+                if event is None:
+                    continue
+                ev_grp = f[event_name]
+                for bin_name in ('qc', 'ecc'):
+                    if bin_name not in ev_grp:
+                        continue
+                    bin_grp = ev_grp[bin_name]
+                    traj: dict = {}
+                    for col, decimals in TRAJECTORY_DECIMAL_COLS.items():
+                        if col in bin_grp:
+                            arr = bin_grp[col][...].astype(np.float64)
+                            traj[col] = np.round(arr, decimals).tolist()
+                    for col in TRAJECTORY_SIGFIG_COLS:
+                        if col in bin_grp:
+                            arr = bin_grp[col][...].astype(np.float64)
+                            traj[col] = round_sig(arr, 4)
+                    traj['ml'] = {
+                        k: (v.item() if hasattr(v, 'item') else v)
+                        for k, v in bin_grp.attrs.items()
+                    }
+                    event['trajectories'][bin_name] = traj
+    else:
+        logger.warning(
+            "trajectories_ecc.h5 not found at %s; "
+            "run scripts/generate_o4a_trajectories.py to populate it.",
+            trajectories_path,
+        )
+
+    # Merge in the full GWTC BBH event list so events without
+    # eccentricity data still appear as placeholder cards.
+    gwtc_path = os.path.join(
+        settings.STATICFILES_DIRS[0], 'data', 'gwtc_bbh_events.json'
+    )
+    if os.path.exists(gwtc_path):
+        with open(gwtc_path, 'r') as fp:
+            gwtc_events = json.load(fp)
+        for run in CATALOG_RUNS:
+            for gwtc_name in gwtc_events.get(run, []):
+                if gwtc_name in runs[run]:
+                    continue
+                hdf5_name = GWTC_TO_HDF5_ALIASES.get(gwtc_name)
+                if hdf5_name and hdf5_name in runs[run]:
+                    runs[run][gwtc_name] = runs[run].pop(hdf5_name)
+                    continue
+                runs[run][gwtc_name] = {'_noData': True}
+
+    return JsonResponse({'status': 'ok', 'runs': runs})
