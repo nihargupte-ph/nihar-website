@@ -259,8 +259,11 @@
     // Wire up the pretty / expert mode toggle.
     function wireModeSelector(root) {
         var modeBtns = root.querySelectorAll('.mode-btn');
-        var prettyText = root.querySelector('.intro-pretty');
-        var expertText = root.querySelector('.intro-expert');
+        var introSections = {
+            tldr:   root.querySelector('.intro-tldr'),
+            pretty: root.querySelector('.intro-pretty'),
+            expert: root.querySelector('.intro-expert'),
+        };
         if (!modeBtns.length) return;
 
         modeBtns.forEach(function (btn) {
@@ -269,8 +272,9 @@
                 modeBtns.forEach(function (b) {
                     b.classList.toggle('is-active', b === btn);
                 });
-                if (prettyText) prettyText.hidden = (mode !== 'pretty');
-                if (expertText) expertText.hidden = (mode !== 'expert');
+                Object.keys(introSections).forEach(function (key) {
+                    if (introSections[key]) introSections[key].hidden = (key !== mode);
+                });
             });
         });
     }
@@ -527,6 +531,11 @@
             const nameEl = document.createElement("div");
             nameEl.className = "ev-name";
             nameEl.textContent = name;
+            // Highlight events whose MAP under the well-informed 2.3% prior
+            // falls in the eccentric bin (e >= 0.05).
+            if (!ev._noData && activeBinFor(ev, '0.023') === 'ecc') {
+                nameEl.classList.add('ev-name--eccentric');
+            }
             card.appendChild(nameEl);
 
             if (this._noData) {

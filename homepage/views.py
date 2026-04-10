@@ -54,7 +54,7 @@ def mindmap_viewer(request, mindmap_slug):
             'svg_path': 'mindmaps/physics.svg',
         },
         'cs': {
-            'title': 'Computer Science Mindmap',
+            'title': '',
             'description': 'A comprehensive visualization of computer science concepts.',
             'svg_path': 'mindmaps/cs-stat.svg',
         },

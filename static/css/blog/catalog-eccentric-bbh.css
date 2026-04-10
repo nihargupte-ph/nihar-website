@@ -37,7 +37,7 @@
 /* ----- Intro header ----- */
 
 .catalog-intro {
-    max-width: 860px;
+    max-width: 75%;
     margin: 0 auto 2rem;
     padding: 0 0 1.2rem;
     border-bottom: 1px solid #292626;
@@ -110,6 +110,7 @@
     font-size: 0.82rem;
     letter-spacing: 0.3px;
     padding: 0.2rem 0.7rem;
+    margin: 0 0.2rem;
     border-radius: 999px;
     cursor: pointer;
     vertical-align: baseline;
@@ -183,6 +184,7 @@
     font-size: 0.82rem;
     letter-spacing: 0.3px;
     padding: 0.2rem 0.7rem;
+    margin: 0 0.2rem;
     border-radius: 999px;
     cursor: pointer;
     vertical-align: baseline;
@@ -271,6 +273,10 @@
     cursor: help;
     user-select: none;
     align-self: flex-start;
+}
+
+.o4a-event-card .ev-name--eccentric {
+    color: #29e6ff;
 }
 
 .o4a-event-card .ev-orbit {
