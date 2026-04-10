@@ -24,7 +24,7 @@
     // longer inspirals stay longer than shorter ones. Long events stay
     // long; short events stay short.
     const TIME_SCALE          = 80;
-    const SPIN_PERIOD_S       = 4;   // wall-clock seconds per spin at chi=1
+    const G_OVER_C3           = 4.925491025543576e-6; // s per solar mass
     // After the EOB inspiral hits merger, we transition to a single Kerr
     // remnant for this many wall-clock seconds and ripple the spacetime
     // mesh with a damped sinusoid (the QNM ringdown).
@@ -744,7 +744,7 @@
                 if (c > maxR) maxR = c;
                 if (d > maxR) maxR = d;
             }
-            this.maxR = (maxR > 0 ? maxR : 1) * 1.15;
+            this.maxR = (maxR > 0 ? maxR : 1) * 1.4;
 
             // Trail ring buffers.
             this.trail1 = new Array(TRAIL_SAMPLES);
@@ -1069,9 +1069,13 @@
             }
         }
 
-        _drawOrb(sx, sy, mass, chi, t, baseColor) {
+        _drawOrb(sx, sy, mass, chi, physT, baseColor) {
             const ctx = this.ctx;
-            const rPx = Math.max(2, 3 + 7 * mass / 80);
+            // Schwarzschild radius: r_s = 2m in geometrized units.
+            // Trajectory coords are in units of M_total, so r_s = 2*(mass/M_total).
+            const M_total = this.m1 + this.m2;
+            const scale = Math.min(this.w, this.h) / (2 * this.maxR);
+            const rPx = Math.max(2, 2 * (mass / M_total) * scale);
             const rimWidth = Math.max(1.5, rPx * 0.22);
 
             // Soft warm glow halo using the orb's base color.
@@ -1101,10 +1105,14 @@
             ctx.arc(sx, sy, rPx, 0, Math.PI * 2);
             ctx.stroke();
 
-            // Bright white stripe on the rim — its angular position rotates
-            // with chi, so the moving stripe visualizes the spin direction
-            // and rate. At chi=0 the stripe is stationary.
-            const spinAngle = Math.PI / 6 + 2 * Math.PI * chi * t / SPIN_PERIOD_S;
+            // Kerr horizon angular velocity: Omega_H = chi / (2 * r_+),
+            // where r_+ = (m/M)(1 + sqrt(1 - chi^2)) in geometric units.
+            // Convert to physical rad/s via M_total * G/c^3.
+            const mFrac = mass / M_total;
+            const rPlus = mFrac * (1 + Math.sqrt(1 - chi * chi));
+            const omegaH = rPlus > 0 ? chi / (2 * rPlus) : 0;
+            const omegaPhys = omegaH / (M_total * G_OVER_C3);
+            const spinAngle = Math.PI / 6 + omegaPhys * physT;
             const stripeHalfWidth = Math.PI / 14;  // ~13 degrees half-width
             ctx.strokeStyle = '#ffffff';
             ctx.lineWidth = rimWidth;
@@ -1163,8 +1171,8 @@
 
                 const s1 = this._worldToScreen(p.x1, p.y1);
                 const s2 = this._worldToScreen(p.x2, p.y2);
-                this._drawOrb(s1[0], s1[1], this.m1, this.chi1, t, ORB_M1_COLOR);
-                this._drawOrb(s2[0], s2[1], this.m2, this.chi2, t, ORB_M2_COLOR);
+                this._drawOrb(s1[0], s1[1], this.m1, this.chi1, fracPhysT, ORB_M1_COLOR);
+                this._drawOrb(s2[0], s2[1], this.m2, this.chi2, fracPhysT, ORB_M2_COLOR);
             } else {
                 const ringT = cycleT - this.playbackDuration;
                 const ringPhase = ringT / RINGDOWN_DURATION_S;
@@ -1196,9 +1204,12 @@
                 this._drawMesh();
 
                 // Single Kerr remnant at the origin: NR-fit remnant mass
-                // and spin, rendered with the m1 color.
+                // and spin, rendered with the m1 color.  Continue the
+                // physical clock past merger for the spin tick.
+                const physDur = this.tPhys1 - this.tPhys0;
+                const remnantPhysT = this.tPhys1 + ringT * (physDur / this.playbackDuration);
                 const merged = this._worldToScreen(0, 0);
-                this._drawOrb(merged[0], merged[1], this.finalMass, this.finalChi, t, ORB_M1_COLOR);
+                this._drawOrb(merged[0], merged[1], this.finalMass, this.finalChi, remnantPhysT, ORB_M1_COLOR);
             }
         }
     }
