@@ -63,7 +63,7 @@
                 merging. In the background is a mesh which warps due to the presence of the black holes and 
                 gravitational waves. The waveform trace underneath is the signal that is produced which 
                 eventually gets detected on Earth. So yes, 
-                each of these are real binary black hole orbits humanity has detected!
+                each of these are <em>real</em> binary black hole orbits humanity has detected!
 
             </p>
             <p>
@@ -85,25 +85,28 @@
 
         <div class="intro-text intro-expert" hidden>
             <p>
-                A subset of LIGO&ndash;Virgo&ndash;KAGRA (LVK) binary black holes
+                Displayed below is a subset of LIGO&ndash;Virgo&ndash;KAGRA (LVK) binary black holes (BHs)
                 from O1, O2, O3 and O4a re-analyzed with an waveform
                 model which includes the effect of orbital eccentricity [<a href="https://arxiv.org/abs/2404.14286">1</a>, <a href="https://arxiv.org/abs/2603.29019">2</a>, <a href="https://arxiv.org/abs/2112.06952">3</a>, <a href="https://arxiv.org/abs/2412.12823">4</a>].
-                The orbit and <em>h<sub>+</sub></em> strain playback displays the
-                maximum-a-posteriori two-body solution. This is calculated using the
+
+            </p>
+            <p>
+                We plot the BH dynamics and <em>h<sub>+</sub></em> waveform by assuming the
+                maximum-a-posteriori (MAP) point from the posterior. The dynamics are calculated using the
                 effective-one-body (EOB) framework [<a href="https://arxiv.org/abs/gr-qc/9811091">5</a>]. We are
                 assuming spins aligned (or anti-aligned) with the orbital angular momentum. 
-                This is displayed by a spinning white tick on the border of the black hole. The size of the black hole visualization
-                is proportional to the Schwarzschild radius. We compute the remnant
+                This is displayed by a spinning white tick on the border of the black hole. The size of the black holes
+                is determined by the mass assuming a Schwarzschild radius. When the black holes merge, we compute the remnant
                 final spin and mass using numerical relativity fits [<a href="https://arxiv.org/abs/1508.07250">6</a>, <a href="https://arxiv.org/abs/1611.00332">7</a>, <a href="https://arxiv.org/abs/1610.09713">8</a>, <a href="https://arxiv.org/abs/1612.09566">9</a>].
-                Hover any event name for the posterior distribution in mass, spin, and eccentricity.
+                Hover any event name to see the  posterior distribution in mass, spin, and eccentricity.
 
             <p>
                 We are measuring the eccentricity and starting the EOB evolution at an detector frame frequency of 10Hz. However, the displayed orbit 
                 and waveform is from when the GW enters the LVK band (20 Hz).
             <p>
                 The background mesh represents the spacetime as seen by an
-                observer co-moving with the center of mass. Near each black
-                hole the mesh is deformed with an approximate Kerr solution
+                observer co-moving with the center of mass. Each black
+                hole deforms the mesh&mdash;in the near zone&mdash;using an approximate Kerr solution
                 (a visualization shortcut for the strong-field region, we cannot do numerical relativity with 
                 javascript)!
                 Outside the orbital radius&mdash;the wave zone&mdash;the mesh
@@ -127,7 +130,7 @@
                 samples and <code>f&#8239;/&#8239;0.9</code> for <code>e&nbsp;>&nbsp;0.05</code>
                 (the original pe prior was a uniform
                 prior on <em>e</em>&nbsp;&isin;&nbsp;[0,&nbsp;0.5]). The
-                displayed orbit then becomes the maximum-a-posteriori sample under the new prior. The more
+                displayed orbit then becomes the MAP sample under the new prior. The more
                 robust way to do this is also to let the events inform the recovered
                 population rates/prior (see) Ref. [<a href="https://arxiv.org/abs/2404.14286">1</a>].
             </p>

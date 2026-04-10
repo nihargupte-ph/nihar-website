@@ -81,6 +81,15 @@ TRAJ_POINTS_MAX = 3000
 # advances at a constant rate.
 RING_POINTS = 200
 
+# Fraction of peak strain below which the ringdown is considered silent.
+# pyseobnr pads the output well past QNM decay; for heavy remnants the
+# padding can be 5-10x longer than the physical ringdown, wasting most
+# of RING_POINTS on zeros and compressing the visible oscillations into
+# a tiny sliver of the JS canvas.  Trimming here concentrates all 200
+# points in the region that actually carries signal.
+RING_TRIM_FRAC = 0.005
+RING_TRIM_PAD = 0.20  # extend 20% past last active sample for visual decay
+
 # SEOBNRv5EHM is unstable above ~e=0.5; clip ML eccentricities defensively
 # so the precompute doesn't crash on tail samples.
 ECC_CEIL = 0.5
@@ -271,14 +280,37 @@ def main():
                 hc_u = hc_spline(t_uniform)
 
                 # Ringdown polarizations: the pyseobnr output extends past
-                # merger into the ringdown via attached QNM modes. Slice
-                # from merger (= t_traj[-1]) to the end of the polarization
-                # and resample onto a uniform grid. If pyseobnr produced
-                # no post-merger samples for some reason, ship one-point
-                # datasets so the JS has something to fall back on.
+                # merger into the ringdown via attached QNM modes.
+                # Trim the post-merger segment to the physically active
+                # region (where the amplitude exceeds RING_TRIM_FRAC of
+                # the peak) plus a short padding buffer, then resample
+                # onto RING_POINTS uniform samples. Without trimming,
+                # heavy remnants like GW190521 (Mf~240 Msun) get 0.43 s
+                # of buffer but only ~0.07 s of real signal, squashing
+                # the visible ringdown oscillations into <20% of the
+                # data and the JS canvas.
                 merger_time = float(t_traj[-1])
                 if t_pol[-1] > merger_time:
-                    t_ring_uniform = np.linspace(merger_time, float(t_pol[-1]),
+                    ring_mask = t_pol >= merger_time
+                    hp_post = hp_pol[ring_mask]
+                    hc_post = hc_pol[ring_mask]
+                    t_post = t_pol[ring_mask]
+
+                    peak_amp = max(np.max(np.abs(hp_pol)),
+                                   np.max(np.abs(hc_pol)))
+                    env = np.maximum(np.abs(hp_post), np.abs(hc_post))
+                    above = env > RING_TRIM_FRAC * peak_amp
+
+                    if above.any():
+                        last_active = int(np.where(above)[0][-1])
+                        pad = max(1, int(RING_TRIM_PAD * (last_active + 1)))
+                        ring_end_idx = min(len(t_post) - 1,
+                                           last_active + pad)
+                        ring_end_time = float(t_post[ring_end_idx])
+                    else:
+                        ring_end_time = float(t_pol[-1])
+
+                    t_ring_uniform = np.linspace(merger_time, ring_end_time,
                                                  RING_POINTS)
                     hp_ring_u = hp_spline(t_ring_uniform)
                     hc_ring_u = hc_spline(t_ring_uniform)

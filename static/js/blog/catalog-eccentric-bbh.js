@@ -72,6 +72,29 @@
     };
     let CURRENT_PRIOR_KEY = '0.023';
 
+    // Fixed set of events highlighted as having observational support
+    // for eccentricity (Gupte et al. 2025 Table 2 + selected O3 events).
+    // Events with eccentricity data that are NOT part of the paper's
+    // analyzed set.  Hidden by default; visible under "all events".
+    const NOT_IN_PAPER = new Set([
+        'GW230630_070659',
+    ]);
+
+    const ECCENTRIC_HIGHLIGHT_EVENTS = new Set([
+        'GW190701_203306',
+        'GW200129_065458',
+        'GW200208_222617',
+        'GW230706_104333',
+        'GW230709_122727',
+        'GW230820_212515',
+        'GW231001_140220',
+        'GW231114_043211',
+        'GW231221_135041',
+        'GW231223_032836',
+        'GW231224_024321',
+        'GW240104_164932',
+    ]);
+
     // Per-event prior factors. The original eccentricity prior was
     // uniform on [0, e_max] where e_max varies by event (0.5 for most
     // O3 events, up to ~0.8 for some O4a). The server ships
@@ -531,9 +554,8 @@
             const nameEl = document.createElement("div");
             nameEl.className = "ev-name";
             nameEl.textContent = name;
-            // Highlight events whose MAP under the well-informed 2.3% prior
-            // falls in the eccentric bin (e >= 0.05).
-            if (!ev._noData && activeBinFor(ev, '0.023') === 'ecc') {
+            // Highlight events with observational support for eccentricity.
+            if (ECCENTRIC_HIGHLIGHT_EVENTS.has(name)) {
                 nameEl.classList.add('ev-name--eccentric');
             }
             card.appendChild(nameEl);
@@ -578,6 +600,12 @@
                     this._orbitCanvas = null;
                     this._hpCanvas = null;
                 }
+            }
+
+            // Events not in the paper reuse the no-ecc-data hiding rule
+            // so they only appear under "all events".
+            if (NOT_IN_PAPER.has(name)) {
+                card.classList.add("no-ecc-data");
             }
 
             this.el = card;
