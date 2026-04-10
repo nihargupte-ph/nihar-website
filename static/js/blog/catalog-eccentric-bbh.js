@@ -1149,7 +1149,7 @@
             const rPlus = mFrac * (1 + Math.sqrt(1 - chi * chi));
             const omegaH = rPlus > 0 ? chi / (2 * rPlus) : 0;
             const omegaPhys = omegaH / (M_total * G_OVER_C3);
-            const spinAngle = Math.PI / 6 + omegaPhys * physT;
+            const spinAngle = Math.PI / 6 - omegaPhys * physT;
             const stripeHalfWidth = Math.PI / 14;  // ~13 degrees half-width
             ctx.strokeStyle = '#ffffff';
             ctx.lineWidth = rimWidth;
