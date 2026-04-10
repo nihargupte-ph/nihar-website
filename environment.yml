@@ -1,0 +1,17 @@
+name: nihar-website
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - django=5.0.7
+  - gunicorn
+  - h5py
+  - numpy
+  - scipy
+  - pillow
+  - pyseobnr
+  - lalsuite
+  - sqlparse
+  - pip
+  - pip:
+    - python-decouple

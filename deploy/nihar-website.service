@@ -1,0 +1,17 @@
+[Unit]
+Description=Gunicorn daemon for nihargupte.com
+After=network.target
+
+[Service]
+User=deploy
+Group=www-data
+WorkingDirectory=/home/deploy/nihar-website
+RuntimeDirectory=gunicorn
+ExecStart=/home/deploy/micromamba/envs/nihar-website/bin/gunicorn \
+    --config /home/deploy/nihar-website/deploy/gunicorn.conf.py \
+    nihar_website.wsgi:application
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
