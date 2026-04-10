@@ -69,13 +69,16 @@
             </p>
             <p>
                 Since there is noise in the gravitational wave detectors, we can't know the 
-                exact parameters. Hover any event name to see how confident we are about
+                exact parameters. Hover your mouse over any event name to see how confident we are about
                 the masses, spins, and eccentricity of each system.
 
             </p>
             <p>
-                Finally, from the astrophysics literature we have estimate on how common eccentric systems are. 
-                However, these are subject to modelling assumptions and have a range of values. 
+                Finally, from the astrophysics literature 
+                we have estimates on how common eccentric systems are. This is known as 
+                a <em>prior</em>, because it it encodes your prior belief about the systems before 
+                seeing the data. 
+                These priors are subject to modelling assumptions and have a large uncertainty.
                 Use the prompts below to explore how our
                 assumptions about how common eccentric systems are
                 changes what we infer. This data and models 
@@ -99,7 +102,7 @@
                 This is displayed by a spinning white tick on the border of the black hole. The size of the black holes
                 is determined by the mass assuming a Schwarzschild radius. When the black holes merge, we compute the remnant
                 final spin and mass using numerical relativity fits [<a href="https://arxiv.org/abs/1508.07250">6</a>, <a href="https://arxiv.org/abs/1611.00332">7</a>, <a href="https://arxiv.org/abs/1610.09713">8</a>, <a href="https://arxiv.org/abs/1612.09566">9</a>].
-                Hover any event name to see the  posterior distribution in mass, spin, and eccentricity.
+                Hover your mouse over any event name to see the  posterior distribution in mass, spin, and eccentricity.
 
             <p>
                 We are measuring the eccentricity and starting the EOB evolution at an detector frame frequency of 10Hz. However, the displayed orbit 
@@ -146,9 +149,9 @@
             I
             <span class="prior-belief-toggle">
                 <button type="button" class="prior-belief-btn"
-                        data-belief="do">do</button><!--
+                        data-belief="do">do (uniform prior)</button><!--
              --><button type="button" class="prior-belief-btn is-active"
-                        data-belief="do-not">do not</button>
+                        data-belief="do-not">do not (non-uniform prior)</button>
             </span>
             believe every eccentricity is equally likely.
         </p>
