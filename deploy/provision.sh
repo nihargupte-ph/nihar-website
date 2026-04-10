@@ -66,9 +66,11 @@ chmod 600 "${DEPLOY_HOME}/.ssh/authorized_keys" 2>/dev/null || true
 #=============================================================================
 echo "[4/11] Installing micromamba..."
 if [ ! -f "${MAMBA_ROOT}/bin/micromamba" ]; then
-    sudo -u "${DEPLOY_USER}" mkdir -p "${MAMBA_ROOT}"
-    curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | \
-        sudo -u "${DEPLOY_USER}" tar -xvj -C "${MAMBA_ROOT}" bin/micromamba
+    sudo -u "${DEPLOY_USER}" mkdir -p "${MAMBA_ROOT}/bin"
+    curl -L https://github.com/mamba-org/micromamba-releases/releases/latest/download/micromamba-linux-64 \
+        -o "${MAMBA_ROOT}/bin/micromamba"
+    chown "${DEPLOY_USER}:${DEPLOY_USER}" "${MAMBA_ROOT}/bin/micromamba"
+    chmod +x "${MAMBA_ROOT}/bin/micromamba"
     echo "  micromamba installed"
 else
     echo "  micromamba already installed"
@@ -121,7 +123,7 @@ sudo -u "${DEPLOY_USER}" "${ENV_PYTHON}" -c "import django; import h5py; import 
 # Step 7: Create .env file
 #=============================================================================
 echo "[7/11] Creating .env file..."
-ENV_FILE="${PROJECT_DIR}/.env"
+ENV_FILE="${DEPLOY_HOME}/.env"
 if [ ! -f "${ENV_FILE}" ]; then
     SECRET_KEY=$(sudo -u "${DEPLOY_USER}" "${ENV_PYTHON}" -c \
         'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
