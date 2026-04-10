@@ -68,7 +68,7 @@ echo "[4/11] Installing micromamba..."
 if [ ! -f "${MAMBA_ROOT}/bin/micromamba" ]; then
     sudo -u "${DEPLOY_USER}" mkdir -p "${MAMBA_ROOT}"
     curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | \
-        sudo -u "${DEPLOY_USER}" tar -xvj -C "${MAMBA_ROOT}" --strip-components=1 bin/micromamba
+        sudo -u "${DEPLOY_USER}" tar -xvj -C "${MAMBA_ROOT}" bin/micromamba
     echo "  micromamba installed"
 else
     echo "  micromamba already installed"
