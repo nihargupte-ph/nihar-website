@@ -29,12 +29,11 @@
     // remnant for this many wall-clock seconds and ripple the spacetime
     // mesh with a damped sinusoid (the QNM ringdown).
     const RINGDOWN_DURATION_S = 6;
-    const TRAIL_SAMPLES  = 480;  // ring buffer length per orb
+    const TRAIL_SAMPLES  = 240;  // ring buffer length per orb
     const TRAIL_SEGMENTS = 30;   // alpha-fade chunks
     const MESH_N         = 16;   // 16x16 spacetime grid
-    const MESH_TILT      = 0.45;
     const KERR_K_MASS    = 0.022;
-    const KERR_K_LT      = 0.012;
+    const KERR_K_LT      = 0.035;
     // Visual scale of the TT-gauge tidal displacement applied to mesh
     // vertices in the wave zone. Position is multiplied by ~half this
     // value at peak strain (after normalization by the per-event peak),
@@ -849,6 +848,10 @@
             }
             this.hpPeak = pk || 1;
 
+            // Per-vertex near-zone (strong-field) in-plane displacement.
+            this.meshNearDx = new Float32Array(N1 * N1);
+            this.meshNearDy = new Float32Array(N1 * N1);
+
             // Per-vertex tidal output, refilled each frame.
             this.meshDx = new Float32Array(N1 * N1);
             this.meshDy = new Float32Array(N1 * N1);
@@ -912,6 +915,8 @@
                     const vx = this.meshBaseX[idx];
                     const vy = this.meshBaseY[idx];
                     let z = 0;
+                    let ndx = 0;
+                    let ndy = 0;
                     for (let k = 0; k < 2; k++) {
                         const o = orbs[k];
                         const dx = vx - o.x;
@@ -920,12 +925,27 @@
                         const r = Math.sqrt(r2);
                         const r_min = 0.06 * Math.sqrt(o.m / 30) * this.maxR;
                         const r_eff = Math.max(r, r_min);
+                        // meshZ kept for coloring only (depth cue).
                         z -= KERR_K_MASS * o.m / r_eff;
-                        const theta = Math.atan2(dy, dx);
-                        z -= KERR_K_LT * o.chi * o.m * Math.sin(theta) /
-                             Math.max(r_eff * r_eff, r_min * r_min);
+                        // Radial pull: displace vertex toward the BH.
+                        // Clamp so a vertex never moves more than 60% of
+                        // its distance toward the BH (prevents crossover).
+                        const pull = Math.min(
+                            KERR_K_MASS * o.m / (r_eff * r_eff), 0.6);
+                        ndx -= pull * dx;
+                        ndy -= pull * dy;
+                        // Frame-dragging (Lense-Thirring): tangential drag
+                        // in the BH spin direction.  Tangent of (dx,dy) is
+                        // (-dy, dx); chi > 0 means prograde.
+                        const lt = Math.min(
+                            KERR_K_LT * o.chi * o.m /
+                            Math.max(r_eff * r_eff, r_min * r_min), 0.6);
+                        ndx -= lt * dy;
+                        ndy += lt * dx;
                     }
                     this.meshZ[idx] = z;
+                    this.meshNearDx[idx] = ndx;
+                    this.meshNearDy[idx] = ndy;
                 }
             }
         }
@@ -937,6 +957,7 @@
             // _computeMeshTidal, not from an analytic damped sinusoid.
             const N1 = MESH_N + 1;
             const M = this.finalMass;
+            const chi = this.finalChi;
             const rMin = 0.06 * Math.sqrt(M / 30) * this.maxR;
             for (let j = 0; j < N1; j++) {
                 for (let i = 0; i < N1; i++) {
@@ -944,7 +965,18 @@
                     const vx = this.meshBaseX[idx];
                     const vy = this.meshBaseY[idx];
                     const r = Math.sqrt(vx * vx + vy * vy);
-                    this.meshZ[idx] = -KERR_K_MASS * M / Math.max(r, rMin);
+                    const r_eff = Math.max(r, rMin);
+                    this.meshZ[idx] = -KERR_K_MASS * M / r_eff;
+                    const pull = Math.min(
+                        KERR_K_MASS * M / (r_eff * r_eff), 0.6);
+                    this.meshNearDx[idx] = -pull * vx;
+                    this.meshNearDy[idx] = -pull * vy;
+                    // Frame-dragging from remnant spin.
+                    const lt = Math.min(
+                        KERR_K_LT * chi * M /
+                        Math.max(r_eff * r_eff, rMin * rMin), 0.6);
+                    this.meshNearDx[idx] -= lt * vy;
+                    this.meshNearDy[idx] += lt * vx;
                 }
             }
         }
@@ -1002,15 +1034,13 @@
         }
 
         _meshScreen(idx) {
-            const wx = this.meshBaseX[idx] + this.meshDx[idx];
-            const wy = this.meshBaseY[idx] + this.meshDy[idx];
-            const z = this.meshZ[idx];
+            const wx = this.meshBaseX[idx] + this.meshNearDx[idx] + this.meshDx[idx];
+            const wy = this.meshBaseY[idx] + this.meshNearDy[idx] + this.meshDy[idx];
             const cx = this.w / 2;
             const cy = this.h / 2;
             const scale = Math.min(this.w, this.h) / (2 * this.maxR);
             const sx = cx + wx * scale;
-            // Negative z near masses -> push the screen-y down (well dips).
-            const sy = cy - wy * scale - z * MESH_TILT * scale;
+            const sy = cy - wy * scale;
             return [sx, sy];
         }
 
