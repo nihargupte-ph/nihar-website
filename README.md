@@ -83,3 +83,66 @@ python manage.py migrate            # Apply migrations to DB
 python manage.py createsuperuser    # Create admin login
 python manage.py collectstatic      # Copy static files to staticfiles/
 ```
+
+## Production Deployment
+
+The site is deployed at **https://nihargupte.com** on a Hetzner VPS.
+
+### Server Details
+
+- **IP**: 204.168.208.228
+- **OS**: Ubuntu 24.04
+- **Domain**: nihargupte.com (DNS via Cloudflare, DNS-only mode)
+- **SSL**: Let's Encrypt (auto-renews via certbot timer)
+
+### Stack
+
+```
+Internet  ->  Nginx  ->  Gunicorn  ->  Django
+```
+
+- **Nginx**: Reverse proxy, serves static files directly, handles SSL termination
+- **Gunicorn**: WSGI server (3 workers, 300s timeout for waveform endpoints)
+- **Micromamba**: Manages Python environment (conda-forge packages for pyseobnr, lalsuite, etc.)
+
+### Deploying Updates
+
+```bash
+ssh deploy@204.168.208.228
+bash ~/nihar-website/deploy/update.sh
+```
+
+This pulls latest code, updates the conda environment, runs `collectstatic` + `migrate`, and restarts Gunicorn.
+
+### Server Administration
+
+```bash
+ssh root@204.168.208.228                        # SSH as root
+sudo journalctl -u gunicorn-nihar -f            # Gunicorn logs
+sudo systemctl restart gunicorn-nihar            # Restart app
+sudo nginx -t && sudo systemctl reload nginx     # Reload Nginx
+sudo certbot renew --dry-run                     # Test cert renewal
+```
+
+### Key Server Paths
+
+| Path | Description |
+|------|-------------|
+| `/home/deploy/nihar-website/` | Project directory |
+| `/home/deploy/.env` | Production secrets (SECRET_KEY, ALLOWED_HOSTS) |
+| `/home/deploy/micromamba/envs/nihar-website/` | Conda environment |
+| `/home/deploy/nihar-website/logs/` | Gunicorn + Django logs |
+| `/etc/nginx/sites-available/nihargupte.com` | Nginx config |
+| `/etc/systemd/system/gunicorn-nihar.service` | Gunicorn systemd service |
+
+### Initial Provisioning
+
+To set up a fresh server from scratch:
+
+```bash
+ssh root@<server-ip>
+curl -O https://raw.githubusercontent.com/nihargupte-ph/nihar-website/master/deploy/provision.sh
+bash provision.sh
+```
+
+See `deploy/` directory for all config files (Gunicorn, Nginx, systemd).
