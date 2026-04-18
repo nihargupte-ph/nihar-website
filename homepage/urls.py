@@ -6,4 +6,5 @@ urlpatterns = [
     path('projects/', views.projects, name="projects"),
     path('posters/<str:poster_slug>/', views.poster_detail, name="poster-detail"),
     path('mindmap/<str:mindmap_slug>/', views.mindmap_viewer, name="mindmap-viewer"),
+    path('tides-of-cascadea/', views.tides_of_cascadea, name="tides-of-cascadea"),
 ]

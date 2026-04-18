@@ -142,3 +142,6 @@ GitHub.sublime-settings
 # Large files
 static/mindmaps/physics-original.svg
 static/images/physics.png
+
+# Local-only deploy helper
+push-and-deploy.sh

@@ -45,6 +45,11 @@ def poster_detail(request, poster_slug):
     return render(request, 'homepage/poster_detail.html', context)
 
 
+def tides_of_cascadea(request):
+    """Display coming soon page for Tides of Cascadea comic."""
+    return render(request, 'homepage/tides_of_cascadea.html')
+
+
 def mindmap_viewer(request, mindmap_slug):
     """Display interactive mindmap viewer with SVG pan-zoom."""
     mindmaps = {

@@ -1,0 +1,41 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        background: #1a1a2e !important;
+    }
+
+    .coming-soon-container {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 4em 2em;
+        color: #ffffff;
+    }
+
+    .coming-soon-container h1 {
+        font-size: 3.5em;
+        margin-bottom: 0.3em;
+        color: #ffffff;
+        letter-spacing: 0.05em;
+    }
+
+    .coming-soon-container h2 {
+        font-size: 1.8em;
+        font-weight: 300;
+        color: #a8c5d6;
+        letter-spacing: 0.15em;
+    }
+</style>
+
+<div class="coming-soon-container">
+    <h1>Tides of Cascadea</h1>
+    <h2>Coming Soon</h2>
+</div>
+
+{% endblock content %}

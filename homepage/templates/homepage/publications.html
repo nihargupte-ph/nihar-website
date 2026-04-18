@@ -25,7 +25,7 @@
             Here are a few projects/papers that I'm particularly proud of! <br>
             To see a full list of my publications please see <strong><a
                     href="https://inspirehep.net/authors/2866862?ui-citation-summary=true&ui-exclude-self-citations=true">InspireHEP</a></strong>
-                    or my CV.
+                    or my <strong><a href="{% static 'assets/cv.pdf' %}">CV</a></strong>.
             </h2>
         </p>
     </header>
@@ -50,18 +50,48 @@
             </article>
         </div>
 
+        <div class="thumbnail-container">
+            <article class="">
+                <a href="https://github.com/dingo-gw/dingo" class="image featured"><img
+                        src="{% static 'images/research/dingo-logo.png' %}" alt=""></a>
+                <header>
+                    <h3><a href="https://github.com/dingo-gw/dingo">DINGO: Inferring the properties of compact binaries</a></h3>
+                </header>
+                <p> I'm a developer for "DINGO", a machine-learning code which quickly and
+                    accurately infers the properties of compact binaries which emit
+                    gravitational waves. This code is now being used by the LIGO-Virgo-KAGRA
+                    collaboration.
+                </p>
+            </article>
+        </div>
+
+        <div class="thumbnail-container">
+            <article class="">
+                <a href="https://arxiv.org/abs/2603.29019" class="image featured"><img
+                        src="{% static 'images/research/ss_capture.png' %}" alt=""></a>
+                <header>
+                    <h3><a href="https://arxiv.org/abs/2603.29019">Single-single gravitational wave captures in nuclear star clusters can't explain all binary black hole mergers</a></h3>
+                </header>
+                <p> If the energy loss from two BHs approaching
+                    each other is enough to form a binary, it's a
+                    GW capture. We find this mechanism in nuclear
+                    star clusters can't explain all LVK binaries.
+                </p>
+            </article>
+        </div>
+
         <a href="https://www.fireneuralnetwork.com/">
             <div class="thumbnail-container">
                 <article class="">
                     <a href="https://www.fireneuralnetwork.com/" class="image featured"><img
                             src="{% static 'images/research/fnn_plot.png' %}" alt=""></a>
                     <header>
-                        <h3><a href="https://www.fireneuralnetwork.com/">Localizing fires with satellite data </a>
+                        <h3><a href="https://www.fireneuralnetwork.com/">Localizing fires with satellite data and machine-learning </a>
                         </h3>
                     </header>
                     <p style="font-size: 0.8em;"> Using Geospatial data from NOAA, we localized fires in California.
                         This was done using a real-time ML pipeline and updates authorities every 5 minutes. It has now become a
-                        successful startup extending to lighting detection and drone monitoring. 
+                        successful startup extending to lighting detection and drone monitoring.
                     </p>
                 </article>
             </div>
@@ -88,24 +118,9 @@
                 <header>
                     <h3><a href="https://www.nature.com/articles/s41586-025-08593-z">Real-time inference for binary neutron star mergers using machine learning</a></h3>
                 </header>
-                <p> In a project led by M. Dax, we developed a machine learning 
-                    algorithm to accurately infer the properties of a binary neutron star within one 
-                    second and even before the merger. 
-                </p>
-            </article>
-        </div>
-
-        <div class="thumbnail-container">
-            <article class="">
-                <a href="https://github.com/dingo-gw/dingo" class="image featured"><img
-                        src="{% static 'images/research/dingo-logo.png' %}" alt=""></a>
-                <header>
-                    <h3><a href="https://github.com/dingo-gw/dingo">DINGO: Inferring the properties of compact binaries</a></h3>
-                </header>
-                <p> I'm a developer for "DINGO", a machine-learning code which quickly and 
-                    accurately infers the properties of compact binaries which emit 
-                    gravitational waves. This code is now being used by the LIGO-Virgo-KAGRA
-                    collaboration. 
+                <p> In a project led by M. Dax, we developed a machine learning
+                    algorithm to accurately infer the properties of a binary neutron star within one
+                    second and even before the merger.
                 </p>
             </article>
         </div>
@@ -144,11 +159,14 @@
 </section>
 
 <!-- Additional section with horizontal image -->
-<section id="about-me" style="margin: 0 2em; display: flex; align-items: center; margin-top: 2em;">
+<section id="about-me" style="margin: 0 2em; display: flex; align-items: center; margin-top: 2em; gap: 3em;">
     <div style="flex: 2;">
-        <h2>Section Title</h2>
+        <h2>What I'm most interested in right now</h2>
         <p>
-            Add your text content here. This section features a horizontal banner image above the text content.
+            I'm still working on my PhD. My main project has been improving machine-learning 
+            techniques in gravitational wave astronomy. Right now I'm interested in how we can 
+            train our algorithms faster and more robustly so all gravitational wave astronomers 
+            can use them. 
         </p>
     </div>
     <div style="margin-bottom: 2em;">
