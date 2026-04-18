@@ -42,6 +42,10 @@
         width: 100%;
         height: 100%;
         cursor: grab;
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+        overscroll-behavior: contain;
     }
 
     #svg-container:active {
@@ -161,6 +165,29 @@
         height: 100vh !important;
     }
 
+    /* iOS Safari fallback — Fullscreen API doesn't support arbitrary elements */
+    .viewer-wrapper.pseudo-fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100vh;
+        max-height: 100dvh;
+        z-index: 9999;
+        margin: 0;
+        border: none;
+    }
+
+    body.pseudo-fullscreen-lock {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+    }
+
 </style>
 
 <div class="mindmap-container">
@@ -263,6 +290,73 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        // Touch handling — single-finger pan, two-finger pinch-zoom.
+        // preventDefault + touch-action: none stops Safari from scrolling the page.
+        let lastTouchX = 0, lastTouchY = 0;
+        let lastPinchDistance = 0;
+        let touchMode = null; // 'pan' | 'pinch' | null
+
+        function getPinchDistance(touches) {
+            const dx = touches[0].clientX - touches[1].clientX;
+            const dy = touches[0].clientY - touches[1].clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        container.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 1) {
+                touchMode = 'pan';
+                lastTouchX = e.touches[0].clientX;
+                lastTouchY = e.touches[0].clientY;
+            } else if (e.touches.length >= 2) {
+                touchMode = 'pinch';
+                lastPinchDistance = getPinchDistance(e.touches);
+            }
+            e.preventDefault();
+        }, { passive: false });
+
+        container.addEventListener('touchmove', function(e) {
+            if (touchMode === 'pan' && e.touches.length === 1) {
+                const tx = e.touches[0].clientX;
+                const ty = e.touches[0].clientY;
+                const dx = tx - lastTouchX;
+                const dy = ty - lastTouchY;
+                const pan = panzoomInstance.getPan();
+                panzoomInstance.pan(pan.x + dx, pan.y + dy, { animate: false });
+                lastTouchX = tx;
+                lastTouchY = ty;
+            } else if (touchMode === 'pinch' && e.touches.length >= 2) {
+                const dist = getPinchDistance(e.touches);
+                if (lastPinchDistance > 0) {
+                    const factor = dist / lastPinchDistance;
+                    const scale = panzoomInstance.getScale();
+                    const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                    const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                    panzoomInstance.zoomToPoint(scale * factor, {
+                        clientX: midX,
+                        clientY: midY,
+                    }, { animate: false });
+                }
+                lastPinchDistance = dist;
+            }
+            e.preventDefault();
+        }, { passive: false });
+
+        function endTouch(e) {
+            if (e.touches.length === 0) {
+                touchMode = null;
+                lastPinchDistance = 0;
+            } else if (e.touches.length === 1) {
+                // Lifted one finger from a pinch — resume panning from the remaining finger.
+                touchMode = 'pan';
+                lastTouchX = e.touches[0].clientX;
+                lastTouchY = e.touches[0].clientY;
+                lastPinchDistance = 0;
+            }
+        }
+
+        container.addEventListener('touchend', endTouch);
+        container.addEventListener('touchcancel', endTouch);
+
         // Zoom buttons
         document.getElementById('zoom-in-btn').addEventListener('click', function() {
             panzoomInstance.zoomIn();
@@ -277,14 +371,45 @@ document.addEventListener('DOMContentLoaded', function() {
             panzoomInstance.reset();
         });
 
-        // Fullscreen button
-        document.getElementById('fullscreen-btn').addEventListener('click', function() {
-            if (!document.fullscreenElement) {
-                viewerWrapper.requestFullscreen();
-            } else {
-                document.exitFullscreen();
+        // Fullscreen — iOS Safari doesn't support Fullscreen API on arbitrary elements,
+        // so fall back to a CSS pseudo-fullscreen that fixes the wrapper to the viewport.
+        function isFullscreenActive() {
+            return document.fullscreenElement === viewerWrapper
+                || document.webkitFullscreenElement === viewerWrapper
+                || viewerWrapper.classList.contains('pseudo-fullscreen');
+        }
+
+        function enterPseudoFullscreen() {
+            viewerWrapper.classList.add('pseudo-fullscreen');
+            document.body.classList.add('pseudo-fullscreen-lock');
+        }
+
+        function exitPseudoFullscreen() {
+            viewerWrapper.classList.remove('pseudo-fullscreen');
+            document.body.classList.remove('pseudo-fullscreen-lock');
+        }
+
+        function toggleFullscreen() {
+            if (viewerWrapper.classList.contains('pseudo-fullscreen')) {
+                exitPseudoFullscreen();
+                return;
             }
-        });
+            const native = viewerWrapper.requestFullscreen || viewerWrapper.webkitRequestFullscreen;
+            if (native) {
+                if (document.fullscreenElement || document.webkitFullscreenElement) {
+                    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+                } else {
+                    const result = native.call(viewerWrapper);
+                    if (result && typeof result.catch === 'function') {
+                        result.catch(enterPseudoFullscreen);
+                    }
+                }
+            } else {
+                enterPseudoFullscreen();
+            }
+        }
+
+        document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
 
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
@@ -306,12 +431,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     break;
                 case 'f':
-                    if (!document.fullscreenElement) {
-                        viewerWrapper.requestFullscreen();
-                    } else {
-                        document.exitFullscreen();
-                    }
+                    toggleFullscreen();
                     e.preventDefault();
+                    break;
+                case 'escape':
+                    if (viewerWrapper.classList.contains('pseudo-fullscreen')) {
+                        exitPseudoFullscreen();
+                        e.preventDefault();
+                    }
                     break;
             }
         });
