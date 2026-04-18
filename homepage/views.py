@@ -52,11 +52,13 @@ def mindmap_viewer(request, mindmap_slug):
             'title': '',
             'description': 'A comprehensive visualization of physics concepts and their interconnections.',
             'svg_path': 'mindmaps/physics.svg',
+            'background_color': '#1F2429',
         },
         'cs': {
             'title': '',
             'description': 'A comprehensive visualization of computer science concepts.',
             'svg_path': 'mindmaps/cs-stat.svg',
+            'background_color': '#000000',
         },
     }
 
@@ -70,6 +72,7 @@ def mindmap_viewer(request, mindmap_slug):
         'mindmap_title': mindmap['title'],
         'mindmap_description': mindmap['description'],
         'svg_path': mindmap['svg_path'],
+        'background_color': mindmap['background_color'],
     }
 
     return render(request, 'homepage/mindmap_viewer.html', context)
