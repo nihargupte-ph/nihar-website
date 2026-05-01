@@ -145,3 +145,6 @@ static/images/physics.png
 
 # Local-only deploy helper
 push-and-deploy.sh
+
+# CV LaTeX source (local-only; built PDF lives in static/assets/cv.pdf)
+cv-src/
