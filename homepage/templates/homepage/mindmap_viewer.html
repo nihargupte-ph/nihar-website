@@ -211,7 +211,8 @@
         </div>
 
         <div id="svg-container">
-            <object id="svg-object" type="image/svg+xml" data="{% static svg_path %}">
+            <object id="svg-object" type="image/svg+xml" data="{% static svg_path %}"
+                    data-index-url="{% static index_path %}">
                 Your browser does not support SVG
             </object>
         </div>
