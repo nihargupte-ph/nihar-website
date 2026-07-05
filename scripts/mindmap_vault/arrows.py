@@ -65,8 +65,8 @@ def find_edges(strokes, boxes):
     edges, review = [], []
     for chain in _join_components(cands, config.JOIN_TOL):
         e1, e2 = _chain_endpoints(chain)
-        i1, d1, amb1 = _nearest_box(e1, boxes)
-        i2, d2, amb2 = _nearest_box(e2, boxes)
+        i1, _, amb1 = _nearest_box(e1, boxes)
+        i2, _, amb2 = _nearest_box(e2, boxes)
         sids = [s.sid for s in chain]
         if i1 is None and i2 is None:
             continue  # stray mark, not attached to anything

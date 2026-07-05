@@ -75,7 +75,8 @@ class ClaudeOcr:
                 )
             except Exception as e:  # noqa: BLE001 — retry any API failure
                 last = e
-                time.sleep(2 ** attempt)
+                if attempt < config.OCR_RETRIES - 1:
+                    time.sleep(2 ** attempt)
         raise OcrError(f"OCR failed after {config.OCR_RETRIES} attempts: {last}")
 
 

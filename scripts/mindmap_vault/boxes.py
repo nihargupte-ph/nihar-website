@@ -2,7 +2,6 @@ from scripts.mindmap_vault import config
 from scripts.mindmap_vault.geom import (
     bbox_area,
     bbox_iou,
-    bbox_of,
     bbox_union,
     dist,
     linearity,
