@@ -113,6 +113,34 @@ def test_dropped_box_edges_excluded(synthetic_svg, tmp_path):
         assert c["links_in"] == []
 
 
+def test_assets_exported_regardless_of_ocr_path(synthetic_svg, tmp_path):
+    vault = tmp_path / "vault"
+    json_out = tmp_path / "i.json"
+    stem = synthetic_svg.stem
+
+    # First pass: live OCR, box with an image gets its asset exported.
+    update.run(synthetic_svg, vault, ocr_client=_fake3(), json_path=json_out)
+    assets_dir = vault / "assets"
+    first_written = list(assets_dir.glob("*"))
+    assert len(first_written) == 1
+
+    # Simulate the assets directory going missing, then re-run with a
+    # fully-resolved manifest (zero OCR calls needed — every box is
+    # "unchanged"). The reused-OCR path must still (re-)export the asset
+    # instead of skipping it because no live OCR happened.
+    for f in assets_dir.glob("*"):
+        f.unlink()
+    assert not list(assets_dir.glob("*"))
+
+    empty_fake = FakeOcr([])  # would raise IndexError if any OCR happened
+    summary = update.run(synthetic_svg, vault, ocr_client=empty_fake, json_path=json_out)
+    assert empty_fake.calls == 0
+    assert summary["unchanged"] == 3
+    re_written = list(assets_dir.glob("*"))
+    assert len(re_written) == 1
+    assert re_written[0].name == first_written[0].name
+
+
 def test_v1_backup(synthetic_svg, tmp_path):
     vault = tmp_path / "vault"
     vault.mkdir()

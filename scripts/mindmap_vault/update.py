@@ -106,6 +106,19 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
             continue
         source["boxes"][d.box_id]["ocr"] = {
             "title": r.title, "text": r.text, "context": r.context, "pending": False}
+
+    # Asset export runs over every decision whose box is active, regardless
+    # of whether this pass did live OCR on it or reused a prior OCR result
+    # (the loop above `continue`s before this point for reused boxes) — the
+    # image(s) attached to a box are independent of its OCR/text state, so
+    # skipping export on the reused path meant assets never got written for
+    # boxes resolved via apply_ocr.py. Overwriting is intentional/idempotent.
+    for d in decisions:
+        rec = source["boxes"].get(d.box_id)
+        if rec is None or manifest._is_dropped(rec):
+            continue
+        if not d.box.image_ids:
+            continue
         for i, iid in enumerate(d.box.image_ids, start=1):
             ref = images_by_id[iid]
             img_data, img_ext = parse.load_image(svg_path, ref.def_id)
