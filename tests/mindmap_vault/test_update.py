@@ -113,6 +113,18 @@ def test_dropped_box_edges_excluded(synthetic_svg, tmp_path):
         assert c["links_in"] == []
 
 
+def test_assets_namespaced_by_stem(synthetic_svg, tmp_path):
+    vault = tmp_path / "vault"
+    json_out = tmp_path / "i.json"
+    stem = synthetic_svg.stem
+    update.run(synthetic_svg, vault, ocr_client=_fake3(), json_path=json_out)
+    written = list((vault / "assets").glob("*"))
+    assert len(written) == 1
+    assert written[0].name.startswith(f"{stem}_")
+    # bare box-id names (the old, collision-prone scheme) must not appear
+    assert not any(f.name.startswith("b0") for f in written)
+
+
 def test_assets_exported_regardless_of_ocr_path(synthetic_svg, tmp_path):
     vault = tmp_path / "vault"
     json_out = tmp_path / "i.json"

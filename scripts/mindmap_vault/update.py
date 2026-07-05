@@ -113,6 +113,9 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
     # image(s) attached to a box are independent of its OCR/text state, so
     # skipping export on the reused path meant assets never got written for
     # boxes resolved via apply_ocr.py. Overwriting is intentional/idempotent.
+    # Filenames are namespaced by source stem (not just box_id) since box ids
+    # restart at b001 per source — a flat `{box_id}_{n}.{ext}` name collides
+    # across different mindmaps ingested into the same vault.
     for d in decisions:
         rec = source["boxes"].get(d.box_id)
         if rec is None or manifest._is_dropped(rec):
@@ -123,7 +126,7 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
             ref = images_by_id[iid]
             img_data, img_ext = parse.load_image(svg_path, ref.def_id)
             assets.setdefault(d.box_id, []).append(
-                (f"{d.box_id}_{i}.{img_ext}", img_data))
+                (f"{stem}_{d.box_id}_{i}.{img_ext}", img_data))
 
     # Single place that decides note archival for dropped boxes. A box can
     # become dropped either in the live-OCR loop just above, or out-of-band
