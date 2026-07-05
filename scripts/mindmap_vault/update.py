@@ -101,8 +101,9 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
             "title": r.title, "text": r.text, "context": r.context, "pending": False}
         for i, iid in enumerate(d.box.image_ids, start=1):
             ref = images_by_id[iid]
+            img_data, img_ext = parse.load_image(svg_path, ref.def_id)
             assets.setdefault(d.box_id, []).append(
-                (f"{d.box_id}_{i}.png", parse.load_image_png(svg_path, ref.def_id)))
+                (f"{d.box_id}_{i}.{img_ext}", img_data))
 
     for bid in dropped_bids:
         source["boxes"].pop(bid, None)

@@ -1,3 +1,6 @@
+from pathlib import Path
+import base64
+
 from scripts.mindmap_vault import parse
 
 
@@ -39,3 +42,26 @@ def test_image_bbox_from_matrix(synthetic_svg):
 def test_load_image_png(synthetic_svg):
     data = parse.load_image_png(synthetic_svg, "IMAGE_DEF_aaa")
     assert data[:8] == b"\x89PNG\r\n\x1a\n"
+
+
+def test_load_image_returns_bytes_and_ext_png(synthetic_svg):
+    data, ext = parse.load_image(synthetic_svg, "IMAGE_DEF_aaa")
+    assert data[:8] == b"\x89PNG\r\n\x1a\n"
+    assert ext == "png"
+
+
+def test_load_image_jpeg_ext(tmp_path):
+    # Create a minimal SVG with JPEG image data
+    jpeg_b64 = base64.b64encode(b"AAAA").decode()
+    svg_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<image id="J" width="1" height="1" xlink:href="data:image/jpeg;base64,{jpeg_b64}"/>
+</defs>
+</svg>"""
+    svg_path = tmp_path / "test_jpeg.svg"
+    svg_path.write_text(svg_content, encoding="utf-8")
+
+    data, ext = parse.load_image(svg_path, "J")
+    assert data == b"AAAA"
+    assert ext == "jpg"

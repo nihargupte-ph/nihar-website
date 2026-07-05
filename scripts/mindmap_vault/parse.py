@@ -133,12 +133,40 @@ def parse_svg(path):
     return result
 
 
-def load_image_png(path, def_id):
+def load_image(path, def_id):
+    """Load image data from SVG and return (bytes, extension).
+
+    Args:
+        path: Path to SVG file
+        def_id: ID of the image definition
+
+    Returns:
+        Tuple of (decoded bytes, extension) where extension is derived from mime type:
+        - "image/jpeg" -> "jpg"
+        - "image/png" -> "png"
+        - other "image/<subtype>" -> subtype
+    """
     text = Path(path).read_text(encoding="utf-8")
     m = re.search(
-        rf'<image id="{re.escape(def_id)}"[^>]*?href="data:image/[^;]+;base64,([^"]+)"',
+        rf'<image id="{re.escape(def_id)}"[^>]*?href="data:image/([^;]+);base64,([^"]+)"',
         text,
     )
     if not m:
         raise KeyError(f"image def {def_id!r} not found in {path}")
-    return base64.b64decode(m.group(1))
+
+    mime_subtype = m.group(1)
+    data = base64.b64decode(m.group(2))
+
+    # Convert mime subtype to file extension
+    if mime_subtype == "jpeg":
+        ext = "jpg"
+    else:
+        ext = mime_subtype
+
+    return data, ext
+
+
+def load_image_png(path, def_id):
+    """Load PNG image data from SVG (wrapper for load_image for backwards compatibility)."""
+    data, _ = load_image(path, def_id)
+    return data
