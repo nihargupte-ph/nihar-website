@@ -76,11 +76,12 @@ def test_apply_ocr_unknown_id(synthetic_svg, tmp_path, capsys):
     assert data2["sources"][stem]["boxes"][box_ids[0]]["ocr"]["pending"] is False
 
 
-def test_apply_ocr_dropped_pending_placeholder_archives_note(synthetic_svg, tmp_path):
-    # A dry-run emits pending-placeholder notes (slug + "(pending OCR)" body)
-    # for every box. If apply_ocr later marks one of those boxes dropped,
-    # the placeholder note it already emitted must be archived out of
-    # concepts/ on the next run, not left behind forever.
+def test_apply_ocr_dropped_pending_placeholder_never_had_note(synthetic_svg, tmp_path):
+    # A dry-run leaves every box pending: no slug is assigned and no note is
+    # ever written for a pending record (title is empty, so a slug would
+    # just be a meaningless "concept" placeholder). If apply_ocr later marks
+    # one of those pending boxes dropped, there is no note to archive — it
+    # never existed in the first place.
     vault = tmp_path / "vault"
     json_out = tmp_path / "i.json"
     _, stem, box_ids = _dry_run_boxes(synthetic_svg, vault, json_out)
@@ -88,11 +89,11 @@ def test_apply_ocr_dropped_pending_placeholder_archives_note(synthetic_svg, tmp_
     dropped_id = box_ids[1]
     data = manifest.load(vault)
     slug = data["sources"][stem]["boxes"][dropped_id]["slug"]
-    assert slug is not None
-    assert (vault / "concepts" / f"{slug}.md").exists()
+    assert slug is None
+    assert not list((vault / "concepts").glob("*.md"))
 
     # Resolve all three pending boxes so the re-run below has no remaining
-    # OCR work to do (only the archival path is under test here).
+    # OCR work to do.
     results = {
         "source": stem,
         "results": [
@@ -112,10 +113,16 @@ def test_apply_ocr_dropped_pending_placeholder_archives_note(synthetic_svg, tmp_
     empty_fake = FakeOcr([])  # would raise IndexError if any OCR happened
     update.run(synthetic_svg, vault, ocr_client=empty_fake, json_path=json_out)
 
-    assert not (vault / "concepts" / f"{slug}.md").exists()
-    assert (vault / "concepts" / "_archived" / f"{slug}.md").exists()
+    # Alpha and Gamma get real notes now that they've been resolved, but the
+    # dropped box never had a note, so there is nothing to archive.
+    notes = {p.stem for p in (vault / "concepts").glob("*.md")}
+    assert notes == {"alpha", "gamma"}
+    assert not (vault / "concepts" / "_archived").exists()
+    data2 = manifest.load(vault)
+    assert data2["sources"][stem]["boxes"][dropped_id]["slug"] is None
     idx = json.loads(json_out.read_text())
-    assert slug not in {c["slug"] for c in idx["concepts"]}
+    dropped_entry = [c for c in idx["concepts"] if c["id"] == dropped_id]
+    assert dropped_entry == []
 
 
 def test_apply_ocr_dropped_real_note_archives_note(synthetic_svg, tmp_path):

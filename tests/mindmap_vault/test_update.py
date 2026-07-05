@@ -58,13 +58,16 @@ def test_non_concept_box_dropped(synthetic_svg, tmp_path):
 
 
 def test_dry_run_marks_pending(synthetic_svg, tmp_path):
+    vault = tmp_path / "vault"
     json_out = tmp_path / "i.json"
-    summary = update.run(synthetic_svg, tmp_path / "vault", ocr_client=None,
+    summary = update.run(synthetic_svg, vault, ocr_client=None,
                          json_path=json_out, dry_run=True)
     assert summary["pending"] == 3
     assert summary["ocr_calls"] == 0
     idx = json.loads(json_out.read_text())
     assert all(c["title"] == "(pending OCR)" for c in idx["concepts"])
+    assert all(c["slug"] is None for c in idx["concepts"])
+    assert not list((vault / "concepts").glob("*.md"))
 
 
 def test_dropped_persists_and_skips_reocr(synthetic_svg, tmp_path):

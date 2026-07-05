@@ -90,6 +90,10 @@ def test_pending_box_included_with_stub(tmp_path):
     idx = json.loads((tmp_path / "i.json").read_text())
     c1 = next(c for c in idx["concepts"] if c["id"] == "b001")
     assert c1["title"] == "(pending OCR)"
+    assert c1["slug"] is None
+    assert src["boxes"]["b001"]["slug"] is None
+    notes = {p.name: p.read_text() for p in (tmp_path / "v" / "concepts").glob("*.md")}
+    assert not any("cs-stat/b001" in text for text in notes.values())
 
 
 def test_assets_written(tmp_path):

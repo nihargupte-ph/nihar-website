@@ -15,18 +15,27 @@ def _slugify(title, taken):
     return slug
 
 
+def _is_pending(rec):
+    ocr = rec.get("ocr")
+    return ocr is None or ocr.get("pending")
+
+
 def _assign_slugs(vault, source):
     concepts = Path(vault) / "concepts"
     taken = {p.stem for p in concepts.glob("*.md")} if concepts.exists() else set()
     taken |= {p.stem for p in (concepts / "_archived").glob("*.md")} if (concepts / "_archived").exists() else set()
     taken |= {
         rec["slug"] for rec in source["boxes"].values()
-        if rec.get("slug") and not _is_dropped(rec)
+        if rec.get("slug") and not _is_dropped(rec) and not _is_pending(rec)
     }
     for rec in source["boxes"].values():
-        if _is_dropped(rec):
-            # dropped records never get a note, so they never need a slug —
-            # clear any stale slug from before the box was dropped.
+        if _is_dropped(rec) or _is_pending(rec):
+            # Dropped records never get a note. Pending records have no real
+            # title yet — assigning a slug now would lock in a meaningless
+            # "concept"/"concept_2"/... placeholder forever, since slugs are
+            # permanent once assigned. Clear any stale slug in both cases;
+            # a genuinely resolved record will get a real slug once its
+            # title arrives.
             rec["slug"] = None
             continue
         if rec.get("slug"):
@@ -51,10 +60,12 @@ def _link_maps(box_ids, edges):
 
 
 def _note(stem, bid, rec, out_slugs):
+    # Only ever called for slugged records (see emit()): pending and dropped
+    # records have slug None and never make it here, so ocr always carries a
+    # real title/text pair.
     ocr = rec.get("ocr") or {}
-    pending = rec.get("ocr") is None or ocr.get("pending")
-    title = "(pending OCR)" if pending else ocr["title"]
-    text = "" if pending else ocr["text"]
+    title = ocr["title"]
+    text = ocr["text"]
     bbox = ", ".join(str(round(v, 1)) for v in rec["bbox"])
     lines = [
         "---",
@@ -67,7 +78,7 @@ def _note(stem, bid, rec, out_slugs):
     ]
     if text:
         lines += [text, ""]
-    if not pending and ocr.get("context"):
+    if ocr.get("context"):
         lines += [f"*context:* {ocr['context']}", ""]
     if out_slugs:
         lines += ["→ " + " ".join(f"[[{s}]]" for s in out_slugs), ""]
@@ -90,13 +101,19 @@ def emit(vault, stem, source, edges, viewbox, json_path, assets, deleted_slugs):
 
     _assign_slugs(vault, source)
     boxes = source["boxes"]
+    # active_ids drives the JSON index (which must still include pending
+    # boxes, keyed by box id, so the website can render their bbox).
     active_ids = [bid for bid, rec in boxes.items() if not _is_dropped(rec)]
+    # slugged_ids drives everything that materializes as a wikilink target
+    # (notes, MOC concept/edge lists): pending records have slug None and
+    # never got a note written for them, so they can't be linked to.
+    slugged_ids = [bid for bid in active_ids if boxes[bid]["slug"] is not None]
     out, inc = _link_maps(active_ids, edges)
-    slug_of = {bid: boxes[bid]["slug"] for bid in active_ids}
+    slug_of = {bid: boxes[bid]["slug"] for bid in slugged_ids}
 
-    for bid in active_ids:
+    for bid in slugged_ids:
         rec = boxes[bid]
-        out_slugs = [slug_of[t] for t in out[bid]]
+        out_slugs = [slug_of[t] for t in out[bid] if t in slug_of]
         (concepts / f"{rec['slug']}.md").write_text(
             _note(stem, bid, rec, out_slugs), encoding="utf-8"
         )
@@ -106,9 +123,9 @@ def emit(vault, stem, source, edges, viewbox, json_path, assets, deleted_slugs):
             (vault / "assets" / fname).write_bytes(data)
 
     moc = [f"# MOC — {stem}", "",
-           f"Generated from `{stem}.svg` — {len(active_ids)} concepts, {len(edges)} edges.",
+           f"Generated from `{stem}.svg` — {len(slugged_ids)} concepts, {len(edges)} edges.",
            "", "## Concepts", ""]
-    moc += [f"- [[{boxes[bid]['slug']}]] ({bid})" for bid in sorted(active_ids)]
+    moc += [f"- [[{slug_of[bid]}]] ({bid})" for bid in sorted(slugged_ids)]
     moc += ["", "## Edges", ""]
     for src_bid, dst_bid, directed in edges:
         if src_bid in slug_of and dst_bid in slug_of:
