@@ -89,5 +89,5 @@ def find_edges(strokes, boxes):
                               stroke_ids=sids + [h.sid for h in h1]))
         else:
             edges.append(Edge(src=min(i1, i2), dst=max(i1, i2), directed=False,
-                              stroke_ids=sids))
+                              stroke_ids=sids + [h.sid for h in h1] + [h.sid for h in h2]))
     return edges, review
