@@ -1,0 +1,1381 @@
+{
+ "svg": "cs-stat.svg",
+ "viewBox": [
+  -5725.477,
+  -3022.085,
+  11890.705,
+  10977.893
+ ],
+ "concepts": [
+  {
+   "id": "b003",
+   "slug": "lagrange_multipliers",
+   "title": "Lagrange Multipliers",
+   "text": "If you are constrained to some domain, how can you optimize a function?\n\ng(x), the constraint, domain which you are allowed to be on.\n\n$\\nabla g$, normal to the constraint surface\n\nf(x), the function you want to optimize\n\nf(x) = C, the level curves\n\n$\\nabla f$, normal to the level curves of f. Since if $\\vec v$ is along level curve, f constant $\\nabla f \\cdot v = 0$\n\n$\\frac{d}{dt} f(c(t)) = 0$ by def\n$\\frac{\\partial f}{\\partial x_i}\\frac{dx_i}{dt} = 0 \\Rightarrow \\nabla f \\cdot v = 0$\n\nIntuition: imaging moving up the level curves. At some point, the curves will be \"kissing\", have a tangent line to, the constrained domain. the goal is to find these points. Having a tangent = $\\nabla f \\| \\nabla g$ since $\\nabla f \\perp$ level curves. Therefore,\n\n$\\nabla f(x) + \\lambda \\nabla g(x) = 0$   w/   $g(x) = 0$",
+   "context": "Diagram to the left shows $\\nabla g$ and $\\nabla f$ vectors normal to the constraint curve and level curves at their point of tangency.",
+   "bbox": [
+    -3124.8,
+    -2295.5,
+    -2376.0,
+    -1652.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b004",
+   "slug": "note_this_gives_you_minima_maxima_and_saddle_points",
+   "title": "Note this gives you minima, maxima, and saddle points.",
+   "text": "Note this gives you minima, maxima, and saddle points. You must check which you have!",
+   "context": "Follow-up note to the Lagrange multipliers derivation in the neighboring box.",
+   "bbox": [
+    -2559.1,
+    -2035.2,
+    -2408.2,
+    -1889.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b012",
+   "slug": "positional_encoding",
+   "title": "Positional Encoding",
+   "text": "A way to make the vector aware of its position\n\nPizza eats monkey vs Monkey eats pizza. Currently, the vectors are not position aware\n\n- A simple idea could just be to concat a number to the end of the vector to denote the position.\n\n- Instead we can add\n  - A desirable property is regardless of n, the number of tokens, we want each position to represent the same vector\n\nd\u00d7n   d\u00d7n   d\u00d7n\n$X_{ij}^{(1)} = X_{ij}^{(0)} + P_{ij}$\n\nPizza Pos 1        Pizza        First word\n$\\begin{bmatrix}2.8\\\\3.9\\\\-1.2\\\\6\\end{bmatrix} = \\begin{bmatrix}2\\\\3\\\\-1\\\\5\\end{bmatrix} + \\begin{bmatrix}0.8\\\\0.9\\\\-0.2\\\\1\\end{bmatrix}$\n\n$P_{ij} = \\begin{cases}\\sin\\left(\\frac{j}{10000^{2i/d}}\\right) & i\\ even\\\\ \\cos\\left(\\frac{j}{10000^{2i/d}}\\right) & i\\ odd\\end{cases}$\n\nWhy should this work better than just concat? What happens if we apply a linear trans. to the concat.?\n\n$V\\begin{bmatrix}X_i^{(0)}\\\\P_j\\end{bmatrix} = \\begin{bmatrix}v_{11} & v_{12}\\\\v_{21} & v_{22}\\end{bmatrix}\\begin{bmatrix}X_i^{(0)}\\\\P_j\\end{bmatrix} = \\begin{bmatrix}v_{11}X_i^{(0)} + v_{12}P_j\\\\v_{21}X_i^{(0)} + v_{22}P_j\\end{bmatrix}$\n\n$= \\begin{bmatrix}v_{11}X_i^{(0)}\\\\v_{21}X_i^{(0)}\\end{bmatrix} + \\begin{bmatrix}v_{12}P_j\\\\v_{22}P_j\\end{bmatrix} = X_i^{(0)'} + P_j'$\n\nA new embedding matrix          a different positional encoding",
+   "context": "Right-hand sketch shows sinusoidal positional-encoding curves plotted across token position (labeled 1st token, 2nd token, 3rd token ... spanning x n) and embedding dimension (x d).",
+   "bbox": [
+    -967.5,
+    -1008.7,
+    -718.4,
+    -694.3
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b013",
+   "slug": "bisection_method_binary_search",
+   "title": "Bisection Method / Binary Search",
+   "text": "Applys for cont. funcs. for which we know values w/ opposite signs. Pretty slow.\n\nBasic idea: consider $f: \\mathbb{R} \\to \\mathbb{R}$. Guess two points a, b w/ $sgn(f(a)) \\neq sgn(f(b))$.\n\n$c = \\frac{a+b}{2}$\nReplace a or b w/ c \u2192 keeping the root\n\n$|f(c)| < tol$ so we stop iteration and say that c is a root.\n\nIf evaluating on a fixed grid, worst case $O(\\log n)$ function evals where n is grid size",
+   "context": "Three sketched graphs illustrate successive bisection iterations narrowing in on a root between points a and b.",
+   "bbox": [
+    -5607.6,
+    -984.0,
+    -5338.0,
+    -746.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b017",
+   "slug": "matmul",
+   "title": "Matmul",
+   "text": "Wq\nXWq\nMatmul",
+   "context": "Diagram fragment showing the query projection XWq computed via matrix multiplication, part of a larger attention-layer diagram.",
+   "bbox": [
+    -667.9,
+    -764.5,
+    -403.7,
+    -635.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b018",
+   "slug": "attention_layer",
+   "title": "Attention Layer",
+   "text": "Attention Layer",
+   "context": null,
+   "bbox": [
+    -297.3,
+    -760.4,
+    -256.8,
+    -733.5
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b019",
+   "slug": "linear",
+   "title": "Linear",
+   "text": "Linear",
+   "context": null,
+   "bbox": [
+    -655.1,
+    -741.8,
+    -623.9,
+    -726.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b020",
+   "slug": "before_training",
+   "title": "Before Training",
+   "text": "Before Training\n\ncrown\nking",
+   "context": "Word-embedding vectors diagram (crown/king example) illustrating vector directions before training; heading is cropped at the top of the image.",
+   "bbox": [
+    -1296.3,
+    -741.1,
+    -1258.2,
+    -711.9
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b021",
+   "slug": "softmax",
+   "title": "Softmax",
+   "text": "Softmax",
+   "context": null,
+   "bbox": [
+    -553.9,
+    -725.2,
+    -513.8,
+    -708.8
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b022",
+   "slug": "attention_layer_2",
+   "title": "Attention Layer",
+   "text": "Attention Layer",
+   "context": "Duplicate crop of the Attention Layer label box (same as b018).",
+   "bbox": [
+    -298.2,
+    -724.9,
+    -257.7,
+    -698.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b023",
+   "slug": "linear_2",
+   "title": "Linear",
+   "text": "Linear",
+   "context": "Duplicate crop of the Linear label box (same as b019).",
+   "bbox": [
+    -186.6,
+    -720.7,
+    -155.0,
+    -702.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b024",
+   "slug": "concat",
+   "title": "Concat",
+   "text": "Concat",
+   "context": null,
+   "bbox": [
+    -235.8,
+    -719.7,
+    -195.7,
+    -702.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b025",
+   "slug": "w_k_w_v_linear_projections",
+   "title": "W_k / W_v Linear Projections",
+   "text": "$W_k$\nLinear\n$XW_k$\n\n$W_v$\nLinear\n$XW_v$",
+   "context": "Diagram showing input $X$ passed through two separate Linear layers with weights $W_k$ and $W_v$, producing $XW_k$ and $XW_v$ (key and value projections).",
+   "bbox": [
+    -651.8,
+    -716.4,
+    -499.0,
+    -652.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b026",
+   "slug": "linear_3",
+   "title": "Linear",
+   "text": "Linear",
+   "context": null,
+   "bbox": [
+    -444.4,
+    -702.1,
+    -413.8,
+    -685.9
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b027",
+   "slug": "matmul_2",
+   "title": "Matmul",
+   "text": "Matmul",
+   "context": null,
+   "bbox": [
+    -493.2,
+    -701.9,
+    -452.7,
+    -686.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b028",
+   "slug": "attention_layer_3",
+   "title": "Attention Layer",
+   "text": "Attention\nLayer",
+   "context": null,
+   "bbox": [
+    -297.1,
+    -687.4,
+    -256.6,
+    -660.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b029",
+   "slug": "transformer_enco",
+   "title": "Transformer Enco",
+   "text": "Transformer Enco",
+   "context": "Label is cut off at the right edge of the crop; likely reads \"Transformer Encoder\".",
+   "bbox": [
+    -468.7,
+    -616.8,
+    -265.1,
+    -542.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b030",
+   "slug": "output_layer_linear_softmax",
+   "title": "Output Layer (Linear + Softmax)",
+   "text": "Multi layer Perception\n\nx N\n\u25cb \u25cb \u25cb\n\nx N\n\u25cb \u25cb \u25cb\nLinear\n\n\u2192 output\n\nOutput size is size of vocabulary, but output is easier to work with as tokens\n\nWill present a probability distribution of outputs over vocabulary\n\nLogits \u2192 softmax$(x)_i$ = $\\dfrac{e^{x_i}}{\\sum_j e^{x_j}}$",
+   "context": "Composite diagram of the final decoder stack (misspelled 'Multi layer Perception' for Multilayer Perceptron, repeated xN blocks, Linear layer, output) with two small annotation blocks explaining the output/softmax step; the small annotation handwriting is faint at this resolution so wording is approximate.",
+   "bbox": [
+    -114.8,
+    -612.7,
+    1011.0,
+    203.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b032",
+   "slug": "input_embedding",
+   "title": "Input Embedding",
+   "text": "Input Embedding\n\nPositional\nEncoding",
+   "context": "\"Positional Encoding\" is a separate nested green box inside/beside the \"Input Embedding\" box.",
+   "bbox": [
+    -1104.9,
+    -576.9,
+    -786.9,
+    -444.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b033",
+   "slug": "layer_norm",
+   "title": "Layer Norm",
+   "text": "Layer\nNorm",
+   "context": null,
+   "bbox": [
+    -63.4,
+    -528.1,
+    32.7,
+    -469.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b034",
+   "slug": "layer_norm_2",
+   "title": "Layer Norm",
+   "text": "Layer\nNorm",
+   "context": null,
+   "bbox": [
+    -417.9,
+    -526.5,
+    -321.8,
+    -467.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b035",
+   "slug": "tokenize",
+   "title": "Tokenize",
+   "text": "Tokenize",
+   "context": null,
+   "bbox": [
+    -1083.1,
+    -517.1,
+    -983.4,
+    -463.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b036",
+   "slug": "output_embedding",
+   "title": "Output Embedding",
+   "text": "Output Embedding\n\nPositional\nEncoding",
+   "context": "\"Positional Encoding\" is a separate nested green box inside/beside the \"Output Embedding\" box.",
+   "bbox": [
+    -1321.0,
+    -283.7,
+    -1003.0,
+    -150.9
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b037",
+   "slug": "layer_norm_3",
+   "title": "Layer Norm",
+   "text": "Layer\nNorm",
+   "context": null,
+   "bbox": [
+    -576.9,
+    -249.6,
+    -480.8,
+    -190.5
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b038",
+   "slug": "layer_norm_4",
+   "title": "Layer Norm",
+   "text": "Layer\nNorm",
+   "context": null,
+   "bbox": [
+    167.4,
+    -249.0,
+    263.5,
+    -189.9
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b039",
+   "slug": "layer_norm_5",
+   "title": "Layer Norm",
+   "text": "Layer\nNorm",
+   "context": null,
+   "bbox": [
+    -187.0,
+    -247.4,
+    -90.9,
+    -188.3
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b040",
+   "slug": "softmax_2",
+   "title": "Softmax",
+   "text": "Softmax",
+   "context": null,
+   "bbox": [
+    539.4,
+    -243.6,
+    653.6,
+    -193.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b041",
+   "slug": "tokenize_2",
+   "title": "Tokenize",
+   "text": "Tokenize",
+   "context": "Duplicate of the \"Tokenize\" box seen elsewhere in this mindmap (e.g. b035).",
+   "bbox": [
+    -1299.2,
+    -223.9,
+    -1199.5,
+    -170.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b043",
+   "slug": "dec",
+   "title": "Dec.",
+   "text": "Dec.",
+   "context": "Box labeled \"Dec.\" (likely short for Decoder) with in/out arrows on all four sides.",
+   "bbox": [
+    -1167.2,
+    172.1,
+    -1124.4,
+    188.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b044",
+   "slug": "d_is_defined_as",
+   "title": "D is defined as",
+   "text": "D is defined as\n\n$P(f) = \\lim_{T\\to\\infty} \\dfrac{1}{2T} E\\left[|X_T(f)|^2\\right]$",
+   "context": "Left edge is cut off; the heading likely reads \"(PSD) is defined as\" (Power Spectral Density). A further line of handwriting below the box is cut off by the bottom crop edge and illegible.",
+   "bbox": [
+    3949.0,
+    178.5,
+    4055.0,
+    199.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b045",
+   "slug": "wiener_khinchin_theorem",
+   "title": "Wiener-Khinchin Theorem",
+   "text": "Wiener-Khinchin Theorem\n\n$P(f) = \\int_{-\\infty}^{\\infty} R(\\tau) e^{-2\\pi i f\\tau} d\\tau$, $R(\\tau) := E[x(t)x(t+\\tau)]$\n\nTimeseries values",
+   "context": "\"Timeseries values\" is a small annotation with an arrow pointing at the $x(t)x(t+\\tau)$ term.",
+   "bbox": [
+    3934.0,
+    284.1,
+    4124.7,
+    308.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b046",
+   "slug": "5x5_conv",
+   "title": "5x5 Conv.",
+   "text": "5x5\nConv.\n\nNote, you\n\nas the inp\n\nWhy does\n\nDNN \u2192 D\n\nFor DNN\n\n$a^{(m+1)} = \\sigma$\n\nHere neu\nto learn\nget\n\n$a^{(n+1)} =$\n\nSo in the\nmore larg\ninput! I\nidentity",
+   "context": "Entire right side of this crop is cut off, truncating every line; appears to be notes questioning why a DNN/ResNet block needs to learn an identity mapping, referencing a recurrence $a^{(m+1)}=\\sigma(...)$. Exact wording beyond the visible left fragment is unrecoverable from this crop.",
+   "bbox": [
+    1007.9,
+    284.4,
+    1073.7,
+    532.5
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b047",
+   "slug": "impulse",
+   "title": "Impulse",
+   "text": "Impulse\n\nThis is\nSpectral\nleakage\n\ntime",
+   "context": "Small time-domain plot with two impulse spikes; \"This is Spectral leakage\" is an annotation with an arrow pointing at the ringing between spikes, \"time\" labels the x-axis.",
+   "bbox": [
+    3780.0,
+    366.3,
+    3877.0,
+    390.9
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b048",
+   "slug": "discrete_fourier_transform",
+   "title": "Discrete Fourier transform",
+   "text": "Discrete Fourier transform\n\n$\\tilde{x}_k = \\sum_{j=0}^{n-1} x_j e^{-2\\pi i jk/n}$\n\n$x_k = \\sum \\tilde{x}_j e^{i2\\pi jk/n}$\n\n$\\mathcal{F}: \\{x_n\\}_{n\\in\\mathbb{C}} \\to \\{\\tilde{x}_n\\}_{n\\in\\mathbb{C}}$\n\namplitude vs time plot: $T_m$, $f_m$\n$\\tilde{x}_n$ vs Freq plot: $N/2$, $f_m$\n\nSample rate, each n = $t_s$, in which case in FD $\\Delta f$ = 1Hz.\n\nParameters\n- $f_s$ - sampling freq. tells you how many points to sample, the rate/max freq you can capture.\nE.g. $f_s$ = 40k samples/sec \u2192 $f_{max}$ = 20kHz, $f_s/2$ is the Nyquist freq\n- $\\Delta t$ - sampling time, $\\Delta t = 1/f_s$, spacing between time points\n- N - Number of points in DFT $\\{x_n\\}_{n=0}^{N-1}$\n- T - Duration of signal\n- $\\Delta f$ - spacing between freq bins, $\\Delta f = 1/T$\ne.g. 10s of data, $f_s$ = 1kHz, $\\Delta f$ = 1/10 = 0.1Hz\n\nProperties\nLinearity: $\\mathcal{F}(\\{ax_n+by_n\\})_k = aX_k+bY_k$\nRescaling: $\\mathcal{F}(\\{x_{n-a}\\})_k = X_k \\to \\mathcal{F}(\\{x_{n-a}\\})\\cdot X_{k-a}$\nLoss: $\\mathcal{F}(\\{x_{2n}\\})\\cdot X_n \\to \\mathcal{F}(\\{x_{2n}\\})\\cdot X_{n\\pm N}$\n\nDFT of Real Signals\nIf $x_n \\in \\mathbb{R} \\Rightarrow X_k = X_{-k}^{*}$ (conjugate symmetric)\nSince $\\mathcal{F}$ is invertible, # independent components = N, known that $X_k \\in \\mathbb{C}$.\n\nFourier Uncertainty Principle",
+   "context": "Large multi-section whiteboard summary on the Discrete Fourier Transform (formulas, sampling parameters, properties, real-signal symmetry, uncertainty principle); several smaller annotation lines are faint/small at this resolution so transcription of those is approximate.",
+   "bbox": [
+    2103.0,
+    404.7,
+    2543.3,
+    796.7
+   ],
+   "links_out": [
+    "b071"
+   ],
+   "links_in": []
+  },
+  {
+   "id": "b050",
+   "slug": "tukey_window",
+   "title": "Tukey Window",
+   "text": "Tukey Window - used in LIGO analysis since we are looking for transients and this reduces modification\n\n$w[n] = \\frac{1}{2}\\left[1-\\cos\\left(\\frac{2\\pi n}{\\alpha N}\\right)\\right]$   $0 \\le n \\le \\frac{\\alpha N}{2}$\n$w[n] = 1$   $\\frac{\\alpha N}{2} \\le n \\le \\frac{N}{2}$\n$w[N-n] = w[n]$   $0 \\le n \\le \\frac{N}{2}$\n\namplitude (y-axis) / samples (x-axis)\nFourier\ndecibals (y-axis) / bins (x-axis)\ntime\n\nWindow Factor\nWindows decrease power of your signal so need to correct for this by multiplying some things e.g. PSD by window factor\n\n$W = \\frac{1}{N_t}\\sum_{t=0}^{N_t-1} w_t^2$   (length of window: $N_t$; window value: $w_t$)\n\n$\\dfrac{E_{win}}{E} = \\dfrac{\\sum |x_{win}|^2}{\\sum |x_o|^2} \\approx \\dfrac{\\frac{1}{2}\\sum w_t^2 \\sum x_t^2}{\\sum x_t}$",
+   "context": "Notes on the Tukey (tapered-cosine) window used in LIGO signal analysis, plus a window-factor correction formula; small diagrams show window shapes and their multiplicative effect on a Fourier spectrum.",
+   "bbox": [
+    3614.8,
+    432.7,
+    3900.2,
+    614.0
+   ],
+   "links_out": [],
+   "links_in": [
+    "b059"
+   ]
+  },
+  {
+   "id": "b052",
+   "slug": "impulse_2",
+   "title": "Impulse",
+   "text": "Impulse",
+   "context": "Diagram of a near-flat signal with a couple of narrow spikes, labeled \"Impulse\" on the vertical axis.",
+   "bbox": [
+    3768.7,
+    496.9,
+    3876.2,
+    517.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b054",
+   "slug": "convolutional_neural_network",
+   "title": "Convolutional Neural Network",
+   "text": "Convolutional Neural Network\n\nConvolutional Layer\nGoal is to detect patterns in an image.\nIn early layers detects lines but later can detect faces etc.\nMain idea is to think a convolutional \"layer\"\n\nImage\n(diagram: image -> flattened input nodes -> convolution kernel grids -> output feature grids, connected by weighted edges)\n\nMax Pooling\nReduces dimensionality of previous image.\ne.g. 2 variable, stride and kernel size.\nby 1 or 2.\n- Reduces dimension\n- Picks out highest valued activation pixels and downsamples them.",
+   "context": "Overview of a CNN's convolutional layer and max-pooling layer, illustrated with a worked diagram of small pixel-grid matrices; fine print inside the diagram (kernel values, indices) is too small to transcribe reliably.",
+   "bbox": [
+    175.0,
+    542.6,
+    1078.1,
+    1095.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b057",
+   "slug": "wavelets",
+   "title": "Wavelets",
+   "text": "Wavelets\nMotivation\n\nTo notice light | (red)(orange)(green dots)\nFD are, doesn't tell you anything about when signal changes freq\n\nTo notice light | (orange)(green dots) =\nFD then will see the same info, no more information but timing is lost\n\nTo notice light | red + orange + green\nFD min, this still has same info. Same. Pb before.\n\nFourier waves have their basis function as the whole wave.\nWavelets use their own special basis function\n\nWavelet Transform\nshort lived oscillation localized in time\n\nDaubechies   Coiflet   Symlet\nHaar   Morlet   Gaussian\nShannon   Meyer   Mexican Hat\n\n2 requirements for wavelet $\\psi(t)$:\na) Zero mean: $\\int_{-\\infty}^{\\infty} \\psi(t)\\,dt = 0$\nb) Finite Energy: $\\int_{-\\infty}^{\\infty} |\\psi(t)|^2\\,dt < \\infty$   Time localized\n\nExample wavelet\nMorlet wavelet: $\\psi(t) = \\pi^{-1/4} e^{i\\omega_0 t} e^{-t^2/2}$\n\nWavelet Transform\ncycle / Hz\nReal part of the wavelet located at frequency\nT(a,b)\nTo tell the details/ rate of oscillation is being viewed at\n\nHow do we achieve this transform?\nUse a mother wavelet $\\psi_{ab}(t)$\nand daughter wavelets which we transform\n\nin time: $\\psi_b = \\psi_m(t-b)$   and frequency $\\psi_a = \\psi_m(t/a)$\n\ngeneral form of full translation of daughter wavelet\n$\\psi_{ab}(t) = \\psi_m\\left(\\frac{t-b}{a}\\right)$ is signal\n\n$T(a,b) = \\int_{-\\infty}^{\\infty} s(t)\\,\\psi_{ab}(t)\\,dt$\n\nBasis Interpretation (correlation)\nwhat is the b, if $\\psi$, tells you how close a is to\n... at a, b, is at\n\nwhat about\n$\\langle f(t), \\psi(t)\\rangle = \\int dt\\, f(t)\\,\\psi(t)$\n\nb = a = Taylor product",
+   "context": "Large composite panel motivating wavelet transforms over Fourier analysis, listing named wavelet families, admissibility conditions, the Morlet wavelet formula, and the continuous wavelet transform T(a,b); some very small captions inside the example plots were not fully legible.",
+   "bbox": [
+    1358.5,
+    588.1,
+    1389.0,
+    613.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b058",
+   "slug": "tilde_d_w_f_dfrac_tilde_d_f_s_n_1_2_f",
+   "title": "$\\tilde{d}_w(f) = \\dfrac{\\tilde{d}(f)}{S_n^{1/2}(f)}$",
+   "text": "$\\tilde{d}_w(f) = \\dfrac{\\tilde{d}(f)}{S_n^{1/2}(f)}$ where $S_n(f)$ is the \"amplitude spectral density\"\n\n$\\tilde{h}(f)$\n$S_n^{1/2}(f)$   decibals (y-axis) / f bins (x-axis)\n$\\tilde{d}(f)$\n\n$\\dfrac{\\tilde{d}(f)}{S_n^{1/2}(f)}$\nFrom data not obvious if there's a signal\nBut using information from before we can tell there is [a signal]\n\neach f bin has unit variance\n\nIf you applied whitening to data w/ no signal, only noise, you'd get [a flat spectrum]",
+   "context": "Notes on whitening gravitational-wave strain data by dividing by the amplitude spectral density, showing before/after spectra.",
+   "bbox": [
+    2635.0,
+    631.3,
+    3174.9,
+    1133.8
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b059",
+   "slug": "batch_norm_bn_gamma_beta_x_i",
+   "title": "Batch Norm: $BN_{\\gamma,\\beta}(x_i)$",
+   "text": "Let L be some batch B with len M. Batch norm: $BN_{\\gamma,\\beta}(x_i)$\nSay there are L batches and $x_i \\in B$, $x_i \\in \\mathbb{R}^N$\n\nDuring Training\n$\\mu_L = \\dfrac{1}{M}\\sum_{i=1}^{M} x_i$\n$\\sigma_L^2 = \\dfrac{1}{M}\\sum_{i=1}^{M} (x_i - \\mu_B)^2$\n\nConsider a d dimensional input vector $x_i^n \\in B$   (dim: n, sample: i)\n$\\hat{x}_i^n = \\dfrac{x_i^n - \\mu_L^n}{\\sqrt{(\\sigma_L^n)^2 + \\varepsilon}}$   w/ $\\varepsilon \\ll 1$\nMakes sure no blowup if $\\sigma \\ll 1$\n\n$y_i := \\gamma \\hat{x}_i + \\beta$\nw/o $\\gamma, \\beta$ the output would just be $N(0,1)$. So [we] reintroduce ability for [the network] to add variability.\n\nImagine in class, you tell everyone to speak [normalized] (norm.) to cut through noise. But then some people who have something important to say should say it. This is what $\\gamma$ is [for].\n\nAcross all batches compute the \"running avg\"\n$\\mu_l = \\rho \\mu_{l-1} + (1-\\rho)\\mu_{B,l}$ where $l \\in [0,L]$\n$\\sigma_l = \\rho \\sigma_{l-1} + (1-\\rho)\\sigma_{B,l-1}$   $\\rho = 0.9$ is momentum\n\nDuring Test\n$\\hat{x}_i^n = \\dfrac{x_i^n - \\mu_L^n}{\\sqrt{(\\sigma_L^n)^2+\\varepsilon}}$\n$y_i = \\gamma\\hat{x}_i + \\beta$\n\nIf $\\mu_L - \\mu_R \\gg 1$, then [the] test stat. is significantly [off]; the $\\hat{x}_i^n$ aren't properly normalized",
+   "context": "Derivation of Batch Normalization: per-batch mean/variance, the learnable scale/shift (gamma, beta), the running-average statistics used at test time, and a caution about train/test distribution mismatch.",
+   "bbox": [
+    3606.7,
+    656.3,
+    3915.2,
+    799.3
+   ],
+   "links_out": [
+    "b050"
+   ],
+   "links_in": []
+  },
+  {
+   "id": "b061",
+   "slug": "loss",
+   "title": "Loss",
+   "text": "...you my number\n...you my number\n...f:tance $x_i$\n\nLoss\n$\\left[\\; \\|x_i - label\\|_2 \\;\\right]$\n... In practice ... the batch\n\n...t descent\n$L(w,b)$   and set\nbefore $= \\varepsilon \\nabla L(w,b)$\n$\\uparrow$ Learning rate\n\n[a]pply the chain rule when [computing] $\\nabla L$\n$\\dfrac{\\partial L}{\\partial w_{i,j}} = \\sum_k \\dfrac{\\partial L}{\\partial w_{k,j}}\\dfrac{\\partial w_{k,j}}{\\partial w_{i,j}}$\nLayer connection between 2 nodes\n\n[gra]dient is [same] are on [in]board this into\n[si]ngle Loss for each sample. Then [average] to compute the whole loss over the training [set]",
+   "context": "Notes on a loss function and gradient-descent weight update using the chain rule; the left edge of the crop cuts off the start of several lines.",
+   "bbox": [
+    3715.3,
+    668.3,
+    3793.5,
+    684.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b063",
+   "slug": "data_reduction_data_driven_fft",
+   "title": "Data-Reduction, Data-Driven FFT",
+   "text": "Data-Reduction, Data-Driven FFT   Guaranteed to exist & unique\n\ngoal is for transformation\n. Find 2 vectors $v_1, u_1$ s.t. when transformed\n$Av_1 \\perp Au_1$. This translates to\nfinding 2 orthogonal matrices U,V\ns.t. $A = U\\Sigma V^T$\n\n$v_1 \\perp v_2$   unit vectors   $u_1 \\perp u_2$\n$Av_1 = \\sigma_1 u_1$\n$Av_2 = \\sigma_2 u_2$\n$A[v_1\\, v_2] = [u_1\\, u_2]\\begin{bmatrix}\\sigma_1 & 0\\\\ 0 & \\sigma_2\\end{bmatrix}$   Best orthogonalize $U^TU = I$\n$AV = U\\Sigma \\rightarrow A = U\\Sigma V^T$   Diagonal Matrix\n\n$A^TA = V\\Sigma^2 V^T$   Eigenvalues of $A^TA$\n: the columns are eigenvectors of $A^TA$\n$AA^T = U\\Sigma^2 U^T$\n\n$A = \\left[\\, | \\; | \\; \\cdots \\; | \\,\\right]$, $u_1, u_2, ..., u_n$, $k \\in \\mathbb{R}^n$\n\nN x M matrix: $v_1, \\sigma_1, ..., \\sigma_m$ / 0 / eigenvectors\nin the eigenbasis, $\\sigma_1$ more important than $u_2$... each $u_i$ can be expanded w/ basis of $u_1, u_2$. Basis for column space of A.\nRight singular vectors, basis for row space of A\n\nExample: Say [you] have many signals f(t) vs freq and you want to break down into vectors which describe the ensemble of these signals, but you don't want to store all the signals. Then create $A = [f_1, ..., f_n]$ (matrix w/ n being number of signals). How can you only have a size q matrix to represent A w/o losing too much? [We] get the SVD: $A = \\sigma_1\\begin{bmatrix}u_1\\\\1\\end{bmatrix}[-v_1-] + \\sigma_2\\begin{bmatrix}u_2\\\\1\\end{bmatrix}[-v_2-] + ...$\n$= \\sum_i \\sigma_i u_i v_i^T$\nSince these are ordered by $\\sigma_i$, you can take the first q and be good   Properties\nHere $V^T$ shape $=$ q freq bins x q.\n\nNow let's say you have a new signal, if it's similar to the others, you can put it in the $v_1...v_n$ basis by multiplying by $V^T$. You can also decompose vectors in the $v_1...v_n$ basis by multiplying by V.",
+   "context": "Derivation of the Singular Value Decomposition (A = U Sigma V^T) and its use as a data-driven, data-reduction alternative to the FFT for representing an ensemble of signals.",
+   "bbox": [
+    227.1,
+    777.4,
+    308.9,
+    944.8
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b065",
+   "slug": "nyquist_frequency",
+   "title": "Nyquist Frequency",
+   "text": "Nyquist Frequency\nHow to properly digitize a signal?\n\nA function, g, containing no frequency > W Hz is completely determined by sampling @ 2W Hz. That is if you want to perfectly capture information of g, you need to sample @ 2W.\nwe care about W freq, $\\Delta t_{sample} = \\dfrac{1}{2W}$\n\nInteresting point: if you randomly sample a simple high freq signal you can on average beat Shannon Nyquist theorem!\n\nProof:\nSupp. x(t) is bandlimited X(f); $\\mathcal{F}(x(t)) = 0$ for $f > f_{max}$.\nThe sampled signal $x_s(t) = x(t)\\, \\text{III}_{\\Delta t}(t)$ where $\\Delta t = 1/f_s$ and\n$\\text{III}_{\\Delta t}(t) := \\sum_{n=-\\infty}^{\\infty} \\delta(t - n\\Delta t)$ is the dirac comb $\\rightarrow$ (comb of spikes)\n$X_s(f) = \\mathcal{F}[x_s(t)](f) = \\mathcal{F}[x(t)\\, \\text{III}_{\\Delta t}(t)] = \\mathcal{F}[x(t)] * \\mathcal{F}[\\text{III}_{\\Delta t}(t)]$\n\n2 samples per period\n1 sample per period - missed signal   \"Aliased Signal\"\n1 sample per period - missed signal\n\nstrain (y-axis) / time (x-axis): True Signal, Aliased Signal\nFD (y-axis) / freq (x-axis): $w = \\Delta f$, Aliased wrong signal, True [data], W - sampling frequency",
+   "context": "Statement and proof sketch of the Nyquist-Shannon sampling theorem via the Dirac comb, illustrated with aliasing examples in the time and frequency domains.",
+   "bbox": [
+    1729.3,
+    789.1,
+    2116.6,
+    1051.9
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b070",
+   "slug": "forward_pass_autograd",
+   "title": "Forward Pass Autograd",
+   "text": "Repeat\n\nForward Pass Autograd   # outp[ut]\ncalled primals\n$x_1 \\to v_{-1}$, $x_2 \\to v_0$\n$v_{-1}/v_0 \\to v_1$\n$e^{v_0} \\to v_3$\n$v_1 - v_3 \\to v_4$\n$\\sin(v_1) \\to v_2$\nSep. y...\n\nBackward Pass Autograd   # in[put]\nInstead of storing derivatives, store...\nStart w/ a\nForward Pass and store dependencies $\\rightarrow$\n(same computation graph repeated: $x_1 \\to v_{-1}$, $x_2 \\to v_0$, $v_{-1}/v_0 \\to v_1$, $e^{v_0}\\to v_3$, $v_1-v_3\\to v_4$, $\\sin(v_1)\\to v_2$)\n\n[wha]t's the differ[ence] between these two[?]",
+   "context": "Comparison of the forward pass and backward pass in automatic differentiation (autograd), using a small computational graph with intermediate variables v_-1 through v_4; the final comparison line is cut off at the bottom of the crop.",
+   "bbox": [
+    -921.6,
+    894.3,
+    -822.9,
+    1120.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b071",
+   "slug": "fast_convolutions",
+   "title": "Fast Convolutions",
+   "text": "Fast Convolutions\nAlgorithm: find $a * b$\n\n$a = [a_0, a_1, ... a_{n-1}]$\n$f(x) = a_0 + a_1 x + ... a_{n-1}x^{n-1}$   write as poly.\n\n$b = [b_0, b_1, ... b_{n-1}]$\n$g(x) = b_0 + b_1 x + ... b_{n-1}x^{n-1}$\n\nFFT $\\rightarrow$   $\\hat{a} = [\\hat{a}_0, \\hat{a}_1, ... \\hat{a}_{n-1}]$\nFFT $\\rightarrow$   $\\hat{b} = [\\hat{b}_0, \\hat{b}_1, ... \\hat{b}_{n-1}]$\nDot product $\\downarrow$\n$\\hat{a}\\cdot\\hat{b} = [\\hat{a}_0\\hat{b}_0, \\hat{a}_1\\hat{b}_1, ...]$\nInv. FFT $\\leftarrow$\n\n$a*b = \\left[ a_0b_0;\\; a_0b_1+a_1b_0;\\; a_0b_2+a_1b_1+a_2b_0;\\; \\vdots \\right]$\n\nWhy does it work?\nConvolution Theorem\n$u*v = \\mathcal{F}^{-1}\\left[\\mathcal{F}(u)\\mathcal{F}(v)\\right]$, $u,v \\in L(\\mathbb{R}\\to\\mathbb{R})$\n(see pg. 133 scratch notes)",
+   "context": "Algorithm for computing a convolution a*b quickly via FFT (multiply in frequency domain, then inverse FFT), justified by the convolution theorem.",
+   "bbox": [
+    688.3,
+    1204.0,
+    1015.0,
+    1564.1
+   ],
+   "links_out": [],
+   "links_in": [
+    "b048"
+   ]
+  },
+  {
+   "id": "b074",
+   "slug": "h_t_tanh_w_hh_h_t_1_w_xh_x_t",
+   "title": "$h_t = \\tanh(W_{hh}h_{t-1} + W_{xh}x_t)$",
+   "text": "$h_t = \\tanh(W_{hh}h_{t-1} + W_{xh}x_t)$\no_t   o1     o2     o3     o4     o5 \u2192 Pred\nh_t\nx_t  What   Time   is    it    ?\n\nfor word in input:",
+   "context": "RNN diagram computing hidden states h_t from the input sequence 'What Time is it ?' to predict the next word.",
+   "bbox": [
+    -943.1,
+    1479.0,
+    -862.6,
+    1519.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b076",
+   "slug": "motivation_exp_fam_ly",
+   "title": "Motivation, exp. fam:ly",
+   "text": "Motivation, exp. fam:ly\n$p(x,z|\\Theta) = e^{g(\\Theta)^T s(x,z)} h(x,z)/c(\\Theta)$\n\n$\\partial_\\Theta \\log p(x|\\Theta) = \\frac{1}{p(x|\\Theta)}\\sum_z \\partial_\\Theta p(x,z|\\Theta)$\n\nUnfinished",
+   "context": "Motivation for the exponential family form of a joint distribution p(x,z|\u0398), left unfinished.",
+   "bbox": [
+    1193.9,
+    1943.0,
+    1353.3,
+    2061.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b077",
+   "slug": "mixture_distribution",
+   "title": "Mixture Distribution",
+   "text": "Mixture Distribution\ncombined dist\nsingle dists\n\n$P(x) = \\sum_i P(c=i,z)P(x|c=i,z)$\nProb.\nDist. :          Given dist\n                 :, prob of x\nLatent Variables\n\ne.g. Gaussian mixture model which is a mixture of many gaussians.",
+   "context": "Mixture distribution shown as a sum of weighted single distributions, with latent variable c selecting the component.",
+   "bbox": [
+    957.9,
+    2075.1,
+    1540.6,
+    2314.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b080",
+   "slug": "p_x_alpha_x_min_frac_alpha_1_x_min_left_frac_x_x_min_right_alpha",
+   "title": "$p(x|\\alpha,x_{min}) = \\frac{\\alpha-1}{x_{min}}\\left(\\frac{x}{x_{min}}\\right)^{-\\alpha}$",
+   "text": "$p(x|\\alpha,x_{min}) = \\frac{\\alpha-1}{x_{min}}\\left(\\frac{x}{x_{min}}\\right)^{-\\alpha}$",
+   "context": "Pareto distribution probability density formula.",
+   "bbox": [
+    1425.6,
+    2796.1,
+    1549.4,
+    2828.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b081",
+   "slug": "p_theta_i_i_1_n_lambda_frac_1_n_e_mu_lambda_prod_i_1_n_r_p_theta_lambda_p_det_theta",
+   "title": "$p(\\{\\Theta_i\\}_{i=1}^N|\\lambda) = \\frac{1}{N!}e^{-\\mu(\\lambda)}\\prod_{i=1}^N R_p(\\Theta|\\lambda)P_{det}(\\Theta)$",
+   "text": "$p(\\{\\Theta_i\\}_{i=1}^N|\\lambda) = \\frac{1}{N!}e^{-\\mu(\\lambda)}\\prod_{i=1}^N R_p(\\Theta|\\lambda)P_{det}(\\Theta)$\nNon-detection                    Rate density\nRate     Prob detecting \u0398\n\nIf permutation\nmatters dont\nneed",
+   "context": "Poisson point process likelihood for detected events with rate R_p(\u0398|\u03bb) and detection probability P_det(\u0398).",
+   "bbox": [
+    1914.4,
+    2832.2,
+    2223.7,
+    2952.5
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b083",
+   "slug": "normalizing_flows",
+   "title": "Normalizing Flows",
+   "text": "Normalizing Flows\n\nFor Likilihood free inference\n\nf \u25b7 Invertible\n   \u25b7 Easy jacobian (optional)\n\n$\\pi$ \u25b7 Simple to evaluate\n      from\n\nBase dist.\nDummy, noise\n$f_0$ ...  $f_1$ ...  $f_N$\n$\\pi(\\vec{u})$\nN dimensional\ndata\n$f_0^{-1}$ ...  $f_1^{-1}$ ...  $f_N^{-1}$\n\nArea = $\\left|\\det\\left(\\frac{\\partial f^{-1}}{\\partial x}\\right)\\right|$ Area\n\nLet's say you want to evaluate the probability of $\\cdot \\vec{x}$\nhow would we do this?\nNormalizing        Flow\n\nWall   $p(\\vec{x}) = \\left|\\det\\left(\\frac{\\partial f^{-1}}{\\partial x}\\right)\\right| \\pi\\left[f_0^{-1}(f_1^{-1}(\\ldots f_N^{-1}(x)))\\right]$",
+   "context": "Normalizing flow architecture for likelihood-free inference mapping between a simple base distribution and N-dimensional data via invertible transforms f_0...f_N.",
+   "bbox": [
+    -941.2,
+    3414.0,
+    -554.9,
+    3732.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b084",
+   "slug": "what_is_f",
+   "title": "What is f?",
+   "text": "What is f?\n\nLet's say you are given a waveform dataset $\\{d_i\\}_{i=1}^N$\nhow can we use this to generate PE for parameters.\n\n\u25b7 Train $f_{\\psi_d}$ to turn $\\pi(u)$ into a PE given\nd:. f has some parameters associated w/ it say $\\psi_d$.\n\n  \u25b7 Minimize KL divergence between $p_{true}(\\Theta|d)$\n    and $q_{\\psi_d}(\\Theta|d) = f_{\\psi_d}$\n\n  \u25b7 $p_{true}(\\Theta|d)$ cannot be evaluated, but,\n    Minimizing KL divergence = to\n\nwhen does the data go?\n\nKL divergence   $D_{KL}(p(\\Theta|d)||q_{\\psi_d}(\\Theta|d)) = E_{\\Theta_i \\sim p}\\left[\\log \\frac{p(\\Theta_i|d_i)}{q_{\\psi_d}(\\Theta_i|d_i)}\\right]$\n\n$= \\int d\\Theta\\, p(\\Theta|d) \\log \\frac{p(\\Theta|d)}{q_{\\psi_d}(\\Theta|d)}$\n\nfactored out all the $f(\\Theta|d_i)$ terms since not func. of $\\psi_i$\n\nThe goal is to minimize this over the training set by adjusting $\\psi_i$.\nSo we need\n\n$\\underset{\\psi_i}{argmin}\\ -\\int dd \\int d\\Theta\\, p(\\Theta|d)\\log q_{\\psi_d}(\\Theta|d)$        Problem, this is the\n                                                                    true posterior which we\n                                                                    don't have\n                                                                    solution: Bayes rule\n\n$\\underset{\\psi_i}{argmin}\\ -\\int dd \\int d\\Theta\\, p(d|\\Theta)p(\\Theta)\\log q_{\\psi_d}(\\Theta|d)$      Problem:\n                                                                    Seems like we need to compute\n                                                                    a likelihood here.\n                                                                    Solution: sample $\\Theta_i \\sim p(\\Theta_i)$ and\n                                                                    simulate $d_i$ N times. Essentially\n                                                                    monte carlo integration\n\n$\\approx \\underset{\\psi_i}{argmin}\\ -\\sum \\sum_{\\Theta_i \\sim \\pi(\\Theta),\\, d_i \\sim p(d|\\Theta)} \\log q_{\\psi_i}(\\Theta_i|d_i)$\n\nafter min $\\psi$\n(diagram: axes labeled \u03b8, before and after minimization, showing points p becoming q)",
+   "context": "Derivation of training a normalizing-flow model f_\u03c8 to approximate the true posterior p_true(\u0398|d) by minimizing KL divergence, reduced to a Monte Carlo loss over simulated (\u0398_i, d_i) pairs.",
+   "bbox": [
+    -1529.3,
+    3424.6,
+    -976.1,
+    3991.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b089",
+   "slug": "p_p_plot",
+   "title": "P-P Plot",
+   "text": "P-P Plot\n\nUseful for determining how well parameter estimation is going\n\ndata \u2192  \u2192 [plot]      True Value\ndata \u2192  \u2192 [plot]      Posterior\ndata \u2192  \u2192 [plot]      Prediction\n\u22ee\n\n100%. \u2014                Good\n                        Predictor\n50%.\n                        Bad\n20%.                    Predictor\n\n20%.  50%.  100%.\nConfidence interval\n\nwhat % of the time does my CI\ncontain the true value?",
+   "context": "P-P plot compares repeated posterior predictions against the true value to check calibration of confidence intervals, distinguishing good vs bad predictors.",
+   "bbox": [
+    5289.5,
+    3751.4,
+    5526.2,
+    3921.8
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b090",
+   "slug": "d_x_d_x_d_a_tensor",
+   "title": "d x d x d_a Tensor",
+   "text": "t=1\nt=0                x\n            d\n\nd x d x d_a Tensor\n\n...this a few initial\n...tions not just one",
+   "context": "Diagram of a snapshot at t=0 and t=1 forming a d\u00d7d\u00d7d_a tensor; the explanatory text is cut off at the right edge of the crop.",
+   "bbox": [
+    -2943.1,
+    3822.3,
+    -2826.0,
+    3980.3
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b092",
+   "slug": "but_what_is_q_psi_d",
+   "title": "But what is $q_{\\psi_d}$?",
+   "text": "But what is $q_{\\psi_d}$?\n\n\u21b3 Affine Coupling Transform\n\n$f_{\\psi_d}^1$   data translation, d from before\n          $u \\sim \\pi(u)$\n\n(diagram: $u_{1:A}$ \u2192 $x_{1:A}$;  $u_{A+1:A}$ \u2192 $m_\\theta^1$ \u2192 $x_{A+1:A}$)\n\n$f_{\\psi_d}^2$\n\n(diagram: $x_{1:A}$ \u2192 $y_{1:A}$;  $x_{A+1:A}$ \u2192 $m_\\theta^2$ \u2192 $y_{A+1:A}$)\n\nInvertibility\n\n$x_{1:A} = u_{1:A}$\n$x_{A+1:A} = g(u_{A+1:A}, m_\\theta(u_{1:A})) = u_{A+1:A} + m_\\theta(u_{1:A})$\nDoesn't need to be invertible since $u_{1:A}$ already known.\n\nNote: you want to flip the network output\neach time so you use all data\n\nLower Triangular Jacobian\nBy $f^2$ mean $f_{\\psi_d}^2$\n\n$\\begin{bmatrix}\\frac{\\partial y_1}{\\partial x_1} & \\cdots \\\\ \\vdots & \\\\ \\frac{\\partial y_A}{\\partial x_1} & \\cdots\\end{bmatrix} = \\begin{bmatrix}\\frac{\\partial y_{1:A}}{\\partial x_{1:A}} & \\frac{\\partial y_{1:A}}{\\partial x_{A:1}} \\\\ \\boxed{\\frac{\\partial y_{A:1A}}{\\partial x_{1:A}}} & \\frac{\\partial y_{A:1A}}{\\partial x_{A:1A}}\\end{bmatrix}$\ndet doesn't...\n\nTrivially zero, $y_{1:A}$ not a function of $x_{1:A}$!",
+   "context": "Derivation of the affine coupling transform used in normalizing flows, showing its invertibility and its lower-triangular Jacobian.",
+   "bbox": [
+    -1499.7,
+    4032.2,
+    -1086.3,
+    4355.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b093",
+   "slug": "inverse_transform_sampling",
+   "title": "Inverse Transform Sampling",
+   "text": "Inverse Transform Sampling\n\nSay you have samples from a uniform distribution: $U[0,1]$\n\nhow would you convert this into a distribution w/ $p(x)$   \u2190 good\n                                                              of sample\nFormally  $U \\sim \\mathcal{U}[0,1]$  want to generate  $T:[0,1]\\to\\mathbb{R}$  st  $T(U) \\overset{d}{=} X$.\n\n1). $u \\sim U[0,1]$\n2). Find $c^{-1}(u) = x$   \u2190 This is the final\n                             distribution\n\nYou can use this to generate random nums from any dist.\n\nquite unlikely to sample tails of normal dist\nmore likely to sample from center dist.\n$c(x)$\n  \u2190 This is for a normal distribution",
+   "context": "Inverse transform sampling method: convert uniform samples U[0,1] into samples from any target distribution p(x) via c^{-1}(u).",
+   "bbox": [
+    3912.6,
+    4124.6,
+    4247.7,
+    4350.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b094",
+   "slug": "rho_x",
+   "title": "$\\rho(x)$",
+   "text": "$\\sigma$\nC\n$\\rho(x)$",
+   "context": "Sketch of two overlapping curves near the origin with the axis labeled \u03c3 and a curve labeled \u03c1(x); minimal accompanying text.",
+   "bbox": [
+    3939.5,
+    4290.9,
+    4060.7,
+    4314.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b095",
+   "slug": "1_probability_distribution",
+   "title": "1). Probability distribution",
+   "text": "1). Probability distribution \u2190 Science\n2). Getting Posterier \u2190 Model\n3). Determining fit of\n    posterier \u2190 Interpretation",
+   "context": "Three-step pipeline mapping probability distribution, posterior estimation, and posterior fit-checking to science, model, and interpretation respectively.",
+   "bbox": [
+    236.3,
+    4328.1,
+    376.5,
+    4395.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b096",
+   "slug": "moment_generating_function",
+   "title": "Moment Generating Function",
+   "text": "Moment Generating Function\n\n$E_{p(x)}[e^{tx}] = \\int dx\\, e^{tx} p(x)$\n\n$= \\int dx \\sum_{n=0}^{\\infty} \\dfrac{(tx)^n}{n!} p(x)$\n\n$= 1 + \\int dx\\, tx\\, p(x) + \\int dx\\, \\dfrac{t^2x^2}{2} p(x) + ...$\n\n$= 1 + t E[x] + \\dfrac{t^2}{2} E[x^2] + ...$\n\nNote: $\\partial_t E[e^{tx}]|_0 = E[x]$\n$\\partial_t^2 E[e^{tx}]|_0 = E[x^2]$\n:\n\nuseful for calculating",
+   "context": null,
+   "bbox": [
+    4410.0,
+    4490.5,
+    4639.9,
+    4762.5
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b097",
+   "slug": "bayes_theorem",
+   "title": "Bayes Theorem",
+   "text": "Bayes Theorem\n\n$P(A \\wedge B) = P(B \\wedge A) \\Rightarrow P(A)P(B|A)$\n$= P(B)P(A|B)$",
+   "context": "Box is cut off at the bottom; an underline and part of another box are visible below with no further legible text.",
+   "bbox": [
+    129.6,
+    4500.7,
+    396.4,
+    4642.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b098",
+   "slug": "monte_carlo",
+   "title": "Monte Carlo",
+   "text": "Monte Carlo   unbiased!\n\nEstimate area of circle by throwing darts\n\n[diagram: square containing a circle with scattered dots]\n\n$\\lim_{Total\\ darts \\to \\infty} \\dfrac{Num\\ darts\\ in\\ circle}{Total\\ darts}$\n\n$= 2\\int_{-1}^{1} \\sqrt{1-x^2}\\, dx = \\sum_i 2\\sqrt{1-x_i^2}$\n\n$x_i \\sim Uniform(-1,1)$\n\ngenerally very useful for integrals, especially high dimensional ones\n\ne.g. Estimate $\\int e^{-x} dx = \\hat p$ and variance of MC.\n\n$\\hat p = E_{x\\sim[0,1]}[e^{-x}] = \\dfrac{1}{n}\\sum_i e^{-x_i}$, $x_i \\sim [0,1]$\n\n$\\sigma = E_{x\\sim[0,1]}[(e^{-x})^2] - E_{x\\sim[0,1]}[e^{-x}]^2$ = can calculate exactly all integrals\n\ne.g. Estimate $\\int d\\vec x\\, N(x,1) f(\\vec x) = \\hat p$\n\n$\\hat p = E_{x\\sim N(x,1)}[f(\\vec x)]$\n\nML then follows ordinary statistics for example\n\n$\\hat p \\pm 1.96 \\dfrac{\\sigma}{\\sqrt N}$ is the 95% confidence interval for your integral.\n\nGenerally you don't know $\\theta$ but can take all possible values <- True value\n\nNice Monte Carlo Properties\n\n1). Consistent: $\\lim_{n\\to\\infty} Pr(|\\frac{1}{n}\\sum x_i - \\theta| > \\epsilon) = 0$\n\n2). Unbiased: $\\hat\\theta(\\int dx\\, p(x)) = E[p(x)] = \\theta$",
+   "context": "Illustrates Monte Carlo integration via dart-throwing to estimate circle area, plus estimator variance/confidence interval and consistency/unbiasedness properties.",
+   "bbox": [
+    1254.1,
+    4554.8,
+    1583.7,
+    4803.3
+   ],
+   "links_out": [
+    "b110"
+   ],
+   "links_in": [
+    "b110"
+   ]
+  },
+  {
+   "id": "b099",
+   "slug": "p_theta_d_dfrac_p_d_theta_p_theta_p_d",
+   "title": "$P(\\theta|d) = \\dfrac{P(d|\\theta)P(\\theta)}{P(d)}$",
+   "text": "$P(\\theta|d) = \\dfrac{P(d|\\theta)P(\\theta)}{P(d)}$",
+   "context": "Bayes' rule expressing the posterior of theta given data d.",
+   "bbox": [
+    167.5,
+    4569.6,
+    353.4,
+    4629.3
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b100",
+   "slug": "create_weights_defined_by",
+   "title": "Create weights defined by",
+   "text": "Create weights defined by\n\n$w_i = \\dfrac{f_{n-1}(x_{n-1})}{f_n(x_{n-1})}\\, \\dfrac{f_{n-2}(x_{n-2})}{f_{n-1}(x_{n-2})} \\cdots \\dfrac{f_0(x_0)}{f_1(x_0)}$\n\nwe can $\\{x_i\\}$ weigh...\n\nWhy does this work?\n\nConsider the extended state space\npdf\n$f(x_0,...x_n) = f_0(x_0)\\, T_0(x_0,x_1)\\, T_1(x_1,x_2)...T_2(x_{n-2},x_{n-1})$\n\nRev. Prob to go $x_1$ to $x_2$\n\nSupp. T satisfies detailed balance, $\\therefore\\ p(x)T(x,x') = p(x')T(x',x)$\n\nRewrite\n\n$f(x_0,...x_n) = f_0(x)\\, \\dfrac{p_0(x_0)}{p_0(x_0)} T_1(x_0,x_1)\\dfrac{p_1(x_1)}{p_1(x_1)}...T_{n-1}(x_{n-2},x_{n-1})$",
+   "context": "Derivation of importance-sampling / annealed-transition weights showing why the weighting scheme is valid via detailed balance.",
+   "bbox": [
+    1700.7,
+    4593.4,
+    1877.8,
+    4717.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b101",
+   "slug": "skewness",
+   "title": "Skewness",
+   "text": "Skewness",
+   "context": "Diagram of two overlapping distribution curves with an arrow showing the direction of increasing skewness.",
+   "bbox": [
+    4906.6,
+    4634.3,
+    4996.7,
+    4687.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b103",
+   "slug": "f_0_x",
+   "title": "$f_0(x)$",
+   "text": "$f_0(x)$\nTransition Kernel\n$x_{n-2}$   $f$\n$x_{n-1}$\n$f_{n-1}$",
+   "context": "Diagram of overlapping density curves labeled with transition-kernel notation, continues in b104.",
+   "bbox": [
+    2046.3,
+    4645.8,
+    2089.4,
+    4681.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b104",
+   "slug": "f_n_10",
+   "title": "$f_{n-10}$",
+   "text": "$f_{n-10}$\n\n$\\beta = 1$",
+   "context": "Continuation of the density/annealing diagram from b103, showing curves labeled f_{n-10} and beta=1.",
+   "bbox": [
+    2181.4,
+    4651.3,
+    2221.3,
+    4684.5
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b107",
+   "slug": "key_idea",
+   "title": "Key idea",
+   "text": "Key idea: Can we engineer a Markov Chain whose stationary distribution is P(\\theta), this way, we can start w/ any initial sample and then sample from P(\\theta) indefinitely.\n\n[diagram: $X_0 \\to X_1 \\to ... \\to X_n \\to X_{n+1} \\to X_{n+2} \\to ...$, with P(\\theta) P(\\theta) labeled below the later states, and \"Burn-In\" bracketed under the early states]\n\n1). In theory convergence is only guaranteed asymptotically as $n\\to\\infty$\n\n2). In practice one needs to apply diagnostics to asses convergence.\n\nX\ntest\nstart.\ne.g.\n$\\mu$\n\nTrue x, you don't know a priori\n\nYou can use these trace plots to estimate the burn-in, at some point your samples are randomly moving around the mode, but early on they are not\n\nBurn-In     Iterations",
+   "context": "Introduces MCMC's core idea: engineering a chain whose stationary distribution is the target posterior, plus burn-in/convergence caveats.",
+   "bbox": [
+    1003.3,
+    4768.9,
+    1204.8,
+    4963.1
+   ],
+   "links_out": [],
+   "links_in": [
+    "b111"
+   ]
+  },
+  {
+   "id": "b108",
+   "slug": "test_stat",
+   "title": "Test stat.",
+   "text": "Test stat. is measured from data under H0 hypothesis\n\n1). Needs to have some order\n\n2). $p(t(x))$ is known under H0",
+   "context": null,
+   "bbox": [
+    5382.1,
+    4788.4,
+    5495.8,
+    4846.8
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b110",
+   "slug": "metropolis_hastings_algorithm",
+   "title": "Metropolis - Hastings Algorithm",
+   "text": "Metropolis - Hastings Algorithm\n\nSay you have prob. dist. P(x) ->\n\nThis algo will let you draw samples from P(x) if you know P(x) $\\propto$ f(x)\n\nSteps: $T(x_{t+1}|x_t)$\n\n0. Initialization: choose $x_0$ starting point.\nChoose $g(x'|y)$ <- Transition kernel / Random point / Proposal density. For example, this could be a simple gaussian $x \\sim N(y,1)$\n\n1). For t:\n> Generate proposed point $x'$ by $g(x'|x_t)$\n> Calc acc. ratio $\\left[1, \\dfrac{P(x')g(x_t|x')}{P(x_t)g(x'|x_t)}\\right]$ <- so possible this is >1\n\nIn some ref. prob to accept x' -> u ~ Uniform[0,1]\nif u < acc: accept $x_{t+1} = x'$\nif u > acc: reject $x_{t+1} = x_t$\n\nMarkov Property\nIrreducibility: True does N(non) have non-zero prob everywhere.\nAperiodic: True does P to the x' will not get accepted\n$\\therefore$ This markov chain converges to a unique stationary distribution\n\nSo if we prove $P(x_t)T(x_{t+1}|x_t) = P(x_{t+1})T(x_t|x_{t+1})\\ \\forall x$\n=> The markov chain $\\{\\pi^t\\}$ will converge to P(x)\n\nCase 1: Rejection, $x_{t+1} = x_t$, denote\nCase 2: Acceptance, $x_{t+1} = x'$\n\nLHS: $P(x_t)T(x'|x_t) = P(x_t)g(x'|x_t)\\min\\left[1,\\dfrac{P(x')g(x_t|x')}{P(x_t)g(x'|x_t)}\\right]$\n\n$= \\min\\left[P(x_t)g(x'|x_t),\\ P(x')g(x_t|x')\\right]$\n\nRHS: $P(x')T(x_t|x') = P(x')g(x_t|x')\\min\\left[1,\\dfrac{P(x_t)g(x'|x_t)}{P(x')g(x_t|x')}\\right]$\n\n$= \\min\\left[P(x')g(x_t|x'),\\ P(x_t)g(x'|x_t)\\right]$\n\n$T(x_{t+1}=x'|x_t) = g(x'|x_t)\\alpha(x_t,x')$\n\n$T(x_{t+1}=x_t|x_t) = 1 - \\int dx'\\, g(x'|x_t)\\alpha(x_t,x')$\n\nCase: Prob. going to $x_t$ = 1 - Prob going to some $x'$",
+   "context": "Full derivation of the Metropolis-Hastings algorithm and proof that it satisfies detailed balance; some symbols are hard to read due to dense, overlapping handwriting.",
+   "bbox": [
+    1629.5,
+    4840.4,
+    2246.0,
+    5291.7
+   ],
+   "links_out": [
+    "b098"
+   ],
+   "links_in": [
+    "b098"
+   ]
+  },
+  {
+   "id": "b111",
+   "slug": "markov_chains",
+   "title": "Markov Chains",
+   "text": "Markov Chains\n\nIf you have a set $\\{X_1,...X_n\\}$\n\n[diagram: state circles with a \"Bear Market\" node, self-loop 0.9, and transition arrows labeled 0.075, 0.025, 0.05, 0.25]\n\nTransition Matrix\n$\\Rightarrow \\begin{bmatrix} 0.9 & 0.075 & 0.025 \\\\ 0.15 & 0.6 & 0.05 \\\\ 0.25 & 0.25 & 0.5 \\end{bmatrix}$\n\nIf we start in Bear market after 1 step, what is the prob to be in various states?\n\nstate -> $[0\\ 1\\ 0]$ ; Q <- Transition matrix\n$\\pi^0$ most likely dist.  $\\pi^1$ -> $[0.15\\ 0.6\\ 0.05]$\n\n$Q_{ij} = P(X_t = i | X_{t-1} = j)$\n$Q(s,s') = P(s|s')$\n\nNote that regardless of initial condition, we will settle to the same $\\pi$ if\n\nEventually will reach state $\\pi^*Q = \\pi^{n+1} = [.625, .3125, .0625]$\n\ncalled Stationary state.\n\n1). Irreducibility\n$X_0$ is reachable by $X_n$ w/ a finite # of steps\n[diagram: circles 1,2,3,4,5] can't reach it from 1,2,4,5\n\n2). Aperiodic - If $X_{t=1}, \\forall$:\n[diagram: 4 nodes] $\\pi^1 = (0,0,1,0)$ $\\pi^2 = (0,0,0,1)$ $\\pi^3 = (0,1,0,0)$ $\\pi^4 = (1,0,0,0)$ Period of 4\n\n: here period $k = gcd\\{n : P(X^t=i|X^0=i)>0\\}$ prob of state to come back to itself\n\n'In all cases in an irreducible Markov chain have same period (finite state space)'\n\n[box]: If a markov chain is irreducible and aperiodic then it will converge to a unique stationary distribution.\n\nDetailed Balance Condition\n\n3). Reversible\nDefinition: $\\pi_i^* T_{ji} = \\pi_j^* T_{ij},\\ \\forall i,j$   (1)\n\nIf this holds, $\\pi^*$ is a stationary dist. <- I don't think the other way\n\nProb. being in state i and going to j is the same as being in j and going to i\n\n[diagram: two states with transition matrix $T=[0\\ 1;1\\ 0]$, $\\pi_1=[9/10]$, $\\pi_2=[1/2\\ 1/2]$]\n\n[diagram: three states with rates 7/10, 3/10, 1/10]\n\nWhy does (1) => $\\pi^*$ be a stationary dist.?\n\nProb. of from $x_j$ = $\\sum_j T_{ji}\\pi_j^t$ = Detailed balance = $\\sum_j T_{ij}\\pi_i^t = \\pi_i^t \\sum_j T_{ij} = \\pi_i^t$\n\nBest need to make the stationary dist, the one we want?",
+   "context": "Extended discussion of Markov chains covering transition matrices, stationary distributions, irreducibility, aperiodicity, and the detailed balance condition; a few symbols in the dense diagrams are uncertain.",
+   "bbox": [
+    1224.8,
+    4845.3,
+    1614.5,
+    5265.3
+   ],
+   "links_out": [
+    "b107"
+   ],
+   "links_in": []
+  },
+  {
+   "id": "b112",
+   "slug": "how_to_choose_priors",
+   "title": "How to choose priors",
+   "text": "How to choose priors\n\npt 1: what is an uninformative prior\n\nCoin flip $p(Heads) = \\theta$.  Supp. $\\theta \\sim U[0,1]$\n\nwhat is $p(2\\ heads)$? It is $\\theta^2 = \\phi$\n\n$p(\\phi) = p(\\theta)\\dfrac{d\\theta}{d\\phi} = \\dfrac{1}{2\\sqrt{\\phi}}$\n\n[graph: $p(\\theta)$ flat near 1 then drops to 0 at $\\theta=1$]\n[graph: $p(\\phi)$ decreasing curve to 0 at $\\phi=1$]\n\nso even though we have an \"uninformative prior\" in $\\theta$ we don't have an uninformative prior in $\\theta^2$\n\nSpecial case Jeffrey's prior\n\n$p(\\theta) = \\sqrt{I(\\theta)}$ . what happens if you change parametrization?\n\n$p(\\phi) = p(\\theta)\\dfrac{d\\theta}{d\\phi} = \\sqrt{\\dfrac{d\\theta}{d\\phi^2}}\\dfrac{d\\theta}{d\\phi} = 1$ . So invariant!",
+   "context": "Shows that a uniform (uninformative) prior is not invariant under reparametrization, motivating Jeffreys' prior which is.",
+   "bbox": [
+    69.4,
+    4867.6,
+    391.7,
+    5206.8
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b113",
+   "slug": "can_an_inconsistent_biased_estimator_be_more_useful_than_a_biased_consistent_one",
+   "title": "Can an inconsistent biased estimator be more useful than a biased consistent one?",
+   "text": "Can an inconsistent biased estimator be more useful than a biased consistent one?\n\nSupp. 1 sample from $p(x) = N(\\mu,\\sigma^2)$ and want $\\mu_x$\n\nEstimator 1: $\\hat\\mu_x = \\dfrac{1}{N}\\sum_{i=1}^{N} x_i$\n\nEstimator 2: $\\hat{\\hat\\mu}_x = \\alpha\\hat\\mu_x$ w/ $0<\\alpha<1$\n\n[graph: bell curve labeled \"draw from p\" with points $\\mu_x$, $\\hat{\\hat\\mu}_x$, $\\hat\\mu_x$ marked on the x-axis]\n\nSo an inconsistent biased estimator is better in the MSE = bias$^2$ + var sense. In particular\n\nMLE $\\hat\\mu_x$: $0 + \\dfrac{\\sigma^2}{N}$\n\nMLE $\\hat{\\hat\\mu}_x$: $(\\alpha\\mu-\\mu)^2 + \\alpha^2\\dfrac{\\sigma^2}{N}$\n\nSo if $\\sigma \\gg 1$, or $N \\sim 1$   $\\hat{\\hat\\mu}$ has a better MSE!",
+   "context": null,
+   "bbox": [
+    4867.0,
+    4872.6,
+    5104.2,
+    5228.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b115",
+   "slug": "x_t_1_x_t_only",
+   "title": "$X_{t+1}(X_t)$ only",
+   "text": "$X_{t+1}(X_t)$ only. This is a Markov chain\n\nI.e. $P(X_{t+1}|X_t) = P(X_{t+1}|X_t,..X_0)$",
+   "context": "Defines the Markov property: the next state depends only on the current state.",
+   "bbox": [
+    1379.1,
+    4891.9,
+    1505.1,
+    4916.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b118",
+   "slug": "kullback_leibler_divergence",
+   "title": "Kullback-Leibler Divergence",
+   "text": "Kullback-Leibler Divergence\n\n$D_{KL}(P||Q) = \\sum_{x\\in X} P(x)\\log\\left(\\dfrac{P(x)}{Q(x)}\\right)$\n\n$= \\int dx\\, p(x)\\log\\left(\\dfrac{p(x)}{q(x)}\\right)$\n\nInformation gain of using P instead of Q\n\nMass Covering: if I minimize what will q do?\n$D_{KL}(p||q) = E_p\\log p - E_p\\log q$   once sample from p, will need q to cover modes\n\n[graph: multi-modal blue curve p with suboptimal q and optimal q curves]\n\nMode Maximizing\n$D_{KL}(q||p) = E_q\\log p - E_q\\log q$\n\n[graph: multi-modal blue curve p with suboptimal q and optimal q curves]",
+   "context": "Contrasts forward KL (mass-covering, mode-covering behavior of q) with reverse KL (mode-seeking/maximizing behavior of q); the label preceding \"Learning\"/\"Covering\" is only partly legible.",
+   "bbox": [
+    -2109.2,
+    4949.3,
+    -1617.6,
+    5329.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b120",
+   "slug": "x_t_g_x_x_t",
+   "title": "\u03c0(x_t) g(x'|x_t)",
+   "text": "$\\dfrac{\\pi(x_t)\\, g(x'|x_t)}{\\pi(x')\\, g(x_t|x')}$\n]\n1",
+   "context": "Fragment of a Metropolis-Hastings acceptance-ratio derivation, likely the argument of a min(1, ...) expression whose 'min(1,' part is cropped out to the left.",
+   "bbox": [
+    2129.0,
+    5058.4,
+    2202.2,
+    5110.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b121",
+   "slug": "loss_function",
+   "title": "Loss Function",
+   "text": "argmax_\u03c8 $\\mathbb{E}_{x_0\\sim data}[p_\\psi(x_0)]$\ni.e. draw comples from training set and maximize prob of sampling them all your model\nMaximizing likelihood\nof samplelike images\nAuto encoding\nBetter training\nor in the conditional case argmax_\u03c8 $\\mathbb{E}_{x_0\\sim data}[p_{\\psi(d)}(x_0|d)]$\nok but is hard to evaluate so instead have\n$\\mathbb{E}_{x_0\\sim data}[\\log p_\\psi(x_0)] \\ge \\mathbb{E}_{x_0\\sim data}\\Big[\\mathbb{E}_q\\big[\\log \\frac{p_\\psi(x_1...x_T|x_0)}{q(x_0...x_T)}\\big]\\Big]$\n@ T how different to gaussian\n$\\ge \\mathbb{E}_{x_T\\sim data}[\\log p(x_T)] + \\mathbb{E}_{x_0\\sim data}\\Big[\\mathbb{E}_q\\big[\\sum_{t\\ge1}^T \\log \\frac{p_\\psi(x_{t-1}|x_t)}{q(x_t|x_{t-1})}\\big]\\Big]$\nso to maximize this we minimize the loss\nL := $\\mathbb{E}_{x_0\\sim data}\\Big[\\log \\pi(x_T) + \\mathbb{E}_q\\big[\\sum_{t\\ge2}^T \\log \\frac{p_\\psi(x_{t-1}|x_t)}{q(x_t|x_{t-1})}\\big]\\Big]$\nIn the limit $p_\\psi \\to 0$ the forward and reverse trajectories are same so only need to estimate 1 sample from q for some reason.",
+   "context": "Derivation of the diffusion-model (DDPM-style) variational lower bound / training loss; small grid sketches at bottom-left ('6 4', '3', '2 images') illustrate patches of images used for maximum-likelihood training.",
+   "bbox": [
+    -1398.5,
+    5059.0,
+    -775.9,
+    5490.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b124",
+   "slug": "crammer_rao_bound",
+   "title": "Crammer Rao Bound",
+   "text": "Crammer Rao Bound\nSep. you have an estimator $\\hat\\theta$, and bias $b(\\hat\\theta)$ how would you find the lowest possible variance?\nAssumptions:\n1). $\\forall \\theta_1,\\theta_2 \\in \\Theta$ st $\\theta_1 \\ne \\theta_2$, $p(x|\\theta_1) \\ne p(x|\\theta_2)$\n2). $\\{x\\in X \\mid f(x|\\theta)>0\\}$ doesn't dep. on \u03b8 eg $r(x|\\theta)=U[0,\\theta]$ violates this\n3). \u0398 is open\n4). $\\exists\\ \\dfrac{\\partial p(x|\\theta)}{\\partial\\theta}$\n5). $\\mathbb{E}\\Big[\\big(\\dfrac{\\partial \\log p(x|\\theta)}{\\partial\\theta}\\big)^2\\Big] < \\infty$\nTh. Let $x_1...x_n$ be random samples from $p(x|\\theta)$ and supp. $\\hat\\theta$ is an estimator of \u03b8. Then\n$Var(\\hat\\theta) \\ge \\dfrac{(1+\\partial b/\\partial\\theta)^2}{I_\\theta}$ where $b(\\theta) = bias(\\hat\\theta)$ $I_\\theta = \\mathbb{E}\\big[(\\partial\\theta/\\partial\\theta)^2\\big]$",
+   "context": "Note misspells Cram\u00e9r-Rao as 'Crammer Rao'; the final I_\u03b8 expression is written in tiny script and likely intends the Fisher information \u2202log p(x|\u03b8)/\u2202\u03b8, matching assumption 5.",
+   "bbox": [
+    4554.2,
+    5221.8,
+    4837.9,
+    5394.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b126",
+   "slug": "savage_dickey_ratio",
+   "title": "Savage - Dickey Ratio",
+   "text": "Savage - Dickey Ratio    Getting BF of Nested Models\nIf one has a nested model, e.g. $M_1(\\Phi=\\Phi_0)=M_2$ we can evaluate the Bayes factor between these models without explicitly integrating out the nuisance params.\nas long as the priors are eq.\n$p(\\Phi|M_0) = p(\\Phi|\\Phi=\\Phi_0,M_1)$\nBF\n$p(\\Phi|d,M_1)$\n$p(\\Phi|M_1)$\n\u03a6\nsee Wagenmakers et al. 2010 App. A\nBF = $\\dfrac{p(d|H_0)}{p(d|H_1)}$    Note $p(d|H_0) = \\int p(d|\\Phi,H_0)p(\\Phi|H_0)d\\Phi$ \u2192 $= \\int p(d|\\Phi,\\Phi_0,H_1)p(\\Phi|H_1)d\\Phi$\nassume $\\lim_{\\Phi\\to\\Phi_0} p(\\Phi|\\Phi_0,H_1) = p(\\Phi|H_0)$ in the super model, the limit approaches the submodel\n$= p(d|\\Phi_0,H_1) = \\dfrac{p(\\Phi_0|d,H_1)\\, p(d|H_1)}{p(\\Phi_0|H_1)}$ Bayes rule",
+   "context": null,
+   "bbox": [
+    343.2,
+    5260.7,
+    705.5,
+    5472.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b127",
+   "slug": "effective_sample_size",
+   "title": "Effective Sample Size",
+   "text": "Effective Sample Size\n[dependent sampling] \u2192 if using dependent sampling, when computing MC estimates it is ok if you have Local sampling\nIndependent sampling $p(x_{i+1})$ the next state doesn't depend on previous one.\nMarkov Ch.        Regular Ch.\nhow many samples $[\\mathbb{E}[x]]$ best indep. sample equivalent Faster?\nTotal unknown            Total unknown\n# iterations              # iterations\nbut we ask how many samples from the indep. dist. is equiv from the dep. dist.?\n$\\rho_\\tau = \\dfrac{1}{\\sigma^2}\\int dx\\,(x^i-\\bar x)(x^{i+\\tau}-\\bar x)\\,p(x)$ [the map at lag \u03c4] \u2192 $Cov(x^i,x^{i+\\tau})$\nFor MCMC, ... $= \\dfrac{1}{\\sigma^2}\\int dx\\, x^{(i)}x^{(i+\\tau)}p(x)$ \u2192 $\\to Cov(x^i,x^{i+\\tau})$\nESS = $\\dfrac{N}{1+2\\sum_{\\tau=1}^{\\infty}\\rho_\\tau}$ \u2190 why this?\nIn practice computing $\\rho_\\tau$ analytically is impossible so it is computed from the chains.",
+   "context": "Diagrams show a fully-connected 'Regular Chain' vs a cyclic 'Markov Chain' graph, and trace plots of iterations vs value, illustrating autocorrelation and effective sample size for MCMC.",
+   "bbox": [
+    1229.4,
+    5296.7,
+    1844.8,
+    5577.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b128",
+   "slug": "integrated_detailed_balance",
+   "title": "Integrated Detailed Balance",
+   "text": "Integrated Detailed Balance\nDetailed balance follows from this but not necc. all other way around.\n$\\pi(x)$                    $\\pi(x')$\n$p(x,B) = \\int_B p(x,y)\\,dy$   Prob to go from x to region B\n$\\Rightarrow p(x,A') = \\int_{A'} q(x,x')\\alpha(x,x')dx' + \\mathbb{I}_{x\\in A'}\\int_{A'} q(x,x')[1-\\alpha(x,x')]dx'$\nprob to accept x' if $x'\\in A'$          prob that you don't accept the move but $x\\in A'$ already",
+   "context": "Two square diagrams labelled A, A', x, x' with hatched overlap region p(x,x') / p(x',x) illustrate the balance-of-probability-flow argument.",
+   "bbox": [
+    1868.1,
+    5324.8,
+    2268.7,
+    5531.5
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b129",
+   "slug": "bf",
+   "title": "BF",
+   "text": "posterior \u2192\nBF = $\\dfrac{p(\\Phi=\\Phi_0|d,M_1)}{p(\\Phi=\\Phi_0|M_1)}$\n\u2191prior",
+   "context": "Close-up of the Savage-Dickey Bayes factor formula (numerator = posterior density at null value, denominator = prior density at null value).",
+   "bbox": [
+    370.8,
+    5327.8,
+    471.5,
+    5371.4
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b131",
+   "slug": "x_x_x_dxdx_x_x_x_dx_dx",
+   "title": "\u222b\u222b \u03c0(x)\u03c1(x,x')dxdx' = \u222b\u222b \u03c0(x')\u03c1(x',x)dx'dx",
+   "text": "$\\displaystyle\\int_A\\int_{A'} \\pi(x)\\rho(x,x')\\,dx\\,dx' = \\int_A\\int_{A'} \\pi(x')\\rho(x',x)\\,dx'\\,dx$",
+   "context": "Integral form of detailed balance over regions A and A'.",
+   "bbox": [
+    1891.0,
+    5354.7,
+    2038.9,
+    5386.6
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b134",
+   "slug": "x_q_x_x_x_x_dxdx_x_q_x_x_x_x_dx_dx",
+   "title": "\u222b\u222b \u03c0(x)q(x,x')\u03b1(x,x')dxdx' = \u222b\u222b \u03c0(x')q(x',x)\u03b1(x',x)dx'dx",
+   "text": "$\\displaystyle\\int_A\\int_{A'} \\pi(x)q(x,x')\\alpha(x,x')\\,dx'\\,dx = \\int_A\\int_{A'} \\pi(x')q(x',x)\\alpha(x',x)\\,dx'\\,dx$",
+   "context": "Detailed balance integral identity including the Metropolis-Hastings proposal q and acceptance probability \u03b1.",
+   "bbox": [
+    1902.0,
+    5471.2,
+    2145.2,
+    5510.3
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b135",
+   "slug": "self_information",
+   "title": "Self Information",
+   "text": "Self Information\nwhy log? It's characteristic fcn.\nTells us the amount of information gained by observing\n$I(x) = -\\log_2 P(x)$\nWhy is this a good def.? Consider:\nIf you observe an unlikely event, $P(x)\\sim 0 \\Rightarrow I(x)\\sim\\infty$\nIf you observe a likely event, $P(x)\\sim 1 \\Rightarrow I(x)\\sim 0$\nE.g. consider you know the winning lottery ticket #, then you know about a very unlikely event and thus were told a lot of information. If you were told losing lottery numbers, then you aren't gaining much info. I mean, I could've told you that!",
+   "context": null,
+   "bbox": [
+    -2874.5,
+    5537.2,
+    -2617.3,
+    5755.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b136",
+   "slug": "akaike_information_criterion",
+   "title": "Akaike Information Criterion",
+   "text": "Akaike Information Criterion\nAIC = $-2\\log(p(x|\\theta)) + 2k$\na Model comparison to figure out which of a set of models fit the data the best",
+   "context": null,
+   "bbox": [
+    266.3,
+    5625.2,
+    611.7,
+    5730.0
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b137",
+   "slug": "nested_sampling",
+   "title": "Nested Sampling",
+   "text": "Nested Sampling\nA way to get the evidence $Z = p(d)$ and as a byproduct lets you sample from posterior.\nAdvantages:\n1). Doesn't require initial guess\n2). Samples from prior so technique can handle multimodality\n3). Doesn't scale to high dimensions\n$p(d) = \\int d\\Theta\\, p(d|\\Theta)p(\\Theta)$\n$= \\int d\\Theta\\, L(\\Theta)\\pi(\\Theta) = \\lim_{\\Delta\\Theta\\to0} \\sum L(\\Theta_i)\\pi(\\Theta_i)\\Delta\\Theta_i$\nlets go from \u03b8-likelihood which equal \u03bb and you seek cumulative probability in \u03bb or width \u03bb\n$\\to \\int L(x)\\,dX(\\lambda)$\nlikelihood corresponding to some equivalent      prior volume of iso-likelihood contours\n$X = \\int_{L(\\theta)>\\lambda} \\pi(\\theta)d\\theta$\n$Z \\approx \\sum L(\\theta_1,\\theta_2)\\Delta\\theta_1\\Delta\\theta_2$   $Z \\approx \\sum L(X)\\Delta X$\nthe area under one\nof volume 0.9 of\ntotal (X(\u03bb)) = 0.9 say\nWhy does it matter how you integrate?\nIf there are nice contours \u03bb surfaces then better to integrate w/ d\u03bb, if there are weird X surfaces\nAlgorithm\n1. Sample n live points $\\Theta_i \\sim \\pi(\\Theta)$ and evaluate $L(\\Theta_i)$\n2). Remove $\\Theta_i = \\min L(\\Theta_i)$. Call this $\\Theta_i^*$ w/ $L(\\Theta_i^*)$\n3). Replace the point w/ $\\Theta_2 \\sim \\pi(\\Theta)$ s.t. $\\int \\pi(\\Theta)d\\Theta$ constrained if $L(\\Theta) > L^*$; 0 if $L(\\Theta) < L^*$\nconstrained prior\n4). Repeat and we have estimate for $\\{X_i, L(X_i)\\}$, want to use them. Trapezoid rule!\n$Z = \\sum_i L_i^{()} \\cdot \\tfrac{1}{2}[X_{n-1}(L_{n-1}) - X_{n+1}(L_{n+1})]$\nAccumulate evidence $Z=\\sum L\\Delta X$\nIn practice you don't need X_n's precisely. Instead: estimator $t_i \\sim Beta(N_{live},1)$. Why? Well, removing lowest likelihood point is like compressing w/ compression factor, since the point sampled randomly in the prior the dist. of compression for a live point $t_i = t$, i.e. $x_i = x_{i-1}\\cdot t_i$, $t_i \\sim Beta(N_{live},1)$, so we use that for the estimator.",
+   "context": "Large box on nested sampling for computing Bayesian evidence Z; some small annotations near the contour-plot diagrams were too small/faint to transcribe with full confidence.",
+   "bbox": [
+    1149.9,
+    6025.9,
+    1705.6,
+    6966.7
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b138",
+   "slug": "prior_volume_of_points",
+   "title": "Prior Volume of points",
+   "text": "Prior\nVolume of points w/ $L(\\theta)>\\lambda$\n$H(x) = \\begin{cases}1, & x>0\\\\0, & x<0\\end{cases}$ \u2190 this being different...\n$X(\\lambda) = \\int_\\Theta \\pi(\\theta)\\,H(L(\\theta)-\\lambda)\\,d\\theta \\Rightarrow \\dfrac{dX}{d\\lambda} = \\int_\\Theta \\pi(\\theta)\\,\\delta(L(\\theta)-\\lambda)\\,d\\theta$\nso then if \u03bb are the possible likelihood values then\n$Z = \\displaystyle\\int_0^1 X(\\lambda)\\,d\\lambda = \\int_0^1 \\lambda(X)\\dfrac{dX}{d\\lambda}\\,d\\lambda = \\int\\int_\\Theta \\lambda(X)\\,\\pi(\\theta)\\,\\delta(L(\\theta)-\\lambda)\\,d\\lambda\\,d\\theta$   $L(x)$\n$= \\int L(\\theta)\\pi(\\theta)d(\\theta) = \\int L(X)dX$",
+   "context": "Derivation of the prior-volume (X) change-of-variables used in nested sampling, connecting the Heaviside/indicator formulation to the evidence integral.",
+   "bbox": [
+    1385.7,
+    6291.1,
+    1624.9,
+    6421.1
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b139",
+   "slug": "h_hypothesis_h_h_point_hypothesis_d_data",
+   "title": "H - Hypothesis, H\u03f5H - Point hypothesis, D. Data",
+   "text": "H - Hypothesis, H\u03f5H - Point hypothesis, D. Data\nH = Order 1 polynomial          H = Order 20 polynomial          H = Order 3 polynomial\nH\u2208H, $y=10x+12$              H: $y=122x^{20}+...$              H: $y=10x^3-7x^2$\nCrude MDL Principle\nlength = L(H) + L(D|H)\n\u2191Length of Hypothesis   \u2191Length of data given hypothesis\nThe best model of the data is the one which minimizes the length (minimizes compression)\nDefining the length of the point hypothesis is arbitrary, how do you compute this in practice. Barron 1985. Instead use a new disc. of the process. Instead of encoding H encode \ud835\udcd7.\nRefined MDL\nstochastic complexity of D given \ud835\udcd7 = $L(D|\\hat H) + COMP(\\mathcal{H})$\n$\\hat H \\in \\mathcal{H}$ is the hypothesis which minimizes $L(D|H)$, $\\forall H\\in\\mathcal{H}$.\nSo the new def. of data compression is given over the hypothesis not point hyp.\n$L(\\mathcal{H}) + \\bar L(D|\\mathcal{H})$\n\u2190 Designed such that $\\bar L(D|\\mathcal{H})$ is small when $\\exists H\\in\\mathcal{H}$ st $L(D|H)$ is small\n\"Universal codes\"",
+   "context": "Large box on Minimum Description Length (MDL), contrasting a 'crude' MDL that scores a single point hypothesis with a 'refined' MDL that scores over a hypothesis class.",
+   "bbox": [
+    -168.6,
+    6299.3,
+    262.1,
+    6778.8
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b141",
+   "slug": "first_sample",
+   "title": "First sample",
+   "text": "First sample\n\u03b8\n\u03b8m",
+   "context": "Small diagram with two connected points/lines labeled \u03b8 and (partially cropped) \u03b8m, likely illustrating an MCMC/slice-sampling step; bottom label is cut off by the crop edge.",
+   "bbox": [
+    2063.2,
+    6437.4,
+    2187.5,
+    6460.2
+   ],
+   "links_out": [],
+   "links_in": []
+  },
+  {
+   "id": "b142",
+   "slug": "l",
+   "title": "L(\u03b8)",
+   "text": "\u03b8; new sample\nL(\u03b8)\n\u03c0(",
+   "context": "Diagram showing a likelihood curve L(\u03b8) with a flat prior \u03c0(\u03b8) baseline and a newly sampled point \u03b8, illustrating a nested-sampling / likelihood-constrained-prior step; the '\u03c0(' label is cut off at the crop edge.",
+   "bbox": [
+    1228.3,
+    6629.3,
+    1319.3,
+    6684.7
+   ],
+   "links_out": [],
+   "links_in": []
+  }
+ ]
+}
