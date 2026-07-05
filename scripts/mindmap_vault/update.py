@@ -66,8 +66,11 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
     crops_dir = vault / ".pipeline" / "crops" / stem
     crops_dir.mkdir(parents=True, exist_ok=True)
 
-    if ocr_client is None and not dry_run:
-        ocr_client = ClaudeOcr()
+    # ClaudeOcr() requires ANTHROPIC_API_KEY, which may not be configured
+    # when this run has no live OCR to do at all (e.g. a fully-resolved
+    # manifest, or a post-apply_ocr re-emit). Construct it lazily — only at
+    # the point a decision actually needs a transcribe call — so those runs
+    # never touch the API client.
 
     summary = {"new": 0, "changed": 0, "unchanged": 0, "moved": 0,
                "deleted": len(deleted), "edges": 0, "review": len(review),
@@ -89,6 +92,8 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
             continue
         buf = io.BytesIO()
         crop.save(buf, format="PNG")
+        if ocr_client is None:
+            ocr_client = ClaudeOcr()
         try:
             r = ocr_client.transcribe(buf.getvalue())
             summary["ocr_calls"] += 1

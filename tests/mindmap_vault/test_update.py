@@ -153,6 +153,30 @@ def test_assets_exported_regardless_of_ocr_path(synthetic_svg, tmp_path):
     assert re_written[0].name == first_written[0].name
 
 
+def test_lazy_ocr_client_not_constructed_when_fully_resolved(synthetic_svg, tmp_path, monkeypatch):
+    vault = tmp_path / "vault"
+    json_out = tmp_path / "i.json"
+    # Resolve every box up front so the second pass below has zero OCR work.
+    update.run(synthetic_svg, vault, ocr_client=_fake3(), json_path=json_out)
+
+    class _ExplodingOcr:
+        def __init__(self, *a, **k):
+            raise AssertionError(
+                "ClaudeOcr should not be constructed when no transcribe call "
+                "is ever needed"
+            )
+
+    monkeypatch.setattr(update, "ClaudeOcr", _ExplodingOcr)
+    # ocr_client=None + dry_run=False used to eagerly construct ClaudeOcr()
+    # (requiring ANTHROPIC_API_KEY) even though every box is "unchanged" and
+    # zero OCR calls happen. Construction must now be lazy.
+    summary = update.run(synthetic_svg, vault, ocr_client=None, json_path=json_out,
+                         dry_run=False)
+    assert summary["ocr_calls"] == 0
+    assert summary["pending"] == 0
+    assert summary["unchanged"] == 3
+
+
 def test_v1_backup(synthetic_svg, tmp_path):
     vault = tmp_path / "vault"
     vault.mkdir()
