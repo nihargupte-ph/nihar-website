@@ -4,6 +4,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+def _is_dropped(rec):
+    return bool((rec.get("ocr") or {}).get("dropped"))
+
+
 @dataclass
 class Decision:
     state: str          # unchanged | moved | changed | new

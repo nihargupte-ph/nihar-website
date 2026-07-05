@@ -18,6 +18,14 @@ def apply_ocr(vault, results_path):
     vault = Path(vault)
     data = manifest.load(vault)
     payload = json.loads(Path(results_path).read_text(encoding="utf-8"))
+    if "source" not in payload:
+        print(f"malformed results file {results_path}: missing 'source' key",
+              file=sys.stderr)
+        raise SystemExit(1)
+    if "results" not in payload:
+        print(f"malformed results file {results_path}: missing 'results' key",
+              file=sys.stderr)
+        raise SystemExit(1)
     stem = payload["source"]
     source = data["sources"].get(stem)
     if source is None:
@@ -28,6 +36,10 @@ def apply_ocr(vault, results_path):
     dropped = 0
     unknown = 0
     for r in payload["results"]:
+        if "box_id" not in r:
+            print(f"malformed result entry in {results_path}: missing 'box_id' key",
+                  file=sys.stderr)
+            raise SystemExit(1)
         box_id = r["box_id"]
         if box_id not in source["boxes"]:
             print(f"unknown box id '{box_id}' for source '{stem}'; skipping",

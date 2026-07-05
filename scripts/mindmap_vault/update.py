@@ -50,10 +50,16 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
 
     data = manifest.load(vault)
     source = data["sources"].setdefault(stem, {"next_box": 1, "boxes": {}})
-    # capture slugs before reconcile rewrites the boxes dict (deleted records vanish)
-    old_slugs = {bid: rec.get("slug") for bid, rec in source["boxes"].items()}
+    # capture slug + dropped state before reconcile rewrites the boxes dict
+    # (deleted records vanish, and this run's OCR loop may flip `dropped`)
+    old_recs = {
+        bid: (rec.get("slug"), manifest._is_dropped(rec))
+        for bid, rec in source["boxes"].items()
+    }
     decisions, deleted = manifest.reconcile(source, found)
-    deleted_slugs = [old_slugs[bid] for bid in deleted if old_slugs.get(bid)]
+    deleted_slugs = [
+        old_recs[bid][0] for bid in deleted if old_recs.get(bid, (None, False))[0]
+    ]
 
     strokes_by_id = {s.sid: s for s in parsed.strokes}
     images_by_id = {i.iid: i for i in parsed.images}
@@ -67,7 +73,6 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
                "deleted": len(deleted), "edges": 0, "review": len(review),
                "ocr_calls": 0, "pending": 0, "dropped": 0}
     assets = {}
-    dropped_bids = set()
 
     for d in decisions:
         summary[d.state] += 1
@@ -97,7 +102,6 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
             source["boxes"][d.box_id]["ocr"] = {
                 "title": "", "text": "", "context": None,
                 "pending": False, "dropped": True}
-            dropped_bids.add(d.box_id)
             summary["dropped"] += 1
             continue
         source["boxes"][d.box_id]["ocr"] = {
@@ -108,17 +112,25 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
             assets.setdefault(d.box_id, []).append(
                 (f"{d.box_id}_{i}.{img_ext}", img_data))
 
-    for bid in dropped_bids:
-        # Dropped boxes stay in source["boxes"] (flagged ocr.dropped=True) so
-        # their strokes aren't re-detected as "new" and re-OCR'd forever.
-        # If this bid previously had a note (i.e. it wasn't newly created this
-        # run), archive it the same way a truly-deleted box would be.
-        if old_slugs.get(bid):
-            deleted_slugs.append(old_slugs[bid])
+    # Single place that decides note archival for dropped boxes. A box can
+    # become dropped either in the live-OCR loop just above, or out-of-band
+    # via apply_ocr.py writing ocr.dropped=True into the manifest between
+    # runs (manifest.load() at the top of this run already reflects that
+    # change, so it looks identical to "already dropped" here). Either way,
+    # `emit()` clears rec["slug"] once a dropped box's note is archived, so
+    # the reliable signal that a bid still needs archiving is "dropped now,
+    # and still has the slug it had going into this run" — once archived,
+    # the slug disappears and this stays False on every later run.
+    for bid, rec in source["boxes"].items():
+        if not manifest._is_dropped(rec):
+            continue
+        old_slug, _old_dropped = old_recs.get(bid, (None, False))
+        if old_slug:
+            deleted_slugs.append(old_slug)
 
-    def _is_dropped(bid):
+    def _bid_dropped(bid):
         rec = source["boxes"].get(bid)
-        return bool(rec and (rec.get("ocr") or {}).get("dropped"))
+        return bool(rec and manifest._is_dropped(rec))
 
     # Edge.src/dst index into `found`; reconcile stamped .box_id onto those
     # same Box objects, so the mapping is direct.
@@ -126,8 +138,8 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
     for e in edge_list:
         s_bid = found[e.src].box_id
         d_bid = found[e.dst].box_id
-        if (s_bid in source["boxes"] and not _is_dropped(s_bid)
-                and d_bid in source["boxes"] and not _is_dropped(d_bid)):
+        if (s_bid in source["boxes"] and not _bid_dropped(s_bid)
+                and d_bid in source["boxes"] and not _bid_dropped(d_bid)):
             id_edges.append((s_bid, d_bid, e.directed))
     summary["edges"] = len(id_edges)
 

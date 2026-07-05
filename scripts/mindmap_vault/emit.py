@@ -2,9 +2,7 @@ import json
 import re
 from pathlib import Path
 
-
-def _is_dropped(rec):
-    return bool((rec.get("ocr") or {}).get("dropped"))
+from scripts.mindmap_vault.manifest import _is_dropped
 
 
 def _slugify(title, taken):
