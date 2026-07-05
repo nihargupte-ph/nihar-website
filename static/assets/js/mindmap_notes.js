@@ -242,6 +242,45 @@ window.MindmapNotes = (function () {
             }
         });
 
+        // Touch tap on overlay targets. The template's own touchstart handler
+        // calls preventDefault() (passive: false) to drive custom pan/pinch,
+        // which suppresses the synthesized mouse events a touch would
+        // otherwise generate — including click. So taps never reach the
+        // click listener above on touch devices; handle them here instead.
+        // A pinch (2+ touches at any point in the gesture) must never open
+        // the panel, so once flagged it stays flagged until every finger
+        // lifts and a fresh gesture begins.
+        let touchStartXY = null;
+        let touchIsPinch = false;
+        container.addEventListener('touchstart', function (e) {
+            if (e.touches.length >= 2) {
+                touchIsPinch = true;
+                touchStartXY = null;
+                return;
+            }
+            if (e.touches.length === 1) {
+                touchIsPinch = false;
+                touchStartXY = [e.touches[0].clientX, e.touches[0].clientY];
+            }
+        });
+        container.addEventListener('touchend', function (e) {
+            const wasPinch = touchIsPinch, start = touchStartXY;
+            if (e.touches.length === 0) {
+                touchIsPinch = false;
+            }
+            touchStartXY = null;
+            if (wasPinch || !start) return;
+            const t = e.changedTouches[0];
+            if (!t) return;
+            const moved = Math.hypot(t.clientX - start[0], t.clientY - start[1]);
+            if (moved >= 8) return;
+            const el = document.elementFromPoint(t.clientX, t.clientY);
+            const target = el && el.closest('.concept-target');
+            if (target && byId[target.dataset.conceptId]) {
+                openPanel(byId[target.dataset.conceptId], true);
+            }
+        });
+
         window.MindmapNotes._onSelect = function (c) { openPanel(c, true); };
     }
 
