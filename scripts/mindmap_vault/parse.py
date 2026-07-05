@@ -7,7 +7,7 @@ from scripts.mindmap_vault.geom import bbox_of
 from scripts.mindmap_vault.model import ImageRef, Stroke
 
 _NUM = re.compile(r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?")
-_TAG = re.compile(r"<g\b[^>]*>|</g>|<path\b[^>]*?/>|<circle\b[^>]*?/>|<use\b[^>]*?/>")
+_TAG = re.compile(r"<g\b[^>]*>|</g>|<path\b[^>]*?>|<circle\b[^>]*?>|<use\b[^>]*?>")
 _CMD = re.compile(r"([MLQ])([^MLQ]*)")
 
 
@@ -136,7 +136,7 @@ def parse_svg(path):
 def load_image_png(path, def_id):
     text = Path(path).read_text(encoding="utf-8")
     m = re.search(
-        rf'<image id="{re.escape(def_id)}"[^>]*?href="data:image/png;base64,([^"]+)"',
+        rf'<image id="{re.escape(def_id)}"[^>]*?href="data:image/[^;]+;base64,([^"]+)"',
         text,
     )
     if not m:

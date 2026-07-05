@@ -14,8 +14,9 @@ MULTI_MAX_STROKES = 6
 DEDUP_IOU = 0.8
 
 # --- arrows ---
-ARROW_MIN_LEN = 12.0
-END_TOL = 10.0            # endpoint→box distance to count as attached
+ARROW_MIN_LEN = 15.0      # chord (straight-line) length, not arc length
+ARROW_LINEARITY = 0.9     # chord/arc; excludes squiggly handwriting/glyph strokes
+END_TOL = 20.0            # endpoint→box distance to count as attached
 AMBIG_RATIO = 1.5         # 2nd-nearest closer than ratio*nearest → ambiguous
 HEAD_MAX_LEN = 8.0
 HEAD_TOL = 5.0

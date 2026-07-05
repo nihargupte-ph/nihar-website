@@ -4,8 +4,8 @@ from scripts.mindmap_vault.geom import (
     bbox_iou,
     bbox_of,
     bbox_union,
-    chord_len,
     dist,
+    linearity,
     point_rect_outline_dist,
     polyline_len,
 )
@@ -34,8 +34,7 @@ def _is_single_box(s):
 
 
 def _linearity(s):
-    arc = polyline_len(s.points)
-    return chord_len(s.points) / arc if arc > 0 else 0.0
+    return linearity(s.points)
 
 
 def _join_components(strokes, tol):

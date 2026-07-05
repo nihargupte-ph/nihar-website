@@ -47,6 +47,12 @@ def chord_len(pts):
     return dist(pts[0], pts[-1]) if len(pts) > 1 else 0.0
 
 
+def linearity(pts):
+    """chord / arc length: 1.0 for a straight stroke, near 0 for a squiggle."""
+    arc = polyline_len(pts)
+    return chord_len(pts) / arc if arc > 0 else 0.0
+
+
 def point_bbox_dist(pt, b):
     dx = max(b[0] - pt[0], 0.0, pt[0] - b[2])
     dy = max(b[1] - pt[1], 0.0, pt[1] - b[3])

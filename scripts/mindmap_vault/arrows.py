@@ -3,7 +3,9 @@ from scripts.mindmap_vault.boxes import _join_components
 from scripts.mindmap_vault.geom import (
     bbox_area,
     bbox_contains,
+    chord_len,
     dist,
+    linearity,
     point_bbox_dist,
     polyline_len,
 )
@@ -55,7 +57,8 @@ def find_edges(strokes, boxes):
     cands = [
         s for s in strokes
         if s.sid not in border and not s.radius
-        and polyline_len(s.points) >= config.ARROW_MIN_LEN
+        and chord_len(s.points) >= config.ARROW_MIN_LEN
+        and linearity(s.points) >= config.ARROW_LINEARITY
         and not any(bbox_contains(b.bbox, _midpoint(s)) for b in boxes)
     ]
 
