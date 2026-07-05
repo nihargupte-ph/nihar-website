@@ -67,6 +67,49 @@ def test_dry_run_marks_pending(synthetic_svg, tmp_path):
     assert all(c["title"] == "(pending OCR)" for c in idx["concepts"])
 
 
+def test_dropped_persists_and_skips_reocr(synthetic_svg, tmp_path):
+    vault = tmp_path / "vault"
+    json_out = tmp_path / "i.json"
+    fake = FakeOcr([
+        OcrResult("Alpha", "a", True),
+        OcrResult("junk", "", False),
+        OcrResult("Gamma", "g", True),
+    ])
+    summary1 = update.run(synthetic_svg, vault, ocr_client=fake, json_path=json_out)
+    assert summary1["dropped"] == 1
+
+    empty_fake = FakeOcr([])  # would raise IndexError if any OCR happened
+    summary2 = update.run(synthetic_svg, vault, ocr_client=empty_fake, json_path=json_out)
+    assert empty_fake.calls == 0
+    assert summary2["ocr_calls"] == 0
+    assert summary2["pending"] == 0
+    assert summary2["dropped"] == 0
+    assert summary2["unchanged"] == 3
+    idx = json.loads(json_out.read_text())
+    assert len(idx["concepts"]) == 2
+
+
+def test_dropped_box_edges_excluded(synthetic_svg, tmp_path):
+    vault = tmp_path / "vault"
+    json_out = tmp_path / "i.json"
+    fake = FakeOcr([
+        OcrResult("Alpha", "a", True),
+        OcrResult("junk", "", False),  # drops box B ("Beta"), which has 2 edges
+        OcrResult("Gamma", "g", True),
+    ])
+    update.run(synthetic_svg, vault, ocr_client=fake, json_path=json_out)
+    idx = json.loads(json_out.read_text())
+    assert len(idx["concepts"]) == 2
+    ids = {c["id"] for c in idx["concepts"]}
+    for c in idx["concepts"]:
+        # no dangling references to the dropped box
+        assert set(c["links_out"]) <= ids
+        assert set(c["links_in"]) <= ids
+        # both real edges in the fixture touch the dropped box, so nothing survives
+        assert c["links_out"] == []
+        assert c["links_in"] == []
+
+
 def test_v1_backup(synthetic_svg, tmp_path):
     vault = tmp_path / "vault"
     vault.mkdir()

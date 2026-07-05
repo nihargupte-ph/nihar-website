@@ -3,6 +3,10 @@ import re
 from pathlib import Path
 
 
+def _is_dropped(rec):
+    return bool((rec.get("ocr") or {}).get("dropped"))
+
+
 def _slugify(title, taken):
     base = re.sub(r"[^a-z0-9]+", "_", title.lower()).strip("_") or "concept"
     slug = base
@@ -17,8 +21,16 @@ def _assign_slugs(vault, source):
     concepts = Path(vault) / "concepts"
     taken = {p.stem for p in concepts.glob("*.md")} if concepts.exists() else set()
     taken |= {p.stem for p in (concepts / "_archived").glob("*.md")} if (concepts / "_archived").exists() else set()
-    taken |= {rec["slug"] for rec in source["boxes"].values() if rec.get("slug")}
+    taken |= {
+        rec["slug"] for rec in source["boxes"].values()
+        if rec.get("slug") and not _is_dropped(rec)
+    }
     for rec in source["boxes"].values():
+        if _is_dropped(rec):
+            # dropped records never get a note, so they never need a slug —
+            # clear any stale slug from before the box was dropped.
+            rec["slug"] = None
+            continue
         if rec.get("slug"):
             continue
         title = (rec.get("ocr") or {}).get("title") or "concept"
@@ -80,10 +92,12 @@ def emit(vault, stem, source, edges, viewbox, json_path, assets, deleted_slugs):
 
     _assign_slugs(vault, source)
     boxes = source["boxes"]
-    out, inc = _link_maps(list(boxes), edges)
-    slug_of = {bid: rec["slug"] for bid, rec in boxes.items()}
+    active_ids = [bid for bid, rec in boxes.items() if not _is_dropped(rec)]
+    out, inc = _link_maps(active_ids, edges)
+    slug_of = {bid: boxes[bid]["slug"] for bid in active_ids}
 
-    for bid, rec in boxes.items():
+    for bid in active_ids:
+        rec = boxes[bid]
         out_slugs = [slug_of[t] for t in out[bid]]
         (concepts / f"{rec['slug']}.md").write_text(
             _note(stem, bid, rec, out_slugs), encoding="utf-8"
@@ -94,9 +108,9 @@ def emit(vault, stem, source, edges, viewbox, json_path, assets, deleted_slugs):
             (vault / "assets" / fname).write_bytes(data)
 
     moc = [f"# MOC — {stem}", "",
-           f"Generated from `{stem}.svg` — {len(boxes)} concepts, {len(edges)} edges.",
+           f"Generated from `{stem}.svg` — {len(active_ids)} concepts, {len(edges)} edges.",
            "", "## Concepts", ""]
-    moc += [f"- [[{rec['slug']}]] ({bid})" for bid, rec in sorted(boxes.items())]
+    moc += [f"- [[{boxes[bid]['slug']}]] ({bid})" for bid in sorted(active_ids)]
     moc += ["", "## Edges", ""]
     for src_bid, dst_bid, directed in edges:
         if src_bid in slug_of and dst_bid in slug_of:
@@ -115,7 +129,8 @@ def emit(vault, stem, source, edges, viewbox, json_path, assets, deleted_slugs):
         "viewBox": list(viewbox),
         "concepts": [],
     }
-    for bid, rec in sorted(boxes.items()):
+    for bid in sorted(active_ids):
+        rec = boxes[bid]
         ocr = rec.get("ocr") or {}
         pending = rec.get("ocr") is None or ocr.get("pending")
         index["concepts"].append({

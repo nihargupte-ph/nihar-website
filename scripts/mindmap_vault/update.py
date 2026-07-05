@@ -94,6 +94,9 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
             summary["pending"] += 1
             continue
         if not r.is_concept_box:
+            source["boxes"][d.box_id]["ocr"] = {
+                "title": "", "text": "", "context": None,
+                "pending": False, "dropped": True}
             dropped_bids.add(d.box_id)
             summary["dropped"] += 1
             continue
@@ -106,11 +109,16 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
                 (f"{d.box_id}_{i}.{img_ext}", img_data))
 
     for bid in dropped_bids:
-        source["boxes"].pop(bid, None)
-        # if this bid previously had a note (i.e. it wasn't newly created this
+        # Dropped boxes stay in source["boxes"] (flagged ocr.dropped=True) so
+        # their strokes aren't re-detected as "new" and re-OCR'd forever.
+        # If this bid previously had a note (i.e. it wasn't newly created this
         # run), archive it the same way a truly-deleted box would be.
         if old_slugs.get(bid):
             deleted_slugs.append(old_slugs[bid])
+
+    def _is_dropped(bid):
+        rec = source["boxes"].get(bid)
+        return bool(rec and (rec.get("ocr") or {}).get("dropped"))
 
     # Edge.src/dst index into `found`; reconcile stamped .box_id onto those
     # same Box objects, so the mapping is direct.
@@ -118,7 +126,8 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
     for e in edge_list:
         s_bid = found[e.src].box_id
         d_bid = found[e.dst].box_id
-        if s_bid in source["boxes"] and d_bid in source["boxes"]:
+        if (s_bid in source["boxes"] and not _is_dropped(s_bid)
+                and d_bid in source["boxes"] and not _is_dropped(d_bid)):
             id_edges.append((s_bid, d_bid, e.directed))
     summary["edges"] = len(id_edges)
 
