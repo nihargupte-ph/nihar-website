@@ -7,7 +7,6 @@ window.MindmapNotes = (function () {
     let index = null;          // parsed <stem>-index.json
     let byId = {};             // concept id -> concept
     let targets = {};          // concept id -> overlay div
-    let panFactorCache = null;
     let matches = [], activeIdx = -1;
     let history = [];
 
@@ -39,14 +38,13 @@ window.MindmapNotes = (function () {
     }
 
     function panFactor() {
-        if (panFactorCache) return panFactorCache;
-        const before = content.getBoundingClientRect().left;
-        const p = panzoom.getPan();
-        panzoom.pan(p.x + 10, p.y, { animate: false });
-        const after = content.getBoundingClientRect().left;
-        panzoom.pan(p.x, p.y, { animate: false });
-        panFactorCache = (after - before) / 10 || 1;
-        return panFactorCache;
+        var t = content.style.transform || '';
+        var scaleIdx = t.indexOf('scale(');
+        var translateIdx = t.indexOf('translate(');
+        if (scaleIdx !== -1 && translateIdx !== -1 && scaleIdx < translateIdx) {
+            return panzoom.getScale() || 1;
+        }
+        return 1;
     }
 
     function centerOn(concept) {
@@ -58,7 +56,6 @@ window.MindmapNotes = (function () {
             Math.max(0.1, 0.4 * Math.min(cRect.width / (x1 - x0), cRect.height / (y1 - y0)))
         );
         panzoom.zoom(targetScale, { animate: false });
-        panFactorCache = null; // scale change may change the factor
         requestAnimationFrame(function () {
             const el = targets[concept.id].getBoundingClientRect();
             const dx = (cRect.left + cRect.width / 2) - (el.left + el.width / 2);
