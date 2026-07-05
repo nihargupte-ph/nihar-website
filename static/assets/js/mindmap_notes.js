@@ -8,6 +8,7 @@ window.MindmapNotes = (function () {
     let byId = {};             // concept id -> concept
     let targets = {};          // concept id -> overlay div
     let panFactorCache = null;
+    let matches = [], activeIdx = -1;
 
     function vbToEl(x, y) {
         const vb = index.viewBox;
@@ -75,6 +76,127 @@ window.MindmapNotes = (function () {
         el.classList.add('hit-flash');
     }
 
+    function escapeHtml(s) {
+        return s.replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+
+    function snippet(text, q) {
+        const i = text.toLowerCase().indexOf(q);
+        if (i < 0) return '';
+        const a = Math.max(0, i - 40), b = Math.min(text.length, i + q.length + 40);
+        const pre = escapeHtml(text.slice(a, i));
+        const hit = escapeHtml(text.slice(i, i + q.length));
+        const post = escapeHtml(text.slice(i + q.length, b));
+        return (a > 0 ? '…' : '') + pre + '<mark>' + hit + '</mark>' + post +
+               (b < text.length ? '…' : '');
+    }
+
+    function clearHits() {
+        for (const id in targets) {
+            targets[id].classList.remove('hit', 'hit-active');
+        }
+    }
+
+    // Re-adds .hit/.hit-active for the current match state. Needed because
+    // buildOverlays() (called on resize) rebuilds the overlay divs from
+    // scratch, wiping any classes applied by search().
+    function reapplyHits() {
+        for (const c of matches) {
+            if (targets[c.id]) targets[c.id].classList.add('hit');
+        }
+        if (activeIdx >= 0 && matches[activeIdx] && targets[matches[activeIdx].id]) {
+            targets[matches[activeIdx].id].classList.add('hit-active');
+        }
+    }
+
+    function search(q) {
+        q = q.trim().toLowerCase();
+        clearHits();
+        matches = [];
+        activeIdx = -1;
+        const results = document.getElementById('search-results');
+        const nav = document.getElementById('search-nav');
+        if (q.length < 2) {
+            results.hidden = true;
+            nav.hidden = true;
+            return;
+        }
+        const inTitle = [], inText = [];
+        for (const c of index.concepts) {
+            if (c.title.toLowerCase().includes(q)) inTitle.push(c);
+            else if (c.text.toLowerCase().includes(q)) inText.push(c);
+        }
+        matches = inTitle.concat(inText);
+        results.innerHTML = '';
+        for (const c of matches) {
+            const div = document.createElement('div');
+            div.className = 'search-result';
+            div.innerHTML = '<div class="sr-title">' + escapeHtml(c.title) + '</div>' +
+                '<div class="sr-snippet">' + (snippet(c.text, q) || snippet(c.title, q)) + '</div>';
+            div.addEventListener('mousedown', function (e) {
+                e.preventDefault();
+                selectMatch(matches.indexOf(c), true);
+            });
+            results.appendChild(div);
+            if (targets[c.id]) targets[c.id].classList.add('hit');
+        }
+        results.hidden = matches.length === 0;
+        nav.hidden = matches.length === 0;
+        updateCounter();
+    }
+
+    function updateCounter() {
+        document.getElementById('search-counter').textContent =
+            matches.length ? (activeIdx + 1) + ' of ' + matches.length : '';
+        const rows = document.querySelectorAll('.search-result');
+        rows.forEach(function (r, i) { r.classList.toggle('selected', i === activeIdx); });
+        if (activeIdx >= 0 && rows[activeIdx]) rows[activeIdx].scrollIntoView({ block: 'nearest' });
+    }
+
+    function selectMatch(i, closeDropdown) {
+        if (!matches.length) return;
+        activeIdx = (i + matches.length) % matches.length;
+        const c = matches[activeIdx];
+        for (const id in targets) targets[id].classList.remove('hit-active');
+        if (targets[c.id]) targets[c.id].classList.add('hit-active');
+        updateCounter();
+        centerOn(c);
+        flash(c.id);
+        if (closeDropdown) document.getElementById('search-results').hidden = true;
+        if (window.MindmapNotes._onSelect) window.MindmapNotes._onSelect(c);
+    }
+
+    function initSearch() {
+        document.getElementById('search-bar').hidden = false;
+        const input = document.getElementById('concept-search');
+        input.addEventListener('input', function () { search(input.value); });
+        input.addEventListener('keydown', function (e) {
+            const results = document.getElementById('search-results');
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                results.hidden = false;
+                selectMatch(activeIdx + 1, false);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectMatch(activeIdx - 1, false);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                selectMatch(Math.max(activeIdx, 0), true);
+            } else if (e.key === 'Escape') {
+                results.hidden = true;
+                input.blur();
+            }
+        });
+        document.getElementById('search-prev').addEventListener('click', function () {
+            selectMatch(activeIdx - 1, false);
+        });
+        document.getElementById('search-next').addEventListener('click', function () {
+            selectMatch(activeIdx + 1, false);
+        });
+    }
+
     function init(opts) {
         panzoom = opts.panzoom;
         content = opts.content;
@@ -89,7 +211,11 @@ window.MindmapNotes = (function () {
                 index = data;
                 for (const c of index.concepts) byId[c.id] = c;
                 buildOverlays();
-                window.addEventListener('resize', buildOverlays);
+                initSearch();
+                window.addEventListener('resize', function () {
+                    buildOverlays();
+                    reapplyHits();
+                });
                 if (window.MindmapNotes._onIndexLoaded) {
                     window.MindmapNotes._onIndexLoaded();
                 }

@@ -187,6 +187,61 @@
         }
     }
 
+    .search-bar {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1001;
+        width: min(420px, calc(100% - 130px));
+    }
+    #concept-search {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #444;
+        border-radius: 6px;
+        background: rgba(20, 24, 32, 0.92);
+        color: #eee;
+        font-size: 14px;
+    }
+    #concept-search:focus { outline: 1px solid #4a9eff; }
+    .search-nav {
+        position: absolute;
+        right: 6px;
+        top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #aaa;
+        font-size: 12px;
+    }
+    .search-nav button {
+        background: none;
+        border: none;
+        color: #4a9eff;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0 4px;
+    }
+    .search-results {
+        margin-top: 4px;
+        max-height: 40vh;
+        overflow-y: auto;
+        background: rgba(20, 24, 32, 0.97);
+        border: 1px solid #444;
+        border-radius: 6px;
+    }
+    .search-result {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #2a2f3a;
+    }
+    .search-result:last-child { border-bottom: none; }
+    .search-result.selected, .search-result:hover { background: rgba(74, 158, 255, 0.15); }
+    .search-result .sr-title { color: #eee; font-size: 13px; font-weight: 600; }
+    .search-result .sr-snippet { color: #999; font-size: 12px; }
+    .search-result mark { background: rgba(74, 158, 255, 0.4); color: #fff; }
+
     /* Fullscreen styles */
     .viewer-wrapper:fullscreen {
         height: 100vh !important;
@@ -244,6 +299,17 @@
             <button id="zoom-out-btn" title="Zoom Out">−</button>
             <button id="reset-btn" title="Reset View">⌂</button>
             <button id="fullscreen-btn" title="Fullscreen">⛶</button>
+        </div>
+
+        <div class="search-bar" id="search-bar" hidden>
+            <input type="text" id="concept-search" placeholder="Search concepts…"
+                   autocomplete="off" spellcheck="false">
+            <div class="search-nav" id="search-nav" hidden>
+                <button id="search-prev" title="Previous match">‹</button>
+                <span id="search-counter"></span>
+                <button id="search-next" title="Next match">›</button>
+            </div>
+            <div class="search-results" id="search-results" hidden></div>
         </div>
 
         <div id="svg-container">
