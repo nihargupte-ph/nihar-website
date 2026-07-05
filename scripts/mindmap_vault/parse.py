@@ -90,8 +90,11 @@ def parse_svg(path):
             def_id = href.lstrip("#")
             if img and def_id in result.image_defs:
                 w, h = result.image_defs[def_id]
+                iid = img[0]
+                if iid.startswith("IMAGE_"):
+                    iid = iid[len("IMAGE_"):]
                 result.images.append(
-                    ImageRef(iid=img[0], def_id=def_id, bbox=_matrix_bbox(img[1], w, h))
+                    ImageRef(iid=iid, def_id=def_id, bbox=_matrix_bbox(img[1], w, h))
                 )
         elif tag.startswith("<path"):
             sid = (_attr(tag, "id") or "")
