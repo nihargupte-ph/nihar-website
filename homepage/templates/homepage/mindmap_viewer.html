@@ -434,6 +434,11 @@ document.addEventListener('DOMContentLoaded', function() {
             startScale: 10,
             contain: false,
             cursor: 'grab',
+            // all pointer interaction is handled by the custom container
+            // listeners below; without noBind, Panzoom's own pointer handlers
+            // (dormant when it targeted the pointer-events:none <object>)
+            // would double-handle drags on this div
+            noBind: true,
         });
 
         // Enable mouse wheel zoom
