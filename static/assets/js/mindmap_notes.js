@@ -9,6 +9,7 @@ window.MindmapNotes = (function () {
     let targets = {};          // concept id -> overlay div
     let panFactorCache = null;
     let matches = [], activeIdx = -1;
+    let history = [];
 
     function vbToEl(x, y) {
         const vb = index.viewBox;
@@ -168,6 +169,85 @@ window.MindmapNotes = (function () {
         if (window.MindmapNotes._onSelect) window.MindmapNotes._onSelect(c);
     }
 
+    function renderMath(el) {
+        if (window.renderMathInElement) {
+            renderMathInElement(el, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                ],
+                throwOnError: false,
+            });
+        }
+    }
+
+    function chipRow(rowEl, ids) {
+        const chips = rowEl.querySelector('.chips');
+        chips.innerHTML = '';
+        rowEl.hidden = ids.length === 0;
+        for (const id of ids) {
+            const c = byId[id];
+            if (!c) continue;
+            const b = document.createElement('button');
+            b.className = 'chip';
+            b.textContent = c.title;
+            b.addEventListener('click', function () {
+                centerOn(c);
+                flash(c.id);
+                openPanel(c, true);
+            });
+            chips.appendChild(b);
+        }
+    }
+
+    function openPanel(concept, push) {
+        const panel = document.getElementById('concept-panel');
+        const current = panel.dataset.conceptId;
+        if (push && current && current !== concept.id) history.push(current);
+        panel.dataset.conceptId = concept.id;
+        panel.hidden = false;
+        document.getElementById('panel-back').hidden = history.length === 0;
+        document.getElementById('panel-title').textContent = concept.title;
+        const textEl = document.getElementById('panel-text');
+        textEl.innerHTML = escapeHtml(concept.text).replace(/\n/g, '<br>');
+        renderMath(textEl);
+        const ctx = document.getElementById('panel-context');
+        ctx.hidden = !concept.context;
+        ctx.textContent = concept.context || '';
+        chipRow(document.getElementById('panel-links-out'), concept.links_out);
+        chipRow(document.getElementById('panel-links-in'), concept.links_in);
+    }
+
+    function initPanel() {
+        document.getElementById('panel-close').addEventListener('click', function () {
+            document.getElementById('concept-panel').hidden = true;
+            document.getElementById('concept-panel').dataset.conceptId = '';
+            history = [];
+        });
+        document.getElementById('panel-back').addEventListener('click', function () {
+            const prev = history.pop();
+            if (prev && byId[prev]) {
+                centerOn(byId[prev]);
+                openPanel(byId[prev], false);
+            }
+            document.getElementById('panel-back').hidden = history.length === 0;
+        });
+        // clicks on overlay targets — but not drags
+        let downXY = null;
+        container.addEventListener('mousedown', function (e) {
+            downXY = [e.clientX, e.clientY];
+        });
+        container.addEventListener('click', function (e) {
+            if (downXY && Math.hypot(e.clientX - downXY[0], e.clientY - downXY[1]) > 5) return;
+            const t = e.target.closest('.concept-target');
+            if (t && byId[t.dataset.conceptId]) {
+                openPanel(byId[t.dataset.conceptId], true);
+            }
+        });
+
+        window.MindmapNotes._onSelect = function (c) { openPanel(c, true); };
+    }
+
     function initSearch() {
         document.getElementById('search-bar').hidden = false;
         const input = document.getElementById('concept-search');
@@ -212,6 +292,7 @@ window.MindmapNotes = (function () {
                 for (const c of index.concepts) byId[c.id] = c;
                 buildOverlays();
                 initSearch();
+                initPanel();
                 window.addEventListener('resize', function () {
                     buildOverlays();
                     reapplyHits();
