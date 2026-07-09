@@ -26,7 +26,7 @@ window.MindmapNotes = (function () {
             const [x0, y0] = vbToEl(c.bbox[0], c.bbox[1]);
             const [x1, y1] = vbToEl(c.bbox[2], c.bbox[3]);
             const div = document.createElement('div');
-            div.className = 'concept-target';
+            div.className = 'concept-target' + (c.kind === 'region' ? ' concept-target--region' : '');
             div.style.left = x0 + 'px';
             div.style.top = y0 + 'px';
             div.style.width = (x1 - x0) + 'px';

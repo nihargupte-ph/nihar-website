@@ -7,7 +7,7 @@ from scripts.mindmap_vault import parse
 def test_parse_counts_and_viewbox(synthetic_svg):
     r = parse.parse_svg(synthetic_svg)
     assert r.viewbox == (0.0, 0.0, 500.0, 400.0)
-    assert len(r.strokes) == 47  # 46 paths + 1 circle
+    assert len(r.strokes) == 48  # 47 paths + 1 circle
     assert len(r.images) == 1
     assert r.image_defs == {"IMAGE_DEF_aaa": (60.0, 30.0)}
 

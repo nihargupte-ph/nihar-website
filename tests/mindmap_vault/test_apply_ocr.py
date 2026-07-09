@@ -18,7 +18,7 @@ def test_apply_ocr_happy_path(synthetic_svg, tmp_path):
     vault = tmp_path / "vault"
     json_out = tmp_path / "i.json"
     _, stem, box_ids = _dry_run_boxes(synthetic_svg, vault, json_out)
-    assert len(box_ids) == 3
+    assert len(box_ids) == 5
 
     results = {
         "source": stem,
@@ -28,6 +28,10 @@ def test_apply_ocr_happy_path(synthetic_svg, tmp_path):
             {"box_id": box_ids[1], "title": "junk", "text": "",
              "is_concept_box": False, "context": None},
             {"box_id": box_ids[2], "title": "Gamma", "text": "g",
+             "is_concept_box": True, "context": None},
+            {"box_id": box_ids[3], "title": "Delta", "text": "d",
+             "is_concept_box": True, "context": None},
+            {"box_id": box_ids[4], "title": "Epsilon", "text": "e",
              "is_concept_box": True, "context": None},
         ],
     }
@@ -45,8 +49,8 @@ def test_apply_ocr_happy_path(synthetic_svg, tmp_path):
 
     idx = json.loads(json_out.read_text())
     titles = {c["title"] for c in idx["concepts"]}
-    assert titles == {"Alpha", "Gamma"}
-    assert len(idx["concepts"]) == 2
+    assert titles == {"Alpha", "Gamma", "Delta", "Epsilon"}
+    assert len(idx["concepts"]) == 4
 
 
 def test_apply_ocr_unknown_id(synthetic_svg, tmp_path, capsys):
@@ -92,8 +96,8 @@ def test_apply_ocr_dropped_pending_placeholder_never_had_note(synthetic_svg, tmp
     assert slug is None
     assert not list((vault / "concepts").glob("*.md"))
 
-    # Resolve all three pending boxes so the re-run below has no remaining
-    # OCR work to do.
+    # Resolve all five pending records (3 boxes + 2 regions) so the re-run
+    # below has no remaining OCR work to do.
     results = {
         "source": stem,
         "results": [
@@ -102,6 +106,10 @@ def test_apply_ocr_dropped_pending_placeholder_never_had_note(synthetic_svg, tmp
             {"box_id": dropped_id, "title": "junk", "text": "",
              "is_concept_box": False, "context": None},
             {"box_id": box_ids[2], "title": "Gamma", "text": "g",
+             "is_concept_box": True, "context": None},
+            {"box_id": box_ids[3], "title": "Delta", "text": "d",
+             "is_concept_box": True, "context": None},
+            {"box_id": box_ids[4], "title": "Epsilon", "text": "e",
              "is_concept_box": True, "context": None},
         ],
     }
@@ -113,10 +121,11 @@ def test_apply_ocr_dropped_pending_placeholder_never_had_note(synthetic_svg, tmp
     empty_fake = FakeOcr([])  # would raise IndexError if any OCR happened
     update.run(synthetic_svg, vault, ocr_client=empty_fake, json_path=json_out)
 
-    # Alpha and Gamma get real notes now that they've been resolved, but the
-    # dropped box never had a note, so there is nothing to archive.
+    # Alpha, Gamma, Delta, Epsilon get real notes now that they've been
+    # resolved, but the dropped box never had a note, so there is nothing to
+    # archive.
     notes = {p.stem for p in (vault / "concepts").glob("*.md")}
-    assert notes == {"alpha", "gamma"}
+    assert notes == {"alpha", "gamma", "delta", "epsilon"}
     assert not (vault / "concepts" / "_archived").exists()
     data2 = manifest.load(vault)
     assert data2["sources"][stem]["boxes"][dropped_id]["slug"] is None
@@ -136,6 +145,8 @@ def test_apply_ocr_dropped_real_note_archives_note(synthetic_svg, tmp_path):
         OcrResult("Alpha", "a", True),
         OcrResult("Beta", "beta text", True),
         OcrResult("Gamma", "g", True),
+        OcrResult("Delta", "d", True),
+        OcrResult("Epsilon", "e", True),
     ])
     update.run(synthetic_svg, vault, ocr_client=fake, json_path=json_out)
 

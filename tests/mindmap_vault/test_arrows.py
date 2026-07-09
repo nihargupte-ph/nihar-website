@@ -36,7 +36,15 @@ def test_exactly_two_edges_no_review(synthetic_svg):
     r, bs, _ = _setup(synthetic_svg)
     edges, review = arrows.find_edges(r.strokes, bs)
     assert len(edges) == 2
-    assert review == []
+    # "arrowAtoRegA" (the R2 box<->region edge fixture) is a real connector
+    # whose far endpoint targets region A, not any of these 3 boxes. Passed
+    # only `bs` (boxes, no regions) as this test does, one end resolves to
+    # box A and the other resolves to nothing within END_TOL, so it's
+    # reported for manual review rather than silently dropped or turned into
+    # a spurious box-to-box edge — that's exercised end to end (with regions
+    # in play) by tests/mindmap_vault/test_update.py instead.
+    assert len(review) == 1
+    assert "arrowAtoRegA" in review[0]
 
 
 def test_dangling_connector_goes_to_review(synthetic_svg):

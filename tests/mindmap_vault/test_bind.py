@@ -25,7 +25,14 @@ def test_image_bound_to_box_b(synthetic_svg):
     _, bs = _pipeline(synthetic_svg)
     b = _box_at(bs, 260, 40)
     assert b.image_ids == ["img1"]
-    assert set(b.member_ids) == {"txtB1"}
+    # "arrowAtoRegA" (box A -> region A connector, added for the R2
+    # box<->region edge fixture) has a bbox center that falls within
+    # ATTACH_DIST of box B. In this test's own pipeline, find_edges only
+    # sees boxes (no regions), so the connector's endpoints don't attach to
+    # anything within END_TOL and it lands in `review`, not `edges` — bind()
+    # therefore doesn't exclude it, and it binds to box B same as any other
+    # loose annotation would.
+    assert set(b.member_ids) == {"txtB1", "arrowAtoRegA"}
 
 
 def test_edge_and_decoy_strokes_not_members(synthetic_svg):

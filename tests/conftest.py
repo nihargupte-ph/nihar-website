@@ -45,6 +45,33 @@ def _squiggle_d(x, y, n=6, step=4.0):
 # REGION_MIN_INK, and one long straight connector-shaped stroke bridging
 # the two clusters that must be excluded from clustering by shape (not
 # glue them together).
+#
+# --- box-to-region edge fixture geometry (R2) ---
+# "arrowAtoRegA": a single straight connector from just outside box A's
+# right edge (122, 50; within END_TOL of box A's border at x=120) to just
+# left of region A's cluster (370, 100; within END_TOL of region A's bbox,
+# which starts at x=380) — connector-shaped (chord >> ARROW_MIN_LEN,
+# linearity ~1.0) so find_regions excludes it from clustering by shape, and
+# it has no arrowhead strokes nearby on purpose: a tiny (<=HEAD_MAX_LEN)
+# head stroke placed close enough to satisfy HEAD_TOL at the region end
+# would itself sit inside region A's REGION_GAP merge radius and get
+# absorbed into the region A cluster, changing its membership. Without a
+# head it forms a plain undirected edge, which is enough to exercise a
+# box<->region edge end to end.
+#
+# Side effects on the pre-existing fixture worth noting for anyone reading
+# test assertions elsewhere: this stroke's own bbox center (246, 75) falls
+# within ATTACH_DIST/END_TOL-scale proximity of box B in the *new*
+# update.run pipeline order (bind() now runs before find_edges/find_regions,
+# so it has no edge list yet to exclude connector strokes by), so it — and
+# the pre-existing "headAB1"/"headAB2" arrowhead strokes, which sit just
+# outside box B's left edge — bind as box B *members* there. That's
+# accepted/expected per the R2 plan addendum: member (not border) status
+# doesn't exclude a stroke from find_edges' connector candidates, so
+# box-to-box edge detection (arrowAB, lineBC) is unaffected; verified by
+# tests/mindmap_vault/test_update.py. It has no effect on
+# tests/mindmap_vault/test_bind.py, which builds its own bind() call with a
+# real (find_edges-first) edge list, matching bind()'s pre-R2 contract.
 _REGION_A_COLS = [380, 396, 412, 428, 444]
 _REGION_A_ROWS = [78, 98, 118]
 _REGION_B_COLS = [280, 296, 312, 328]
@@ -105,6 +132,7 @@ SYNTHETIC_SVG = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 {_stroke("regC1", _squiggle_d(55, 300, n=1, step=1.5))}
 {_stroke("regC2", _squiggle_d(63, 300, n=1, step=1.5))}
 {_stroke("bridgeRC", "M 385 135 L 385 290")}
+{_stroke("arrowAtoRegA", "M 122 50 L 370 100")}
 </g>
 </svg>
 """

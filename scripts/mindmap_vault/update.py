@@ -7,7 +7,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.mindmap_vault import (  # noqa: E402
-    arrows, bind, boxes, config, emit, manifest, parse, render,
+    arrows, bind, boxes, config, emit, manifest, parse, regions, render,
 )
 from scripts.mindmap_vault.ocr import ClaudeOcr, OcrError  # noqa: E402
 
@@ -45,18 +45,28 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
 
     parsed = parse.parse_svg(svg_path)
     found = boxes.find_boxes(parsed.strokes)
-    edge_list, review = arrows.find_edges(parsed.strokes, found)
-    bind.bind(parsed.strokes, parsed.images, found, edge_list)
+    # bind before edges exist: a connector stroke whose bbox center sits
+    # inside a box may bind as a member. That's acceptable (see plan
+    # addendum) — such a stroke is then excluded from region candidates
+    # (already a member) and, since its midpoint is inside the box, its
+    # midpoint-inside-box check in find_edges also excludes it there, so
+    # box-to-box arrow detection is unaffected.
+    bind.bind(parsed.strokes, parsed.images, found, [])
+    region_list = regions.find_regions(parsed.strokes, found)
+    combined = found + region_list
+    edge_list, review = arrows.find_edges(parsed.strokes, combined)
 
     data = manifest.load(vault)
-    source = data["sources"].setdefault(stem, {"next_box": 1, "boxes": {}})
+    source = data["sources"].setdefault(
+        stem, {"next_box": 1, "next_region": 1, "boxes": {}})
+    source.setdefault("next_region", 1)
     # capture slug + dropped state before reconcile rewrites the boxes dict
     # (deleted records vanish, and this run's OCR loop may flip `dropped`)
     old_recs = {
         bid: (rec.get("slug"), manifest._is_dropped(rec))
         for bid, rec in source["boxes"].items()
     }
-    decisions, deleted = manifest.reconcile(source, found)
+    decisions, deleted = manifest.reconcile(source, combined)
     deleted_slugs = [
         old_recs[bid][0] for bid in deleted if old_recs.get(bid, (None, False))[0]
     ]
@@ -153,12 +163,12 @@ def run(svg_path, vault, ocr_client=None, json_path=None, dry_run=False,
         rec = source["boxes"].get(bid)
         return bool(rec and manifest._is_dropped(rec))
 
-    # Edge.src/dst index into `found`; reconcile stamped .box_id onto those
-    # same Box objects, so the mapping is direct.
+    # Edge.src/dst index into `combined`; reconcile stamped .box_id onto
+    # those same Box/region objects, so the mapping is direct.
     id_edges = []
     for e in edge_list:
-        s_bid = found[e.src].box_id
-        d_bid = found[e.dst].box_id
+        s_bid = combined[e.src].box_id
+        d_bid = combined[e.dst].box_id
         if (s_bid in source["boxes"] and not _bid_dropped(s_bid)
                 and d_bid in source["boxes"] and not _bid_dropped(d_bid)):
             id_edges.append((s_bid, d_bid, e.directed))

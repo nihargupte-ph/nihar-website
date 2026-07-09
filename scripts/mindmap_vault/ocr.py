@@ -9,13 +9,16 @@ class OcrError(Exception):
     pass
 
 
-_PROMPT = """This image is a crop of ONE hand-drawn concept box from a physics/CS research mindmap.
+_PROMPT = """This image is a crop of one hand-drawn concept box OR one unboxed region of
+handwriting from a physics/CS research mindmap.
 Transcribe the handwriting verbatim — do not paraphrase, expand, or correct it.
 Use LaTeX ($...$) for equations and mathematical symbols.
 - title: the box's heading (usually the first or most prominent line)
 - text: the full transcription, preserving line breaks
-- is_concept_box: false if this is NOT actually a concept box with handwritten notes
-  (e.g. a stray mark, an underline, or a frame around a photo with no writing)
+- is_concept_box: true if the crop contains transcribable content (text, or a
+  labeled diagram — transcribe the labels); false for pure unlabeled curves or
+  scribbles (e.g. a stray mark, an underline, or a frame around a photo with
+  no writing)
 - context: at most ONE short sentence of clarification, ONLY if the transcription
   alone would be cryptic; otherwise omit it entirely."""
 

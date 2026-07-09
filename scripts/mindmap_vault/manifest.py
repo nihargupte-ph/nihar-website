@@ -47,6 +47,10 @@ def _jaccard(a, b):
     return len(a & b) / len(u) if u else 0.0
 
 
+def _kind(box):
+    return "region" if not box.border_ids else "box"
+
+
 def reconcile(source, boxes):
     old = source["boxes"]
     by_hash = {rec["hash"]: bid for bid, rec in old.items()}
@@ -80,6 +84,11 @@ def reconcile(source, boxes):
         if best is not None and best_j > 0.5:
             decisions.append(Decision("changed", best, box, None))
             matched_old.add(best)
+        elif _kind(box) == "region":
+            source.setdefault("next_region", 1)
+            bid = f"r{source['next_region']:03d}"
+            source["next_region"] += 1
+            decisions.append(Decision("new", bid, box, None))
         else:
             bid = f"b{source['next_box']:03d}"
             source["next_box"] += 1
@@ -96,6 +105,7 @@ def reconcile(source, boxes):
             "bbox": list(d.box.bbox),
             "slug": prev.get("slug"),
             "ocr": d.ocr,  # None means: OCR still to run this pass
+            "kind": _kind(d.box),
         }
         d.box.box_id = d.box_id
     source["boxes"] = new_boxes

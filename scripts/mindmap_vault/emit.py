@@ -72,6 +72,10 @@ def _note(stem, bid, rec, out_slugs):
         f"id: {stem}/{bid}",
         f"source: {stem}",
         f"bbox: [{bbox}]",
+    ]
+    if rec.get("kind", "box") == "region":
+        lines.append("kind: region")
+    lines += [
         "---",
         f"# {title}",
         "",
@@ -157,6 +161,7 @@ def emit(vault, stem, source, edges, viewbox, json_path, assets, deleted_slugs):
             "bbox": [round(v, 1) for v in rec["bbox"]],
             "links_out": out[bid],
             "links_in": inc[bid],
+            "kind": rec.get("kind", "box"),
         })
     Path(json_path).parent.mkdir(parents=True, exist_ok=True)
     Path(json_path).write_text(json.dumps(index, indent=1), encoding="utf-8")
