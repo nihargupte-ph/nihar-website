@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.mindmap_vault import arrows, boxes, parse
+from scripts.mindmap_vault import arrows, bind, boxes, parse, regions
 
 CS_STAT = Path(__file__).resolve().parents[2] / "static" / "mindmaps" / "cs-stat.svg"
 
@@ -40,3 +40,15 @@ def test_box_and_edge_counts(parsed):
     # refinements without test churn.
     assert 128 <= len(bs) <= 157
     assert 14 <= len(edges) <= 18
+
+
+def test_region_and_combined_edge_counts(parsed):
+    # Calibrated after R2 (unboxed-region ingestion). Observed: 132 regions,
+    # 29 raw geometric edges over boxes+regions (the pipeline reports 22
+    # after excluding edges touching dropped records). Bands are ±10%.
+    bs = boxes.find_boxes(parsed.strokes)
+    bind.bind(parsed.strokes, parsed.images, bs, [])
+    regs = regions.find_regions(parsed.strokes, bs)
+    edges, _ = arrows.find_edges(parsed.strokes, bs + regs)
+    assert 119 <= len(regs) <= 145
+    assert 26 <= len(edges) <= 32

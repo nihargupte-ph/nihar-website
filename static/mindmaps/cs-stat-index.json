@@ -20,7 +20,8 @@
     -1652.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b004",
@@ -35,7 +36,8 @@
     -1889.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b012",
@@ -50,7 +52,8 @@
     -694.3
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b013",
@@ -65,7 +68,44 @@
     -746.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b014",
+   "slug": "pentagon_abcde_with_interior_x_root_marker",
+   "title": "Pentagon ABCDE with interior 'X root' marker",
+   "text": "Vertices labeled: A, B, C, D, E. Interior annotation: X root",
+   "context": "Labeled polygon diagram with vertices A-E and an interior 'X root' annotation.",
+   "bbox": [
+    -5273.4,
+    -905.2,
+    -5243.8,
+    -873.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b015",
+   "slug": "quadrilateral_abcd_with_interior_x_root_marker",
+   "title": "Quadrilateral ABCD with interior 'X root' marker",
+   "text": "Vertices labeled: A, B, C, D. Interior annotation: X root",
+   "context": "Tighter crop of the same labeled polygon diagram, showing vertices A-D and the 'X root' annotation.",
+   "bbox": [
+    -5275.1,
+    -831.8,
+    -5245.9,
+    -805.6
+   ],
+   "links_out": [
+    "r012"
+   ],
+   "links_in": [
+    "r012"
+   ],
+   "kind": "box"
   },
   {
    "id": "b017",
@@ -80,7 +120,8 @@
     -635.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b018",
@@ -95,7 +136,8 @@
     -733.5
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b019",
@@ -110,7 +152,8 @@
     -726.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b020",
@@ -125,7 +168,8 @@
     -711.9
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b021",
@@ -140,7 +184,8 @@
     -708.8
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b022",
@@ -155,7 +200,8 @@
     -698.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b023",
@@ -170,7 +216,8 @@
     -702.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b024",
@@ -185,7 +232,8 @@
     -702.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b025",
@@ -200,7 +248,8 @@
     -652.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b026",
@@ -215,7 +264,8 @@
     -685.9
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b027",
@@ -230,7 +280,8 @@
     -686.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b028",
@@ -245,7 +296,8 @@
     -660.6
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b029",
@@ -260,7 +312,8 @@
     -542.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b030",
@@ -274,8 +327,13 @@
     1011.0,
     203.6
    ],
-   "links_out": [],
-   "links_in": []
+   "links_out": [
+    "r024"
+   ],
+   "links_in": [
+    "r024"
+   ],
+   "kind": "box"
   },
   {
    "id": "b032",
@@ -289,8 +347,13 @@
     -786.9,
     -444.1
    ],
-   "links_out": [],
-   "links_in": []
+   "links_out": [
+    "r015"
+   ],
+   "links_in": [
+    "r015"
+   ],
+   "kind": "box"
   },
   {
    "id": "b033",
@@ -305,7 +368,8 @@
     -469.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b034",
@@ -320,7 +384,8 @@
     -467.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b035",
@@ -335,7 +400,8 @@
     -463.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b036",
@@ -349,8 +415,13 @@
     -1003.0,
     -150.9
    ],
-   "links_out": [],
-   "links_in": []
+   "links_out": [
+    "r018"
+   ],
+   "links_in": [
+    "r018"
+   ],
+   "kind": "box"
   },
   {
    "id": "b037",
@@ -364,8 +435,13 @@
     -480.8,
     -190.5
    ],
-   "links_out": [],
-   "links_in": []
+   "links_out": [
+    "r017"
+   ],
+   "links_in": [
+    "r017"
+   ],
+   "kind": "box"
   },
   {
    "id": "b038",
@@ -380,7 +456,8 @@
     -189.9
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b039",
@@ -395,7 +472,8 @@
     -188.3
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b040",
@@ -410,7 +488,8 @@
     -193.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b041",
@@ -425,7 +504,8 @@
     -170.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b043",
@@ -440,7 +520,8 @@
     188.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b044",
@@ -455,7 +536,8 @@
     199.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b045",
@@ -470,7 +552,8 @@
     308.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b046",
@@ -485,7 +568,8 @@
     532.5
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b047",
@@ -500,14 +584,15 @@
     390.9
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b048",
-   "slug": "discrete_fourier_transform",
-   "title": "Discrete Fourier transform",
-   "text": "Discrete Fourier transform\n\n$\\tilde{x}_k = \\sum_{j=0}^{n-1} x_j e^{-2\\pi i jk/n}$\n\n$x_k = \\sum \\tilde{x}_j e^{i2\\pi jk/n}$\n\n$\\mathcal{F}: \\{x_n\\}_{n\\in\\mathbb{C}} \\to \\{\\tilde{x}_n\\}_{n\\in\\mathbb{C}}$\n\namplitude vs time plot: $T_m$, $f_m$\n$\\tilde{x}_n$ vs Freq plot: $N/2$, $f_m$\n\nSample rate, each n = $t_s$, in which case in FD $\\Delta f$ = 1Hz.\n\nParameters\n- $f_s$ - sampling freq. tells you how many points to sample, the rate/max freq you can capture.\nE.g. $f_s$ = 40k samples/sec \u2192 $f_{max}$ = 20kHz, $f_s/2$ is the Nyquist freq\n- $\\Delta t$ - sampling time, $\\Delta t = 1/f_s$, spacing between time points\n- N - Number of points in DFT $\\{x_n\\}_{n=0}^{N-1}$\n- T - Duration of signal\n- $\\Delta f$ - spacing between freq bins, $\\Delta f = 1/T$\ne.g. 10s of data, $f_s$ = 1kHz, $\\Delta f$ = 1/10 = 0.1Hz\n\nProperties\nLinearity: $\\mathcal{F}(\\{ax_n+by_n\\})_k = aX_k+bY_k$\nRescaling: $\\mathcal{F}(\\{x_{n-a}\\})_k = X_k \\to \\mathcal{F}(\\{x_{n-a}\\})\\cdot X_{k-a}$\nLoss: $\\mathcal{F}(\\{x_{2n}\\})\\cdot X_n \\to \\mathcal{F}(\\{x_{2n}\\})\\cdot X_{n\\pm N}$\n\nDFT of Real Signals\nIf $x_n \\in \\mathbb{R} \\Rightarrow X_k = X_{-k}^{*}$ (conjugate symmetric)\nSince $\\mathcal{F}$ is invertible, # independent components = N, known that $X_k \\in \\mathbb{C}$.\n\nFourier Uncertainty Principle",
-   "context": "Large multi-section whiteboard summary on the Discrete Fourier Transform (formulas, sampling parameters, properties, real-signal symmetry, uncertainty principle); several smaller annotation lines are faint/small at this resolution so transcription of those is approximate.",
+   "slug": "discrete_fourier_transform_2",
+   "title": "Discrete Fourier Transform",
+   "text": "Discrete Fourier Transform\n$\\tilde{x}_k = \\sum_{j=0}^{n} x_j e^{-i2\\pi jk/n}$\n$x_k = \\sum \\tilde{x}_j e^{i2\\pi jk/n}$\n\n$\\mathcal{F}: \\{x_n\\}\\in\\mathbb{C} \\to \\{\\tilde{x}_n\\}\\in\\mathbb{C}$\n\n[left plot: damped oscillating time-domain signal, axes \"amplitude\" vs \"time\", marked $T_m = 1/BW$]\n[right plot: two-peak frequency spectrum vs \"Freq\", marked $\\tilde{x}_m$, \"1\"]\n\n$\\begin{bmatrix}\\tilde{x}_0\\\\\\tilde{x}_1\\\\\\tilde{x}_2\\\\\\vdots\\\\\\tilde{x}_{N-1}\\end{bmatrix} = \\begin{bmatrix}1&1&1&\\cdots&1\\\\1&W_n&W_n^2&\\cdots&W_n^{n-1}\\\\1&W_n^2&W_n^4&\\cdots&W_n^{2(n-1)}\\\\\\vdots&&&&\\vdots\\\\1&W_n^{n-1}&W_n^{2(n-1)}&\\cdots&W_n^{(n-1)^2}\\end{bmatrix}\\begin{bmatrix}x_0\\\\x_1\\\\x_2\\\\\\vdots\\\\x_{n-1}\\end{bmatrix}$\n\nSample rate, each n = 1s, in which case in FD $\\Delta$ = 1Hz.\n\nParameters\n\u25b8 $f_s$ - sampling freq. [dotted timeline] tells you how many points to sample this rate the max freq. you can capture.\nE.g. $f_s$ = 40k samples/sec \u2192 $f_{max}$ = 20kHz    $f_s/2$ is the Nyquist freq\n$\\frac{1}{2\\times 20k}$ sec\n\u25b8 $\\Delta t$ - sampling time   $\\Delta t = 1/f_s$ spacing between time points\n\u25b8 N - Number of points in DFT $\\{x_n\\}_{n=0}^{N-1}$\n\u25b8 T - Duration of signal\n\u25b8 $\\Delta f$ - $\\frac{f_s}{N}$ spacing between freq bins. Also is $\\frac{1}{T}$\ne.g. 10s of data, $f_s$=1k \u2192 $\\Delta f = \\frac{1}{10}$ = 0.1Hz\n[two small plots: multi-cycle time signal labeled $T_{sim}$, $\\Delta t$, \"in t\"; and irregular line plot \"in f\"]\n\nProperties\nLinearity: $\\mathcal{F}(\\{ax_n+by_n\\}_n) = aX_n + bY_n$\nShift: $\\mathcal{F}(\\{x_{n-l}\\})_n = X_n \\Rightarrow \\mathcal{F}(\\{x_{n-l}\\})\\cdot X_{n-l}$\nConv: $\\mathcal{F}(\\{x*y\\})_n = X_n \\Rightarrow \\mathcal{F}(\\{x*y\\})\\cdot X_n^c$\n\nDFT of Real Signals\nIf $x_n\\in\\mathbb{R} \\Rightarrow X_k = X_{N-k}^*$   [conjugate symmetric]\n[diagram: grid of red squares mapped by arrow to grid of blue circles]\nSince $\\tilde{\\mathcal{F}}$ is invertible, N components in $x_n$ \u2192 N components in $X_k$.\n\nFourier Uncertainty Principle\n[small plot with curve, axes labeled f and hat symbol, cut off]",
+   "context": "Lecture-style notes deriving the DFT, sampling parameters, and DFT properties; the bottom-right 'Fourier Uncertainty Principle' heading belongs to an adjoining box and is cut off in this crop.",
    "bbox": [
     2103.0,
     404.7,
@@ -517,14 +602,15 @@
    "links_out": [
     "b071"
    ],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b050",
-   "slug": "tukey_window",
+   "slug": "tukey_window_2",
    "title": "Tukey Window",
-   "text": "Tukey Window - used in LIGO analysis since we are looking for transients and this reduces modification\n\n$w[n] = \\frac{1}{2}\\left[1-\\cos\\left(\\frac{2\\pi n}{\\alpha N}\\right)\\right]$   $0 \\le n \\le \\frac{\\alpha N}{2}$\n$w[n] = 1$   $\\frac{\\alpha N}{2} \\le n \\le \\frac{N}{2}$\n$w[N-n] = w[n]$   $0 \\le n \\le \\frac{N}{2}$\n\namplitude (y-axis) / samples (x-axis)\nFourier\ndecibals (y-axis) / bins (x-axis)\ntime\n\nWindow Factor\nWindows decrease power of your signal so need to correct for this by multiplying some things e.g. PSD by window factor\n\n$W = \\frac{1}{N_t}\\sum_{t=0}^{N_t-1} w_t^2$   (length of window: $N_t$; window value: $w_t$)\n\n$\\dfrac{E_{win}}{E} = \\dfrac{\\sum |x_{win}|^2}{\\sum |x_o|^2} \\approx \\dfrac{\\frac{1}{2}\\sum w_t^2 \\sum x_t^2}{\\sum x_t}$",
-   "context": "Notes on the Tukey (tapered-cosine) window used in LIGO signal analysis, plus a window-factor correction formula; small diagrams show window shapes and their multiplicative effect on a Fourier spectrum.",
+   "text": "[diagrams: sine wave, box/window function (flat-top shape), multiplication (\u00d7) arrow producing a windowed wave with an envelope, then arrow down to three replicated windowed-wave segments tiled side by side, labeled \"time\" at right]\n\nTukey Window - used in LIGO analysis since we are looking for transients and this reduces modification\n\n$w[n] = \\frac{1}{2}\\left[1-\\cos\\left(\\frac{2\\pi n}{\\alpha N}\\right)\\right]$   $0\\le n\\le \\frac{\\alpha N}{2}$\n$w[n] = 1$   $\\frac{\\alpha N}{2}\\le n\\le \\frac{N}{2}$\n$w[N-n] = w[n]$   $0\\le n\\le \\frac{N}{2}$\n\u2193\n[Fourier plot: axes \"amplitude\"/\"samples\" on left, \"decibels\"/\"bins\" plot showing a sharp central peak with noisy sidelobes]\n\nWindow Factor\nWindows decrease power of your signal so need to correct for this by multiplying some things e.g. PSD by window factor\n$W = \\frac{1}{N_t}\\sum_{t=0}^{N_t-1} w_t^2$   [$N_t$ \u2190 length of window] [$w_t$ \u2190 window value]\n$\\frac{E_{win}}{E} = \\frac{\\sum|x_t w_t|^2}{\\sum|x_t|^2} \\approx \\frac{\\frac{1}{N}\\sum w_t^2\\cdot \\sum x_t^2}{\\sum x_t}$",
+   "context": "Notes on the Tukey window used for LIGO gravitational-wave data analysis, showing its piecewise definition and its effect on signal power (the window-factor correction).",
    "bbox": [
     3614.8,
     432.7,
@@ -532,9 +618,8 @@
     614.0
    ],
    "links_out": [],
-   "links_in": [
-    "b059"
-   ]
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b052",
@@ -549,7 +634,8 @@
     517.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b054",
@@ -564,7 +650,8 @@
     1095.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b057",
@@ -579,7 +666,8 @@
     613.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b058",
@@ -594,7 +682,8 @@
     1133.8
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b059",
@@ -609,9 +698,28 @@
     799.3
    ],
    "links_out": [
-    "b050"
+    "r031"
    ],
-   "links_in": []
+   "links_in": [
+    "r031"
+   ],
+   "kind": "box"
+  },
+  {
+   "id": "b060",
+   "slug": "batch_normalization_training_test_notes",
+   "title": "Batch normalization training/test notes",
+   "text": "Let L be some batch B with len M. Batch norm: BN_{sigma,beta}(x_i)\nSay there are L batches and x_i in B, x_i in R^N\n\nDuring Training\nmu_B = (1/M) sum_{i=1}^M x_i\nsigma_B^2 = (1/M) sum_{i=1}^M (x_i - mu_B)^2\n\nConsider a d dimensional input vector x_i^k in B (dim, sample)\nhat{x}_i^k = (x_i^k - mu_B^k) / sqrt((sigma_B^k)^2 + eps), w/ eps << 1\nMakes sure no [blank] if sigma << 1\n\ny_i := gamma * hat{x}_i + beta\nw/o gamma, beta the output would just be N(0,1). So reintroduce ability for [[cut off]] to add variability.\n\nImagine in class, you tell everyone to speak [[cut off]] (norm.) to cut through noise. But then some people who ha[ve] important to say should say it. This is what gamma i[s...] [[right margin cut off]]\n\nAcross all batches compute the \"running avg\"\nmu_l = rho*mu_{l-1} + (1-rho)*mu_{B-1}, where l in [0, L]\nsigma_l = rho*sigma_{l-1} + (1-rho)*sigma_{l-1}, rho = 0.9 is momentum\n\nDuring Test\nhat{x}_i^k = (x_i^k - mu_L^k) / sqrt((sigma_L^k)^2 + eps)\ny_i := gamma * hat{x}_i + beta\n\n[boxed side note] If mu_L - mu_R >> 1, then find stat. is significantly [[cut off]] the hat{x}_i^k won't properly n[ormalize...] [[cut off, inset plot of two noisy curves vs iteration]]",
+   "context": "Full lecture-note page deriving batch normalization: per-batch mean/variance during training, running averages, and rescaling with gamma/beta; right and bottom margins are cut off by the crop.",
+   "bbox": [
+    1113.4,
+    668.1,
+    1413.6,
+    866.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b061",
@@ -626,7 +734,24 @@
     684.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b062",
+   "slug": "loss_and_gradient_descent_notes",
+   "title": "Loss and gradient descent notes",
+   "text": "[[top of page cut off]] ...you my number [[repeated]] ...define x_q\n\nLoss\n[ ||x_q - label||_2 ]\n[[cut off]] In practice the batch\n\n[blue] ...ent descent\nL(w,b), and set\n\nbefore = epsilon * grad L(w,b)\n  ^\n  Learning rate\n\n...ply the chain rule when updating grad L\npartial L / partial w_{i2,j2} = sum_{i1,j1} (partial L / partial w_{i1,j1}) (partial w_{i1,j1} / partial w_{i2,j2})\n[yellow] w_{i,j}: loss correction between i node, j node\n\n...rate is loss are on[e]board [[cut off]] into\n...nk Loss for each sample. Then one[s]\n...compute the whole loss over the training [[cut off]]\n\n[inset plot, blue/pink axes]: curves labeled grad L and L, plotted vs axis w",
+   "context": "Notes on a loss function and gradient descent (learning rate, chain-rule weight updates for backprop); much of the left margin and top of the page are cut off by the crop boundary.",
+   "bbox": [
+    -88.1,
+    761.7,
+    120.2,
+    1373.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b063",
@@ -641,7 +766,26 @@
     944.8
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b064",
+   "slug": "svd_data_driven_fft_data_reduction_notes",
+   "title": "SVD / data-driven FFT (data reduction) notes",
+   "text": "Data-Reduction, Data-Driven FFT   Guaranteed to exist [a] unique [[cut off]]\n\ngoal is for transformation\n. Find 2 vectors v1, u1 st when transformed\nA v1 _|_ A u1. This translates to finding 2 orthogonal matrices U, V\nst A = U Sigma V^T\n\nv1 _|_ v2   (unit vectors)\nA v1 = sigma1 * u1\nA v2 = sigma2 * u2\nu1 _|_ u2\n\nA [v1 v2] = [u1 u2] [[sigma1, 0],[0, sigma2]]\nA V = U Sigma  ->  A = U Sigma V^T   (Diagonal Matrix)\nBest orthogonalize U^T U = I\n\nA^T A = V Sigma^2 V^T   (eigenvalues of A^T A; ith column is eigenvector of A^T A)\nA A^T = U Sigma^2 U^T\n\nA = [b1 b2 ... bn], b_i in R^n  [[eigenvectors, basis for column space of A]]\n\nExample: Say I have many [squiggle=signal vs freq] signals and you want to break down\ninto vectors which describe the ensemble of these signals, but you don't want to\nstore all the signals. Then create A = [f1, ..., fn] matrix w/ n being number of\nsignals. How can you only have a size q matrix to represent A w/o losing too much?\nWell get the SVD: A = sigma1 [u1;1][-v1-] + sigma2 [u2;1][-v2-] + ...\n= sum_i sigma_i u_i v_i^T\nSince these are ordered by sigma_i, you can take the first q you need and be good.\nHere V^T shape is q_freq_bins x q.\n\nNow let's say you have a new signal; if it's similar to the others, you can put it\nin the v1...vn basis by multiplying by V^T. You can also decompose vectors in\nthe u1...un basis by multiplying by U.",
+   "context": "Full lecture-note page on the SVD (A = U*Sigma*V^T), its derivation via eigendecomposition of A^T A and A A^T, and an application to compressing an ensemble of signals.",
+   "bbox": [
+    -2534.6,
+    786.7,
+    -2056.7,
+    1248.9
+   ],
+   "links_out": [
+    "r035"
+   ],
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b065",
@@ -656,7 +800,8 @@
     1051.9
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b070",
@@ -671,7 +816,8 @@
     1120.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b071",
@@ -688,7 +834,8 @@
    "links_out": [],
    "links_in": [
     "b048"
-   ]
+   ],
+   "kind": "box"
   },
   {
    "id": "b074",
@@ -703,7 +850,8 @@
     1519.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b076",
@@ -718,7 +866,8 @@
     2061.6
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b077",
@@ -733,7 +882,10 @@
     2314.6
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [
+    "r061"
+   ],
+   "kind": "box"
   },
   {
    "id": "b080",
@@ -748,7 +900,8 @@
     2828.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b081",
@@ -763,7 +916,8 @@
     2952.5
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b083",
@@ -778,7 +932,10 @@
     3732.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [
+    "r085"
+   ],
+   "kind": "box"
   },
   {
    "id": "b084",
@@ -793,7 +950,8 @@
     3991.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b089",
@@ -808,7 +966,8 @@
     3921.8
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b090",
@@ -823,7 +982,8 @@
     3980.3
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b092",
@@ -838,7 +998,8 @@
     4355.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b093",
@@ -853,7 +1014,8 @@
     4350.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b094",
@@ -868,7 +1030,8 @@
     4314.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b095",
@@ -883,7 +1046,8 @@
     4395.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b096",
@@ -897,15 +1061,20 @@
     4639.9,
     4762.5
    ],
-   "links_out": [],
-   "links_in": []
+   "links_out": [
+    "r097"
+   ],
+   "links_in": [
+    "r097"
+   ],
+   "kind": "box"
   },
   {
    "id": "b097",
-   "slug": "bayes_theorem",
+   "slug": "bayes_theorem_2",
    "title": "Bayes Theorem",
-   "text": "Bayes Theorem\n\n$P(A \\wedge B) = P(B \\wedge A) \\Rightarrow P(A)P(B|A)$\n$= P(B)P(A|B)$",
-   "context": "Box is cut off at the bottom; an underline and part of another box are visible below with no further legible text.",
+   "text": "Bayes Theorem\n$P(A\\wedge B) = P(B\\wedge A) \\Rightarrow P(A)P(B|A)$\n$= P(B)P(A|B)$",
+   "context": null,
    "bbox": [
     129.6,
     4500.7,
@@ -913,14 +1082,15 @@
     4642.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b098",
-   "slug": "monte_carlo",
+   "slug": "monte_carlo_2",
    "title": "Monte Carlo",
-   "text": "Monte Carlo   unbiased!\n\nEstimate area of circle by throwing darts\n\n[diagram: square containing a circle with scattered dots]\n\n$\\lim_{Total\\ darts \\to \\infty} \\dfrac{Num\\ darts\\ in\\ circle}{Total\\ darts}$\n\n$= 2\\int_{-1}^{1} \\sqrt{1-x^2}\\, dx = \\sum_i 2\\sqrt{1-x_i^2}$\n\n$x_i \\sim Uniform(-1,1)$\n\ngenerally very useful for integrals, especially high dimensional ones\n\ne.g. Estimate $\\int e^{-x} dx = \\hat p$ and variance of MC.\n\n$\\hat p = E_{x\\sim[0,1]}[e^{-x}] = \\dfrac{1}{n}\\sum_i e^{-x_i}$, $x_i \\sim [0,1]$\n\n$\\sigma = E_{x\\sim[0,1]}[(e^{-x})^2] - E_{x\\sim[0,1]}[e^{-x}]^2$ = can calculate exactly all integrals\n\ne.g. Estimate $\\int d\\vec x\\, N(x,1) f(\\vec x) = \\hat p$\n\n$\\hat p = E_{x\\sim N(x,1)}[f(\\vec x)]$\n\nML then follows ordinary statistics for example\n\n$\\hat p \\pm 1.96 \\dfrac{\\sigma}{\\sqrt N}$ is the 95% confidence interval for your integral.\n\nGenerally you don't know $\\theta$ but can take all possible values <- True value\n\nNice Monte Carlo Properties\n\n1). Consistent: $\\lim_{n\\to\\infty} Pr(|\\frac{1}{n}\\sum x_i - \\theta| > \\epsilon) = 0$\n\n2). Unbiased: $\\hat\\theta(\\int dx\\, p(x)) = E[p(x)] = \\theta$",
-   "context": "Illustrates Monte Carlo integration via dart-throwing to estimate circle area, plus estimator variance/confidence interval and consistency/unbiasedness properties.",
+   "text": "Monte Carlo   unbiased!\n\nEstimate area of circle by throwing darts\n\n[diagram: square containing an inscribed circle with scattered dots representing thrown darts]\n\n$\\lim_{total\\ darts\\to\\infty} \\frac{Num\\ darts\\ in\\ circle}{Total\\ darts} = 2\\int_{-1}^{1}\\sqrt{1-x^2}\\,dx = \\sum_i 2\\sqrt{1-x_i^2}$\n$x_i \\sim Uniform(-1,1)$\n\ngenerally very useful for integrals, especially high dimensional ones\ne.g. Estimate $\\int_0^1 e^{-x}dx = r$   and variance of MC.\n\n$\\hat{r} = \\mathbb{E}_{x\\sim[0,1]}[e^{-x}] = \\frac{1}{n}\\sum_i e^{-x_i}$,   $x_i\\sim[0,1]$\n\n$\\sigma = \\mathbb{E}_{x\\sim[0,1]}[(e^{-x})^2] - \\mathbb{E}_{x\\sim[0,1]}[e^{-x}]^2$ = can calculate exactly all integrals\n\ne.g. Estimate $\\int d\\vec{x}\\, N(x,1) f(\\vec{x}) = r$\n$\\hat{r} = \\mathbb{E}_{x\\sim N(x,1)}[f(\\vec{x})]$\n\n[bell-curve plot labeled f, with $\\hat{r}$ marked at center and $\\pm\\sigma/\\sqrt{n}$ range indicated below]\n\nMC then follows ordinary statistics for example\n$\\hat{r} \\pm 1.96\\frac{\\sigma}{\\sqrt{N}}$ is the 95% confidence interval for your integral.\n\nNice Monte Carlo Properties\nGenerally you don't know \u03b8 but can take all possible values [arrow] True value\n1). Consistent: $\\lim_{n\\to\\infty} Pr(|\\sum x_i - \\theta| > \\epsilon) = 0$\n2). Unbiased: $\\hat{\\theta}(\\int dx\\,p(x)) = \\mathbb{E}[p(x)] = \\theta$",
+   "context": null,
    "bbox": [
     1254.1,
     4554.8,
@@ -932,7 +1102,8 @@
    ],
    "links_in": [
     "b110"
-   ]
+   ],
+   "kind": "box"
   },
   {
    "id": "b099",
@@ -947,14 +1118,15 @@
     4629.3
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b100",
-   "slug": "create_weights_defined_by",
-   "title": "Create weights defined by",
-   "text": "Create weights defined by\n\n$w_i = \\dfrac{f_{n-1}(x_{n-1})}{f_n(x_{n-1})}\\, \\dfrac{f_{n-2}(x_{n-2})}{f_{n-1}(x_{n-2})} \\cdots \\dfrac{f_0(x_0)}{f_1(x_0)}$\n\nwe can $\\{x_i\\}$ weigh...\n\nWhy does this work?\n\nConsider the extended state space\npdf\n$f(x_0,...x_n) = f_0(x_0)\\, T_0(x_0,x_1)\\, T_1(x_1,x_2)...T_2(x_{n-2},x_{n-1})$\n\nRev. Prob to go $x_1$ to $x_2$\n\nSupp. T satisfies detailed balance, $\\therefore\\ p(x)T(x,x') = p(x')T(x',x)$\n\nRewrite\n\n$f(x_0,...x_n) = f_0(x)\\, \\dfrac{p_0(x_0)}{p_0(x_0)} T_1(x_0,x_1)\\dfrac{p_1(x_1)}{p_1(x_1)}...T_{n-1}(x_{n-2},x_{n-1})$",
-   "context": "Derivation of importance-sampling / annealed-transition weights showing why the weighting scheme is valid via detailed balance.",
+   "slug": "create_weights_defined_by_w_i",
+   "title": "Create weights defined by w^i",
+   "text": "Create weights defined by\n\n$w^i = \\frac{f_{n-1}(x_{n-1})}{f_n(x_{n-1})}\\cdot\\frac{f_{n-2}(x_{n-2})}{f_{n-1}(x_{n-2})}\\cdots\\frac{f_0(x_0)}{f_1(x_0)}$\n\nwe can $\\{x_i\\}$ weigh... [cut off]\n\nWhy does this work?\n\nConsider the extended state space\n$f(x_0,\\dots,x_n) = f_0(x_0)\\,T_0(x_0,x_1)\\,T_1(x_1,x_2)\\dots T_2(x_{n-2},x_{n-1})$   [Rev. Prob to go x1 to x2]\n\nSup. T satisfies detailed balance, \u2234 $p(x)T(x,x') = p(x')T(x',x)$\n\nRewrite\n$f(x_0,\\dots x_n) = f_0(x)\\,\\frac{p_0(x_0)}{p_0(x_0)}\\,T_1(x_0,x_1)\\,\\frac{p_1(x_1)}{p_1(x_1)}\\dots T_{n-1}(x_{n-2},x_{n-1})$",
+   "context": "Derivation of importance-sampling weights for a sequential Monte Carlo / annealed importance sampling scheme, showing why reweighting via detailed-balance transition kernels works.",
    "bbox": [
     1700.7,
     4593.4,
@@ -962,7 +1134,8 @@
     4717.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b101",
@@ -977,7 +1150,8 @@
     4687.6
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b103",
@@ -992,7 +1166,8 @@
     4681.6
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b104",
@@ -1007,14 +1182,15 @@
     4684.5
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b107",
-   "slug": "key_idea",
-   "title": "Key idea",
-   "text": "Key idea: Can we engineer a Markov Chain whose stationary distribution is P(\\theta), this way, we can start w/ any initial sample and then sample from P(\\theta) indefinitely.\n\n[diagram: $X_0 \\to X_1 \\to ... \\to X_n \\to X_{n+1} \\to X_{n+2} \\to ...$, with P(\\theta) P(\\theta) labeled below the later states, and \"Burn-In\" bracketed under the early states]\n\n1). In theory convergence is only guaranteed asymptotically as $n\\to\\infty$\n\n2). In practice one needs to apply diagnostics to asses convergence.\n\nX\ntest\nstart.\ne.g.\n$\\mu$\n\nTrue x, you don't know a priori\n\nYou can use these trace plots to estimate the burn-in, at some point your samples are randomly moving around the mode, but early on they are not\n\nBurn-In     Iterations",
-   "context": "Introduces MCMC's core idea: engineering a chain whose stationary distribution is the target posterior, plus burn-in/convergence caveats.",
+   "slug": "key_idea_engineer_a_markov_chain",
+   "title": "Key idea: engineer a Markov Chain",
+   "text": "Key idea: Can we engineer a Markov Chain whose stationary distribution is P(\u0398), this way, we can start w/ any initial sample and then sample from P(\u0398) indefinitely.\n\n[diagram: chain of circles labeled $x_0, x_1, \\dots, x_n, x_{n+1}, x_{n+2}\\dots$ connected by arrows; bracket under early circles labeled \"Burn-In\"; later circles labeled P(\u0398), P(\u0398)]\n\n\u22b3 In theory convergence is only guaranteed asymptotically as $n\\to\\infty$\n\u22b3 In practice one needs to apply diagnostics to asses convergence.\n\nx test stat. e.g. \u03bc\n\nTrue x, you don't know a priori\n\nYou can use these trace plots to estimate the burn-in, at some point your samples are randomly moving around the mode, but early on they are not\n\n[axis labels: \"Burnin\", \"Iterations\"]",
+   "context": "Notes on MCMC: constructing a Markov chain with target stationary distribution P(\u0398), the burn-in period, and using trace plots to diagnose convergence.",
    "bbox": [
     1003.3,
     4768.9,
@@ -1022,9 +1198,8 @@
     4963.1
    ],
    "links_out": [],
-   "links_in": [
-    "b111"
-   ]
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b108",
@@ -1039,7 +1214,8 @@
     4846.8
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b110",
@@ -1058,7 +1234,8 @@
    ],
    "links_in": [
     "b098"
-   ]
+   ],
+   "kind": "box"
   },
   {
    "id": "b111",
@@ -1073,9 +1250,10 @@
     5265.3
    ],
    "links_out": [
-    "b107"
+    "r106"
    ],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b112",
@@ -1090,7 +1268,8 @@
     5206.8
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b113",
@@ -1105,7 +1284,8 @@
     5228.6
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b115",
@@ -1120,7 +1300,24 @@
     4916.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b116",
+   "slug": "bull_market",
+   "title": "Bull Market",
+   "text": "Bull Market",
+   "context": null,
+   "bbox": [
+    1257.4,
+    4905.7,
+    1282.5,
+    4929.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b118",
@@ -1135,7 +1332,24 @@
     5329.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b119",
+   "slug": "stagnant_market",
+   "title": "Stagnant Market",
+   "text": "Stagnant Market",
+   "context": null,
+   "bbox": [
+    1299.1,
+    4949.4,
+    1325.9,
+    4972.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b120",
@@ -1150,7 +1364,8 @@
     5110.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b121",
@@ -1165,7 +1380,8 @@
     5490.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b124",
@@ -1180,7 +1396,8 @@
     5394.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b126",
@@ -1195,14 +1412,15 @@
     5472.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b127",
-   "slug": "effective_sample_size",
+   "slug": "effective_sample_size_2",
    "title": "Effective Sample Size",
-   "text": "Effective Sample Size\n[dependent sampling] \u2192 if using dependent sampling, when computing MC estimates it is ok if you have Local sampling\nIndependent sampling $p(x_{i+1})$ the next state doesn't depend on previous one.\nMarkov Ch.        Regular Ch.\nhow many samples $[\\mathbb{E}[x]]$ best indep. sample equivalent Faster?\nTotal unknown            Total unknown\n# iterations              # iterations\nbut we ask how many samples from the indep. dist. is equiv from the dep. dist.?\n$\\rho_\\tau = \\dfrac{1}{\\sigma^2}\\int dx\\,(x^i-\\bar x)(x^{i+\\tau}-\\bar x)\\,p(x)$ [the map at lag \u03c4] \u2192 $Cov(x^i,x^{i+\\tau})$\nFor MCMC, ... $= \\dfrac{1}{\\sigma^2}\\int dx\\, x^{(i)}x^{(i+\\tau)}p(x)$ \u2192 $\\to Cov(x^i,x^{i+\\tau})$\nESS = $\\dfrac{N}{1+2\\sum_{\\tau=1}^{\\infty}\\rho_\\tau}$ \u2190 why this?\nIn practice computing $\\rho_\\tau$ analytically is impossible so it is computed from the chains.",
-   "context": "Diagrams show a fully-connected 'Regular Chain' vs a cyclic 'Markov Chain' graph, and trace plots of iterations vs value, illustrating autocorrelation and effective sample size for MCMC.",
+   "text": "[E]ffective Sample Size\n\n[If] using dependent sampling, when computing MC estimates it is as if you have \"Less samples\" ... [text cut off at left edge]\nIndependent sampling: $p(x_{i+1})$ the next state doesn't depend on the previous one.\n\n[diagram: \"Markov Die\" \u2014 ring of numbered circles (1-6) connected in a cycle]\n[diagram: \"Regular Die\" \u2014 ring of numbered circles fully interconnected]\n\nhere same $\\mathbb{E}[x]$\nbut indep. sample somehow faster\n\n[trace plot: noisy green trace over iterations, labeled \"Trend column\"]\n[trace plot: green trace with decaying oscillation, labeled \"Trend column\", axis \"iterations\"]\n\n\"but we ask how many samples from the indep. die is the same as samples from the dep. die?\"\n\nEffective Sample Size\n[plot: axes \"ESS\" vs \"N samples\", three curves labeled \"Independent\", \"Low auto-correlation\", \"High auto-correlation\"]\n\n[two scatter plots: $x_{t+1}$ vs $x_t$ showing $\\hat{\\rho}_1$ and $\\hat{\\rho}_2$; note \"could also compute $\\hat{\\rho}$ for $t, t+2$; this would be $\\hat{\\rho}_2$\"]\n\n$\\rho_\\tau = \\frac{1}{\\sigma^2}\\int dx\\,(x^i - \\bar{x})(x^{i+\\tau} - \\bar{x})\\,p(x)$   [$\\tau$ = the lag]\n\nfor MCMC:\n$\\to \\frac{1}{\\sigma^2}\\int dx\\,x^{(i)}x^{(i+\\tau)}p(x)$   $\\to Cov(x^i, x^{i+\\tau})$\n\n$ESS = \\frac{N}{1+2\\sum_{\\tau=1}^{\\infty}\\rho_\\tau}$   \u2190 why this?\n\nIn practice computing $\\rho_\\tau$ analytically is impossible so it is computed from the chains.",
+   "context": "Notes on Effective Sample Size (ESS) in MCMC: comparing independent vs. correlated ('Markov Die' vs 'Regular Die') sampling, autocorrelation, and the ESS formula.",
    "bbox": [
     1229.4,
     5296.7,
@@ -1210,7 +1428,8 @@
     5577.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b128",
@@ -1225,7 +1444,8 @@
     5531.5
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b129",
@@ -1240,7 +1460,8 @@
     5371.4
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b131",
@@ -1255,7 +1476,8 @@
     5386.6
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b134",
@@ -1270,7 +1492,8 @@
     5510.3
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b135",
@@ -1285,7 +1508,8 @@
     5755.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b136",
@@ -1300,7 +1524,8 @@
     5730.0
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b137",
@@ -1315,7 +1540,8 @@
     6966.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b138",
@@ -1330,7 +1556,8 @@
     6421.1
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b139",
@@ -1345,7 +1572,8 @@
     6778.8
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b141",
@@ -1360,7 +1588,8 @@
     6460.2
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
   },
   {
    "id": "b142",
@@ -1375,7 +1604,2210 @@
     6684.7
    ],
    "links_out": [],
-   "links_in": []
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "r001",
+   "slug": "optimization",
+   "title": "Optimization",
+   "text": "Optimization",
+   "context": "Section header only; stylized cursive title, no body text in this crop.",
+   "bbox": [
+    -4400.6,
+    -2878.2,
+    -4150.0,
+    -2838.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r002",
+   "slug": "process_management",
+   "title": "Process Management",
+   "text": "Process Management\n\nProcess\n\n[scattered small tick marks, otherwise blank]",
+   "context": "Section header with a 'Process' sub-label; body content appears not yet written or is cut off.",
+   "bbox": [
+    -502.5,
+    -2486.4,
+    -292.2,
+    -2338.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r003",
+   "slug": "jit_just_in_time_compilation",
+   "title": "JIT (Just In Time) Compilation",
+   "text": "JIT (Just in time) compilation",
+   "context": null,
+   "bbox": [
+    -668.8,
+    -1752.2,
+    -486.4,
+    -1725.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r004",
+   "slug": "non_convex_functions",
+   "title": "Non-Convex Functions",
+   "text": "Non Convex\n\nLet $f: X \\to \\mathbb{R}$   Basically does every line connecting two points on a domain not intersect $f(x)$?\nA function is convex iff $\\forall t,\\ 0<t<1,\\ \\forall x_1,x_2\\in X$\n\nCurve between $x_1,x_2$: $f(tx_1+(1-t)x_2) \\le t f(x_1) + (1-t)f(x_2)$   straight line between $x_1,x_2$",
+   "context": null,
+   "bbox": [
+    -4589.5,
+    -1520.2,
+    -4165.4,
+    -1354.0
+   ],
+   "links_out": [
+    "r008"
+   ],
+   "links_in": [
+    "r008"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r005",
+   "slug": "gradient_descent",
+   "title": "Gradient Descent",
+   "text": "Gradient Descent\n$x^{t+1} = x^t - \\gamma\\nabla f(x_t)$   where   $f(x_t) = \\frac{1}{N}\\sum_i f_i(x_t)$\nNN params \u2924\n[arrow] sum of losses for each individual label + data",
+   "context": null,
+   "bbox": [
+    -3617.6,
+    -1518.9,
+    -3281.5,
+    -1451.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r006",
+   "slug": "optimization_convex_function_properties",
+   "title": "Optimization \u2014 convex function properties",
+   "text": "Optimization\n\nUseful properties of convex functions\n$f(x) \\ge f(y) + \\langle \\nabla f(y), x-y\\rangle$   See Lemma 2.8 in Garrigos & Gower 2024",
+   "context": null,
+   "bbox": [
+    -4086.7,
+    -1502.8,
+    -3756.1,
+    -1400.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r007",
+   "slug": "stochastic_gradient_descent",
+   "title": "Stochastic Gradient Descent",
+   "text": "Stochastic Gradient Descent\n$i_t \\in \\{1\\dots N\\}$   [In each iteration compute the gradient for just one training sample]\n$x^{t+1} = x^t - \\gamma_t \\nabla f_{i_t}(x_t)$\n\nRemark\n$\\nabla f_{i_t}(x_t)$ is an unbiased estimator of $\\nabla f(x_t)$ since\n$\\mathbb{E}[\\nabla f_i(x_t)] = \\frac{1}{N}\\sum_i \\nabla f_i(x_t) = \\nabla f(x_t)$",
+   "context": null,
+   "bbox": [
+    -3614.3,
+    -1348.3,
+    -3104.1,
+    -1249.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r008",
+   "slug": "convex_vs_non_convex_f_x",
+   "title": "Convex vs Non-Convex f(x)",
+   "text": "$f(x)$\n[left plot: smooth single-basin curve with two points $x_1$, $x_2$ marked, dashed straight line between them lying above the curve]\nConvex\n\n$f(x)$\n[right plot: curve with a dip, then a hump, then a dip; two points $x_1$, $x_2$ marked with a chord relative to the curve]\nNon-Convex",
+   "context": "Illustrates the geometric definition of convexity: chord above the curve (convex) vs. a curve with multiple local minima (non-convex).",
+   "bbox": [
+    -4586.8,
+    -1302.9,
+    -4145.1,
+    -1125.6
+   ],
+   "links_out": [
+    "r004"
+   ],
+   "links_in": [
+    "r004"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r009",
+   "slug": "transformer_block",
+   "title": "Transformer Block",
+   "text": "Transformer Block\n$X^{(m)} = TransfBlock(X^{(m-1)})$\n\nMulti-head Self-Attention\nA way to make each vector context aware\n\n$Y^{(m)} = MHSA_\\theta(X^{(m-1)})$\n\n[teal] embedding dim $d\\times L$: Attn will look high values in the word it wants to attend to\n[orange] $d\\times L$\nvalue weights \u2192 embedding of the token \u2192 attention to this\n$Y^{(m)} = W_V^{(m)}X^{(m-1)}A^{(m)}$\n\nBefore Training [random attention-matrix heatmap, caption \"The king ate the steak\"]\nAfter Training [structured attention-matrix heatmap]\n\u21b3 Filtered embedding \"The king ate the steak\"\n\u21b3 The magnitude of this vector is very large bc of the attention filter\n\nSelf-Attention\nIn this toy example, the entry of each word in the row of the words is what attention to\nWhat did the king eat?   \u21b3 high attention\nThe king ate the steak\n\nmxd \u2193   mxd \u2193\nKey weights   Query weights\n$Y^{(m)} = \\sum_h V_h X^{(m-1)}A_h^{(m)}$   softmax( $W_K^{(m)}X^{(m-1)}(X^{(m-1)})^TW_Q^{(m)T}$ / $\\sqrt{d_k}$ )\n\n[bracketed groups] Doesn't do much alone, you use blocks of it. The idea is to learn the dot product between two words, i.e. learn how similar two words are. Learning the notion of words in context.\n\nSelf-Attention (right column)\nIn this toy example, the entry of each word in the row is the amount of attention it pays to the rest of the words\nThe king ate the steak, he was hungry\n[diagram: arrows linking \"king\" and \"he\", annotated \"king captured by bishop\", \"king ate steak, hungry\"]\n\nIntuition [x, A, y diagram with arrows] Credit: Bricken, Vaswani\n\nAttention Sites   Original tokens   Filtered tokens\nAttn from row: header is attacking!   Attn from: header is attacking!   A role attacking\n\nMulti-Head Self-Attention\n$A = softmax\\left(\\frac{X^{(m-1)}W_K^{(m)T}W_Q^{(m)}X^{(m-1)T}}{\\sqrt{d_k/H}}\\right)$\nAllows for the fact that words may need to attend because multiple look, bigger network.",
+   "context": "Detailed notes on transformer self-attention: multi-head attention formulas, attention-map visualizations (before/after training), and an intuitive worked example ('The king ate the steak').",
+   "bbox": [
+    -694.7,
+    -1181.3,
+    -93.1,
+    -706.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r010",
+   "slug": "input_embeddings",
+   "title": "Input Embeddings",
+   "text": "Input Embeddings\n\n$X^{(1)} = Embed(X^{(0)})$",
+   "context": null,
+   "bbox": [
+    -1309.3,
+    -1086.1,
+    -1193.3,
+    -1042.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r011",
+   "slug": "lipschitz_function",
+   "title": "Lipschitz Function",
+   "text": "Lipschitz Function\nThe main point is small changes to input results in small changes to output.\n\n$\\|F(x) - F(y)\\| \\le L|x-y| \\; \\forall x,y \\Rightarrow$ F is Lipschitz\n\nThis is true iff $\\|\\nabla F(x)\\| \\le L \\; \\forall x$\n\nFunctions are sometimes called L-smooth if\n\n$\\|\\nabla F(x) - \\nabla F(y)\\| \\le L|x-y|$",
+   "context": null,
+   "bbox": [
+    -4588.3,
+    -1043.8,
+    -4234.9,
+    -883.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r012",
+   "slug": "root_finding",
+   "title": "Root-Finding",
+   "text": "Root-Finding\n\nMulti-dimensional Bisection/Binary search\n\nSup you want for multiple dimensions, e.g. 2\n\n$f: \\mathbb{R}^2 \\to \\mathbb{R}^2$\n\nConsider a quadrilateral:\n\n$\\mathbb{R}^2$, domain          first dim   second dim\n                                    \u2193           \u2193\nsgn f(A) = (-,-)\nsgn f(B) = (-,+)\nsgn f(C) = (+,-)\nsgn f(D) = (+,+)\n\npick an edge\nsgn(E) =? sgn(B) \u21d2 replace B w/ E\nsgn(F) =? sgn(C) \u21d2 replace C w/ F",
+   "context": "Describes a multi-dimensional bisection root-finding method using sign patterns of f at the corners (A,B,C,D) of a quadrilateral in the domain.",
+   "bbox": [
+    -5438.7,
+    -1040.4,
+    -5119.5,
+    -839.2
+   ],
+   "links_out": [
+    "b015"
+   ],
+   "links_in": [
+    "b015"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r013",
+   "slug": "tokenization",
+   "title": "Tokenization",
+   "text": "Tokenization\n\nA way to convert a \"thing\" into a vector\n\ne.g.\n\"The cat ate the mouse\"\n\n[4x5 matrix of example embedding numbers, d=4, n=5:\n 1   0   3  -2   0\n-1   0  -1  -3   0\n 3   1   3   5   2\n-2   2   4   8   1]\n\nLet's say this is just a lookup table for now. Each word just has some vector associated to it.\n\nset of tokens\n$\\to W_E T = X^{(1)}$\n\nA matrix which learns the meaning of words\n\nAfter training\n[diagram: vector arrows relating \"king\" and \"queen\"]\n\n[diagram: face with grid overlay, d=1, vector [0 0 0 1 1 0 1 0], n=4]\nIf has red pixel 1 else 0\n\n[diagram: red noisy signal plot with dashed vertical bin markers, boxes labeled n=5, d=20, F]\nFD data pretty easy, it is already a vector!\n\nIn all cases we have a d x n matrix $X^{(0)}$ \u2190 just indicates step in our pipeline",
+   "context": "Explains tokenization as converting text/images/frequency-domain data into vectors (embedding matrix X), illustrated with a word lookup table, a pixel-grid image example, and a frequency-domain signal example.",
+   "bbox": [
+    -1313.7,
+    -991.5,
+    -979.4,
+    -714.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r014",
+   "slug": "multilayer_perceptron",
+   "title": "Multilayer Perceptron",
+   "text": "der\n\nMultilayer\nPerceptron",
+   "context": "Small diagram label fragment (\"der\" and pipeline arrow) accompanying a larger architecture diagram, naming the Multilayer Perceptron block.",
+   "bbox": [
+    -321.1,
+    -567.9,
+    -128.6,
+    -480.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r015",
+   "slug": "multi_head_attention_layer",
+   "title": "Multi-Head Attention Layer",
+   "text": "Multi-Head Attention\nLayer",
+   "context": "Diagram label for a Multi-Head Attention layer block feeding into a residual add (circled +) node.",
+   "bbox": [
+    -674.4,
+    -523.2,
+    -435.7,
+    -473.9
+   ],
+   "links_out": [
+    "b032"
+   ],
+   "links_in": [
+    "b032"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r016",
+   "slug": "transformer_decoder",
+   "title": "Transformer Decoder",
+   "text": "Transformer   Decoder",
+   "context": "Diagram section labels; top of the letter \"T\" in \"Transformer\" is cut off by the crop boundary.",
+   "bbox": [
+    -543.8,
+    -354.8,
+    -323.9,
+    -332.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r017",
+   "slug": "multi_head_attention_layer_2",
+   "title": "Multi-Head Attention Layer",
+   "text": "Multi-Head Attention\nLayer",
+   "context": "Repeated diagram label for a Multi-Head Attention layer block (with a small checkmark/chevron above), feeding into a residual add (circled +) node.",
+   "bbox": [
+    -443.6,
+    -263.9,
+    -204.8,
+    -194.8
+   ],
+   "links_out": [
+    "b037"
+   ],
+   "links_in": [
+    "b037"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r018",
+   "slug": "masked_multi_head_attention",
+   "title": "Masked Multi-Head Attention",
+   "text": "Masked Multi-Head Attention",
+   "context": "Diagram label, partly overlapped by an arrow, reading \"Masked Multi-Head Attention.\"",
+   "bbox": [
+    -935.4,
+    -235.3,
+    -695.6,
+    -178.8
+   ],
+   "links_out": [
+    "r020",
+    "b036"
+   ],
+   "links_in": [
+    "r020",
+    "b036"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r019",
+   "slug": "use_encoder_previous_word_context",
+   "title": "Use encoder + previous word context",
+   "text": "use encoder context w/\nprevious word context to predict\nnext token.",
+   "context": "Note attached to an upward arrow pointing into a decoder block, explaining what the decoder conditions on to predict the next token.",
+   "bbox": [
+    -287.6,
+    -139.1,
+    -126.1,
+    -33.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r020",
+   "slug": "masked_multi_head_attention_2",
+   "title": "Masked Multi-Head Attention",
+   "text": "Masked Multi-Head Attention\n\nYou don't know future tokens, so how to account for this? This is important so the network doesn't just do an identity.\n\nSuppose you are given: Input: The king ate the steak\n                        Target: Der k\u00f6nig a\u00df das Steak\n\nOutput: Der k\u00f6nig\n\nAttention filter                              Masked Attention filter\n           Der  k\u00f6nig  a\u00df  das  Steak                   Der  k\u00f6nig  a\u00df  das  Steak\nDer         8     2     1    0    1          Der         8    -\u221e   -\u221e   -\u221e   -\u221e\nk\u00f6nig       0    10     0    1    1          k\u00f6nig       0    10    -\u221e   -\u221e   -\u221e\na\u00df          1     1    11    0    8          a\u00df          1     1    11   -\u221e   -\u221e\ndas         0     2     0   10    1          das         0     2     0   10   -\u221e\nSteak       0     1     9    0    9          Steak       0     1     9    0    9\n\nafter passing through softmax                        Multiply by value\n           Der  k\u00f6nig  a\u00df  das  Steak\nDer        0.8    0     0    0    0\nk\u00f6nig      0.1   0.9    0    0    0\na\u00df         0.1   0.2  0.99   0    0\ndas         0    0.2   0.3  0.9   0\nSteak       0    0.1   0.9  0.2  0.9\n\n[diagram: value matrix (rows D,K,a,d,S) multiplied by softmax weights = output vector \"Der k\u00f6nig a\u00df das Steak\"]",
+   "context": "Worked example of masked multi-head self-attention using an English-to-German translation pair, showing the raw attention scores, the causal mask (-\u221e above diagonal), softmax normalization, and multiplication by the value matrix.",
+   "bbox": [
+    -717.7,
+    -56.2,
+    -440.5,
+    321.3
+   ],
+   "links_out": [
+    "r018",
+    "r027",
+    "r027"
+   ],
+   "links_in": [
+    "r018",
+    "r027",
+    "r027"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r021",
+   "slug": "training",
+   "title": "Training",
+   "text": "Training\n\nSpp. your goal is to train a translator\nhow to accomplish this w/ a transformer?\n\nInput                                Target\n<start> I am happy <end>             <start> Ich bin gl\u00fccklich <end>\n   :                                     :\n<start> The earth is flat <end>      <start> Die Erde ist flach <end>\n\n\u2192 Input | > Enc. }\n\n> Target          > output              Inference\n                                            \u2193\nGenerate output\n1).                            2).                              3). once you hit the <End> compute loss\n<start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}\n\n<start> \u2192 Dec.} > Ich              <start> Ich \u2192 Dec.} > Dinosaurier      <start> Ich Dinosaurier \u2192 Dec.} > <End>\n\nInstead of just generating words, let's see the probability distribution\n\n<start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}\n\n<start> \u2192 Dec.} > Ich 0.7           <start> Ich \u2192 Dec.} > Dinosaurier 0.9   <start> Ich Dinosaurier \u2192 Dec.} > <End> 1.5\n          bin 0.5                              Ich 0.7                                          <Start> 0.2\n          :                                     :                                               :\n\nCompare output to target\n                    \u2713\nOutput                        \u2014\n[chart: probability distribution curve, x-axis labeled \"Hello.. bin Ich\"]\n\nCompute $\\sum_j$ CrossEntropy(Output$_j$, Input$_j$)\n\nTeacher Forcing (How training is actually done)\n\nProblem is, if you keep feeding back & forth you can't parallelize & have multiple passes per loss. Instead you can pass the correct target as output everytime. This also makes it so you don't predict a second word which is based off a wrong first word.\n\n<start> I am happy <end> \u2192 Enc.}\n\n<start> Ich bin gl\u00fccklich <end> \u2192 Dec.} > <start> Ich bin gewiss <end>\n\nHow does this not lead to overfitting? What if the network just does nothing based on the one.",
+   "context": "Walks through training a transformer translator: teacher forcing vs. autoregressive generation, cross-entropy loss over the vocabulary distribution, ending with a margin question about overfitting.",
+   "bbox": [
+    -1294.1,
+    -41.5,
+    -765.6,
+    631.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r022",
+   "slug": "power_spectral_density",
+   "title": "Power Spectral Density",
+   "text": "Power Spectral Density\n\nYou want to know how much generator noise is in each freq bin. This is useful since it characterizes your noise.\n\nThe PSD\n\n$P(f) = \\int_{-T}^{T} x(t) e^{-2\\pi i f t} dt$   \u2190 Timeseries signal\n\nis the power in the signal\n\nWhy:\n@ f. But x(t) is a random variable $x_t \\sim p(x_t)$. Therefore, we work w/ expected values.\n\nProof: $P(f) = \\lim_{T\\to\\infty} \\frac{1}{2T} E\\left[\\int dt\\, x(t) e^{-2\\pi i f t} \\int ds\\, x(s) e^{-2\\pi i f s}\\right]$\n\n$= \\lim_{T\\to\\infty} \\frac{1}{2T} \\int dt\\,ds\\, E[x(t)x(s) e^{-2\\pi i f(t-s)}]$   \u2190 $\\delta(t-s)$\n\n^T $10^n$ we access to x .. you can compute P(f).\nInstead turn to estimators $\\hat{P}$ of P\n\n[diagram: noisy timeseries with box labeled \"T\", arrow to PSD sketch; second diagram: binned spectrum with question \"how is the noise distributed in this bin?\"]\n\nOff source / Welch                                On source Method\nData not from real segment                        Data from the segment w/ GW\n                                                   Basic idea is proper estimation for transients\n\n0). Split data in segments\n[diagram: waveform split into overlapping colored segment boxes along t axis, GW\u2080 marked]\nL = # segments        $x_1(t_j)$   $t_j \\in [0, T_L]$\nM = length of segments    $x_2(t_j)$  $t_j \\in [T_L, T_{2L}]$\nD = # of overlapping points\n\n1). W: L \u2192 D\n$w(t_j) x_k(t_j)$\nwindow number\n\n2). L\u00b7T data\n$A_k(f_n) = \\frac{1}{L}\\sum_{j=0}^{L-1} x_k(t_j) w(t_j) e^{-2\\pi i n j / L}$\n\n3). Calculate Periodograms\n$I_k(f_n) = \\dfrac{L\\,|A_k(f_n)|^2}{\\frac{1}{L}\\sum_{j=0}^{L-1} w^2(t_j)}$  \u2190 U\n\n4). Compute PSD\n$\\hat{P}(f_n) = \\frac{1}{K}\\sum_{k=1}^{K} I_k(f_n)$\nnum periodograms\n\nNote it's a biased estimator: $E[\\hat{P}(f_n)] = \\int h(f) P(f-f_n)\\, df$\n\n$\\frac{1}{LU}\\left|\\sum_{j=0}^{L-1} w(t_j) e^{2\\pi i f j}\\right|$\n\n[boxed note, top right] If $\\{x(t)\\}$ = Volts\n[PSD] = Volts/Hz such that\n$\\int_{f_0}^{f_1} PSD(f)\\, df$ tells you Volts in frequency band $[f_0, f_1]$",
+   "context": "Derives the power spectral density as the expectation of the squared Fourier transform of a random timeseries, then describes the Welch/on-source method for estimating it via windowed, overlapping segments and averaged periodograms.",
+   "bbox": [
+    3899.2,
+    131.7,
+    4283.8,
+    572.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r023",
+   "slug": "processing",
+   "title": "Processing",
+   "text": "Processing",
+   "context": "Single section-heading word, likely introducing a data-processing pipeline section.",
+   "bbox": [
+    2824.1,
+    162.6,
+    3012.1,
+    228.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r024",
+   "slug": "residual_blocks",
+   "title": "Residual Blocks",
+   "text": "Residual Blocks\n\nIntuition: How which is good for simple functions. It may makes it so you don't need to relearn signal in each layer. The redundant trend is that it will only learn how far each layer, based deviated slightly.\n\n$X^{l+1} = X^{(l)} + \\Delta_\\theta(X^{(l+1)})$\n\n[diagram: block chain \u2014 Residual name \u2192 BN \u2192 ReLU \u2192 Residual name \u2192 (+ circle, with residual skip line looping over) \u2192 ReLU]\n\nused to denote the output of \u25cb is in the box\n$*$ is when we add them.\n$*$ maybe?\n\nThis is a lot away that layer network is going while too.\n\nmodel\n            Res weight\n            output\n            $v_i^l$ etc\n\nno layer |  DNN  |  ReLU/etc  |\n\nlayer                     For denoct\n$[w^{l+1}, x^{l+1}]$          $x^{l+1} = \\sigma(w_1^l\\, r(w_2^l x^l) + x^l)$\n                           \u2190 If using batch/regularization on weights\nweight, weka                     works out like!\nkey vector is\nweight vector\n\n$w_2^{l+1}$\nsome are adding but not up to the said term the\n\n$x^{l+1} = x^{(l)}$\nSo if regularizes gradient identity backwards\nand any bounded terms will be on top of that!\nEssentially the network will not \"forget\" the input\n\nBatchnorm\n\nRescale mean and variance in each layer. We normalize the inputs, why not renormalize the activations too.\n\n> It helps w/ internal weights, since you can pick. More narrow behavior (-1,1) or get close to min loss\n\n> D: Since change w/ each which is a regularizer, the output, won't vary lately\n\nNormalization\nWhy is normalization so useful?\n> Training speed   > distribution of results\n\n[diagram: two tilted ellipse contour plots on W1/W2 axes, labeled \"not normalized\" and \"normalized\"; annotations: \"small variations too big change in loss (W1 direction), not normalized: high loss\" / \"small variations very small change in loss, normalized: high loss\"]\n\n\u2510 In order to not violate the minimum, we must use\na not or lower LR\n     \u2193\nLower LR causes larger training",
+   "context": "Notes on residual connections (skip-connection formula and diagram) and why batchnorm/normalization helps training, contrasting loss landscapes with and without normalization; some phrasing is fragmentary/hard to parse in the original.",
+   "bbox": [
+    1028.3,
+    207.4,
+    1704.1,
+    697.7
+   ],
+   "links_out": [
+    "b030"
+   ],
+   "links_in": [
+    "b030",
+    "r033"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r025",
+   "slug": "spectral_leakage",
+   "title": "Spectral Leakage",
+   "text": "Spectral Leakage\n\nPane: Since we can only look @ a portion of the signal\n\n[diagram: sine wave with dashed box highlighting one portion; arrow \"Same signal\" \u2192 repeated identical periodic waveform tiled three times]\n\n[diagram: sine wave with dashed box highlighting a different portion; arrow \"diff signal\" \u2192 different repeated waveform tiled three times]\n\nWe might be tempted to say, ok just use #1, but in practice the signal may not be periodic so maybe there is NO good window\n\nWindow Functions\n[diagram: empty dashed rectangle]",
+   "context": "Explains spectral leakage: since only a finite window of a signal is observed, naive periodic extension of that window can produce a different (wrong) signal, motivating window functions.",
+   "bbox": [
+    3612.9,
+    254.1,
+    3870.2,
+    419.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r026",
+   "slug": "why_does_it_work_better",
+   "title": "Why does it work Better?",
+   "text": "Why does it work Better?",
+   "context": null,
+   "bbox": [
+    1277.8,
+    333.5,
+    1368.2,
+    342.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r027",
+   "slug": "all_have_low_attention",
+   "title": "All have low attention",
+   "text": "all have low attention\nie. don't pay attention to them",
+   "context": "Fragment note (with small unlabeled marks above) about tokens/positions receiving low attention weight, i.e. being effectively ignored; likely a follow-on comment to a masked-attention diagram.",
+   "bbox": [
+    -517.7,
+    354.4,
+    -429.9,
+    386.1
+   ],
+   "links_out": [
+    "r020",
+    "r020"
+   ],
+   "links_in": [
+    "r020",
+    "r020"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r028",
+   "slug": "fourier_series",
+   "title": "Fourier Series",
+   "text": "Fourier Series\n\n$f(x) = \\sum_{m\\in\\mathbb{Z}} c_m e^{imx}$   iff $f(x)$ is periodic\n\nBasic intuition is if you have a \"half\" frequency,\n\neg, m=2.5, since f(x) is periodic, at some point f(x) will repeat so it can be described...",
+   "context": null,
+   "bbox": [
+    1869.3,
+    389.8,
+    2065.0,
+    492.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r029",
+   "slug": "fast_fourier_transform",
+   "title": "Fast Fourier Transform",
+   "text": "Fast Fourier Transform\n\nFast way to compute DFT",
+   "context": null,
+   "bbox": [
+    2652.0,
+    431.7,
+    2813.4,
+    466.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r030",
+   "slug": "kills_low_and_high_freq_noise",
+   "title": "Kills low and high freq noise",
+   "text": "$\\Gamma \\to$\nbasically kills low\nand high freq noise\nfor visualization\npurposes",
+   "context": "Note about a filter/window (\u0393) used purely to suppress low- and high-frequency noise for plotting purposes, not for analysis.",
+   "bbox": [
+    3289.2,
+    569.5,
+    3331.8,
+    618.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r031",
+   "slug": "whitening",
+   "title": "Whitening",
+   "text": "Whitening - Objective is to downweight freq. bins where noise is loud",
+   "context": null,
+   "bbox": [
+    3612.0,
+    623.3,
+    3915.4,
+    641.9
+   ],
+   "links_out": [
+    "b059"
+   ],
+   "links_in": [
+    "b059"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r032",
+   "slug": "moore_penrose_pseudo_inverse",
+   "title": "Moore Penrose Pseudo Inverse",
+   "text": "Moore Penrose Psudo Inverse\n\nSuppose you want to solve $Ax = y$ by finding the inverse matrix B, but A is non-square, $n \\times m$ matrix.\n\nMoore Penrose Inverse\n$A^+ = \\lim_{\\alpha \\to 0} (A^T A + \\alpha I)^{-1} A^T$\n\nbut more practically\n$A^+ = V \\Sigma^+ U^T$\nwhere $\\Sigma^+ = (\\sigma_1^{-1}\\ \\sigma_2^{-1}\\ ..)^{-1}$ [diagonal matrix of inverse singular values, notation partly illegible]\n\ncase 1   $m > n$   $x = A^+y$\nGives one of many possible solutions.\nSpecifically gives solution w/ min $\\|x\\|_2$\n\ncase 2   $n < m$   $x = A^+y$\nIt's possible there is no solution.\nThen here x will be s.t.\n$\\|Ax - y\\|_2$ is minimized.",
+   "context": null,
+   "bbox": [
+    -1959.1,
+    664.8,
+    -1672.6,
+    863.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r033",
+   "slug": "layernorm",
+   "title": "Layernorm",
+   "text": "[top-right, scattered faint fragments, mostly illegible]\nwould\nB\nnot.\n\nvolume\nsomething\n\nthe test\ndiff. so\n\nm [?] test\n        Train\n        Test\n\nLayernorm\n\nLet L be some batch B with len M. Batch norm: $LN_{\\gamma,\\beta}(x_i)$\nSay that we [have] L batches and $x_i \\in B$, $x_i \\in \\mathbb{R}^N$\n\n$\\mu_i = \\frac{1}{N}\\sum_{k=1}^{N} x_i^k$\n\n$\\sigma_i^2 = \\frac{1}{N}\\sum_{k=1}^{N} (x_i^k - \\mu_i)^2$\n\n$\\hat{x}_i^k = \\frac{x_i^k - \\mu_i}{\\sqrt{(\\sigma_i^k)^2 + \\epsilon}}$\n\n$y_i = \\gamma \\hat{x}_i + \\beta$",
+   "context": "Top-right fragments are scattered loose words unrelated in content to the Layernorm derivation below and largely illegible; main content is the Layernorm formula block.",
+   "bbox": [
+    1123.7,
+    708.5,
+    1473.9,
+    976.0
+   ],
+   "links_out": [
+    "r024"
+   ],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r034",
+   "slug": "singular_value_decomposition_svd",
+   "title": "Singular Value Decomposition (SVD)",
+   "text": "Singular Value Decomposition (SVD)",
+   "context": null,
+   "bbox": [
+    -2488.8,
+    752.9,
+    -2174.2,
+    777.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r035",
+   "slug": "principal_component_analysis_pca",
+   "title": "Principal Component Analysis (PCA)",
+   "text": "Principal Component Analysis (PCA)   Todo w/o out ns on excusive [small pink annotation, illegible]\n\n[scatter diagram: blue dots forming a diagonal cluster, top-left]\n\nLet's say you have $\\{x_m\\}$ w/ $x_i \\in \\mathbb{R}^n$\n\nAnd you want to store these points in memory while losing little information.\n\n[small diagram: pink dots along a line with arrow, labeled c]\n\nGoal, $\\forall x_i \\in \\mathbb{R}^n$ find code vector $c_i \\in \\mathbb{R}^l$ w/ $l < n$\nDef: $f: \\mathbb{R}^n \\to \\mathbb{R}^l$ encoder and $g: \\mathbb{R}^l \\to \\mathbb{R}^n$ decoder.\n\nSo the best compression will have $\\arg\\min_c \\|x - g(c)\\|_2$. Let $g(c) = Dc$, D a matrix\nsee Deep Learning pg 4?? this simplifies to $\\arg\\min_c -2x^T Dc + c^T c$",
+   "context": null,
+   "bbox": [
+    -3012.6,
+    754.8,
+    -2574.4,
+    943.1
+   ],
+   "links_out": [],
+   "links_in": [
+    "b064"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r036",
+   "slug": "heisenberg_boxes",
+   "title": "Heisenberg boxes",
+   "text": "[left panel, blue, axis t \u2192]\nYou know exactly the signal in time but nothing about freq.\n< Time Certainty\n\n[middle panel, pink, axis t]\nYou know something about time and something about freq but there is some resolution.\n\n[right panel, red, spectrum plot with sharp peak plus smaller bump, axis F \u2192]\nYou know exactly the frequency content of a signal but nothing about time.\n> Freq. Certainty\n\nHeisenberg boxes",
+   "context": "Three side-by-side panels illustrate the time-frequency uncertainty tradeoff (Heisenberg boxes) for a time-domain signal, a mixed-resolution signal, and a frequency-domain signal.",
+   "bbox": [
+    2382.4,
+    779.4,
+    2623.7,
+    947.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r037",
+   "slug": "neural_networks",
+   "title": "Neural Networks",
+   "text": "Neural Networks\nThe most classic example, take a series of images and classify them 0-9. Learn $f: \\mathbb{R}^m \\to \\mathbb{R}^n$\n\nA grid of numbers 0-1 which represents an image\n\nNormalizes output to be 0-1   Sigmoid   Relu\n$\\sigma(W_1 x_1+b)$  $\\sigma(W_2 x_2+b)$  $\\sigma(W_3 x_3+b)$   $\\arg\\max(x_4) = x_8$\n\n[diagram: columns of circles x1, x2 (weights W1), x3 (W2), x4 (W3) representing neural network layers, with arrows]\n\nE.g. Say we want [a] neuron to detect when there's something on the boundary and nothing else. Then $W_1^{ni}$ would look like [small square icon: green outline, red interior] where green has positive weight and red is negative. So will give high values of $W_1 \\cdot x_i$ when image has edge-only pixels lit up.\n\nAssigns some confidence 0-1 for each number\n\nInference\n\u2192 Give me x, I give prediction $\\hat{x}$\n\nTraining\n\u2192 Give me x, I [know] prediction $\\hat{y}$ [uncertain]\n\nStep 1  Compute\n\u2192 $L(w,b) = \\mathbb{E}[...]$   Train[ing] s[et]\n\nStep 2  Do grad. Compute [gradient symbol]\n$w_{after} = w - ...$ [gradient descent update, partly illegible]\n\nNote one has to e.g. for one weight[...] [illegible]\n\nSince derivative $\\mathbb{E}$ and then [chain rule] doesn't have[...] [illegible, cut off]",
+   "context": "Right-column notes on training/inference steps trail off illegibly at the bottom edge of the crop.",
+   "bbox": [
+    -457.3,
+    787.2,
+    -98.3,
+    1190.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r038",
+   "slug": "autograd",
+   "title": "Autograd",
+   "text": "Autograd   Griewank & Walther 2008\n\nWhat if you want to compute derivatives w/ the same acc. as symbolic manipulation but want to use for loops, and don't care about the exact expression but only the values at certain points?\n                                                        Griewank & Walther 2008\nConsider\n   [brace] this\n$f(x_1,x_2) = [\\sin(\\frac{x_1}{x_2}) + \\frac{x_1}{x_2} - e^{x_2}][\\frac{x_1}{x_2} - e^{x_2}]$\n\nThis is fast [because] you compute [derivatives] for particular points by stepping through a graph instead of generating a huge function of many chain rules. E.g. if you have:\nif cond.\n   do g(x)\nelse\n   do f(x)\nsymbolic derivative would compute chain, e.g.\nwhereas autograd will just step then f or g.\n\nanother problem w/ symbolic diff is you may compute derivative multiple times e.g. $\\sin(2x) + \\cos(2x)$ will compute $\\frac{\\partial(2x)}{\\partial x}$ twice\n\nn >> k inputs                          Also compute $\\dot{v}_n, \\dot{v}_n$ ... don't store it [where] it pass the matrix in directly\nBuild tangents\n[diagram: forward computational graph with circular nodes v5, v6, x1, x2, v1, v2, v3, v4, edges labeled with tangent values, output f(x1,x2)]\n\nwant $\\frac{\\partial f}{\\partial x_1}\\Big|_{(1.6,0.6)}$   [forward-mode numeric trace: 1, 2 \u2192 1.9, 0.02 \u2192 3.01 \u2192 2.01, illegible in parts]\n\n\"The operations look\n$\\frac{\\partial f_i}{\\partial x} = \\dot{f}_i = \\sum \\frac{\\partial f_i}{\\partial f_{i-1}} \\dot{f}_{i-1}$ [uncertain]\n[note: matrix-matrix mult ops connect to f]\nIn the case [where you] also want $\\frac{\\partial f}{\\partial x_2}$ you can do w/ [the] same forward pass! Just use the same graph.\n\nn >> m outputs\nchain of \"adjoints\"   $\\bar{v}_i = \\frac{\\partial f}{\\partial v_i} = \\sum_{j \\in children\\ of\\ i} \\bar{v}_j \\frac{\\partial v_j}{\\partial v_i}$\n\nf exp. tree e.g. $v_6(v_2,v_4)$\nReverse Pass\n[diagram: reverse-mode computational graph with adjoint values labeled on nodes x1, v1, v3, v5, v2, v6, output f(x1,x2)]\n\noutput is some but num. operation is diff. Consider $y = f(g(h(x)))$. Operationally this will look like\n$ABC$ - matrix multiplication. Consider \u2014\n$(AB)C$ [dims] 5x10 8x1 \u2192 forward mode \u2192 100\u00b75\u00b710 similar ops.\n$A(BC)$ [dims] 10x5 8x1 \u2192 Reverse mode \u2192 100\u00b75\u00b71 similar ops [exact numbers partly illegible]",
+   "context": "Dense computational-graph diagram illustrating forward-mode vs reverse-mode automatic differentiation; small numeric annotations on the graphs are partly illegible.",
+   "bbox": [
+    -925.5,
+    793.0,
+    -541.1,
+    1164.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r039",
+   "slug": "aliasing_filter",
+   "title": "Aliasing Filter",
+   "text": "$X(f) = \\frac{1}{\\Delta t}\\sum_{k=-\\infty}^{\\infty} \\delta(f-kf_s) = \\sum_k \\frac{1}{\\Delta t}\\int X(f)\\,\\delta(f-q-kf_s)\\,dq$\n$= \\frac{1}{\\Delta t}\\sum_{k=-\\infty}^{\\infty} X(f-kf_s)$\n\n$X[f]$ (sq wave)          $X_r(f)$\n[diagram: two vertical spikes on a frequency axis at -f0 and f0]\n$= \\frac{1}{\\Delta t}\\sum_k \\delta(f-f_0-kf_s) - \\delta(f+f_0-kf_s)$\n\nonly peaks when $f = \\pm f_0 - kf_s$.\nIf $f_s > 2f_1 \\Rightarrow$\nIf $f_1 < 2f_s \\Rightarrow$\n                                              TODO THINK!\n\nAliasing Filter\n\nWhat if you only care about frequencies up to 1024Hz but there are 2048Hz freqs?. You would need to sample @ 4096Hz!",
+   "context": null,
+   "bbox": [
+    1739.6,
+    1067.4,
+    2104.3,
+    1243.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r040",
+   "slug": "convolutions",
+   "title": "Convolutions",
+   "text": "Convolutions\n\nDiscrete Convolutions\nSuppose you have 2 weighted dice [square icon] [circle icon] which each have prob. $a_i$, $b_i$. How would you find $P(\\square+\\bigcirc) = P(n)$?\n\n$P(n) = (a*b)_n = \\sum_{i+j=n} a_i b_j$   for $i,j \\in \\{1..6\\}$\n\n$(1,2,3) * (4,5,6) = (4,13,28,27,18)$\n\n2: $\\sum_{i+j=2} a_i b_j = 1\\cdot4 = 4$\n3: $2\\cdot4 + 1\\cdot5 = 13$\n4: $3\\cdot4 + 2\\cdot5 + 1\\cdot6 = 28$\n\n[rows of dice-face icons with coefficients a1..a6 and b1..b6 illustrating the convolution sum for P(2), P(3), P(4), and P(6)]\n$P(6) = a_1b_5 + a_2b_4 + a_3b_3 + a_4b_2 + a_5b_1$\n\ncontinuous case\nwhat is [distribution of] x+y=s\n\n[diagram: line x+y=s]\nlet along the line x+y=s\n\n$P(X+Y) = P(s) = \\int dx\\, p_X(x)\\, p_Y(s-x)$",
+   "context": null,
+   "bbox": [
+    209.8,
+    1224.7,
+    606.5,
+    1411.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r041",
+   "slug": "torch_gradient_storage",
+   "title": "Torch gradient storage",
+   "text": "Torch stores gradients in the parameter tensors. Need to 0 [zero] then.\n\nForward pass\n\nCompute grad. of loss wrt. anything which goes into it and has require_grad = True. \u2014\nIn particular stores NN gradients in Tensor\u2014",
+   "context": "Loose PyTorch autograd notes; scattered caret marks elsewhere in the crop are stray marks, not text.",
+   "bbox": [
+    -422.8,
+    1258.6,
+    -163.1,
+    1328.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r042",
+   "slug": "regularization",
+   "title": "Regularization",
+   "text": "Regularization\n\nSuppose you have some loss function $F(\\theta)$. If given many training samples, you may accidentally overfit. This will happen [with] finite data, no time or [unclear] capacity or [unclear] has to keep a leading table between your model[s]. But this won't generalize.\n\n[three plots of data points with fitted curves, labeled underfit / good fit / overfit, each with a caption below: \u03bb too large / \u03bb good / \u03bb too small]\n\nYou can introduce a regularizer into your loss\n\n$L = F(\\theta) + \\lambda R(\\theta)$\n     How important \u2191 is your regularization, hyperparameter          How complex is your \u03b8, your function. Related to Occam's Razor.\n\nTypes of Regularization:\no Time regularization - Stop the training when the test loss no longer increases. Early stopping leads to generalization.\no Size regularization - Add a penalty into loss which penalizes |\u03b8| large. This makes sure that you don't have huge weights which cause leading to lookup tables.\n\n$L_2$ regularization on weights\n\nDropout",
+   "context": "The three small underfit/good-fit/overfit plots each pair with a \u03bb (regularization strength) caption below them.",
+   "bbox": [
+    -452.1,
+    1407.4,
+    8.5,
+    1698.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r043",
+   "slug": "machine_learning_overview_map",
+   "title": "Machine Learning overview map",
+   "text": "[Machine Learning \u2014 large title, left edge of word cropped off]\n\nSeq2Seq\nInput\n10 + 12   [Encoding]\n\u2193\n37\n\u2193\n22   [Encoding]\nOutput\n\nRecurrent Neural Networks [small heading]\n[cluster of many tiny multi-colored notes, boxes, arrows and a small tree/branch diagram \u2014 text too small to transcribe legibly]",
+   "context": "This crop is a zoomed-out overview map; most sub-clusters (RNN diagram and tree structure at right) are rendered too small to read, only the Seq2Seq example is legible.",
+   "bbox": [
+    -1335.4,
+    1432.8,
+    -577.1,
+    1706.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r044",
+   "slug": "probability",
+   "title": "Probability",
+   "text": "Pr babili~v [reads: \"Probability\"]",
+   "context": null,
+   "bbox": [
+    1483.5,
+    1678.4,
+    1736.9,
+    1733.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r045",
+   "slug": "maximum_posteriori_estimation",
+   "title": "Maximum posteriori Estimation",
+   "text": "Maximum posteriori Estimation",
+   "context": null,
+   "bbox": [
+    -152.9,
+    1772.9,
+    -32.2,
+    1781.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r046",
+   "slug": "expectation_maximization",
+   "title": "Expectation Maximization",
+   "text": "Central Limit Theorem\nSample $x_1, x_2, ... x_m \\sim p(x_1), p(x_2) ... p(x_m)$ The distribution $p(\\sum x_i) \\to N(\\sum x_i; 0, 1)$ as $m \\to \\infty$ [no long as...]\n\nExpectation Maximization\nmethod to find local maximum likelihood or maximum posterior for m latent variable model. (Not guaranteed to give global maximum)\n\n$\\theta_{MLE} = \\arg\\max_\\theta p(x|\\theta) = \\sum_z p(x,z|\\theta)$      Likelihood \u2192 $p(x,z|\\theta) = p(z|\\theta,x)\\,p(\\theta|x)$\n                                              Latent variables          $x_i$ are indep\n\n0). Initialize $\\theta_0$\n\n1). Expectation step, get the expected likelihood:\n   $q(\\theta|\\theta^t) = E_{z\\sim p(z|x=x^{(i)},\\theta^t)}[\\log p(x,z|\\theta)]$\n                                                    \u2191\n                                          Missed data\n\n2). Maximization step: maximize the likelihood:\n   $\\theta^{t+1} \\leftarrow \\arg\\max_\\theta q(\\theta,\\theta^t)$",
+   "context": "Crop contains two separate notes: a brief Central Limit Theorem statement (top right) and the main Expectation Maximization derivation (left/below).",
+   "bbox": [
+    978.0,
+    1799.3,
+    1621.6,
+    2063.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r047",
+   "slug": "copula",
+   "title": "Copula",
+   "text": "Copula\n\nYou know what the marginal distributions [are], this is a way to model the correlation.\n\nSay [you] have X,Y rvs, $U = P(X \\le x)$, $V = P(Y \\le y)$.\n\nThe copula is the joint distribution of marginals\n\n$C(u,v) = P(U \\le u, V \\le v)$\n\nIntuition: modeling the correlation between the CDFs which are uniform rvs peels off the marginal dependence\n\npdf   $p(x,y) = c(U,V)\\,p(x)\\,p(y)$   where $c(U,V) = \\frac{\\partial^2}{\\partial u \\partial v} C(u,v)$\n\n\u21b3 This is like a correlation heatmap. High values/low values indicate correlation/anti-correlation whereas ~1 values indicate independence.\n\nTail Dependence\n$\\lambda = \\lim_{u\\to1^-} P(Y > F_Y^{-1}(u) \\mid X > F_X^{-1}(u))$",
+   "context": null,
+   "bbox": [
+    2875.2,
+    1833.6,
+    3285.9,
+    2133.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r048",
+   "slug": "distribution_zoo",
+   "title": "Distribution Zoo",
+   "text": "Distribution Zoo",
+   "context": "Section title only; second word is stylized and could read \"Zone\" instead of \"Zoo\", but \"Distribution Zoo\" is the standard term for a catalog of probability distributions.",
+   "bbox": [
+    2140.8,
+    2378.8,
+    2362.2,
+    2401.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r049",
+   "slug": "neural_odes",
+   "title": "Neural ODEs",
+   "text": "Neural ODEs\n\nHistorical context. An RNN is very similar to an ODE solver $z_{t+1} = z_t + f(z_t)$. This looks like Euler's method. However, we know Euler's method is unstable. What if we use fancy ODE solvers and instead learn the differential vector field?\n\n$\\frac{dz_t}{dt} = g_\\phi(t, z_t)$\n\nResnet blocks, $x_{t+1} = x_t + NN_\\theta(x_t)$ can be thought of as a discrete version of neural ODEs!",
+   "context": null,
+   "bbox": [
+    -1312.7,
+    2388.7,
+    -948.9,
+    2546.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r050",
+   "slug": "logistic_regression",
+   "title": "Logistic Regression",
+   "text": "Logistic Regression\n\nPredict y from x, but if y is boolean   $y = \\frac{1}{1+\\exp(-\\frac{x-\\mu}{s})} = \\frac{1}{1+\\exp(-\\beta_0+\\vec\\beta_1 x)}$\n                                                                  $-\\mu/s$   $1/s$\n\n[sigmoid curve plot: y bounded 0/1 vs x=grades, with Data/Fit legend]\n\nlogit transform\n$y_{new} = \\log(\\frac{y}{1-y})$\n\n[second plot: transformed logit y_new vs grades, with Data/Fit legend]\n\nThe line is fitted via minimizing the loss\nfor a given $x_i, y_i$: write $p(x_i) = p_i$\n\n$L_i = \\begin{cases} -\\log p_i & \\text{if } y_i=1 \\\\ -\\log(1-p_i) & \\text{if } y_i=0 \\end{cases} \\Rightarrow L_i = -y_i\\log p_i - (1-y_i)\\log(1-p_i)$\n\nUse numerical methods to find where $\\frac{\\partial L}{\\partial \\beta} = 0$",
+   "context": null,
+   "bbox": [
+    256.1,
+    2402.8,
+    661.6,
+    2716.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r051",
+   "slug": "linear_regression",
+   "title": "Linear Regression",
+   "text": "Linear Regression\n\nPredict y from x   $y = Ax$   $R^2$\n\n[scatter plot diagram: y axis, data points with a fit line, legend: Residual / Data / Fit]",
+   "context": null,
+   "bbox": [
+    -208.0,
+    2417.3,
+    37.0,
+    2516.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r052",
+   "slug": "chi_sq_distribution",
+   "title": "Chi-Sq Distribution",
+   "text": "Chi-Sq Distribution\n\n$p(x|k) = \\dfrac{1}{2^{k/2}\\Gamma(k/2)} x^{k/2-1} e^{-x/2}$\n\nIf $z_i \\sim N(0,1)$ then $x = \\sum_{i=1}^{k} z_i^2$   $x \\sim p(x|k)$\n\nShows up whenever you have squares of normal variables, for example in hypothesis test.\n\nSpp. you have FD data which you expect to be normally distributed noise. If there is a signal, $h_k$, you maybe want to test this assumption so you check if\n\n$\\chi^2(N) = \\sum_{f}^{N} \\dfrac{|d_k - s_k|^2}{S_n}$ is chi-sq dist. w/ N DOF. <- How to set DOFs?\n\nYou could measure this for FD data and compare w/ the $\\chi^2(N)$ distribution to see at what significance level it lies.",
+   "context": "FD = frequency-domain gravitational-wave data; describes a chi-square goodness-of-fit test against expected noise.",
+   "bbox": [
+    2245.6,
+    2455.7,
+    2492.6,
+    2733.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r053",
+   "slug": "dirichlet_distribution",
+   "title": "Dirichlet Distribution",
+   "text": "Dirichlet Distribution\n\nUseful when the weights must sum to one. In the beta distribution we looked @ coin flips. But what if there are multiple categories. eg a mixture model\n\n[N categories]\n\n$p(\\vec{w}|\\vec{\\alpha}) = \\dfrac{1}{B(\\vec{\\alpha})} \\prod_{i=1}^{k} w_i^{\\alpha_i - 1}$  <- weights\n\n$B(\\vec{\\alpha}) = \\dfrac{\\prod_{i=1}^{k}\\Gamma(\\alpha_i)}{\\Gamma(\\sum_{i=1}^{k}\\alpha_i)}$ <- multivariate Beta",
+   "context": null,
+   "bbox": [
+    3739.4,
+    2460.3,
+    4055.6,
+    2617.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r054",
+   "slug": "binomial_poisson_distributions",
+   "title": "Binomial & Poisson Distributions",
+   "text": "Binomial Distribution\nBernoulli Distribution\n\n$p(x|\\phi) = \\phi^x(1-\\phi)^{1-x}$  where $x \\in \\{0,1\\}$\n\nWhat is then the prob of some sum of runs?\n[Num of samples in run]\n$p(\\sum x_i|\\phi,N) = p(y|\\phi,N) = \\binom{N}{y}\\phi^y(1-\\phi)^{N-y}$\n\nPoisson Distribution\n\n$P(x|\\lambda) = \\dfrac{\\lambda^x e^{-\\lambda}}{x!}$   $\\lambda = E(x) = Var(x)$\n\nTells us the number of occurrences of an event in a given unit of time, volume etc. The number of occurrences is x\n\neg. # car accidents per day, # fibers per m^2. Consider the case Pu-238, p(y|t) = prob. decaying @ time t.\n\nAssumptions:\n\u25b7 Events occur independently, p(y_t) is not a fnc. of y_0, y_1...\n\u25b7 Events occur randomly, p(y_t) is not a function of t\n\nIf it holds, X = # events in a fixed unit of time, has the poisson distribution.\n\nIf Pu-238 has 2.3 decays per second in a 2 second period what is the prob. of 3 decays in 2 seconds? $\\lambda = 2.3\\times2 = 4.6$\n\n$p(x=3|\\lambda=4.6) = 0.165$.\n\n[plot of p(x|\u03bb) vs x, curves labeled \u03bb=4 and \u03bb=10]\n\nPoisson Point Process",
+   "context": "Single crop spans two headed sub-sections (Binomial/Bernoulli, then Poisson); isotope name in the decay example is handwritten and read as Pu-238.",
+   "bbox": [
+    1682.8,
+    2460.9,
+    2155.1,
+    2814.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r055",
+   "slug": "beta_distribution",
+   "title": "Beta Distribution",
+   "text": "Beta Distribution\n\n$p(x|\\alpha,\\beta) = \\dfrac{\\Gamma(\\alpha+\\beta)}{\\Gamma(\\alpha)\\Gamma(\\beta)} x^{\\alpha-1}(1-x)^{\\beta-1}$\n\n$B(\\alpha,\\beta)$ <- avg prob for category\n\n$\\mu = \\dfrac{\\alpha}{\\alpha+\\beta}$    $\\sigma^2 = \\dfrac{\\alpha\\beta}{(\\alpha+\\beta)^2+(\\alpha+\\beta+1)}$\n\nconjugate prior to Binomial Dist.",
+   "context": null,
+   "bbox": [
+    3458.8,
+    2462.8,
+    3684.9,
+    2641.5
+   ],
+   "links_out": [
+    "r066"
+   ],
+   "links_in": [
+    "r066"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r056",
+   "slug": "cauchy_lorentz_distribution",
+   "title": "Cauchy / Lorentz Distribution",
+   "text": "Cauchy Distribution\nLorentz Distribution",
+   "context": "Two names for the same distribution; heading only, no body content in this crop.",
+   "bbox": [
+    4141.6,
+    2463.3,
+    4377.0,
+    2515.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r057",
+   "slug": "gamma_distribution",
+   "title": "Gamma Distribution",
+   "text": "Gamma Distribution\n\n$p(x|\\lambda,N) = \\left\\{ \\dfrac{1}{\\Gamma(N)}\\lambda^N \\right.$",
+   "context": "Piecewise formula is cut off mid-expression at the edge of this crop.",
+   "bbox": [
+    3106.6,
+    2471.4,
+    3324.4,
+    2562.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r058",
+   "slug": "f_distribution",
+   "title": "F-Distribution",
+   "text": "F - Distribution",
+   "context": "Heading only, no body content in this crop.",
+   "bbox": [
+    2842.7,
+    2475.3,
+    2977.4,
+    2490.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r059",
+   "slug": "student_t_distribution",
+   "title": "Student-t Distribution",
+   "text": "Student - t Distribution",
+   "context": "Heading only, no body content in this crop.",
+   "bbox": [
+    2542.0,
+    2479.9,
+    2723.7,
+    2496.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r060",
+   "slug": "laplace_distribution",
+   "title": "Laplace Distribution",
+   "text": "Laplace Distribution",
+   "context": "Heading only, no body content in this crop.",
+   "bbox": [
+    1503.4,
+    2490.6,
+    1627.6,
+    2506.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r061",
+   "slug": "gaussian_exponential_distributions",
+   "title": "Gaussian & Exponential Distributions",
+   "text": "Gaussian/Normal Distribution\n\n$N(x;\\mu,\\sigma^2) = \\sqrt{\\dfrac{1}{2\\pi\\sigma^2}} \\exp\\left(-\\dfrac{1}{2\\sigma^2}(x-\\mu)^2\\right)$\n\n\u25b7 An\u221e sum of random variables follows a normal distribution\n\nExponential Distribution\n\n$p(x|\\lambda) = \\lambda \\mathbb{1}_{x\\geq0} \\exp(-\\lambda x)$\n\nAmount of time to wait before getting another event if the number events is Poisson",
+   "context": null,
+   "bbox": [
+    1028.4,
+    2493.1,
+    1463.0,
+    2603.9
+   ],
+   "links_out": [
+    "b077",
+    "r095"
+   ],
+   "links_in": [
+    "r095"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r062",
+   "slug": "least_squares_regression_derivation",
+   "title": "Least Squares Regression Derivation",
+   "text": "Sum of sqs of residuals\n[scatter plot of points near a line, with a marked 'best point' and residual segments]\nThis is the best point, derivative = 0 here\n\n$y - \\hat{y}_i$\n$L = \\sum_i r_i^2 = \\sum_i (A\\cdot x_i - y_i)^2 = \\|XA-Y\\|^2$\n\nFind when $\\dfrac{\\partial L}{\\partial A} = \\vec{0}$\n\nThis occurs when\n\n$-2X^TY + 2X^TXA = 0 \\Rightarrow \\vec{A} = (X^TX)^{-1}X^TY$\n\nRotation of line\nCan we also do Cos y intercept",
+   "context": "Least-squares linear regression derivation in matrix form, with a separate margin note about rotating a line / y-intercept.",
+   "bbox": [
+    -224.2,
+    2583.8,
+    179.1,
+    2758.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r063",
+   "slug": "log_normal_distribution",
+   "title": "Log-Normal Distribution",
+   "text": "Log-Normal Distribution\n\n$p(x|\\mu,\\sigma) = \\dfrac{1}{x\\sigma\\sqrt{2\\pi}} \\exp\\left(-\\dfrac{(\\log x - \\mu)^2}{2\\sigma^2}\\right)$\n\n\u25b7 An\u221e product of random vars, follows [log-normal] dist.",
+   "context": "Exponent term and final word of the last line are partially cropped/illegible; final word inferred from the heading.",
+   "bbox": [
+    1044.9,
+    2774.6,
+    1237.5,
+    2887.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r064",
+   "slug": "neural_operators",
+   "title": "Neural Operators",
+   "text": "Neural Operators - Mappings between infinite dimensional spaces\nOne wants to solve PDEs of the form.",
+   "context": "Heading/opening line; sentence continues into a following box with the operator equation.",
+   "bbox": [
+    -2929.8,
+    2791.6,
+    -2424.5,
+    2847.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r065",
+   "slug": "power_law_pareto_mle",
+   "title": "Power-Law (Pareto) MLE",
+   "text": "ote con , -is -o can a y\nnoting for on array of data $\\{x_i\\}$,\n\n$p(\\{x_i\\}|\\alpha, x_{min}) = \\prod_i \\dfrac{\\alpha-1}{x_{min}}\\left(\\dfrac{x_i}{x_{min}}\\right)^{-\\alpha}$\n\nOne can diff. $\\partial\\alpha$ and set equal to zero\n\nand finds\n\n$\\hat\\alpha = 1 + n\\left[\\sum_{i=1}^{n}\\log\\dfrac{x_i}{x_{min}}\\right]^{-1}$\n\n$\\sigma = \\dfrac{\\hat\\alpha - 1}{\\sqrt n} + O(n^{-1})$",
+   "context": "Derives the maximum-likelihood estimator for the exponent of a power-law (Pareto) distribution given x_min; the opening line is garbled/illegible handwriting, likely continuing a sentence cut off above this crop.",
+   "bbox": [
+    1432.8,
+    2838.6,
+    1573.0,
+    2940.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r066",
+   "slug": "beta_distribution_as_prior",
+   "title": "Beta Distribution as Prior",
+   "text": "\u25b7 Since it's def. 0-1, its good for defining priors on probabilities\n\n\u25b7 You can kind of make it go all over the place by varying $\\alpha,\\beta$. So can specify a range of prior beliefs on what you expect the relative probability to be\n\n$\\alpha \\to$ # of successes    $\\beta \\to$ # of failures\n\n\u25b7 For example, what is the prob. of a weighted coin given that $\\alpha=49$ $\\beta=53$? Well the distribution is the Beta dist.!\n\n[plot: narrow sharply-peaked curve centered at 0.5, labeled \u03b1=2000, \u03b2=2000]",
+   "context": "Continuation of Beta distribution notes explaining its use for defining priors over probabilities.",
+   "bbox": [
+    3448.2,
+    2848.6,
+    3700.8,
+    3075.2
+   ],
+   "links_out": [
+    "r055"
+   ],
+   "links_in": [
+    "r055"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r067",
+   "slug": "neural_operator_formalism",
+   "title": "Neural Operator Formalism",
+   "text": "$(\\mathcal{L}u)(x) = f(x)$\n\n$a := u(x) = g(x)$\n\n$u: D \\to \\mathbb{R}^{d_u}$\n$a: D \\to \\mathbb{R}^{d_a}$\n$a \\in \\mathcal{A}(D;\\mathbb{R}^{d_a})$\n$u \\in \\mathcal{U}(D;\\mathbb{R}^{d_u})$\n\n[margin note] Is a function but is discretized.\n\n$\\mathcal{L}$ is a differential operator. $D$ is a domain \u2192\n\na - initial condition                          u - solution\n\nThe training set is a set of N pairs $\\{a_j, u_j\\}$ coefficient functions and approx. solution functions.\n\n[diagrams: grids of colored dots labeled t=0, t=10 (pink, 'a - initial condition') and t=100, t=200 (green, 'u - solution')]",
+   "context": "Neural-operator formalism (e.g. Fourier Neural Operator style) with a diagram showing coefficient function a and solution u sampled at successive time steps.",
+   "bbox": [
+    -2939.3,
+    2896.5,
+    -2212.6,
+    3192.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r068",
+   "slug": "symbol_labels_x_t_d_d",
+   "title": "Symbol Labels: x, t, D, \u2202D",
+   "text": "x   t   D\n\nx   t   \u2202D",
+   "context": "Isolated symbol labels (x, t, domain D, boundary \u2202D) repeated twice, likely keying a diagram not captured in this crop.",
+   "bbox": [
+    -2497.9,
+    2906.4,
+    -2426.9,
+    2977.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r069",
+   "slug": "continuous_normalizing_flows",
+   "title": "Continuous Normalizing Flows",
+   "text": "Continuous Normalizing Flows\n\nHaving a continuous transformation is nice because each step is not a huge jump. 3 advantages:\n\n1). Invertibility guaranteed by ODE uniqueness theorems\n2). No need for tractible Jacobians allowing for flexible transforms\n3). Forward and reverse directions have same complexity\n\nKey Idea: Instead of parametrizing the functions, we parametrize the derivative of the functions. Instead of learning the function directly, we integrate an ODE to learn the mapping\n\n$z_{t_0}$ = samples from a simple distribution, u\n$z_{t_1}$ = samples from a complex distribution, \\theta\n\n$\\dfrac{dz_t}{dt} = g_\\phi(t,z_t)$   Is literally a DNN $\\int: \\mathbb{R}^{n+1}\\to\\mathbb{R}^n$\n\nDiscrete Normalizing Flow                    Continuous Normalizing Flow\n[bell-curve diagram with arrows labeled Layer 1, Layer 2 progressively deforming it into a bimodal curve]",
+   "context": null,
+   "bbox": [
+    -954.4,
+    2942.4,
+    -603.1,
+    3336.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r070",
+   "slug": "cnf_log_density_transform",
+   "title": "CNF Log-Density Transform",
+   "text": "Working now in function space how does the log density transform according to $g_\\phi(t,z_t)$?\n[Chen 2018 Apx. A]\n\n$\\dfrac{d\\log p(z_t)}{dt} = -Tr\\left[J_{g_\\phi(t,\\cdot)}(z_t)\\right]$\n\nso then $\\log p(z_{t_1}) = \\log p(z_{t_0}) + \\displaystyle\\int_0^{t_1} -Tr\\left[J_{g_\\phi(t,\\cdot)}(z_t)\\right]dt$\n\n$\\log p(z_{t_0}) = \\log p(z_{t_1}) - \\displaystyle\\int_0^{t_1} -Tr\\left[J_{g_\\phi(t,\\cdot)}(z_t)\\right]dt$",
+   "context": "Continuation of Continuous Normalizing Flows notes, deriving the instantaneous change-of-variables / log-density ODE, citing Chen et al. 2018 (Neural ODE paper).",
+   "bbox": [
+    -572.1,
+    2959.4,
+    -300.3,
+    3088.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r071",
+   "slug": "important_for_gw_astronomy",
+   "title": "Important for GW Astronomy",
+   "text": "\u25b7 Very important for GW astronomy",
+   "context": "Margin note flagging relevance to gravitational-wave (GW) astronomy.",
+   "bbox": [
+    1918.4,
+    2961.9,
+    2090.6,
+    2973.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r072",
+   "slug": "gumbell_distribution",
+   "title": "Gumbell Distribution",
+   "text": "Gumbell Distribution\np(x|\u03b2,\u03bc) = (1/\u03b2) exp[-((x-\u03bc)/\u03b2 + exp(-(x-\u03bc)/\u03b2))]\n[bullet] Spp X_i ~ exponential family. Then the variable\nZ = max({X_i}) ~ Gumbell\n[legend, bottom right, parameter pairs for plotted curves]\n\u03b2=2 \u03bc=0.5\n\u03bc=2 \u03bc=1\n\u03b2=2 \u03bc=1.6\n\u03b2=4 \u03bc=2.0",
+   "context": "Shows the Gumbel distribution pdf and the extreme-value theorem that the max of iid exponential-family samples converges to a Gumbel distribution.",
+   "bbox": [
+    1052.8,
+    3042.0,
+    1322.2,
+    3217.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r073",
+   "slug": "z_t0_integral_equation",
+   "title": "z_t0 = \u03b8 integral equation",
+   "text": "z_{t_0} = u = \u03b8 + \u222b_{t=1}^{t=0} dz_t = \u03b8 - \u222b_0^1 g_\u03c6(t,z_t) dt",
+   "context": "Defines the flow endpoint at t=0 as a backward ODE integral, part of a normalizing-flow / continuous-time flow derivation.",
+   "bbox": [
+    -541.4,
+    3198.4,
+    -306.4,
+    3227.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r074",
+   "slug": "parametrize_solution_operator_g",
+   "title": "Parametrize solution operator G_\u03b8",
+   "text": "Given some initial condition can you solve u(x) \u2200x\u2208D\nWant to get G^+(a_j) = u_j , \u2200 a_j\nKey point, the domain D need not be a fixed resolution, at inference this can change\nThe approach\nParametrize solution operator as\nG_\u03b8 : A \u2192 U , \u03b8 \u2208 \u0398",
+   "context": "Frames the neural-operator learning problem: approximate a true solution operator G^+ with a parametrized operator G_\u03b8 that maps initial conditions a to solutions u.",
+   "bbox": [
+    -2929.0,
+    3234.2,
+    -2393.0,
+    3435.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r075",
+   "slug": "comes_from_p_z",
+   "title": "\u03bb comes from p(z<\u03bb)",
+   "text": "[top row of fraction-like marks] 1/0   1/5   1/10   T/20\n\u03bb comes from   p(z<\u03bb) = \u220f_{i=1}^{N} p(x_i<\u03bb) = p(x_i<\u03bb)^N",
+   "context": "Derives the CDF of the maximum of N iid variables as the product (power) of the individual CDF, used to justify a threshold \u03bb.",
+   "bbox": [
+    1064.5,
+    3285.0,
+    1273.0,
+    3321.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r076",
+   "slug": "z_t1_integral_equation",
+   "title": "z_t1 = \u03b8 integral equation",
+   "text": "z_{t_1} = \u03b8 = u + \u222b_{t=0}^{t=1} dz_t = u + \u222b_0^1 g_\u03c6(t,z_t) dt",
+   "context": "Companion equation to r073, giving the flow endpoint at t=1 as a forward ODE integral starting from u.",
+   "bbox": [
+    -535.2,
+    3292.7,
+    -306.1,
+    3326.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r077",
+   "slug": "gaussian_copula",
+   "title": "Gaussian Copula",
+   "text": "Gaussian   Copula",
+   "context": null,
+   "bbox": [
+    1383.9,
+    3339.9,
+    1476.1,
+    3354.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r078",
+   "slug": "loss_function_2",
+   "title": "Loss Function",
+   "text": "Loss Function\na_i ~ p(a) , the initial condition dist.\nargmin_{\u03b8\u2208\u0398}  E_{p(a)}[ C( G^+(a) , G_\u03b8(a) ) ...]",
+   "context": "Defines the training loss for the neural operator: expected cost C between the true solution operator output and the learned operator's output, minimized over \u03b8.",
+   "bbox": [
+    -2092.8,
+    3364.6,
+    -1713.7,
+    3515.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r079",
+   "slug": "generative_modelling",
+   "title": "Generative Modelling",
+   "text": "Generative   Modelling",
+   "context": null,
+   "bbox": [
+    -366.9,
+    3372.8,
+    -91.0,
+    3410.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r080",
+   "slug": "neural_ratio_estimation",
+   "title": "Neural Ratio Estimation",
+   "text": "Neura Ratio Estimation\nComputing p(x|\u03b8) is expensive. Can we make it cheaper?\nWhat if we had the ratio   r(x,\u03b8) = p(x|\u03b8) / p(x)   then   p\u0302(\u03b8|x) = p(\u03b8) r\u0302(x,\u03b8)   \u2190 Estimator\n                                                              L\u0302(\u03b8) \u221d r\u0302(x,\u03b8)\n\u2193\nGreat but how do we get this?\nDraw samples from numerator\n{x_i^D} , x_i^D ~ p(x)   is equiv to    \u03b8_i ~ p(\u03b8) , x_i^n ~ p(x|\u03b8_i)\nDraw samples from denominator\n{x_i^n} , x_i^n ~ p(x|\u03b8)\nThen train a classifier to figure out if x_0 ~ p(x) or x_0 ~ p(x|\u03b8)\nEvidence Networks\nVery similar but you classify\np(d|M_1) vs p(d|M_2)",
+   "context": "Explains neural ratio estimation: instead of computing the expensive likelihood directly, train a classifier to estimate the likelihood ratio r(x,\u03b8)=p(x|\u03b8)/p(x), which also underlies 'Evidence Networks' for model comparison.",
+   "bbox": [
+    -12.4,
+    3432.0,
+    450.0,
+    3717.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r081",
+   "slug": "fno_kernel_neural_operator_layer",
+   "title": "FNO kernel / neural operator layer",
+   "text": "Temporal mixer \u2193 d_\u03b8\u2192d_v      Spatial mixer \u2193 h\u00d7d\u2192d_v\n[top-left] V_0 (circle) \u2192 V_1 (circle) \u2192 ... , labeled P below with down arrow\nShallow NN which lifts the dimensionality of a_j\n1 x d x d_v\nLatent variable dimension. Note this doesn't mix pixels, only mixes times into the latent dimension, e.g. 1x1 dense layers.\n\u2192 Since no mixing of pixels, this keeps loc. inv.\nV_{t+1}(x) := \u03c3( W V_t(x) + [K(a;\u03c6) V_t](x) )\nkernel operator \u2193 K: A\u00d7\u0398_K \u2192 L[d_a\u00d7d_v, d_a\u00d7d_v] , \u0398_K = \u0398\ninitial state (arrow to V_t)\nK(a;\u03c6) V_t(x) = \u222b k(x,y,a(x),a(y);\u03c6) V_t(y) dy\nNN parametrized by \u03c6  [small box/diagram icons]\nNote these NNs should be able to accept any d\u00d7d \u2190 How, what layer does that?\nMixes spatial initial conditions.\n[right] Q \u2193 Shallow NN which projects V_t \u2713\nt=to  d  d\u00d7d\u00d7d_v Tensor\nFinal Solution Set\nA specific kernel, FNO\nk(x,y,a(x),a(y);\u03c6) := k_\u03c6(x-y)   [arrows noting how a convolution is an integral, that it must be discretized]\n[dense small paragraph, partly illegible]: We could parametrize the kernel directly, but this introduces a black box \u2014 why? because we know high dimension kernels may not be learned well; best not to explicitly, or make your grid too fine \u2014 this will not give the same extent.\nK(a;\u03c6)V_t = F^{-1}[ F(\u03ba)\u00b7F(V_t) ]\n[note] A matrix that acts high-dim/order matrix and low and weights\n[note] acts as non-local features of the DFT\nIn the 1D case,\n[pink note] R_\u03c6, with high freq mixed, not weighted, non-uniform in the special treatment\n[yellow note] V_t some kind of mixed which combines the types code\n[two squiggly sine-wave sketches labeled spatial (pink) and temporal (yellow), with small illegible annotations]",
+   "context": "Dense multi-part derivation of a Fourier Neural Operator (FNO) layer: lifting/projection shallow NNs, the kernel-integral update V_{t+1}=\u03c3(WV_t+K V_t), and the FNO's Fourier-space convolution kernel k_\u03c6(x-y).",
+   "bbox": [
+    -2948.8,
+    3520.3,
+    -2206.7,
+    4376.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r082",
+   "slug": "lifting_dimensionality",
+   "title": "Lifting Dimensionality",
+   "text": "Lifting Dimensionality serves to\nChange from non-convex to convex loss surface\n[small diagram: labels G (red) and \u03b8 (pink) near two circles, with an arrow toward two open circles at right]",
+   "context": "Argues that lifting the dimensionality of the parametrization (of the operator G_\u03b8) turns a non-convex loss surface into a convex one.",
+   "bbox": [
+    -3155.5,
+    3600.0,
+    -2973.6,
+    3667.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r083",
+   "slug": "lu_x_f_x_operator_definition",
+   "title": "(Lu)(x) = f(x) operator definition",
+   "text": "( L u )(x) = f(x)\na :=      u(x) = g(x)",
+   "context": "Defines a PDE operator equation Lu=f with a boundary/side condition u(x)=g(x).",
+   "bbox": [
+    -2075.5,
+    3677.9,
+    -1914.5,
+    3740.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r084",
+   "slug": "domain_and_function_spaces",
+   "title": "Domain and function spaces",
+   "text": "x \u2208 D\n\nx \u2208 \u2202D\n\nu : D \u2192 R^{d_u}\na : D \u2192 R^{d_a}\na \u2208 A(D; R^{d_a})\nu \u2208 U(D; R^{d_u})",
+   "context": "Notation defining the interior domain D, its boundary \u2202D, and the function spaces for the coefficient field a and solution u used in the neural-operator PDE setup.",
+   "bbox": [
+    -1846.8,
+    3687.0,
+    -1677.0,
+    3755.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r085",
+   "slug": "change_of_variables_formula",
+   "title": "Change of Variables Formula",
+   "text": "Change of variables formula\nf: Z \u2192 X ,  f invertible w/ p_Z(z): Z \u2192 R^+\nthen  p_X(x) = p_Z(z) |det(\u2202f^{-1}(x)/\u2202x)|   \u2190 eg |dz/dx|\np(x) = p(log(x))  d(log x)/dx  =  (1/x) p(log(x))",
+   "context": "Standard change-of-variables formula for probability densities under an invertible transformation, with a worked example for a log transform.",
+   "bbox": [
+    -531.6,
+    3699.9,
+    -318.7,
+    3787.7
+   ],
+   "links_out": [
+    "b083"
+   ],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r086",
+   "slug": "normalizing_factor_for_area_1",
+   "title": "Normalizing factor for area = 1",
+   "text": "Normalizing factor to ensure area under curve is 1, since each f may scale probability\nprob. of point from gaussian  =  1 / |det(\u2202f/\u2202x)|",
+   "context": "Explains why the Jacobian determinant term in the change-of-variables formula acts as a normalizing factor keeping total probability equal to 1.",
+   "bbox": [
+    -875.9,
+    3742.7,
+    -668.8,
+    3797.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r087",
+   "slug": "kolmogorov_smirnov_goodness_of_fit_test",
+   "title": "Kolmogorov-Smirnov Goodness of Fit test",
+   "text": "Kolmogorov-Smirnov Goodness of Fit test\nDistance between empirical distribution and sample cumulative dist. function.\nN = num samples\nF_N(x) = [# elements in the sample \u2264 x] / N   (CDF)\nD_n = sup_x [F_N(x) - F(x)]\n[small red note by curve] By Glivenko-Cantelli, if sample from F(x) and F is from F_0(x) \u21d2 D_n \u2192 0 as n\u2192\u221e [labeled 'max diff' on plotted CDF curve]\nKolmogorov Distribution\nUnder the null hypothesis sample came from F(x),\nlim_{n\u2192\u221e} \u221an D_n \u2192 sup_t |B(F(t))| = F_K(k)\nIf F is cont.\nlim_{n\u2192\u221e} \u221an D_n \u2192 sup_{t\u2208[0,1]} |B(t)| = F_K(k)\nWhich doesn't depend on F! You can find p-values at significance \u03b1. i.e. reject null hypothesis @ level \u03b1 if:\n\u221an D_n > K_\u03b1, where K_\u03b1 def'd as, P[K \u2264 K_\u03b1] = 1-\u03b1\nBrownian Bridge\nIDK\nDonsker Theorem...\n[bell-curve diagram of F_K(k), with \u03b1=0.05 tail marked and \u221an D_n = 2.3 arrow]\nSo if you observe [\u221an D_n in the tail], that means that the sample could come from your F(x). Remember, never accept the H_0!",
+   "context": "Full derivation of the KS goodness-of-fit statistic D_n, its asymptotic Kolmogorov distribution via the Brownian bridge/Donsker theorem, and how to use it for a hypothesis test.",
+   "bbox": [
+    4748.0,
+    3872.5,
+    5211.4,
+    4162.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r088",
+   "slug": "position_x_25_at_t_0",
+   "title": "Position x=25 at t=0",
+   "text": "[sparse diagram fragments: small caret/curve marks]\nposition\nx = 25\nt = 0",
+   "context": "Likely axis/label fragments from a trajectory or random-walk sketch, marking a starting position x=25 at time t=0.",
+   "bbox": [
+    -2975.0,
+    4001.7,
+    -2846.7,
+    4124.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r089",
+   "slug": "importance_sampling",
+   "title": "Importance Sampling",
+   "text": "Importance Sampling\nE[f(x)] \u2248 (1/N) \u03a3 f(x_i) , x_i ~ p(x)   Monte Carlo\nWhat if you don't/can't directly sample from p(x)?\n\u2192 \u222b f(x)p(x) dx = \u222b f(x) [p(x)/q(x)] q(x) dx   where q(x) is your proposal distribution\n\u2248 (1/N) \u03a3 f(x_i) w(x_i) ,  x_i ~ q(x) ,  w(x_i) = p(x_i)/q(x_i)\n[two small plots of p(x) (orange) and q(x)/proposal (green) with notes about variance when p and q differ a lot]\nNormalization of Weights\nFor your kernel: E_{q(x)}[f(x)] = \u222b f(x) [p(x)/q(x)] q(x) dx\n\u2248 (1/N)\u03a3 w\u0303(x_i) f(x_i)  /  (1/N)\u03a3 w\u0303(x_i)   \u2248  \u03a3 w_i f(x_i) / \u03a3 w_i(x_i)\nAnnealed Importance Sampling\nProblem: using a simple proposal distribution is risky because we can't be sure the proposal is good enough\nDefine a set of functions   f_i(x) = f_0(x)^{T_i} f_1(x)^{1-T_i} ,  1 \u2265 p_1 \u2265 ... \u2265 p_T \u2265 0\nT_1 = 1.0\n\u2192 T_1, T_2, ..., T_B ,   generate a set / grid annealing schedule between the two extremes\nWhat is actually happening?\nWe want to slowly move from bad to good, T_i moves us in a way to go from p_1 to p_0\n[small distribution plots at intermediate steps labeled \u03c4=0.1, \u03c4=0.3, \u03c4=0.6, \u03c4=0.9]\nWe start at the bad proposal; once you don't really match the good posterior, the importance weight is really bad.\nEffective Sample Size\nWe can measure the effective sample size \u2014 the number of samples decayed from the true posterior:\n\u03bc\u0302 = \u222b f(\u03b8) \u03c0(\u03b8) d\u03b8 \u2248 (1/N) \u03a3_{i=1}^N w_i \u03b8_i\nThe idea is how does your sample behave, because with weights w_i in a different regime you want to know how many samples are equal to p \u2260 \u03c0\nESS = (\u03a3 w_i)^2 / \u03a3 w_i^2\nRejection Sampling\nSay you want to generate samples from a distribution \u03c0(\u03b8) given you have access to a proposal q(\u03b8) which is proportional up to a constant, e.g. F(\u03b8)\n1). x_i ~ q(\u03b8)\n2). Accept all of proposal [F(\u03b8) \u2264 M q(\u03b8)]\nWhy does this work? Best way to see is via the joint distribution:\nF(\u03b8,u) = \u03c0(\u03b8)F(u|\u03b8) / F(\u03b8) = F(u) q(\u03b8) / F(\u03b8) = (1/M) \u222b d\u03b8 F(\u03b8) u\n[diagram: two overlapping distributions, target (orange) vs M\u00b7q(x) envelope (green), with accept/reject region shaded]\nSo the prob. of a sample being accepted relates back to the original \u03c0(\u03b8)",
+   "context": "Large multi-panel derivation covering importance sampling, weight normalization, annealed importance sampling, effective sample size, and rejection sampling; several small annotation blocks were only partially legible.",
+   "bbox": [
+    1686.6,
+    4109.0,
+    2574.7,
+    4718.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r090",
+   "slug": "bayesian_statistics",
+   "title": "Bayesian Statistics",
+   "text": "Bayesian  Statistics\nMeasurement is a random variable",
+   "context": null,
+   "bbox": [
+    370.0,
+    4142.2,
+    787.1,
+    4235.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r091",
+   "slug": "monte_hall_problem",
+   "title": "Monte Hall Problem",
+   "text": "Monte Hall Problem\n0). 3 doors, behind 2 is goat behind 1 is car\n1). You pick door 2\n2). Door 3 opened and see goat\n2). Switch          2). Don't Switch\n[stick figure with two doors marked '?' and one open door sketched]\nP(car behind 1 | goat behind 3)\nP(car behind 2 | goat behind 3)",
+   "context": "Classic Monty Hall problem setup with the switch vs. don't-switch decision branches and the conditional probabilities to compute.",
+   "bbox": [
+    890.1,
+    4281.3,
+    1152.6,
+    4408.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r092",
+   "slug": "frequentist_statistics",
+   "title": "Frequentist Statistics",
+   "text": "-requentis- Statistics\nMeasurement is a fixed value",
+   "context": "Companion heading to r090 ('Bayesian Statistics'); left edge of 'Frequentist' is cropped off in the image.",
+   "bbox": [
+    4765.7,
+    4281.8,
+    5210.7,
+    4384.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r093",
+   "slug": "bayesian_statistics_2",
+   "title": "Bayesian Statistics",
+   "text": "Bayesian Statistics",
+   "context": "Section heading for the Bayesian statistics part of the mindmap.",
+   "bbox": [
+    241.1,
+    4303.2,
+    345.1,
+    4319.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r094",
+   "slug": "types_of_probabilities",
+   "title": "Types of Probabilities",
+   "text": "Types of Probabilities\n\nConditional Probability  P(B|A) = Prob B given A is true.\n\nEg. what is Prob. of Heart Attack given you don't smoke? P(Heart Attack | Don't smoke)\n< P(Heart Attack | Do smoke).\n\nSometimes we have P(A|B) but we want P(B|A). Eg in ML P(data|params) is often known. How to get this?\n\nCojoint Probability P(B\u2227A) = Prob B and A.\n\nEg P(Heads1\u2227Heads2) [coin 1]+[coin 2] = P(Heads)P(Heads)\nsince indep. \u27f9 P(Heads2|Heads1) = P(Heads2).\n\nEg P(rain today \u2227 rain yesterday) [two calendar icons] \u2260 P(rain today) P(rain yesterday).\n\nmore rain than in nyc so P(rain today|rain yesterday) > P(rain today)\n\n\u27f6 \u2234 P(rain today|rain yesterday) P(rain yesterday)\n> P(rain today) P(rain yesterday)\n\n\u27e9 How to choose priors?",
+   "context": null,
+   "bbox": [
+    184.8,
+    4319.4,
+    673.0,
+    4607.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r095",
+   "slug": "central_limit_theorem",
+   "title": "Central Limit Theorem",
+   "text": "Central Limit Theorem\n\n1). Start w/ a random variable X. [die icon]\n\n2). Add N samples of this variable: X\u2081+...X\u2099 [three dice icons]\n\n3). As N\u2192\u221e, the distribution of this sum looks like a bell curve. [infinity + die icon]\n\nBoth approach gaussians\n\nuniform | weighted die\nRoll dice many times and \u2192 [flat/box-shaped histogram] | [triangular histogram]\nRoll dice many times and \u2192 [multi-peak histogram, labeled 2...12] | [multi-peak histogram]\nRoll dice many times and \u2192 [bell curve] | [bell curve]",
+   "context": "Illustrates CLT via sums of dice rolls converging to a Gaussian for both uniform and weighted dice.",
+   "bbox": [
+    5663.4,
+    4380.4,
+    6044.2,
+    4505.0
+   ],
+   "links_out": [
+    "r061"
+   ],
+   "links_in": [
+    "r061"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r096",
+   "slug": "independence",
+   "title": "Independence",
+   "text": "Independence\n\np(x\u2081,x\u2082) = p(x\u2081)p(x\u2082)\n\n\u27f9 Cov[x\u2081,x\u2082] = E[(x\u2081-E(x\u2081))(x\u2082-E(x\u2082))] = 0\n\nbut converse not necc. true\n\n\u2713\nIID\n\np(x\u2081,x\u2082) = p(x\u2081)p(x\u2082)  \u2260  p(x\u2081) = p(x\u2082)",
+   "context": null,
+   "bbox": [
+    5125.7,
+    4471.3,
+    5521.2,
+    4705.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r097",
+   "slug": "moments_of_a_distribution",
+   "title": "Moments of a distribution",
+   "text": "Moments of a distribution\n\nMean\n\u03bc(X) = E(X)\n\nVariance\nVar(X) = E[(X-E(X))\u00b2] = \u03c3\u00b2\n\nThese are defined with respect to the standard normal N(x;0,1)\n[diagram: two overlaid bell curves, width labeled \u03c3-\u03c3]\n\nSkewness\nSkew(X) = E[(X-E(X))\u00b3/\u03c3\u00b2]\n\nExcess Kurtosis   negative means lighter tails than N\n                  positive means heavier tails than N\nKurt(X) = E[(X-E[X])\u2074/\u03c3\u00b2] - 3\n[diagram: one peaked and one flatter bell curve, labeled kurt(x)=3]\n\nIs there to account for the fact defined wrt N\n\nHigher Moments\nE[(X-c)\u207f]",
+   "context": null,
+   "bbox": [
+    4655.0,
+    4489.2,
+    5013.0,
+    4819.6
+   ],
+   "links_out": [
+    "b096"
+   ],
+   "links_in": [
+    "b096"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r098",
+   "slug": "parallel_tempering",
+   "title": "Parallel Tempering",
+   "text": "Parallel Tempering\n\nWhat if we want our chains to communicate with each other? In AIS the chains evolve independently\n\n\u27f9 key idea: Hot (\u03b2\u226b1) chains more broadly explore the parameter space\n\np_\u03b2(\u03b8|d) \u221d p(d|\u03b8)^(1/\u03b2) p(\u03b8)     :if \u03b2=1 this is the target density\n\n                                    \u03b2=\u221e this is the prior",
+   "context": null,
+   "bbox": [
+    2236.2,
+    4494.1,
+    2664.6,
+    4584.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r099",
+   "slug": "method_of_moments",
+   "title": "Method of Moments",
+   "text": "Method of Moments\n\nMoments are functions of the model parameters. So we try to estimate parameters using the moments of a distribution.\n\nE.g. gaussian w/ true mean \u03bc.\n\nx\u0304 \u2248 E(X) = \u03bc where X are samples from our distribution.\n\nE.g.\nE(X), X~U[a,b],\n\nx\u0304 \u2248 E(X) = \u222b\u2090\u1d47 x (1/(b-a)) dx = (a+b)/2\n\nsample mean \u2248 pop. mean\n\nx\u0304\u00b2 \u2248 E(X\u00b2) = \u222b\u2090\u1d47 x\u00b2 (1/(b-a)) dx = (1/3)(a\u00b2+ab+b\u00b2)\n\nYou have two equations & 2 unknowns a,b\nSo can solve for them!",
+   "context": null,
+   "bbox": [
+    4034.7,
+    4517.9,
+    4345.9,
+    4862.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r100",
+   "slug": "neural_spline_flows",
+   "title": "Neural Spline Flows",
+   "text": "Neural Spline Flows",
+   "context": "Section heading for a normalizing-flow variant using splines.",
+   "bbox": [
+    -1740.4,
+    4545.4,
+    -1597.1,
+    4561.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r101",
+   "slug": "diffusion_models",
+   "title": "Diffusion Models",
+   "text": "Diffusion Models\n\nq(x_t|x_{t-1})\n\nForward\nX\u2080 crazy dist [smiley-face doodle] + [bump] + [bump] ... + [bump] \u2192 gaussian X_T [circle doodle]\n\nBackward\n... p_\u03b8(x_{t-1}|x_t\n\n\u03b2_t\n\nForward Process (fixed)\n\nq(x_t|x_{t-1}) = N(x_t; \u221a(1-\u03b2_t) x_{t-1}, \u03b2_t I)\n\nnotice t\u2192\u221e, q(x_T|x_0) \u2192 N(0,I) -\nso no info about x_0, T~1000 in practice\n\nIdea is if you slowly perturb the data distribution figuring out the previous steps should not be too hard\n\n[chart: overlapping multi-peaked density curves labeled t=1, t=2, t=3, t=4, t=5]\n\u03b2_t \u226a 1  ^ easily reversible",
+   "context": "Intro to the diffusion model forward noising process, from crazy data distribution to Gaussian.",
+   "bbox": [
+    -728.4,
+    4558.0,
+    -327.6,
+    5122.7
+   ],
+   "links_out": [
+    "r108"
+   ],
+   "links_in": [
+    "r108"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r102",
+   "slug": "fisher_information",
+   "title": "Fisher Information",
+   "text": "Fisher Information\n\nIf you have a random variable X, how much information is contained in the results to estimate \u03b8?\n\nLow Fisher Information                       High Fisher Information\n\nLikelihood of Temp as you                    Likelihood of Temp as you\nvary Longitude                                vary Latitude\n\np(x_i=Temperature on\nith day|\u03b8)                                    p(x_i=Temperature on ith day|\u03b8)\n\n[peaked-curve diagrams over dog icons; x-axis labeled dog1...dogN]\n\nD: Longitude                                  D: Latitude\n\nNot a lot of info from fixed observations     \u2190 Lot of info from these observations on Latitude equals the variance is important!\n\nIt's possible you have to build for the likelihood\n\nThe temperature contains little information about the longitude.     The temperature contains a lot of information about the latitude.\n\nThe Fisher information is the variance of the score.\n\nI(\u03b8) = Var[\u2202_\u03b8 log p(x|\u03b8)]\n\n= E_x[(\u2202_\u03b8 log p(x|\u03b8))\u00b2] - E_x[\u2202_\u03b8 log p(x|\u03b8)]\u00b2\n[a bit confusing, 2nd term with pdf generated x has variance]\n\n= \u222bdx p(x|\u03b8)[\u2202_\u03b8 log p(x|\u03b8)]\u00b2\n\nIn general also written as I(\u03b8) = -E_x[\u2202\u00b2_\u03b8 log p(x|\u03b8)]\n\ncool property: I(\u03b8) = I(\u03b8) (d\u03b8'/d\u03b8)\u00b2",
+   "context": "Compares low vs high Fisher information using an example of inferring longitude vs latitude from temperature.",
+   "bbox": [
+    -2807.3,
+    4569.1,
+    -1981.3,
+    4835.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r103",
+   "slug": "evidence_lower_bound_variational_inference",
+   "title": "Evidence Lower Bound (variational inference)",
+   "text": "Evidence Lower Bound (variational inference)\n\nStep: you want images, d, and there are some latent variables, \u03b8, related to the images, camera angle for example\n\n[camera diagram]  \u03b8: exposure, lens width etc.   \"It would be nice to have p(d,\u03b8) but in general the task is to find p(\u03b8|d)\"\n\nWe can use Bayes rule, but p(d) = \u222bd\u03b8 p(d|\u03b8)p(\u03b8) is intractable\n\ninstead get q(\u03b8|d) \u2248 p(\u03b8|d)  then we can minimize  E_q[log q(\u03b8|d)/p(\u03b8|d)]\n\nBut obviously we can't evaluate p(\u03b8|d)  see my drawing diffusion prob. models notes\nbut we can rewrite into the following\n\nlog p(d) = E_q[log p(\u03b8,d)/q(\u03b8|d)] + D_KL(q||p)\n            const.        tractable        intractable\n            wrt q\n\n\u2191 since constant   maximizing \u2191 corresponds to minimizing \u2191\n\nlog p(d) \u2265 E_q[log p(\u03b8,d)/q(\u03b8|d)]    also useful",
+   "context": null,
+   "bbox": [
+    -1312.7,
+    4595.5,
+    -835.0,
+    5013.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r104",
+   "slug": "bayes_factors",
+   "title": "Bayes Factors",
+   "text": "Prior - your belief about \u03b8 before seeing any data.\n\nPosterior - Updated prob. \u03b8 after\nseeing data d.\n\nLikelihood - Prob. of seeing data\ngiven \u03b8 parameters this is something we\ntypically choose.\n\nEvidence -- You can normally integrate\nto find this out.\n\nBayes Factors\nTypical situation: 2 models one experiment: H\u2081, H\u2082, d.\n\nHow can we compare two different hypotheses H\u2081 and H\u2082?\n\nB\u00b9\u2082 = p(d|H\u2081)/p(d|H\u2082) = \u222bd\u03b8 p(d|\u03b8,H\u2081)p(\u03b8|H\u2081) / \u222bd\u03b8 p(d|\u03b8,H\u2082)p(\u03b8|H\u2082)\n\n[table: B\u00b9\u2082 | log\u2081\u2080B\u00b9\u2082 | ln B\u00b9\u2082 | Interpretation]\n1-10^(1/2) | 0-1/2 | 0-1.15 | Barely worth mentioning\n10^(1/2)-10 | 1/2-1 | 1.15-2.3 | Substantial\n10-10^(3/2) | 1-3/2 | 2.3-3.5 | Strong\n10^(3/2)-10\u00b2 | 3/2-2 | 3.6-4.6 | Very Strong\n>10\u00b2 | >2 | >4.6 | Decisive\n\nA bit odd, in Gut ln B\u00b9\u2082 is considered decisive",
+   "context": "Continuation (no own heading) defining prior/posterior/likelihood/evidence, then introducing Bayes factors with an interpretation table.",
+   "bbox": [
+    164.0,
+    4651.8,
+    748.9,
+    5033.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r105",
+   "slug": "importance_sampling_weights",
+   "title": "Importance Sampling Weights",
+   "text": "= f\u2080(x) \u220f T_i(x_i,x_{i+1})/F_i(x_i) = f\u2080(x) \u220f T_i(x_{i+1},x_i)/F_{i+1}(x_{i+1})\n\nconsider our importance sampling procedure\nwhat is the prob of (x\u2080...x_{n-1}) chain?\n\n(x\u2080...x_{n-1}) = f_n(x_{n-1}) \u220f T_i(x_{i+1},x_i)\n\nIt's tricky to importance sample g to f\n\nw(x\u2080...x_{n-1}) = f(x\u2080...x_{n-1})/g(x\u2080...x_{n-1}) = \u220f f_i(x_i)/f_{i+1}(x_{i+1})\n\nSo g can be IS to f via w(x\u2080...x_{n-1}) and so the marginal g(x\u2080) can be IS to f(x\u2080) w/ the same weight.",
+   "context": "Continuation (no own heading) deriving importance-sampling weights for a Markov chain, related to annealed importance sampling.",
+   "bbox": [
+    1709.6,
+    4671.6,
+    1996.9,
+    4759.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r106",
+   "slug": "monte_carlo_markov_chains",
+   "title": "Monte Carlo Markov Chains",
+   "text": "Monte Carlo Markov Chains\n\nYou want to estimate \u222bdx p(x) without knowing p(x) exactly.\np(d|\u03b8)p(\u03b8)\n\nad to\nu from!",
+   "context": null,
+   "bbox": [
+    1003.7,
+    4724.7,
+    1233.0,
+    4789.2
+   ],
+   "links_out": [],
+   "links_in": [
+    "b111"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r107",
+   "slug": "hypothesis_testing",
+   "title": "Hypothesis Testing",
+   "text": "Hypothesis Testing\n\nHave a null hypothesis H\u2080 and either accept or reject you collect some data and evaluate some test statistic t(x)\n\ndoes not exist for Bayesian\n\n              H\u2080 is true      H\u2080 is False\nAccept H\u2080        \u2713          Type II error       power = 1-\u03b2 = 1-P(Type II error) = M\nReject H\u2080   Type I error         \u2713             If you collect more data will fix\n\nSemi/rule\ncould throw wrong H\u2080 and not collect\nmore data\n\nSignificance \u03b1 = P(Type I error)\n\nEg. Z-test\nX: n samples ~ N(\u03bc\u2081,\u03c3\u00b2)   Y: m samples ~ N(\u03bc\u2082,\u03c3\u00b2)\n\nH\u2080: \u03bc\u2081-\u03bc\u2082=0  vs H\u2081: \u03bc\u2081-\u03bc\u2082\u22600\n\nnull and hypothesis\n\nt(\u03a3x_i,\u03a3y_i) = (x\u0304-\u0233)/\u03c3 (1/n+1/m)^(-1/2)     \u2190 sample mean\n\nunder observation\nthrow out\n\nr_{H0}(t) = N(0,1).\nso\nR_\u03b1 = {x\u2208X | r_{H0}(t(x)) = \u03b1}\n\nIf let stat. is z, then prob is\n\u222b N(z;0,1) = 0.005.\n\n[bell curve diagram of T_{H0}(t) with critical-region shading]\n\nP-values                                    p_{H0}(t(x'))\nGiven observation x'\n\nP-value = p(t(x)>t(x')|H\u2080) = \u222b_{t(x')}^\u221e dt p_{H0}(t(x))\n\n[curve diagram with shaded tail regions t(x') and t(x'') labeled null rejection]\n\nBasically what percentile does your test statistic lie in, then you decide on a significance \u03b1, of how acceptable is a type I error. If p-value < \u03b1 you reject H\u2080\n\nCritical Regions\n\nR \u2282 X    R = {x\u2208X | t(x) > t(x')|H\u2080}\n\nThe interp. is that R_\u03b1, the set of observations in x would kill a H\u2080 w/ significance \u03b1",
+   "context": null,
+   "bbox": [
+    5109.9,
+    4763.7,
+    5555.4,
+    5143.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r108",
+   "slug": "beta_schedule_and_markov_chain",
+   "title": "Beta Schedule and Markov Chain",
+   "text": "\u03b2_t \u2208 (0,1) and \u03b2\u2081<\u03b2\u2082..<\u03b2_T   [t axis label]\n\nq(x\u2081...x_T|x\u2080) = \u220f_{t=1}^T q(x_t|x_{t-1})\n\nSince Markov chain",
+   "context": "Continuation (no own heading) of the Diffusion Models notes, specifying the noise-schedule constraint and Markov factorization.",
+   "bbox": [
+    -396.9,
+    4807.0,
+    -125.0,
+    4939.7
+   ],
+   "links_out": [
+    "r101"
+   ],
+   "links_in": [
+    "r101"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r109",
+   "slug": "bias_consistency_efficiency_of_estimator",
+   "title": "Bias, Consistency, Efficiency of Estimator",
+   "text": "Bias of Estimator\nBias(\u03bc\u0302) = E[\u03bc\u0302] - \u03bc\n\nConsistent Estimator\n\nSpp you are trying to estimate \u03bc. \u03bc\u0302 is an estimator of \u03bc.\n\nIf lim_{N\u2192\u221e} \u03bc\u0302 = \u03bc then \u03bc\u0302 is a consistent estimator\nNumber of samples\n\noften we use inconsistent estimators, but\nVar[\u03bc\u0302] \u226b lim_{N\u2192\u221e} \u03bc\u0302-\u03bc = \u03b5\u22600  It doesn't matter if Bias(\u03bc\u0302) \u226b \u03b5\n\nEfficiency of an Estimator\n\nwhen trying to estimate \u03bc w/ \u03bc\u0302 some estimator the efficiency is\n\nEff(\u03bc\u0302) = Var(\u03bc\u0302)/MinVar(\u03bc\u0302)    so its a ratio of the variance by the minimum possible variance",
+   "context": null,
+   "bbox": [
+    4535.1,
+    4881.1,
+    4851.5,
+    5187.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r110",
+   "slug": "delta_method",
+   "title": "Delta Method",
+   "text": "Delta Method",
+   "context": "Section heading for the delta method (estimator variance approximation).",
+   "bbox": [
+    4014.3,
+    4922.5,
+    4077.6,
+    4934.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r111",
+   "slug": "nice_property_of_forward_process",
+   "title": "Nice property of forward process",
+   "text": "[chart: overlapping multi-peaked density curves labeled t=1 (blue), t=2 (green), t=3 (yellow), t=4 (green), t=5 (orange)]\n\n\u221a(1-\u03b2_t) \u226b 1\n\nchallenging to reverse since each step is hard. Like NF\n\nNice property so you don't have to each time simulate markov chain\n\nq(x_t|x_0) = N(x_t; \u221a\u1fb1_t x_0, (1-\u1fb1_t)I)\n\n\u03b1_t := 1-\u03b2_t ,  \u1fb1_t := \u220f_{s=1}^t \u03b1_s\n\np_\u03c8(x_0) = p(x_T) \u220f_{t=1}^T p_\u03c8(x_{t-1}|x_t)\n            \u2191 gaussian                s.",
+   "context": "Continuation (no own heading) of the Diffusion Models notes, giving the closed-form forward marginal q(x_t|x_0) and the reverse generative process.",
+   "bbox": [
+    -407.1,
+    4998.3,
+    -141.1,
+    5326.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r112",
+   "slug": "delayed_rejection",
+   "title": "Delayed Rejection",
+   "text": "Delayed Rejection\n\nWhat if my posterior is very multimodal and we never propose a point that goes far enough to get accepted?\n\nAcceptance prob for just a jump\n\nDelayed Rejection [doodle: Model 1, Model 2, Proposal]\n\n\u03b1\u2081(\u03b8\u2080,\u03b8\u2081) = min[1, p(\u03b8\u2081|d)q(\u03b8\u2080|\u03b8\u2081) / p(\u03b8\u2080|d)p(\u03b8\u2081|\u03b8\u2080)]\n\n\u03b1\u2082(\u03b8\u2080,\u03b8\u2081,\u03b8\u2082) = min[1, p(\u03b8\u2082|d)q(\u03b8\u2081|\u03b8\u2082)q(\u03b8\u2080|\u03b8\u2081,\u03b8\u2082)[1-\u03b1\u2081(\u03b8\u2082,\u03b8\u2081)] / p(\u03b8\u2080|d)q(\u03b8\u2081|\u03b8\u2080)q(\u03b8\u2082|\u03b8\u2081,\u03b8\u2080)[1-\u03b1\u2081(\u03b8\u2080,\u03b8\u2081)]]\n\n\u25cb This choice of acceptance satisfies detailed balance\n\n\u25cb High computational cost\n\n\u25cb Good in high dimensions",
+   "context": "MCMC extension where a rejected proposal triggers a second, adjusted proposal instead of staying put.",
+   "bbox": [
+    2276.1,
+    5043.9,
+    2611.2,
+    5207.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r113",
+   "slug": "model_comparison",
+   "title": "Model Comparison",
+   "text": "Mode  Comparison\nAll models are bad, but\nwhich is the most\n\nLikelihood Ratio Test\n\n$\\lambda = -2\\log\\left[\\dfrac{\\sup_{\\theta\\in\\Theta_0} P(d|\\Theta)}{\\sup_{\\theta\\in\\Theta} P(d|\\Theta)}\\right]$\n\nSteps\n1). Compute test statistic\n2). Choose a significance threshold according to your study\n3). If the likelihood ratio is too small, reject model 1, otherwise accept model 1\n\nPros:\n\nOne have a statistical model w/ param space $\\Theta$ and we want to figure out if the null hypothesis, $H_0$, that the observed params $\\theta \\in \\Theta_0 \\subset \\Theta$.\n\nExample:\n$P(d|\\Theta)$\n[bell-curve diagram of likelihood vs $\\Theta$, peak at $\\theta=\\hat\\theta$]\n$L_{H_1}$\n$L_{H_0}$\n$\\theta=\\theta_0$\n$\\lambda$\n$\\Theta$\n$H_0: \\Theta = \\theta_0$\n$H_1: \\Theta \\neq \\theta_0$\n$L_{H_1} \\gg L_{H_0}$ so more than likely\nnull hypothesis is wrong\n\n$\\lambda \\gg 1$",
+   "context": "Heading appears to read \"Mode Comparison\" but is almost certainly intended as \"Model Comparison\"; notes cover the likelihood ratio test for nested-model hypothesis testing.",
+   "bbox": [
+    532.3,
+    5193.2,
+    1049.7,
+    5423.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r114",
+   "slug": "bootstrap",
+   "title": "Bootstrap",
+   "text": "Bootstrap\n\nwell :f\n\nSay you want to measure $Var(\\hat\\mu_x)$. That is the variability\nof the mean estimate of X. But, you only have samples\nfrom X. Also you can't write $Var(\\hat\\mu_x)$ as a func of $Var(x)$\nor $Va(x)$.\n\nSo what you do is\n\n1). $L = \\{x_i\\}_1^N$\n2). Resample $L_j$ from L, each\n    is N long\n3). Create a histogram of $\\frac{1}{N}\\sum_{x_i\\in L_j} x_i \\; \\forall j$\n4). Find the variance of this histogram\n\nThis works\n1). N large\n2). Your sample distribution\n    is close to true dist.\n\n2, 3, 4\n$\\{2,2,3\\}, \\{3,4,4\\}$ ....\n\u2193          \u2193\n3.5        5.5   ...\n  \u2198        \u2193\n   $Var($      $)$\n\n[diagram: bell curve labeled p(x), with stepped histogram overlay labeled \"$p_{empirical}(x)$ is coming from drawn samples\", x-axis labeled x, arrow to $\\mu \\to \\hat\\mu$]\n[second diagram: histogram labeled \"distribution of $\\hat\\mu$'s created by resampling $p_{empirical}$\", arrow to $\\hat\\mu$]\n\nWhy does it work?\n\nSpp. p is the true dist. Spp one has N draws from p(x), $\\{x_1...x_N\\}$.\nThe test statistic is $\\hat\\mu(\\{x_i\\})$. To estimate $E[\\hat\\mu]$ and $Var[\\hat\\mu]$,\nyou would generate many (M), $\\hat\\mu$. To get $E[\\hat\\mu]$ you take $\\frac{1}{M}\\sum_{i=1}^{M}\\hat\\mu_i$.\n\nIn practice you don't have p, but you have the empirical distribution\nwhich by the strong law of large nums should approach p.\n\nThis is a monte carlo\nultimately.",
+   "context": "Explains bootstrap resampling as a way to estimate the variance of an estimator (e.g. the sample mean) without knowing the true distribution.",
+   "bbox": [
+    5122.4,
+    5216.8,
+    5543.1,
+    5586.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r115",
+   "slug": "reverse_process_learned",
+   "title": "Reverse Process (learned)",
+   "text": "Reverse  Process (learned)\n\n$p_\\psi(x_{t-1}|x_t) = N(x_{t-1}; \\mu_\\psi(x_t,t), \\Sigma_\\psi(x_t,t))$\n\nat inferce start w/ $p(x_T) = N(x;0,1)$",
+   "context": "Describes the learned reverse (denoising) transition of a diffusion model, starting inference from standard Gaussian noise.",
+   "bbox": [
+    -737.1,
+    5222.6,
+    -438.1,
+    5327.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r116",
+   "slug": "depen_p_x_state_fragments",
+   "title": "Depen / P(x / State fragments",
+   "text": "|\n\\ (short diagonal stroke)\n\nEf \u21a4\n\nDepen\n\nP(x\n\nState\n\nState",
+   "context": "Sparse leftover fragments (partial words \"Depen\", \"P(x\", \"State\" and an arrow labeled \"Ef\") with no coherent surrounding sentence, likely an abandoned or erased note.",
+   "bbox": [
+    1175.0,
+    5299.7,
+    1219.8,
+    5384.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r117",
+   "slug": "information",
+   "title": "Information",
+   "text": "nformation\n\nWhat do we want this to capture?\n\u25b7 Likely events should have low information content\n\u25b7 Unlikely events should have high information content\n\u25b7 Independent events should be additive\n\n\u25b7 Entropy\n\nOn average, how much information does a random variable X\ncontain??\n\n$S(p) = -\\int dx\\, p(x)\\, I(x) = -\\int dx\\, p(x) \\log_2 p(x)$",
+   "context": "Title \"Information\" is missing its initial \"I\"; section motivates Shannon entropy as the expected information content of a random variable.",
+   "bbox": [
+    -2865.2,
+    5361.5,
+    -2245.4,
+    5638.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r118",
+   "slug": "posterior_predictive_check",
+   "title": "Posterior Predictive Check",
+   "text": "Posterior Predictive Check\n\nAsks the question, how consistent is my model?\n\n$p(\\tilde{x}|x) = \\int d\\theta\\, p(\\tilde{x}|\\theta)\\, p(\\theta|x)$",
+   "context": null,
+   "bbox": [
+    338.2,
+    5521.6,
+    472.6,
+    5560.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r119",
+   "slug": "reversible_jump_mcmc",
+   "title": "Reversible-Jump MCMC",
+   "text": "(Trmsdimensional)\n\nReversible - Jump  MCMC\n\n\u25b7 What if we want the dimension of the samples to vary?\n\nSpp you have a set of models $\\{M_k, k\\in \\mathbb{Z}\\}$, each model $M_k$ corresponds to params\n$\\theta_k \\in \\mathbb{R}^{n_k}$, $n_k \\in \\mathbb{Z}^+$\n\n$p(k,\\theta_k|d) = p(k|d)\\, p(\\theta_k|k,d)$\n$\\underbrace{\\qquad\\qquad\\qquad\\qquad}_{x}$\n\nWhat does the proposal look like?\n\n$k' \\sim q(k'|k)$, $\\theta_{k'} \\sim q(\\theta_{k'}|\\theta_k,k,k')$\n\n$q(x'|x)$",
+   "context": "\"Trmsdimensional\" is the writer's shorthand for \"Transdimensional\"; notes describe reversible-jump MCMC for sampling across models of varying parameter dimension.",
+   "bbox": [
+    1870.0,
+    5556.9,
+    2178.2,
+    5799.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r120",
+   "slug": "autocorrelation",
+   "title": "Autocorrelation",
+   "text": "Autocorrelation\n\nThe next sample in a MCMC chain depends on\nprevious one. Typically, the smaller your auto-correlation,\nthe better your chain is exploring the space.\n\nAutocorrelation time: $\\hat\\tau = \\sum_{\\tau=-N}^{N} \\tilde\\rho_\\tau$  \u2190 In reality should compute\n                                              sum over M\u226aN, because\n                                              N large creates lot of noise",
+   "context": null,
+   "bbox": [
+    1204.0,
+    5596.3,
+    1492.7,
+    5723.5
+   ],
+   "links_out": [],
+   "links_in": [
+    "r123"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r121",
+   "slug": "proposal_as_q_w",
+   "title": "Proposal as q(w)",
+   "text": "Instead of $q(x,x')$ we can write $q(w)$, eg\n$x' = x + \\sigma w$. As long as we know the q\nit's fine. Then $q(x,x') \\to q(w)$",
+   "context": "Notes that an MCMC proposal distribution q(x,x') can be re-parameterized as a function of the step w = x'-x.",
+   "bbox": [
+    2228.8,
+    5620.6,
+    2400.3,
+    5662.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r122",
+   "slug": "bayesian_information_criterion",
+   "title": "Bayesian Information Criterion",
+   "text": "Bayesian  Information  Criterion\n\n$BIC = -2\\log(p(x|\\theta)) + k\\log N$   [k: Num dim, N: Num samples in your data dimension]\n\neg $p(d|\\theta) = \\prod_i^N p(x_i|\\theta)$\n\n\u25b7 Model selection to find which data fits astrophysical distribution the\n  best.\n\u25b7 Good when you don't have many data points\n\u25b7 Assumes model is in your set of models\n\u25b7 Might underfit\n\u25b7 It's the laplace approximation to the marginal likelihood\n\n$p(d) = \\int d\\theta\\, \\exp(\\log(p(d|\\theta)))\\, p(\\theta)$\n$\\approx p(\\theta)\\exp((\\log(p(\\theta))))\\int d\\theta\\, \\exp\\left(-\\frac{1}{2}(\\theta-\\theta_{MLE})^T N I (\\theta-\\theta_{MLE})\\right)$  [Taylor expanding, Fisher]\n$= \\text{\"}\\ (2\\pi)^{k/2}\\,|N^{-1}I^{-1}|^{1/2}$   [Dimensions]\n\n$\\Rightarrow \\log p(d) = \\log p(\\theta) + \\log p(d|\\theta) + \\frac{k}{2}\\log(2\\pi) - \\frac{1}{2}(k\\log N + \\log|I|)$\n\n(dropped consts) $= \\log p(\\theta) + \\log p(d|\\theta) - \\frac{1}{2}k\\log N - \\frac{1}{2}\\log|I|$\n     \u2191                              \u2191\n     this term sometimes omitted since $O(1)$ while $O(N)$, $O(\\log N)$",
+   "context": null,
+   "bbox": [
+    718.0,
+    5626.3,
+    1051.9,
+    6010.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r123",
+   "slug": "autocorrelation_formula",
+   "title": "Autocorrelation formula",
+   "text": "$\\hat\\rho_\\tau = \\dfrac{\\hat c_\\tau}{\\hat c_0}$   [cov @ lag]   where $\\hat c_\\tau = \\dfrac{1}{N-\\tau}\\sum_{t=1}^{N-\\tau} (x^t - \\hat{\\bar x})(x^{t+\\tau} - \\hat{\\bar x})$   [$\\sigma^2$, Sample Mean of chain]",
+   "context": "Defines the lag-\u03c4 autocorrelation coefficient of an MCMC chain in terms of the lag-\u03c4 covariance and lag-0 variance.",
+   "bbox": [
+    1549.3,
+    5630.5,
+    1813.1,
+    5682.0
+   ],
+   "links_out": [
+    "r120"
+   ],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r124",
+   "slug": "aic_and_kl_divergence",
+   "title": "AIC and KL divergence",
+   "text": "\u25b7 Good when have lots of data points\n\u25b7 Advantage over BIC is does not assume true model is in the\n  set of models.\n\n\u25b7 Might over fit\n\n\u25b7 You want to evaluate your models w/ KL div. but, you don't know the truth dist.!\n\n[diagram: histogram of empirical data with two smooth curve fits overlaid]\nyour model 2\nyour model 1\nEmpirical distribution\nEmpirical data\n\n$D_{KL}(p||q) = E_p\\left[\\log \\dfrac{p(x)}{q(x|\\Theta_k)}\\right]$   [Truth distribution, your model, model w/ k# parameters]\n$\\to$ define $d(\\Theta_k) = E_p[-2\\log q(x|\\Theta_k)]$\n\n$2 D_{KL}(p||q) = d(\\Theta_k) - E_p[-2\\log p(x)]$   [constant for every model so can just use $d(\\Theta_k)$ as model comparison]\n\nThe AIC is an unbiased estimator of $d(\\hat\\theta_k)$   [Cavanaugh & Neath 2019]\n\u2193\n$E_p[-2\\log q(x|\\hat\\theta_k) + 2k] + O(1) = E_p[d(\\hat\\theta_k)]$\n     goodness of fit    penalty            Max likelihood params\n\nThe advantage here is that you don't need $E_p$ like. Of course to\nget the Expected Kullback discrepancy one needs to take $E_p$, but if\nAIC is minimized \u21d2 Expected Kullback discrepancy is minimized",
+   "context": "Derives why minimizing the Akaike Information Criterion approximately minimizes the expected KL divergence between the true and fitted model, without needing to know the true distribution.",
+   "bbox": [
+    294.7,
+    5744.3,
+    595.7,
+    6111.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r125",
+   "slug": "cross_entropy",
+   "title": "Cross Entropy",
+   "text": "Cross  Entropy\n\nIf the true distribution was p(x) but you used q(x)\nhow much information would you lose?\n\n$H(p,q) = D_{KL}(p||q) + S(p)$\n                \u2191              \u2191\nAn extra bit         Entropy of p. On average\nwhich tells you how   how much info does $X\\sim p(x)$\ninefficient your      contain?\nencoding scheme is",
+   "context": null,
+   "bbox": [
+    -2136.9,
+    5746.6,
+    -1852.7,
+    5932.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r126",
+   "slug": "minimum_description_length",
+   "title": "Minimum Description Length",
+   "text": "Minimum  Description  Length\n\n\u25b7 In the context of model selection, the best model is\n  the one that \"compresses\" data the best.\n\n\u2733 In some ways better than BFs since you don't need\n   a model which fits the data at all\n\n\u25b7 There is only data & models. Any \"noise\" you have can be\n  said to occur just because you don't have a complete theory",
+   "context": "\"BFs\" refers to Bayes Factors.",
+   "bbox": [
+    -115.4,
+    6049.4,
+    150.3,
+    6197.7
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r127",
+   "slug": "potential_scale_reduction",
+   "title": "Potential Scale Reduction",
+   "text": "Potential  Scale  Reduction",
+   "context": "Heading only, likely introducing the Gelman-Rubin potential scale reduction statistic for MCMC convergence diagnostics.",
+   "bbox": [
+    1812.6,
+    6111.0,
+    1961.7,
+    6121.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r128",
+   "slug": "codelengths_and_prefixes",
+   "title": "Codelengths and Prefixes",
+   "text": "Codelengths  and  Prefixes\n\nConsider $X = \\{x_1,...\\}$ and a code $C: X \\to \\cup[0,1]^N$   [binary strings]\n\nC is your encoder. Define $L_c: \\bar X \\to \\mathbb{N}$ which measures\nthe length of the dataset $\\bar x$ when using code C.\n\nA prefix code is one s.t. $\\forall x \\forall y$, C(x) is not a prefix\nof C(y).\n\nEg $C_1(x) = 01$, $L_1(y) = 01$, $C_1(z) = 1$ isn't a prefix code since\n$C_1(x)C_1(y)C_1(z) = 0011$. Problem is we can't decode the\nwhole signal. $L_c(\\{x,y,z\\}) = 4$.\n\nShannon - Feno  Code\ngood for stochastic hypotheses\n\n$L(D|H) = -\\log p(D|H)$",
+   "context": "\"Shannon-Feno\" is the writer's spelling of \"Shannon-Fano\" code.",
+   "bbox": [
+    -573.7,
+    6313.5,
+    -216.5,
+    6486.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r129",
+   "slug": "gibbs_sampling",
+   "title": "Gibbs Sampling",
+   "text": "Gibbs  Sampling\n\nGoal:  Sample from $p(\\theta_1,\\theta_2)$  given  $p(\\theta_1|\\theta_2)$ and $p(\\theta_2|\\theta_1)$\n\nSteps:\n1). Get an initial guess $(\\theta_1^0, \\theta_2^0)$\n2). $\\theta_1^j \\sim p(\\theta_1|\\theta_2^{j-1})$\n3). $\\theta_2^j \\sim p(\\theta_2|\\theta_1^j)$\n\n[diagram: nested contour ellipses labeled $p(\\theta_1,\\theta_2)$ on axes $\\theta_1$ (x) and $\\theta_2$ (y), with an arrow F pointing into the contours and a label \"Burn In\" near scattered points outside the contours]",
+   "context": null,
+   "bbox": [
+    1794.6,
+    6395.1,
+    2191.8,
+    6558.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r130",
+   "slug": "this_is_a_markov_chain",
+   "title": "This is a markov chain",
+   "text": "This  is  a  markov  chain",
+   "context": null,
+   "bbox": [
+    1791.2,
+    6581.3,
+    1921.3,
+    6589.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r131",
+   "slug": "probabilistic",
+   "title": "Probabilistic",
+   "text": "Probabilic",
+   "context": "Likely the start of \"Probabilistic\", apparently truncated at the edge of the crop.",
+   "bbox": [
+    3309.1,
+    7679.7,
+    3622.7,
+    7741.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r132",
+   "slug": "change_of_prob_variables",
+   "title": "Change of prob. variables",
+   "text": "Change  of  prob.  variables",
+   "context": null,
+   "bbox": [
+    3142.8,
+    7819.5,
+    3296.2,
+    7838.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
   }
  ]
 }
