@@ -27,6 +27,10 @@ def bbox_expand(b, m):
     return (b[0] - m, b[1] - m, b[2] + m, b[3] + m)
 
 
+def bbox_intersects(a, b):
+    return a[0] <= b[2] and b[0] <= a[2] and a[1] <= b[3] and b[1] <= a[3]
+
+
 def bbox_iou(a, b):
     ix0, iy0 = max(a[0], b[0]), max(a[1], b[1])
     ix1, iy1 = min(a[2], b[2]), min(a[3], b[3])

@@ -24,6 +24,11 @@ HEAD_TOL = 5.0
 # --- binding ---
 ATTACH_DIST = 12.0        # loose annotation → nearest box
 
+# --- unboxed regions ---
+REGION_GAP = 25.0         # bbox expansion (each side) before merge test
+REGION_MIN_INK = 150.0    # total polyline length to keep a cluster
+REGION_MIN_STROKES = 12   # stroke count to keep a cluster
+
 # --- rendering ---
 CROP_MARGIN = 8.0
 CROP_TARGET_W = 1200      # px

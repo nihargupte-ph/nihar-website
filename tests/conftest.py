@@ -37,6 +37,39 @@ def _squiggle_d(x, y, n=6, step=4.0):
     return " ".join(parts)
 
 
+# --- unboxed-region fixture geometry (R1) ---
+# Two dense clusters of short squiggles, far outside any box/connector
+# reach (> config.ATTACH_DIST / END_TOL from every box, > 2*REGION_GAP from
+# each other and from the pre-existing "decoy" stroke so nothing merges
+# across clusters), a lone pair too small to survive REGION_MIN_STROKES/
+# REGION_MIN_INK, and one long straight connector-shaped stroke bridging
+# the two clusters that must be excluded from clustering by shape (not
+# glue them together).
+_REGION_A_COLS = [380, 396, 412, 428, 444]
+_REGION_A_ROWS = [78, 98, 118]
+_REGION_B_COLS = [280, 296, 312, 328]
+_REGION_B_ROWS = [298, 314, 330]
+
+REGION_A_IDS = [f"regA{i}" for i in range(1, len(_REGION_A_COLS) * len(_REGION_A_ROWS) + 1)]
+REGION_B_IDS = [f"regB{i}" for i in range(1, len(_REGION_B_COLS) * len(_REGION_B_ROWS) + 1)]
+REGION_C_IDS = ["regC1", "regC2"]
+REGION_BRIDGE_ID = "bridgeRC"
+
+
+def _region_cluster_svg(prefix, cols, rows):
+    strokes = []
+    i = 0
+    for y in rows:
+        for x in cols:
+            i += 1
+            strokes.append(_stroke(f"{prefix}{i}", _squiggle_d(x, y, n=2, step=2.0)))
+    return "\n".join(strokes)
+
+
+_REGION_A_SVG = _region_cluster_svg("regA", _REGION_A_COLS, _REGION_A_ROWS)
+_REGION_B_SVG = _region_cluster_svg("regB", _REGION_B_COLS, _REGION_B_ROWS)
+
+
 SYNTHETIC_SVG = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      width="500pt" height="400pt" version="1.1" viewBox="0 0 500 400">
@@ -67,6 +100,11 @@ SYNTHETIC_SVG = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 {_stroke("headAB2", "M 192 40 L 198 35")}
 {_stroke("lineBC", "M 250 72 L 100 148")}
 {_stroke("decoy", _squiggle_d(400, 300, n=6, step=4.0))}
+{_REGION_A_SVG}
+{_REGION_B_SVG}
+{_stroke("regC1", _squiggle_d(55, 300, n=1, step=1.5))}
+{_stroke("regC2", _squiggle_d(63, 300, n=1, step=1.5))}
+{_stroke("bridgeRC", "M 385 135 L 385 290")}
 </g>
 </svg>
 """
