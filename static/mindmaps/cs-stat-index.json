@@ -1,21 +1,21 @@
 {
  "svg": "cs-stat.svg",
  "viewBox": [
-  -5725.477,
-  -3022.085,
-  11890.705,
-  10977.893
+  -6234.524,
+  -3256.979,
+  12404.793,
+  11217.826
  ],
  "concepts": [
   {
    "id": "b003",
-   "slug": "lagrange_multipliers",
+   "slug": "lagrange_multipliers_2",
    "title": "Lagrange Multipliers",
-   "text": "If you are constrained to some domain, how can you optimize a function?\n\ng(x), the constraint, domain which you are allowed to be on.\n\n$\\nabla g$, normal to the constraint surface\n\nf(x), the function you want to optimize\n\nf(x) = C, the level curves\n\n$\\nabla f$, normal to the level curves of f. Since if $\\vec v$ is along level curve, f constant $\\nabla f \\cdot v = 0$\n\n$\\frac{d}{dt} f(c(t)) = 0$ by def\n$\\frac{\\partial f}{\\partial x_i}\\frac{dx_i}{dt} = 0 \\Rightarrow \\nabla f \\cdot v = 0$\n\nIntuition: imaging moving up the level curves. At some point, the curves will be \"kissing\", have a tangent line to, the constrained domain. the goal is to find these points. Having a tangent = $\\nabla f \\| \\nabla g$ since $\\nabla f \\perp$ level curves. Therefore,\n\n$\\nabla f(x) + \\lambda \\nabla g(x) = 0$   w/   $g(x) = 0$",
-   "context": "Diagram to the left shows $\\nabla g$ and $\\nabla f$ vectors normal to the constraint curve and level curves at their point of tangency.",
+   "text": "Lagrange Multipliers\nIf you are constrained to some domain, how can you optimize a function?\n\ng(x), the constraint, domain which you are allowed to be on.\n\n$\\nabla g$, normal to the constraint surface\n\nf(x), the function you want to optimize\n\nf(x) = C, the level curves\n\n$\\nabla f$, normal to the level curves of f. Since if $\\vec{v}$ is along level curve, f constant $\\nabla f \\cdot v = 0$\n\nbc $\\frac{d}{dt} f(c(t)) = 0$ by dEF\n$\\frac{\\partial f}{\\partial x_i}\\frac{dx_i}{dt} = 0 \\Rightarrow \\nabla f \\cdot v = 0$\n\n[diagram: two level-curve contours with vectors $\\nabla g$ and $\\nabla f$ drawn near where the curves touch]\n\nIntuition imaging moving up the level curves. At some point, the curves will be \"kissing\", have a tangent line to, the constrained domain. The goal is to find these points. Having a tangent = $\\nabla f \\| \\nabla g$ since $\\nabla f \\perp$ level curves. Therefore,\n\n$\\nabla f(x) + \\lambda \\nabla g(x) = 0$   w/   $g(x) = 0$",
+   "context": null,
    "bbox": [
     -3124.8,
-    -2295.5,
+    -2294.0,
     -2376.0,
     -1652.1
    ],
@@ -41,10 +41,10 @@
   },
   {
    "id": "b012",
-   "slug": "positional_encoding",
+   "slug": "positional_encoding_2",
    "title": "Positional Encoding",
-   "text": "A way to make the vector aware of its position\n\nPizza eats monkey vs Monkey eats pizza. Currently, the vectors are not position aware\n\n- A simple idea could just be to concat a number to the end of the vector to denote the position.\n\n- Instead we can add\n  - A desirable property is regardless of n, the number of tokens, we want each position to represent the same vector\n\nd\u00d7n   d\u00d7n   d\u00d7n\n$X_{ij}^{(1)} = X_{ij}^{(0)} + P_{ij}$\n\nPizza Pos 1        Pizza        First word\n$\\begin{bmatrix}2.8\\\\3.9\\\\-1.2\\\\6\\end{bmatrix} = \\begin{bmatrix}2\\\\3\\\\-1\\\\5\\end{bmatrix} + \\begin{bmatrix}0.8\\\\0.9\\\\-0.2\\\\1\\end{bmatrix}$\n\n$P_{ij} = \\begin{cases}\\sin\\left(\\frac{j}{10000^{2i/d}}\\right) & i\\ even\\\\ \\cos\\left(\\frac{j}{10000^{2i/d}}\\right) & i\\ odd\\end{cases}$\n\nWhy should this work better than just concat? What happens if we apply a linear trans. to the concat.?\n\n$V\\begin{bmatrix}X_i^{(0)}\\\\P_j\\end{bmatrix} = \\begin{bmatrix}v_{11} & v_{12}\\\\v_{21} & v_{22}\\end{bmatrix}\\begin{bmatrix}X_i^{(0)}\\\\P_j\\end{bmatrix} = \\begin{bmatrix}v_{11}X_i^{(0)} + v_{12}P_j\\\\v_{21}X_i^{(0)} + v_{22}P_j\\end{bmatrix}$\n\n$= \\begin{bmatrix}v_{11}X_i^{(0)}\\\\v_{21}X_i^{(0)}\\end{bmatrix} + \\begin{bmatrix}v_{12}P_j\\\\v_{22}P_j\\end{bmatrix} = X_i^{(0)'} + P_j'$\n\nA new embedding matrix          a different positional encoding",
-   "context": "Right-hand sketch shows sinusoidal positional-encoding curves plotted across token position (labeled 1st token, 2nd token, 3rd token ... spanning x n) and embedding dimension (x d).",
+   "text": "Positional Encoding\nA way to make the vector aware of its position\n\nPizza eats monkey vs Monkey eats Pizza. Currently, the vectors are not position aware\n\n\u2022 A simple idea could just be to concat a number to the end of the vector to denote the position.\n\n\u2022 Instead we can add\n   \u25e6 A desirable property is regardless of n, the number of tokens, we want each position to represent the same vector\n\ndxn   dxn   dxn\n$X_{ij}^{(1)} = X_{ij}^{(0)} + P_{ij}$\n\nPizza Pos1     Pizza      First word\n[2.8]          [7]        [0.8]\n[3.4]     =    [3]    +   [0.4]\n[-1.2]         [-1]       [-0.2]\n[6]            [5]        [1]\n\n$P_{ij} = \\begin{cases} \\sin\\left(\\dfrac{j}{10000^{2i/d}}\\right) & i\\ even \\\\ \\cos\\left(\\dfrac{j}{10000^{2i/d}}\\right) & i\\ odd \\end{cases}$\n\n[diagram: four sinusoidal wave graphs (x d) feeding into arrows labeled 1st token, 2nd token, 3rd token ... (x n)]\n\nWhy should this work better than just concat?\nWhat happens if we apply a linear trans. to the concat.?\n\n$V\\begin{bmatrix}X_i^{(0)}\\\\P_j\\end{bmatrix} = \\begin{bmatrix}V_{11} & V_{12}\\\\V_{21} & V_{22}\\end{bmatrix}\\begin{bmatrix}X_i^{(0)}\\\\P_j\\end{bmatrix} = \\begin{bmatrix}V_{11}X_i^{(0)} + V_{12}P_j\\\\V_{21}X_i^{(0)} + V_{22}P_j\\end{bmatrix}$\n\n$= \\begin{bmatrix}V_{11}X_i^{(0)}\\\\V_{21}X_i^{(0)}\\end{bmatrix} + \\begin{bmatrix}V_{12}P_j\\\\V_{22}P_j\\end{bmatrix} = X_i^{(0)'} + P_j'$\n         A new embedding matrix          a different positional encoding",
+   "context": null,
    "bbox": [
     -967.5,
     -1008.7,
@@ -109,10 +109,10 @@
   },
   {
    "id": "b017",
-   "slug": "matmul",
-   "title": "Matmul",
-   "text": "Wq\nXWq\nMatmul",
-   "context": "Diagram fragment showing the query projection XWq computed via matrix multiplication, part of a larger attention-layer diagram.",
+   "slug": "query_projection_matmul",
+   "title": "Query projection matmul",
+   "text": "$W_Q$  $d_Q \\times d$\n$(W_Q X)^T$\nMatmul\n[diagram: three green arrows entering from the left, one leading into a box labeled \"Matmul\" alongside the label \"1\", with an arrow exiting the box and further arrows continuing right into an unlabeled bracket]",
+   "context": "Diagram of computing the transposed query projection (W_Q X)^T via matrix multiplication in an attention mechanism.",
    "bbox": [
     -667.9,
     -764.5,
@@ -150,22 +150,6 @@
     -741.8,
     -623.9,
     -726.2
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "box"
-  },
-  {
-   "id": "b020",
-   "slug": "before_training",
-   "title": "Before Training",
-   "text": "Before Training\n\ncrown\nking",
-   "context": "Word-embedding vectors diagram (crown/king example) illustrating vector directions before training; heading is cropped at the top of the image.",
-   "bbox": [
-    -1296.3,
-    -741.1,
-    -1258.2,
-    -711.9
    ],
    "links_out": [],
    "links_in": [],
@@ -237,10 +221,10 @@
   },
   {
    "id": "b025",
-   "slug": "w_k_w_v_linear_projections",
-   "title": "W_k / W_v Linear Projections",
-   "text": "$W_k$\nLinear\n$XW_k$\n\n$W_v$\nLinear\n$XW_v$",
-   "context": "Diagram showing input $X$ passed through two separate Linear layers with weights $W_k$ and $W_v$, producing $XW_k$ and $XW_v$ (key and value projections).",
+   "slug": "key_and_value_linear_projections",
+   "title": "Key and Value linear projections",
+   "text": "$W_K$  $d_K \\times d$\nLinear\n$W_K X$\n\n$W_V$  $d_V \\times d$\nLinear\n$X W_V$",
+   "context": "Diagram of the key and value linear projection matrices used in an attention mechanism.",
    "bbox": [
     -651.8,
     -716.4,
@@ -301,10 +285,10 @@
   },
   {
    "id": "b029",
-   "slug": "transformer_enco",
-   "title": "Transformer Enco",
-   "text": "Transformer Enco",
-   "context": "Label is cut off at the right edge of the crop; likely reads \"Transformer Encoder\".",
+   "slug": "transformer_encoder_cropped",
+   "title": "Transformer Encoder (cropped)",
+   "text": "Transformer En[coder]\n[diagram: box corner with a diagonal line and pink/blue border lines, cropped at the edge of the source image]",
+   "context": "Label for a 'Transformer Encoder' box, cut off at the crop boundary.",
    "bbox": [
     -468.7,
     -616.8,
@@ -317,10 +301,10 @@
   },
   {
    "id": "b030",
-   "slug": "output_layer_linear_softmax",
-   "title": "Output Layer (Linear + Softmax)",
-   "text": "Multi layer Perception\n\nx N\n\u25cb \u25cb \u25cb\n\nx N\n\u25cb \u25cb \u25cb\nLinear\n\n\u2192 output\n\nOutput size is size of vocabulary, but output is easier to work with as tokens\n\nWill present a probability distribution of outputs over vocabulary\n\nLogits \u2192 softmax$(x)_i$ = $\\dfrac{e^{x_i}}{\\sum_j e^{x_j}}$",
-   "context": "Composite diagram of the final decoder stack (misspelled 'Multi layer Perception' for Multilayer Perceptron, repeated xN blocks, Linear layer, output) with two small annotation blocks explaining the output/softmax step; the small annotation handwriting is faint at this resolution so wording is approximate.",
+   "slug": "output_layer_softmax_over_vocabulary",
+   "title": "Output layer / softmax over vocabulary",
+   "text": "Multilayer Perception \u2192 (+) \u2192 xN \u22ef \u2192 [tall box] \u2192 Linear \u2192 output\n\n[left panel, faint handwriting]: Output size is size of vocabulary, this output is easier to make, as bigger is easier to make [remainder illegible]\n[diagram: grid of vocabulary entries fanning out into a labeled \"discrete output layer\"]\n\n[right panel]: Will present a probability distribution of outputs via characters\nLogits \u2192 softmax(logits) = $\\dfrac{e^{z_i}}{\\sum_j e^{z_j}}$\nout, one final logit [small bar-chart diagram]",
+   "context": "Diagram of the final decoder stack (residual MLP block repeated xN, output linear layer) feeding a softmax over vocabulary logits; some small handwriting is too faint to fully transcribe.",
    "bbox": [
     -114.8,
     -612.7,
@@ -337,22 +321,18 @@
   },
   {
    "id": "b032",
-   "slug": "input_embedding",
+   "slug": "input_embedding_2",
    "title": "Input Embedding",
-   "text": "Input Embedding\n\nPositional\nEncoding",
-   "context": "\"Positional Encoding\" is a separate nested green box inside/beside the \"Input Embedding\" box.",
+   "text": "Input Embedding\n[box] Positional Encoding\n[diagram: arrows leading from input embedding into the positional encoding block]",
+   "context": null,
    "bbox": [
     -1104.9,
     -576.9,
     -786.9,
     -444.1
    ],
-   "links_out": [
-    "r015"
-   ],
-   "links_in": [
-    "r015"
-   ],
+   "links_out": [],
+   "links_in": [],
    "kind": "box"
   },
   {
@@ -373,9 +353,9 @@
   },
   {
    "id": "b034",
-   "slug": "layer_norm_2",
+   "slug": "layer_norm_6",
    "title": "Layer Norm",
-   "text": "Layer\nNorm",
+   "text": "Layer Norm",
    "context": null,
    "bbox": [
     -417.9,
@@ -405,29 +385,25 @@
   },
   {
    "id": "b036",
-   "slug": "output_embedding",
+   "slug": "output_embedding_2",
    "title": "Output Embedding",
-   "text": "Output Embedding\n\nPositional\nEncoding",
-   "context": "\"Positional Encoding\" is a separate nested green box inside/beside the \"Output Embedding\" box.",
+   "text": "Output Embedding\n[box] Positional Encoding\n[diagram: arrow leading from output embedding into the positional encoding block]",
+   "context": null,
    "bbox": [
     -1321.0,
     -283.7,
     -1003.0,
     -150.9
    ],
-   "links_out": [
-    "r018"
-   ],
-   "links_in": [
-    "r018"
-   ],
+   "links_out": [],
+   "links_in": [],
    "kind": "box"
   },
   {
    "id": "b037",
-   "slug": "layer_norm_3",
+   "slug": "layer_norm_7",
    "title": "Layer Norm",
-   "text": "Layer\nNorm",
+   "text": "Layer Norm",
    "context": null,
    "bbox": [
     -576.9,
@@ -435,12 +411,8 @@
     -480.8,
     -190.5
    ],
-   "links_out": [
-    "r017"
-   ],
-   "links_in": [
-    "r017"
-   ],
+   "links_out": [],
+   "links_in": [],
    "kind": "box"
   },
   {
@@ -461,9 +433,9 @@
   },
   {
    "id": "b039",
-   "slug": "layer_norm_5",
+   "slug": "layer_norm_8",
    "title": "Layer Norm",
-   "text": "Layer\nNorm",
+   "text": "Layer Norm",
    "context": null,
    "bbox": [
     -187.0,
@@ -509,10 +481,10 @@
   },
   {
    "id": "b043",
-   "slug": "dec",
+   "slug": "dec_2",
    "title": "Dec.",
-   "text": "Dec.",
-   "context": "Box labeled \"Dec.\" (likely short for Decoder) with in/out arrows on all four sides.",
+   "text": "Dec.\n[green checkmark-like symbol and a caret mark above the text; arrow pointing left along the top of the box]",
+   "context": "Likely a shorthand label for \"Decoder\" on a mindmap connector box.",
    "bbox": [
     -1167.2,
     172.1,
@@ -1273,9 +1245,9 @@
   },
   {
    "id": "b113",
-   "slug": "can_an_inconsistent_biased_estimator_be_more_useful_than_a_biased_consistent_one",
+   "slug": "can_an_inconsistent_biased_estimator_be_more_useful_than_a_biased_consistent_one_2",
    "title": "Can an inconsistent biased estimator be more useful than a biased consistent one?",
-   "text": "Can an inconsistent biased estimator be more useful than a biased consistent one?\n\nSupp. 1 sample from $p(x) = N(\\mu,\\sigma^2)$ and want $\\mu_x$\n\nEstimator 1: $\\hat\\mu_x = \\dfrac{1}{N}\\sum_{i=1}^{N} x_i$\n\nEstimator 2: $\\hat{\\hat\\mu}_x = \\alpha\\hat\\mu_x$ w/ $0<\\alpha<1$\n\n[graph: bell curve labeled \"draw from p\" with points $\\mu_x$, $\\hat{\\hat\\mu}_x$, $\\hat\\mu_x$ marked on the x-axis]\n\nSo an inconsistent biased estimator is better in the MSE = bias$^2$ + var sense. In particular\n\nMLE $\\hat\\mu_x$: $0 + \\dfrac{\\sigma^2}{N}$\n\nMLE $\\hat{\\hat\\mu}_x$: $(\\alpha\\mu-\\mu)^2 + \\alpha^2\\dfrac{\\sigma^2}{N}$\n\nSo if $\\sigma \\gg 1$, or $N \\sim 1$   $\\hat{\\hat\\mu}$ has a better MSE!",
+   "text": "Can an inconsistent biased estimator be more useful than a biased consistent one?\n\nSpp. 1 sample from $p(x) = N(\\mu, \\sigma^2)$ and want $\\mu_x$\n\nEstimator 1: $\\hat{\\mu}_x = \\dfrac{1}{N}\\sum_{i=1}^{N} x_i$\n\nEstimator 2: $\\hat{\\hat{\\mu}}_x = \\alpha \\hat{\\mu}_x$  w/  $0 < \\alpha < 1$\n\n[diagram: bell curve labeled \"draw from p\", with $\\mu_x$, $\\hat{\\hat{\\mu}}_x$, $\\hat{\\mu}_x$ marked on the x-axis]\n\nSo an inconsistent biased estimator is better in the MSE = bias\u00b2 + var sense. In particular,\n\n$MSE\\ \\hat{\\mu}_x: 0 + \\dfrac{\\sigma^2}{N}$\n\n$MSE\\ \\hat{\\hat{\\mu}}_x: (\\alpha\\mu - \\mu)^2 + \\alpha^2\\dfrac{\\sigma^2}{N}$\n\nSo if $\\sigma \\gg 1$, or $N \\sim 1$, $\\hat{\\hat{\\mu}}$ has a better MSE!",
    "context": null,
    "bbox": [
     4867.0,
@@ -1608,6 +1580,236 @@
    "kind": "box"
   },
   {
+   "id": "b144",
+   "slug": "t_comm",
+   "title": "T_comm",
+   "text": "$T_{comm}$ = Amount of time passing around data\n\n$=$  $\\dfrac{Communication\\ Bytes}{Accelerator\\ Bytes/s}$",
+   "context": null,
+   "bbox": [
+    1894.7,
+    -2585.6,
+    2150.4,
+    -2425.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b145",
+   "slug": "max_t_math_t_comm",
+   "title": "Max(T_math, T_comm)",
+   "text": "[cut-off heading fragment, partially visible, reads roughly \"...arallel: Za...me\"]\n\nMax ( $T_{math}$ , $T_{comm}$ )",
+   "context": "Formula for total wall-clock time as the max of compute time and communication time; heading text is cropped and only partially legible.",
+   "bbox": [
+    2424.3,
+    -2406.7,
+    2543.7,
+    -2376.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b146",
+   "slug": "compute_bound",
+   "title": "Compute Bound",
+   "text": "Compute Bound := $T_{math} > T_{comm}$ \u27fa  $\\dfrac{Compute\\ FLOPs}{Communication\\ Bytes}$ > $\\dfrac{Accelerator\\ FLOPs/s}{Accelerator\\ Bytes/s}$\n              Compute intensity                    Accelerator intensity",
+   "context": null,
+   "bbox": [
+    2074.0,
+    -2358.7,
+    2660.6,
+    -2242.1
+   ],
+   "links_out": [],
+   "links_in": [
+    "r135"
+   ],
+   "kind": "box"
+  },
+  {
+   "id": "b147",
+   "slug": "operator_fusion_roofline_example",
+   "title": "Operator fusion / roofline example",
+   "text": "Example:\ndef f(x: Tensor[N])\n    for _ in range(repeat):\n        x = 2*x\n    return x\n[arrow] This function will increase the amount of compute but not memory, be of operator fusing\n\nOperator fusion\nInstead of transferring back and forth, just do all the operations here!\nmem [diagram] GPU     mem [diagram] GPU\n[diagram: repeated back-and-forth transfer arrows between mem and GPU on the left, vs. a single fused round-trip on the right]\n\nRuntime          FLOPs          Mem. Bandwidth\n[three roofline-style plots vs. Compute Intensity (log scale): runtime rising sharply (hockey-stick), FLOPs (TF/s) rising to a Hardware Limit line, Mem. Bandwidth (GB/s) flat then dropping]\nHardware Limit [green label on the graphs]",
+   "context": "Roofline-model illustration: a repeated-multiply example that is compute-bound, and operator fusion avoiding repeated memory transfers between GPU and memory.",
+   "bbox": [
+    1815.5,
+    -1820.6,
+    2670.7,
+    -1501.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b149",
+   "slug": "transformers",
+   "title": "Transformers",
+   "text": "Transformers\n\nInput Embedding\n$X^{in} = Embed(x^{in})$\n[box: dense small diagram of an embedding matrix, table, and vectors \u2014 text too small to transcribe]\n\n[large box, top right] Transformer Block\n$X^{out} = TransformerBlock(X^{in})$\n[dense small annotated diagram covering multi-head attention: rows of colored text blocks, bracketed matrices, a small icon of two people, and formulas \u2014 too small to transcribe in full]\nMulti-headed Attention Layer [green label]\n\nInput \u2192\nMulti-Head Attention Layer \u2192 (+)          Multi-layer Perception \u2192 (+)\n[green arrows connecting encoder sub-blocks]\n\nTransformer Decoder\nTarget \u2192\nMasked Multi-Head Attention \u2192 Multi-Head Attention Layer \u2192 (+)\n[blue/orange arrow connecting encoder output into decoder attention; small pink note near top of decoder block, illegible]\n\nTraining\nSpp. your goal is to train a translator\nHow do we structure data w/ a transformer?\nInput [box]: (word) I am hungry (word)\nTarget [box]: (word) Yo (?) hambriento (word)\nInput \u2192 (+)\nTarget \u2192 \u2014 Output\nInference \u2193\n[several small repeated \"word \u2192 embed \u2192 (+)\" diagrams illustrating teacher forcing, too small to transcribe individually]\n\nCompare output to target\n[small histogram icon] logits \u2192\n$Loss = \\sum_i \\mathcal{L}(logits_i, target_i)$\n\nTeacher forcing (why during training but not inference)\n[dense paragraph of small handwriting, too small to transcribe reliably]",
+   "context": "Zoomed-out overview of the full Transformer architecture page (encoder, decoder, and training/teacher-forcing sections), whose individual sub-boxes appear as separate crops elsewhere; much nested text is below legible resolution.",
+   "bbox": [
+    -1510.8,
+    -1251.5,
+    63.2,
+    734.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b151",
+   "slug": "own_vs_king_vector_diagram",
+   "title": "own vs king vector diagram",
+   "text": "own [orange vector]\nking [teal vector]\n[diagram: 3D-style axes with an additional unlabeled vector]",
+   "context": "Illustration of word vectors ('own', 'king') as directions in embedding space, likely for a word-embedding analogy discussion.",
+   "bbox": [
+    -1296.3,
+    -741.1,
+    -1258.2,
+    -711.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b154",
+   "slug": "flow_matching_loss_mathcal_l_fm",
+   "title": "Flow matching loss $\\mathcal{L}_{FM}$",
+   "text": "$\\mathcal{L}_{FM}(\\phi) = \\mathbb{E}_{t\\sim U[0,1]}\\mathbb{E}_{z_t\\sim q(z_t)}\\left[\\|g_\\phi(z_t,t)-u_t(z_t)\\|^2\\right]$\ntruth vector\nfield @ t",
+   "context": "The labels 'truth vector' and 'field @ t' annotate the two terms inside the norm of the flow-matching loss.",
+   "bbox": [
+    -1205.2,
+    2389.0,
+    -724.5,
+    2474.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b155",
+   "slug": "conditional_flow_matching_loss",
+   "title": "Conditional flow matching loss",
+   "text": "$\\mathcal{L}_{(FM)}(\\phi) = \\mathbb{E}_{t\\sim U[0,1]}\\ z_1\\sim p_1(z_1)\\ z_t\\sim p_t(z_t|z_1)\\left[\\|g_\\phi(z_t,t)-u_t(z_t|z_1)\\|^2\\right]$",
+   "context": "A conditional variant of b154's flow-matching loss, conditioning the vector-field target on z_1; two unlabeled carets point to the two conditioning terms.",
+   "bbox": [
+    -1201.7,
+    2506.8,
+    -679.1,
+    2559.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b156",
+   "slug": "banach_fixed_point_theorem",
+   "title": "Banach Fixed Point Theorem",
+   "text": "Banach fixed point theorem\nNote: different condition to check is $\\|f'(x)\\|\\le \\gamma$\nStates two things\n\nX set w/ metric $d:X\\times X\\to\\mathbb{R}$. $\\gamma\\in[0,1]$\n\n$f:X\\to X$ st $\\exists \\gamma, d(f(x_1),f(x_1))\\le \\gamma d(x_1,x_2)\\ \\forall x_1,x_2$\n\n[box] $\\Rightarrow \\exists x^*$ st $x^*=f(x^*)$\n$\\Rightarrow \\forall x_1\\in X$ & $x_{i+1}=f(x_i)\\ \\forall i$, $\\lim_{i\\to\\infty}x_i=x^*$\n\nThere is also an error estimate (can be proved by noting $\\|x_{n+1}-x^*\\|\\le\\gamma\\|x_n-x^*\\|$)\n$\\|x_n-x^*\\|\\le \\frac{\\gamma^n}{1-\\gamma}\\|x_1-x_0\\| + \\|x_n-x_{n+1}\\|\\le\\frac{\\gamma}{1-\\gamma}\\|x_n-x_{n+1}\\|$\n\n[diagram: box with a zigzagging pink path converging on a point labeled 'Fixed point'; legend '\u2014 Applications of f' (pink), '\u2014 Initial points' (blue)]\n\nWhat is the theorem saying visually?\nThe two points will keep getting closer to each other. If the fixed point exists in the space it will attract the point through repeated action of f.",
+   "context": null,
+   "bbox": [
+    -4705.1,
+    2662.7,
+    -3981.0,
+    3208.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b157",
+   "slug": "banach_theorem_worked_example",
+   "title": "Banach theorem worked example",
+   "text": "Eg X=\u211d . $f(x)=\\frac{1}{3}x$, $d=\\|\\ \\|^2$\n$\\frac{1}{9}(x_2-x_1)^2 \\le \\gamma(x_2-x_1)^2$  $\\gamma=1/2$ \u2713\n\nHere $x^*=0$. To show algorithm\nguess $x_0=1$\n\n$f(x_0)=\\frac{1}{3}$, $f(x_1)=\\frac{1}{9}$, ...  so\n\n$f(x_n)=\\frac{1}{3^n}$ so if $n\\to\\infty$ $f(x_n)\\to 0$!",
+   "context": "Worked example applying the Banach fixed-point theorem (from b156) to the contraction f(x)=x/3 on \u211d.",
+   "bbox": [
+    -4345.2,
+    2705.0,
+    -4082.8,
+    2879.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b159",
+   "slug": "latitude_and_longitude_on_a_sphere",
+   "title": "Latitude and longitude on a sphere",
+   "text": "Latit[...]\nLo[...]\n[Sphere diagram: a pink curve running pole-to-pole labeled 'Latit-', and a blue curve circling the sphere labeled 'Lo-']",
+   "context": "Both labels are truncated by the crop edge, likely reading 'Latitude' and 'Longitude'.",
+   "bbox": [
+    -2619.2,
+    4633.3,
+    -2586.1,
+    4667.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b160",
+   "slug": "power_and_validity_of_a_statistic",
+   "title": "Power and Validity of a Statistic",
+   "text": "Power  and  Validity  of statistic\n\nSuppose you want to evaluate how good a test statistic B w/ threshold B* is.\n\nPower - How often the true signal trips the threshold, TAP\n\nNotice, you only have one null! But you can have many \"true\" pops! A test stat which is powerful for one pop may be useless for another!\n\nValidity - How often the false signal trips the threshold, FAP\n\n[box] $\\mathbb{E}_{B\\sim\\text{population of null signals}}\\left[\\mathbb{1}(B>B^*)\\right]$\n\n[Plot: y-axis '1-CDF' log-scaled ($10^{-1}$ to $10^{-6}$), x-axis B with B* marked; curves labeled 'B under null (invalid)' (green), 'B under null (valid)' (blue), 'B under pop 1 (powerful)' (orange), 'B under pop 2 (weak)' (purple)]\nNull signals also have a high signific.\nTrue signals also don't trigger a high significance most times!",
+   "context": null,
+   "bbox": [
+    5613.4,
+    4749.8,
+    6034.7,
+    5159.6
+   ],
+   "links_out": [
+    "r107"
+   ],
+   "links_in": [
+    "r107"
+   ],
+   "kind": "box"
+  },
+  {
+   "id": "b161",
+   "slug": "power_formula_over_true_signals",
+   "title": "Power formula over true signals",
+   "text": "$\\mathbb{E}_{B\\sim\\text{population of true signals}}\\left[\\mathbb{1}(B>B^*)\\right]$",
+   "context": "Companion formula to b160's validity expectation, but taken over the population of true signals instead of null signals.",
+   "bbox": [
+    5690.8,
+    4855.5,
+    5854.5,
+    4910.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
+   "id": "b162",
+   "slug": "b_unc_curve_diagram",
+   "title": "B unc curve diagram",
+   "text": "B unc\n[Two declining curves from upper-left: a blue curve labeled 'B unc' and a green curve that drops more steeply, both leveling off; a short pink vertical tick mark where they diverge]",
+   "context": null,
+   "bbox": [
+    5685.4,
+    5048.0,
+    5816.2,
+    5123.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "box"
+  },
+  {
    "id": "r001",
    "slug": "optimization",
    "title": "Optimization",
@@ -1677,15 +1879,15 @@
   },
   {
    "id": "r005",
-   "slug": "gradient_descent",
+   "slug": "gradient_descent_2",
    "title": "Gradient Descent",
-   "text": "Gradient Descent\n$x^{t+1} = x^t - \\gamma\\nabla f(x_t)$   where   $f(x_t) = \\frac{1}{N}\\sum_i f_i(x_t)$\nNN params \u2924\n[arrow] sum of losses for each individual label + data",
+   "text": "Gradient  Descent\n\n$x^{t+1} = x^t - \\gamma\\nabla f(x_t)$ where $f(x_t) = \\frac{1}{N}\\sum_i f_i(x_t)$\n\nNN params \u2318\n\u25b7 Finds minimum for convex\n\u25b7 Does not find minimum for non-convex functions\n\nsum of losses for each individual label + data",
    "context": null,
    "bbox": [
     -3617.6,
     -1518.9,
     -3281.5,
-    -1451.2
+    -1437.1
    ],
    "links_out": [],
    "links_in": [],
@@ -1702,22 +1904,6 @@
     -1502.8,
     -3756.1,
     -1400.5
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r007",
-   "slug": "stochastic_gradient_descent",
-   "title": "Stochastic Gradient Descent",
-   "text": "Stochastic Gradient Descent\n$i_t \\in \\{1\\dots N\\}$   [In each iteration compute the gradient for just one training sample]\n$x^{t+1} = x^t - \\gamma_t \\nabla f_{i_t}(x_t)$\n\nRemark\n$\\nabla f_{i_t}(x_t)$ is an unbiased estimator of $\\nabla f(x_t)$ since\n$\\mathbb{E}[\\nabla f_i(x_t)] = \\frac{1}{N}\\sum_i \\nabla f_i(x_t) = \\nabla f(x_t)$",
-   "context": null,
-   "bbox": [
-    -3614.3,
-    -1348.3,
-    -3104.1,
-    -1249.1
    ],
    "links_out": [],
    "links_in": [],
@@ -1744,50 +1930,20 @@
    "kind": "region"
   },
   {
-   "id": "r009",
-   "slug": "transformer_block",
-   "title": "Transformer Block",
-   "text": "Transformer Block\n$X^{(m)} = TransfBlock(X^{(m-1)})$\n\nMulti-head Self-Attention\nA way to make each vector context aware\n\n$Y^{(m)} = MHSA_\\theta(X^{(m-1)})$\n\n[teal] embedding dim $d\\times L$: Attn will look high values in the word it wants to attend to\n[orange] $d\\times L$\nvalue weights \u2192 embedding of the token \u2192 attention to this\n$Y^{(m)} = W_V^{(m)}X^{(m-1)}A^{(m)}$\n\nBefore Training [random attention-matrix heatmap, caption \"The king ate the steak\"]\nAfter Training [structured attention-matrix heatmap]\n\u21b3 Filtered embedding \"The king ate the steak\"\n\u21b3 The magnitude of this vector is very large bc of the attention filter\n\nSelf-Attention\nIn this toy example, the entry of each word in the row of the words is what attention to\nWhat did the king eat?   \u21b3 high attention\nThe king ate the steak\n\nmxd \u2193   mxd \u2193\nKey weights   Query weights\n$Y^{(m)} = \\sum_h V_h X^{(m-1)}A_h^{(m)}$   softmax( $W_K^{(m)}X^{(m-1)}(X^{(m-1)})^TW_Q^{(m)T}$ / $\\sqrt{d_k}$ )\n\n[bracketed groups] Doesn't do much alone, you use blocks of it. The idea is to learn the dot product between two words, i.e. learn how similar two words are. Learning the notion of words in context.\n\nSelf-Attention (right column)\nIn this toy example, the entry of each word in the row is the amount of attention it pays to the rest of the words\nThe king ate the steak, he was hungry\n[diagram: arrows linking \"king\" and \"he\", annotated \"king captured by bishop\", \"king ate steak, hungry\"]\n\nIntuition [x, A, y diagram with arrows] Credit: Bricken, Vaswani\n\nAttention Sites   Original tokens   Filtered tokens\nAttn from row: header is attacking!   Attn from: header is attacking!   A role attacking\n\nMulti-Head Self-Attention\n$A = softmax\\left(\\frac{X^{(m-1)}W_K^{(m)T}W_Q^{(m)}X^{(m-1)T}}{\\sqrt{d_k/H}}\\right)$\nAllows for the fact that words may need to attend because multiple look, bigger network.",
-   "context": "Detailed notes on transformer self-attention: multi-head attention formulas, attention-map visualizations (before/after training), and an intuitive worked example ('The king ate the steak').",
-   "bbox": [
-    -694.7,
-    -1181.3,
-    -93.1,
-    -706.7
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r010",
-   "slug": "input_embeddings",
-   "title": "Input Embeddings",
-   "text": "Input Embeddings\n\n$X^{(1)} = Embed(X^{(0)})$",
-   "context": null,
-   "bbox": [
-    -1309.3,
-    -1086.1,
-    -1193.3,
-    -1042.8
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
    "id": "r011",
-   "slug": "lipschitz_function",
+   "slug": "lipschitz_function_2",
    "title": "Lipschitz Function",
-   "text": "Lipschitz Function\nThe main point is small changes to input results in small changes to output.\n\n$\\|F(x) - F(y)\\| \\le L|x-y| \\; \\forall x,y \\Rightarrow$ F is Lipschitz\n\nThis is true iff $\\|\\nabla F(x)\\| \\le L \\; \\forall x$\n\nFunctions are sometimes called L-smooth if\n\n$\\|\\nabla F(x) - \\nabla F(y)\\| \\le L|x-y|$",
+   "text": "Lipschitz  Function\nThe main point is small changes to input results in small changes to output.\n\n$\\|F(x)-F(y)\\|\\le L|x-y|\\ \\forall x,y \\Rightarrow F$ is Lipschitz\n\nThis iff $\\|\\nabla F(x)\\|\\le L\\ \\forall x$   F bounded gradient\n\nFunctions are sometimes called L-smooth if\n\n$\\|\\nabla F(x)-\\nabla F(y)\\|\\le L|x-y|$\n\n$\\iff \\|\\nabla^2 F(x)\\|\\le L$",
    "context": null,
    "bbox": [
-    -4588.3,
+    -4588.8,
     -1043.8,
     -4234.9,
-    -883.9
+    -858.4
    ],
-   "links_out": [],
+   "links_out": [
+    "r139"
+   ],
    "links_in": [],
    "kind": "region"
   },
@@ -1809,172 +1965,6 @@
    "links_in": [
     "b015"
    ],
-   "kind": "region"
-  },
-  {
-   "id": "r013",
-   "slug": "tokenization",
-   "title": "Tokenization",
-   "text": "Tokenization\n\nA way to convert a \"thing\" into a vector\n\ne.g.\n\"The cat ate the mouse\"\n\n[4x5 matrix of example embedding numbers, d=4, n=5:\n 1   0   3  -2   0\n-1   0  -1  -3   0\n 3   1   3   5   2\n-2   2   4   8   1]\n\nLet's say this is just a lookup table for now. Each word just has some vector associated to it.\n\nset of tokens\n$\\to W_E T = X^{(1)}$\n\nA matrix which learns the meaning of words\n\nAfter training\n[diagram: vector arrows relating \"king\" and \"queen\"]\n\n[diagram: face with grid overlay, d=1, vector [0 0 0 1 1 0 1 0], n=4]\nIf has red pixel 1 else 0\n\n[diagram: red noisy signal plot with dashed vertical bin markers, boxes labeled n=5, d=20, F]\nFD data pretty easy, it is already a vector!\n\nIn all cases we have a d x n matrix $X^{(0)}$ \u2190 just indicates step in our pipeline",
-   "context": "Explains tokenization as converting text/images/frequency-domain data into vectors (embedding matrix X), illustrated with a word lookup table, a pixel-grid image example, and a frequency-domain signal example.",
-   "bbox": [
-    -1313.7,
-    -991.5,
-    -979.4,
-    -714.6
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r014",
-   "slug": "multilayer_perceptron",
-   "title": "Multilayer Perceptron",
-   "text": "der\n\nMultilayer\nPerceptron",
-   "context": "Small diagram label fragment (\"der\" and pipeline arrow) accompanying a larger architecture diagram, naming the Multilayer Perceptron block.",
-   "bbox": [
-    -321.1,
-    -567.9,
-    -128.6,
-    -480.6
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r015",
-   "slug": "multi_head_attention_layer",
-   "title": "Multi-Head Attention Layer",
-   "text": "Multi-Head Attention\nLayer",
-   "context": "Diagram label for a Multi-Head Attention layer block feeding into a residual add (circled +) node.",
-   "bbox": [
-    -674.4,
-    -523.2,
-    -435.7,
-    -473.9
-   ],
-   "links_out": [
-    "b032"
-   ],
-   "links_in": [
-    "b032"
-   ],
-   "kind": "region"
-  },
-  {
-   "id": "r016",
-   "slug": "transformer_decoder",
-   "title": "Transformer Decoder",
-   "text": "Transformer   Decoder",
-   "context": "Diagram section labels; top of the letter \"T\" in \"Transformer\" is cut off by the crop boundary.",
-   "bbox": [
-    -543.8,
-    -354.8,
-    -323.9,
-    -332.3
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r017",
-   "slug": "multi_head_attention_layer_2",
-   "title": "Multi-Head Attention Layer",
-   "text": "Multi-Head Attention\nLayer",
-   "context": "Repeated diagram label for a Multi-Head Attention layer block (with a small checkmark/chevron above), feeding into a residual add (circled +) node.",
-   "bbox": [
-    -443.6,
-    -263.9,
-    -204.8,
-    -194.8
-   ],
-   "links_out": [
-    "b037"
-   ],
-   "links_in": [
-    "b037"
-   ],
-   "kind": "region"
-  },
-  {
-   "id": "r018",
-   "slug": "masked_multi_head_attention",
-   "title": "Masked Multi-Head Attention",
-   "text": "Masked Multi-Head Attention",
-   "context": "Diagram label, partly overlapped by an arrow, reading \"Masked Multi-Head Attention.\"",
-   "bbox": [
-    -935.4,
-    -235.3,
-    -695.6,
-    -178.8
-   ],
-   "links_out": [
-    "r020",
-    "b036"
-   ],
-   "links_in": [
-    "r020",
-    "b036"
-   ],
-   "kind": "region"
-  },
-  {
-   "id": "r019",
-   "slug": "use_encoder_previous_word_context",
-   "title": "Use encoder + previous word context",
-   "text": "use encoder context w/\nprevious word context to predict\nnext token.",
-   "context": "Note attached to an upward arrow pointing into a decoder block, explaining what the decoder conditions on to predict the next token.",
-   "bbox": [
-    -287.6,
-    -139.1,
-    -126.1,
-    -33.3
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r020",
-   "slug": "masked_multi_head_attention_2",
-   "title": "Masked Multi-Head Attention",
-   "text": "Masked Multi-Head Attention\n\nYou don't know future tokens, so how to account for this? This is important so the network doesn't just do an identity.\n\nSuppose you are given: Input: The king ate the steak\n                        Target: Der k\u00f6nig a\u00df das Steak\n\nOutput: Der k\u00f6nig\n\nAttention filter                              Masked Attention filter\n           Der  k\u00f6nig  a\u00df  das  Steak                   Der  k\u00f6nig  a\u00df  das  Steak\nDer         8     2     1    0    1          Der         8    -\u221e   -\u221e   -\u221e   -\u221e\nk\u00f6nig       0    10     0    1    1          k\u00f6nig       0    10    -\u221e   -\u221e   -\u221e\na\u00df          1     1    11    0    8          a\u00df          1     1    11   -\u221e   -\u221e\ndas         0     2     0   10    1          das         0     2     0   10   -\u221e\nSteak       0     1     9    0    9          Steak       0     1     9    0    9\n\nafter passing through softmax                        Multiply by value\n           Der  k\u00f6nig  a\u00df  das  Steak\nDer        0.8    0     0    0    0\nk\u00f6nig      0.1   0.9    0    0    0\na\u00df         0.1   0.2  0.99   0    0\ndas         0    0.2   0.3  0.9   0\nSteak       0    0.1   0.9  0.2  0.9\n\n[diagram: value matrix (rows D,K,a,d,S) multiplied by softmax weights = output vector \"Der k\u00f6nig a\u00df das Steak\"]",
-   "context": "Worked example of masked multi-head self-attention using an English-to-German translation pair, showing the raw attention scores, the causal mask (-\u221e above diagonal), softmax normalization, and multiplication by the value matrix.",
-   "bbox": [
-    -717.7,
-    -56.2,
-    -440.5,
-    321.3
-   ],
-   "links_out": [
-    "r018",
-    "r027",
-    "r027"
-   ],
-   "links_in": [
-    "r018",
-    "r027",
-    "r027"
-   ],
-   "kind": "region"
-  },
-  {
-   "id": "r021",
-   "slug": "training",
-   "title": "Training",
-   "text": "Training\n\nSpp. your goal is to train a translator\nhow to accomplish this w/ a transformer?\n\nInput                                Target\n<start> I am happy <end>             <start> Ich bin gl\u00fccklich <end>\n   :                                     :\n<start> The earth is flat <end>      <start> Die Erde ist flach <end>\n\n\u2192 Input | > Enc. }\n\n> Target          > output              Inference\n                                            \u2193\nGenerate output\n1).                            2).                              3). once you hit the <End> compute loss\n<start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}\n\n<start> \u2192 Dec.} > Ich              <start> Ich \u2192 Dec.} > Dinosaurier      <start> Ich Dinosaurier \u2192 Dec.} > <End>\n\nInstead of just generating words, let's see the probability distribution\n\n<start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}     <start> I am happy <end> \u2192 Enc.}\n\n<start> \u2192 Dec.} > Ich 0.7           <start> Ich \u2192 Dec.} > Dinosaurier 0.9   <start> Ich Dinosaurier \u2192 Dec.} > <End> 1.5\n          bin 0.5                              Ich 0.7                                          <Start> 0.2\n          :                                     :                                               :\n\nCompare output to target\n                    \u2713\nOutput                        \u2014\n[chart: probability distribution curve, x-axis labeled \"Hello.. bin Ich\"]\n\nCompute $\\sum_j$ CrossEntropy(Output$_j$, Input$_j$)\n\nTeacher Forcing (How training is actually done)\n\nProblem is, if you keep feeding back & forth you can't parallelize & have multiple passes per loss. Instead you can pass the correct target as output everytime. This also makes it so you don't predict a second word which is based off a wrong first word.\n\n<start> I am happy <end> \u2192 Enc.}\n\n<start> Ich bin gl\u00fccklich <end> \u2192 Dec.} > <start> Ich bin gewiss <end>\n\nHow does this not lead to overfitting? What if the network just does nothing based on the one.",
-   "context": "Walks through training a transformer translator: teacher forcing vs. autoregressive generation, cross-entropy loss over the vocabulary distribution, ending with a margin question about overfitting.",
-   "bbox": [
-    -1294.1,
-    -41.5,
-    -765.6,
-    631.9
-   ],
-   "links_out": [],
-   "links_in": [],
    "kind": "region"
   },
   {
@@ -2060,28 +2050,6 @@
    ],
    "links_out": [],
    "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r027",
-   "slug": "all_have_low_attention",
-   "title": "All have low attention",
-   "text": "all have low attention\nie. don't pay attention to them",
-   "context": "Fragment note (with small unlabeled marks above) about tokens/positions receiving low attention weight, i.e. being effectively ignored; likely a follow-on comment to a masked-attention diagram.",
-   "bbox": [
-    -517.7,
-    354.4,
-    -429.9,
-    386.1
-   ],
-   "links_out": [
-    "r020",
-    "r020"
-   ],
-   "links_in": [
-    "r020",
-    "r020"
-   ],
    "kind": "region"
   },
   {
@@ -2254,10 +2222,10 @@
   },
   {
    "id": "r038",
-   "slug": "autograd",
-   "title": "Autograd",
-   "text": "Autograd   Griewank & Walther 2008\n\nWhat if you want to compute derivatives w/ the same acc. as symbolic manipulation but want to use for loops, and don't care about the exact expression but only the values at certain points?\n                                                        Griewank & Walther 2008\nConsider\n   [brace] this\n$f(x_1,x_2) = [\\sin(\\frac{x_1}{x_2}) + \\frac{x_1}{x_2} - e^{x_2}][\\frac{x_1}{x_2} - e^{x_2}]$\n\nThis is fast [because] you compute [derivatives] for particular points by stepping through a graph instead of generating a huge function of many chain rules. E.g. if you have:\nif cond.\n   do g(x)\nelse\n   do f(x)\nsymbolic derivative would compute chain, e.g.\nwhereas autograd will just step then f or g.\n\nanother problem w/ symbolic diff is you may compute derivative multiple times e.g. $\\sin(2x) + \\cos(2x)$ will compute $\\frac{\\partial(2x)}{\\partial x}$ twice\n\nn >> k inputs                          Also compute $\\dot{v}_n, \\dot{v}_n$ ... don't store it [where] it pass the matrix in directly\nBuild tangents\n[diagram: forward computational graph with circular nodes v5, v6, x1, x2, v1, v2, v3, v4, edges labeled with tangent values, output f(x1,x2)]\n\nwant $\\frac{\\partial f}{\\partial x_1}\\Big|_{(1.6,0.6)}$   [forward-mode numeric trace: 1, 2 \u2192 1.9, 0.02 \u2192 3.01 \u2192 2.01, illegible in parts]\n\n\"The operations look\n$\\frac{\\partial f_i}{\\partial x} = \\dot{f}_i = \\sum \\frac{\\partial f_i}{\\partial f_{i-1}} \\dot{f}_{i-1}$ [uncertain]\n[note: matrix-matrix mult ops connect to f]\nIn the case [where you] also want $\\frac{\\partial f}{\\partial x_2}$ you can do w/ [the] same forward pass! Just use the same graph.\n\nn >> m outputs\nchain of \"adjoints\"   $\\bar{v}_i = \\frac{\\partial f}{\\partial v_i} = \\sum_{j \\in children\\ of\\ i} \\bar{v}_j \\frac{\\partial v_j}{\\partial v_i}$\n\nf exp. tree e.g. $v_6(v_2,v_4)$\nReverse Pass\n[diagram: reverse-mode computational graph with adjoint values labeled on nodes x1, v1, v3, v5, v2, v6, output f(x1,x2)]\n\noutput is some but num. operation is diff. Consider $y = f(g(h(x)))$. Operationally this will look like\n$ABC$ - matrix multiplication. Consider \u2014\n$(AB)C$ [dims] 5x10 8x1 \u2192 forward mode \u2192 100\u00b75\u00b710 similar ops.\n$A(BC)$ [dims] 10x5 8x1 \u2192 Reverse mode \u2192 100\u00b75\u00b71 similar ops [exact numbers partly illegible]",
-   "context": "Dense computational-graph diagram illustrating forward-mode vs reverse-mode automatic differentiation; small numeric annotations on the graphs are partly illegible.",
+   "slug": "autograd_griewank_walther_2008",
+   "title": "Autograd (Griewank & Walther 2008)",
+   "text": "Autograd   Griewank & Walther 2008\n\nWhat if you want to compute derivatives w/ the same acc. as symbolic manipulation but want to use for loops, and don't care about the exact expression but only the values at certain points?\nGriewank & Walther 2008\n\nConsider\n$f(x_1,x_2) = \\left[\\sin\\left(\\frac{x_1}{x_2}\\right) + \\frac{x_1}{x_2} - e^{x_2}\\right]\\left[\\frac{x_1}{x_2} - e^{x_2}\\right]$  (can precompute this)\n\nThis is fast as you compute this before for particular points by stepping through a graph instead of generating a huge function of many chain rules. Eg: if you have\nif cond.\n  do g(x)\nelse\n  do f(x)\nsymbolic derivative would compute both, eg autograd will just skip then f or g.\n\nAnother problem w/ symbolic diff is you may compute derivative multiple times eg $\\sin(2x)+\\cos(2x)$ will compute $\\frac{\\partial(2x)}{\\partial x}$ twice\n\n>> 2 inputs\nAlso compute $\\bar v_n\\, \\bar v_n$ ... don't store the matrix directly\n\n[diagram: forward computation graph, inputs $x_1,x_2$ feeding nodes $v_{-1},v_0,v_1,v_2,v_3,v_4$ into $v_5,v_6$, output $f(x_1,x_2)$]\n\n\"The operations look like $\\frac{\\partial \\bar v}{\\partial x}=\\frac{\\partial f}{\\partial v_{i-1}}\\frac{\\partial v_{i-1}}{\\partial x}$\" matrix matrix mult ops is vec that connected to $f$.\nIn the case also want $\\frac{\\partial f}{\\partial x_2}$ you can do w/ the same forward pass! Just use the same graph.\n\nwant $\\frac{\\partial f}{\\partial x_1}\\Big|_{(1.9,0.6)}$\n[diagram trace of numeric forward values: 1\u21921.9\u21920.0x\u21923.01\u21923.01, 0\u21920\u21922]\n\n>> n outputs\nchain of \"adjoints\" $\\bar v_i = \\frac{\\partial f}{\\partial v_i} = \\sum_{j\\in\\text{children of }i}\\bar v_j\\frac{\\partial v_j}{\\partial v_i}$\nReverse Pass\n\nF exp. tree eg $v_6(v_2,v_4)$\n[diagram: reverse-mode graph with adjoints $\\bar v_5=\\bar v_6\\frac{\\partial v_6}{\\partial v_5}$, $\\bar v_4$]\n\noutput is some but num. operation is diff. (consider $y=f(g(h(x)))$. Operationally this wid look like\nABC - matrix multiplication. Consider\n\n\u0393  A B C   more size $m\\times n$\n(AB)C   many $m\\times l$\nA(BC)   $100\\times5$ $m\\times l$    Forward mode \u2192 $100\\cdot5\\cdot10$, $100\\cdot10\\cdot1$ similar ops\n                                     Reverse mode \u2192 $100\\cdot5\\cdot1$, $100\\cdot5\\cdot1$ similar ops",
+   "context": "Notes on forward-mode vs reverse-mode automatic differentiation, including a worked computation-graph example and a matrix-multiplication cost comparison; several small numeric annotations are faint and transcribed best-effort.",
    "bbox": [
     -925.5,
     793.0,
@@ -2318,19 +2286,19 @@
   },
   {
    "id": "r042",
-   "slug": "regularization",
+   "slug": "regularization_2",
    "title": "Regularization",
-   "text": "Regularization\n\nSuppose you have some loss function $F(\\theta)$. If given many training samples, you may accidentally overfit. This will happen [with] finite data, no time or [unclear] capacity or [unclear] has to keep a leading table between your model[s]. But this won't generalize.\n\n[three plots of data points with fitted curves, labeled underfit / good fit / overfit, each with a caption below: \u03bb too large / \u03bb good / \u03bb too small]\n\nYou can introduce a regularizer into your loss\n\n$L = F(\\theta) + \\lambda R(\\theta)$\n     How important \u2191 is your regularization, hyperparameter          How complex is your \u03b8, your function. Related to Occam's Razor.\n\nTypes of Regularization:\no Time regularization - Stop the training when the test loss no longer increases. Early stopping leads to generalization.\no Size regularization - Add a penalty into loss which penalizes |\u03b8| large. This makes sure that you don't have huge weights which cause leading to lookup tables.\n\n$L_2$ regularization on weights\n\nDropout",
-   "context": "The three small underfit/good-fit/overfit plots each pair with a \u03bb (regularization strength) caption below them.",
+   "text": "Regularization\n\nSuppose you have some loss function $f(\\theta)$. If given many training examples, you may accidentally overfit. This will happen given finite data, no matter a metric can absorb minima the loss by learning a lookup table between your data. But this won't generalize\n\n[Three plots: 'underfit' (\u03bb too large), 'good fit' (\u03bb good), 'overfit' (\u03bb too small); each shows a curve through scattered data points]\n\nYou can introduce a regularizer into your loss\n\n$L = f(\\theta) + \\lambda R(\\theta)$\nHow complex is your regularization, hyperparameter \u2190 \u2192 How complex is your \u03b8, your function. Related to Occam's Razor\n\nTypes of Regularization:\n\u25b7 Time regularization - stop the training when the test loss no longer improves. Early stopping leads to generalization.\n\u25b7 Size regularization - Add a penalty into loss which penalizes |\u03b8| large. This makes sure you don't have huge weights which could lead to looking better.\n\n$L_2$ regularization on weights",
+   "context": null,
    "bbox": [
-    -452.1,
-    1407.4,
-    8.5,
-    1698.4
+    -467.4,
+    1392.5,
+    51.3,
+    1676.8
    ],
    "links_out": [],
    "links_in": [],
-   "kind": "region"
+   "kind": "box"
   },
   {
    "id": "r043",
@@ -2430,15 +2398,15 @@
   },
   {
    "id": "r049",
-   "slug": "neural_odes",
+   "slug": "neural_odes_2",
    "title": "Neural ODEs",
-   "text": "Neural ODEs\n\nHistorical context. An RNN is very similar to an ODE solver $z_{t+1} = z_t + f(z_t)$. This looks like Euler's method. However, we know Euler's method is unstable. What if we use fancy ODE solvers and instead learn the differential vector field?\n\n$\\frac{dz_t}{dt} = g_\\phi(t, z_t)$\n\nResnet blocks, $x_{t+1} = x_t + NN_\\theta(x_t)$ can be thought of as a discrete version of neural ODEs!",
+   "text": "Neural ODEs\n\nResnet blocks, $x_{t+1}=x_t+NN_\\theta(x_t)$ can be thought of as a discrete version of neural ODEs!\n\nHistorical context: An RNN is very similar to a ODE solver $z_{t+1}=z_t+f(z_t)$. This looks like Euler's method. However, we know Euler's method is unstable. What if we use fancy ODE solvers and instead learn the differential vector field?\n\n$\\frac{dz_t}{dt} = g_\\phi(t,z_t)$\n\nFlow Matching Objective\n\nWhat if I don't want to evaluate the Jacobian? It's not very scalable. Each loss value I integrate ODE...",
    "context": null,
    "bbox": [
-    -1312.7,
-    2388.7,
-    -948.9,
-    2546.6
+    -1365.1,
+    2158.2,
+    -884.8,
+    2379.0
    ],
    "links_out": [],
    "links_in": [],
@@ -2778,22 +2746,6 @@
    "kind": "region"
   },
   {
-   "id": "r070",
-   "slug": "cnf_log_density_transform",
-   "title": "CNF Log-Density Transform",
-   "text": "Working now in function space how does the log density transform according to $g_\\phi(t,z_t)$?\n[Chen 2018 Apx. A]\n\n$\\dfrac{d\\log p(z_t)}{dt} = -Tr\\left[J_{g_\\phi(t,\\cdot)}(z_t)\\right]$\n\nso then $\\log p(z_{t_1}) = \\log p(z_{t_0}) + \\displaystyle\\int_0^{t_1} -Tr\\left[J_{g_\\phi(t,\\cdot)}(z_t)\\right]dt$\n\n$\\log p(z_{t_0}) = \\log p(z_{t_1}) - \\displaystyle\\int_0^{t_1} -Tr\\left[J_{g_\\phi(t,\\cdot)}(z_t)\\right]dt$",
-   "context": "Continuation of Continuous Normalizing Flows notes, deriving the instantaneous change-of-variables / log-density ODE, citing Chen et al. 2018 (Neural ODE paper).",
-   "bbox": [
-    -572.1,
-    2959.4,
-    -300.3,
-    3088.7
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
    "id": "r071",
    "slug": "important_for_gw_astronomy",
    "title": "Important for GW Astronomy",
@@ -2811,31 +2763,15 @@
   },
   {
    "id": "r072",
-   "slug": "gumbell_distribution",
+   "slug": "gumbell_distribution_2",
    "title": "Gumbell Distribution",
-   "text": "Gumbell Distribution\np(x|\u03b2,\u03bc) = (1/\u03b2) exp[-((x-\u03bc)/\u03b2 + exp(-(x-\u03bc)/\u03b2))]\n[bullet] Spp X_i ~ exponential family. Then the variable\nZ = max({X_i}) ~ Gumbell\n[legend, bottom right, parameter pairs for plotted curves]\n\u03b2=2 \u03bc=0.5\n\u03bc=2 \u03bc=1\n\u03b2=2 \u03bc=1.6\n\u03b2=4 \u03bc=2.0",
-   "context": "Shows the Gumbel distribution pdf and the extreme-value theorem that the max of iid exponential-family samples converges to a Gumbel distribution.",
+   "text": "Gumbell  Distribution\n\n$p(x|\\beta,\\mu) = \\frac{1}{\\beta}\\exp\\left[-\\left(\\frac{x-\\mu}{\\beta}+\\exp\\left(-\\frac{x-\\mu}{\\beta}\\right)\\right)\\right]$\n\n\u25b7 Spp $x_i\\sim$ exponential family. Then the variable\n$Z=\\max(\\{x_i\\}^N) \\sim$ Gumbell as $N\\to\\infty$\n\n$\\beta=2\\ \\mu=0.5$\n$\\mu=2\\ \\mu=1$\n$\\beta=3\\ \\mu=1.5$\n$\\beta=4\\ \\mu=2.0$",
+   "context": "The bottom-right lines appear to be a legend of (\u03b2, \u03bc) parameter pairs for plotted curves; one row's leading label is ambiguous (possibly \u03b2=2 rather than \u03bc=2).",
    "bbox": [
     1052.8,
     3042.0,
     1322.2,
     3217.8
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r073",
-   "slug": "z_t0_integral_equation",
-   "title": "z_t0 = \u03b8 integral equation",
-   "text": "z_{t_0} = u = \u03b8 + \u222b_{t=1}^{t=0} dz_t = \u03b8 - \u222b_0^1 g_\u03c6(t,z_t) dt",
-   "context": "Defines the flow endpoint at t=0 as a backward ODE integral, part of a normalizing-flow / continuous-time flow derivation.",
-   "bbox": [
-    -541.4,
-    3198.4,
-    -306.4,
-    3227.1
    ],
    "links_out": [],
    "links_in": [],
@@ -2852,22 +2788,6 @@
     3234.2,
     -2393.0,
     3435.9
-   ],
-   "links_out": [],
-   "links_in": [],
-   "kind": "region"
-  },
-  {
-   "id": "r075",
-   "slug": "comes_from_p_z",
-   "title": "\u03bb comes from p(z<\u03bb)",
-   "text": "[top row of fraction-like marks] 1/0   1/5   1/10   T/20\n\u03bb comes from   p(z<\u03bb) = \u220f_{i=1}^{N} p(x_i<\u03bb) = p(x_i<\u03bb)^N",
-   "context": "Derives the CDF of the maximum of N iid variables as the product (power) of the individual CDF, used to justify a threshold \u03bb.",
-   "bbox": [
-    1064.5,
-    3285.0,
-    1273.0,
-    3321.1
    ],
    "links_out": [],
    "links_in": [],
@@ -2896,10 +2816,10 @@
    "text": "Gaussian   Copula",
    "context": null,
    "bbox": [
-    1383.9,
-    3339.9,
-    1476.1,
-    3354.1
+    1364.7,
+    3667.1,
+    1456.9,
+    3681.4
    ],
    "links_out": [],
    "links_in": [],
@@ -2939,10 +2859,10 @@
   },
   {
    "id": "r080",
-   "slug": "neural_ratio_estimation",
+   "slug": "neural_ratio_estimation_2",
    "title": "Neural Ratio Estimation",
-   "text": "Neura Ratio Estimation\nComputing p(x|\u03b8) is expensive. Can we make it cheaper?\nWhat if we had the ratio   r(x,\u03b8) = p(x|\u03b8) / p(x)   then   p\u0302(\u03b8|x) = p(\u03b8) r\u0302(x,\u03b8)   \u2190 Estimator\n                                                              L\u0302(\u03b8) \u221d r\u0302(x,\u03b8)\n\u2193\nGreat but how do we get this?\nDraw samples from numerator\n{x_i^D} , x_i^D ~ p(x)   is equiv to    \u03b8_i ~ p(\u03b8) , x_i^n ~ p(x|\u03b8_i)\nDraw samples from denominator\n{x_i^n} , x_i^n ~ p(x|\u03b8)\nThen train a classifier to figure out if x_0 ~ p(x) or x_0 ~ p(x|\u03b8)\nEvidence Networks\nVery similar but you classify\np(d|M_1) vs p(d|M_2)",
-   "context": "Explains neural ratio estimation: instead of computing the expensive likelihood directly, train a classifier to estimate the likelihood ratio r(x,\u03b8)=p(x|\u03b8)/p(x), which also underlies 'Evidence Networks' for model comparison.",
+   "text": "Neural  Ratio  Estimation\n\nComputing $p(x|\\theta)$ is expensive. Can we make it cheaper?\n\nWhat if we had the ratio $r(x,\\theta) = \\frac{p(x|\\theta)}{p(x)}$ then $\\hat p(\\theta|x) = p(\\theta)\\hat r(x,\\theta)$  \u2190 Estimator\n$\\hat L(\\theta) \\propto \\hat r(x,\\theta)$\n\nGreat but how do we get this?\n\nDraw samples for numerator\n$\\{x_i^n\\}$, $x_i^n\\sim p(x|\\theta)$  is equiv to  $\\theta_i\\sim p(\\theta)$, $x_i^n\\sim p(x|\\theta_i)$\n\nDraw samples from denominator\n$\\{x_i^D\\}$, $x_i^D\\sim p(x)$\n\nThen train a classifier to figure out if $x_0\\sim p(x)$ or $x_0\\sim p(x|\\theta)$\n\nEvidence Networks\nVery similar but you classify $p(d|M_1)$ vs $p(d|M_2)$",
+   "context": null,
    "bbox": [
     -12.4,
     3432.0,
@@ -3085,10 +3005,10 @@
   },
   {
    "id": "r089",
-   "slug": "importance_sampling",
+   "slug": "importance_sampling_2",
    "title": "Importance Sampling",
-   "text": "Importance Sampling\nE[f(x)] \u2248 (1/N) \u03a3 f(x_i) , x_i ~ p(x)   Monte Carlo\nWhat if you don't/can't directly sample from p(x)?\n\u2192 \u222b f(x)p(x) dx = \u222b f(x) [p(x)/q(x)] q(x) dx   where q(x) is your proposal distribution\n\u2248 (1/N) \u03a3 f(x_i) w(x_i) ,  x_i ~ q(x) ,  w(x_i) = p(x_i)/q(x_i)\n[two small plots of p(x) (orange) and q(x)/proposal (green) with notes about variance when p and q differ a lot]\nNormalization of Weights\nFor your kernel: E_{q(x)}[f(x)] = \u222b f(x) [p(x)/q(x)] q(x) dx\n\u2248 (1/N)\u03a3 w\u0303(x_i) f(x_i)  /  (1/N)\u03a3 w\u0303(x_i)   \u2248  \u03a3 w_i f(x_i) / \u03a3 w_i(x_i)\nAnnealed Importance Sampling\nProblem: using a simple proposal distribution is risky because we can't be sure the proposal is good enough\nDefine a set of functions   f_i(x) = f_0(x)^{T_i} f_1(x)^{1-T_i} ,  1 \u2265 p_1 \u2265 ... \u2265 p_T \u2265 0\nT_1 = 1.0\n\u2192 T_1, T_2, ..., T_B ,   generate a set / grid annealing schedule between the two extremes\nWhat is actually happening?\nWe want to slowly move from bad to good, T_i moves us in a way to go from p_1 to p_0\n[small distribution plots at intermediate steps labeled \u03c4=0.1, \u03c4=0.3, \u03c4=0.6, \u03c4=0.9]\nWe start at the bad proposal; once you don't really match the good posterior, the importance weight is really bad.\nEffective Sample Size\nWe can measure the effective sample size \u2014 the number of samples decayed from the true posterior:\n\u03bc\u0302 = \u222b f(\u03b8) \u03c0(\u03b8) d\u03b8 \u2248 (1/N) \u03a3_{i=1}^N w_i \u03b8_i\nThe idea is how does your sample behave, because with weights w_i in a different regime you want to know how many samples are equal to p \u2260 \u03c0\nESS = (\u03a3 w_i)^2 / \u03a3 w_i^2\nRejection Sampling\nSay you want to generate samples from a distribution \u03c0(\u03b8) given you have access to a proposal q(\u03b8) which is proportional up to a constant, e.g. F(\u03b8)\n1). x_i ~ q(\u03b8)\n2). Accept all of proposal [F(\u03b8) \u2264 M q(\u03b8)]\nWhy does this work? Best way to see is via the joint distribution:\nF(\u03b8,u) = \u03c0(\u03b8)F(u|\u03b8) / F(\u03b8) = F(u) q(\u03b8) / F(\u03b8) = (1/M) \u222b d\u03b8 F(\u03b8) u\n[diagram: two overlapping distributions, target (orange) vs M\u00b7q(x) envelope (green), with accept/reject region shaded]\nSo the prob. of a sample being accepted relates back to the original \u03c0(\u03b8)",
-   "context": "Large multi-panel derivation covering importance sampling, weight normalization, annealed importance sampling, effective sample size, and rejection sampling; several small annotation blocks were only partially legible.",
+   "text": "Importance Sampling\n\n$E[f(x)] \\approx \\frac{1}{N}\\sum f(x_i)$  $x_i\\sim p(x)$  Monte Carlo\n\nWhat if you don't have sampling access from $p(x)$?\n\n$\\to \\int f(x)p(x)dx = \\int f(x)\\frac{p(x)}{q(x)}q(x)dx$\n$\\approx \\frac{1}{N}\\sum f(x_i)\\frac{p(x_i)}{q(x_i)}$, $x_i\\sim q(x)$ [proposal distribution]\nweighted samples\n\nNormalization of Weights\nSay you know $\\tilde p,\\tilde q$ st $\\tilde p = Zp$\n$E_p[f] = \\frac{\\int f(x)\\tilde p(x)dx}{\\int \\tilde p(x)dx} \\approx \\frac{\\frac{1}{N}\\sum_{x_i\\sim q} f(x_i)w(x_i)}{\\frac{1}{N}\\sum_{x_i\\sim q} w(x_i)}$\n\nAnnealed Importance Sampling\nSometimes, using a naively proposed distribution is tough because we can't make the proposal good enough\n\nDefine a set of functions\n$f_t(x) = f_1(x)^{\\beta_t}f_0(x)^{1-\\beta_t}$, $1\\ge\\beta_1>...>\\beta_T\\ge0$\n$\\to T_1,T_2,...,T_n$\n$T_t(x)$: a set of proposal MCMC transition kernels\n\nWhat is actually happening?\nWe want to slowly transition between good and bad. The transition kernel gives you a way to move to another state.\n\n[diagram: overlapping bell curves at increasing \u03b2 values, labeled \u03b2=0.2, \u03b2=0.5, \u03b2=0.8]\n\nWe start at the bad, easy proposal and slowly move to the true posterior, as the amount of the importance weight is much better.\n\nEffective Sample Size\nWe can make the effective sample size, the number of samples decided from the true posterior:\n\n$\\hat F = \\sum_i f_i\\tilde p(x_i)$\n$\\text{Var}_q[\\hat F] = \\frac{1}{N}\\text{Var}_p[F]$\n\n$\\text{Var}_{true} = \\frac{1}{ESS}\\text{Var}[F]$\n\nThe idea is if you have many samples but if few of them dominate, you don't actually get much info here. You want to know how many samples you need to have $N_{eff} \\gg N$.\n\n$N_{eff} = \\frac{(\\sum w_i)^2}{\\sum w_i^2}$ \u2190 this is known as 'weighted ESS'\n\nRejection Sampling\nSay you want to generate samples from a distribution $\\pi(x)$ given you have access to sampling from $p(x)$, proportional to $\\pi(x)$ eg $F(x)$\n\n1) $x_i\\sim p(x)$\n2) Accept w/ prob $\\frac{F(x_i)}{Mg(x)}$\n\nWhy does this work?\n$P(accept) = \\frac{F(x)}{Mg(x)}$\n$P(x|a) = \\frac{P(a|x)P(x)}{P(a)} = \\frac{\\frac{F(x)}{Mg(x)}\\cdot q(x)}{P(a)} = \\frac{1}{Mp(a)}\\int F(x)dx$\n\nSo the prob. of a sample being accepted is proportional to the true original $\\pi(x)$",
+   "context": "Dense multi-topic notes covering importance sampling, weight normalization, annealed importance sampling, effective sample size, and rejection sampling; some small diagram annotations and numeric labels are faint and transcribed best-effort.",
    "bbox": [
     1686.6,
     4109.0,
@@ -3096,7 +3016,9 @@
     4718.4
    ],
    "links_out": [],
-   "links_in": [],
+   "links_in": [
+    "r098"
+   ],
    "kind": "region"
   },
   {
@@ -3247,7 +3169,9 @@
     2664.6,
     4584.4
    ],
-   "links_out": [],
+   "links_out": [
+    "r089"
+   ],
    "links_in": [],
    "kind": "region"
   },
@@ -3305,10 +3229,10 @@
   },
   {
    "id": "r102",
-   "slug": "fisher_information",
+   "slug": "fisher_information_2",
    "title": "Fisher Information",
-   "text": "Fisher Information\n\nIf you have a random variable X, how much information is contained in the results to estimate \u03b8?\n\nLow Fisher Information                       High Fisher Information\n\nLikelihood of Temp as you                    Likelihood of Temp as you\nvary Longitude                                vary Latitude\n\np(x_i=Temperature on\nith day|\u03b8)                                    p(x_i=Temperature on ith day|\u03b8)\n\n[peaked-curve diagrams over dog icons; x-axis labeled dog1...dogN]\n\nD: Longitude                                  D: Latitude\n\nNot a lot of info from fixed observations     \u2190 Lot of info from these observations on Latitude equals the variance is important!\n\nIt's possible you have to build for the likelihood\n\nThe temperature contains little information about the longitude.     The temperature contains a lot of information about the latitude.\n\nThe Fisher information is the variance of the score.\n\nI(\u03b8) = Var[\u2202_\u03b8 log p(x|\u03b8)]\n\n= E_x[(\u2202_\u03b8 log p(x|\u03b8))\u00b2] - E_x[\u2202_\u03b8 log p(x|\u03b8)]\u00b2\n[a bit confusing, 2nd term with pdf generated x has variance]\n\n= \u222bdx p(x|\u03b8)[\u2202_\u03b8 log p(x|\u03b8)]\u00b2\n\nIn general also written as I(\u03b8) = -E_x[\u2202\u00b2_\u03b8 log p(x|\u03b8)]\n\ncool property: I(\u03b8) = I(\u03b8) (d\u03b8'/d\u03b8)\u00b2",
-   "context": "Compares low vs high Fisher information using an example of inferring longitude vs latitude from temperature.",
+   "text": "Fisher  Information\n\nIf you have a random variable X, how much information is contained in the sample to estimate \u03b8?\n\nLow Fisher Information                      High Fisher Information\n\nLikelihood of Temp as you vary Longitude        Likelihood of Temp as you vary Latitude\n\n$p(x_i = \\text{Temperature on }i\\text{th day}|\\theta)$        $p(x_i=\\text{Temperature on }i\\text{th day}|\\theta)$\n\n\u03b8: Longitude                                     \u03b8: Latitude\n\nNot a lot of info from fixed observations        \u2190 Lot of info from these observations on Latitude equals the variance is important!\n\nThe temperature contains little information about the longitude.     The temperature contains a lot of information about the latitude.\n\nThe Fisher information is the inverse of the score\n$I(\\theta) = \\text{Var}\\left[\\partial_\\theta\\log p(x|\\theta)\\right]$\n$= E_x\\left[(\\partial_\\theta\\log p(x|\\theta))^2\\right] - E_x\\left[\\partial_\\theta\\log p(x|\\theta)\\right]^2$\n\"a biased estimator, \u03b8 hat with the width generated is low variance\"\n\n$= \\int dx\\,p(x|\\theta)\\left[\\partial_\\theta\\log p(x|\\theta)\\right]^2$\n\nIt's generally also written as $I(\\theta) = -E_x\\left[\\partial_\\theta^2\\log p(x|\\theta)\\right]$\n\n(cool property: $I(\\theta) = I(\\theta)\\left(\\frac{d\\theta}{d\\theta}\\right)^2$ )",
+   "context": "Compares Fisher information intuitively via a toy example of estimating longitude vs. latitude from a temperature-vs-day likelihood curve, then gives the formal definition and an alternative second-derivative formula.",
    "bbox": [
     -2807.3,
     4569.1,
@@ -3397,8 +3321,12 @@
     5555.4,
     5143.1
    ],
-   "links_out": [],
-   "links_in": [],
+   "links_out": [
+    "b160"
+   ],
+   "links_in": [
+    "b160"
+   ],
    "kind": "region"
   },
   {
@@ -3419,22 +3347,6 @@
    "links_in": [
     "r101"
    ],
-   "kind": "region"
-  },
-  {
-   "id": "r109",
-   "slug": "bias_consistency_efficiency_of_estimator",
-   "title": "Bias, Consistency, Efficiency of Estimator",
-   "text": "Bias of Estimator\nBias(\u03bc\u0302) = E[\u03bc\u0302] - \u03bc\n\nConsistent Estimator\n\nSpp you are trying to estimate \u03bc. \u03bc\u0302 is an estimator of \u03bc.\n\nIf lim_{N\u2192\u221e} \u03bc\u0302 = \u03bc then \u03bc\u0302 is a consistent estimator\nNumber of samples\n\noften we use inconsistent estimators, but\nVar[\u03bc\u0302] \u226b lim_{N\u2192\u221e} \u03bc\u0302-\u03bc = \u03b5\u22600  It doesn't matter if Bias(\u03bc\u0302) \u226b \u03b5\n\nEfficiency of an Estimator\n\nwhen trying to estimate \u03bc w/ \u03bc\u0302 some estimator the efficiency is\n\nEff(\u03bc\u0302) = Var(\u03bc\u0302)/MinVar(\u03bc\u0302)    so its a ratio of the variance by the minimum possible variance",
-   "context": null,
-   "bbox": [
-    4535.1,
-    4881.1,
-    4851.5,
-    5187.5
-   ],
-   "links_out": [],
-   "links_in": [],
    "kind": "region"
   },
   {
@@ -3804,6 +3716,346 @@
     7819.5,
     3296.2,
     7838.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r133",
+   "slug": "compute_vs_memory_bandwidth_limited",
+   "title": "Compute vs Memory Bandwidth Limited",
+   "text": "horace.io | brrr_intro.html\ntimdettmers.com/2023/01/which-gpu-for-deep-learning-tutorial/\n\nCompute\n\nWhen you buy a GPU you need to ask\n\nMemory Bandwidth Limited                              Compute Limited\n\n\"The waiter is busy\"                                    ^ \"The chef is busy\"\n\no Give the chef more complicated recipes          Most of the time this is fine, you\n                                                    upgrade your chip and the flops go up. Or\n                                                    you make a more sophisticated operator\n                                                    fusing to have less operations.\n\n\u25b7 Modern GPUs have built silicon for Tensor Cores, not     & Co tech-compile.\nmemory. Therefore, if you're memory bound, usually a bad\nsign, you're not using what you paid for.\n\n\u25b7 Ideally you want to\nbe bound by neither, your      \"waiter\"                    \"chef\"\ncompile/type of your software    Memory                        C\nshould match the hardware        [   ]  \u25a1 \u25a1 \u25a1\n                                        <^^^\n\n                                  If this is taking\n                                    longer than this\n                                 you're memory bandwidth\n                                    limited!",
+   "context": "Notes on the compute-bound vs memory-bandwidth-bound framing for GPU performance, referencing Horace He's 'Making Deep Learning Go Brrrr' and Tim Dettmers' GPU blog posts, using a restaurant waiter/chef analogy.",
+   "bbox": [
+    1884.1,
+    -2896.5,
+    2786.7,
+    -2498.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r134",
+   "slug": "t_math_definition",
+   "title": "T_math definition",
+   "text": "$T_{math}$ = Amount of time to do your\nmatrix multiplies\n\n= Compute FLOPs\n= Accelerator FLOPs  s",
+   "context": null,
+   "bbox": [
+    2563.6,
+    -2606.2,
+    2805.8,
+    -2507.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r135",
+   "slug": "assumes_serial_assumes_100",
+   "title": "Assumes serial / Assumes 100%",
+   "text": "Assumes serial                                       Assumes 100%\n\n$T_{math} + T_{comm} <$      $T_{computation} <$",
+   "context": "Inequality relating math time plus communication time to total computation time, under simplifying assumptions of serial execution and 100% utilization.",
+   "bbox": [
+    2184.9,
+    -2437.6,
+    2508.3,
+    -2375.7
+   ],
+   "links_out": [
+    "b146"
+   ],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r136",
+   "slug": "compute_flops_comm_bytes_example",
+   "title": "Compute FLOPs / Comm Bytes example",
+   "text": "Eg $x \\cdot y$ where $x,y$ FP16.\n                          Multiply   Add  \u2190 that's a\n                             N    +   N     dot product\ncompute FLOPs        =                     = 1/2\n  comm Bytes             2N + 2N\n                            \u2323\n                    But FP16 as opp FP8\n\nIf our accelerator is $\\leq \\frac{1}{2}$ we are\n         intensity\n   compute band[width]",
+   "context": "Arithmetic-intensity example: ratio of compute FLOPs to communication bytes for an FP16 dot product, compared against an accelerator's FLOP/byte ratio to determine if it is compute- or bandwidth-bound.",
+   "bbox": [
+    2694.2,
+    -2385.1,
+    2925.9,
+    -2241.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r137",
+   "slug": "quadratic_programming",
+   "title": "Quadratic Programming",
+   "text": "> Quadratic Programming",
+   "context": null,
+   "bbox": [
+    -2313.1,
+    -2282.5,
+    -2129.7,
+    -2262.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r138",
+   "slug": "stochastic_gradient_descent_2",
+   "title": "Stochastic Gradient Descent",
+   "text": "Stochastic Gradient descent\n\n$i_t \\in \\{1...N\\}$        \u2190 In each iteration compute the\n                              gradient for just one training sample\n$x^{t+1} = x^t - \\gamma_t \\nabla f_{i_t}(x_t)$\n\n\u25b7 Finds minimum for convex, see Bach & Moulines Th.1 for bounds from\n                                                          the slide\n\u25b7 Does not theoretically find bound for non-convex\n   BUT does so in practice many times!\n\n        Grad descent\n   ^   Stochastic Grad descent\n[diagram: smooth blue curve labeled \"Grad descent\" descending directly into a valley; jagged green/orange path labeled \"Stochastic Grad descent\" zig-zagging down into the same valley]\n\n                    Here, we get\n                    kicked out of\n                    local minimum\n\n        $\\gamma_t = \\dfrac{\\mu}{2\\epsilon_{smpl} + 2\\sigma^2}$\n\nTODO better write out!!\n\nRemark\n$\\nabla f_{i_t}(x_t)$ is an unbiased estimator of\n$\\nabla f(x_t)$ since\n\n$\\mathbb{E}[\\nabla f_i(x_t)] = \\dfrac{1}{N}\\sum_i^N \\nabla f_i(x_t) = \\nabla f(x_t)$",
+   "context": null,
+   "bbox": [
+    -3614.3,
+    -1348.3,
+    -3104.1,
+    -1069.3
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r139",
+   "slug": "f_x_sin_100x",
+   "title": "f(x) = sin(100x)",
+   "text": "f(x) = Sin(100x)\n\nf'(x) = 100 cos(100x)\n\n[diagram: rapidly oscillating wave, arrow pointing right]\n\nbounded gradient L smooth\n\nbut L = 100 000 !",
+   "context": "Example showing a bounded-gradient, L-smooth function can still have an impractically large Lipschitz constant L.",
+   "bbox": [
+    -4057.0,
+    -980.0,
+    -3951.8,
+    -862.0
+   ],
+   "links_out": [],
+   "links_in": [
+    "r011"
+   ],
+   "kind": "region"
+  },
+  {
+   "id": "r140",
+   "slug": "g_x_1_2_x_2",
+   "title": "g(x) = 1/2 x^2",
+   "text": "> g(x) = $\\frac{1}{2}x^2$\n\ng'(x) = x\n\n[diagram: upward-opening parabola]\n\nunbounded gradient but\nL smooth. Easier for\nSGD",
+   "context": "Contrasting example: a quadratic has unbounded gradient over all x but is still L-smooth, making it easier for SGD than the sin(100x) example.",
+   "bbox": [
+    -4222.3,
+    -962.6,
+    -4137.0,
+    -847.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r141",
+   "slug": "mechanistic_interpretability",
+   "title": "Mechanistic Interpretability",
+   "text": "Mechanistic Interpretability",
+   "context": null,
+   "bbox": [
+    -2419.1,
+    -503.8,
+    -2048.3,
+    -469.8
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r142",
+   "slug": "multi_armed_bandit_problem",
+   "title": "Multi-Armed Bandit Problem",
+   "text": "The multi-armed bandit problem / Exploration vs Exploitation\n\nYou have N-levers to pull which give some reward. Do you pull new levers or do\nyou pull the lever with highest return? What is the balance?",
+   "context": null,
+   "bbox": [
+    -5466.3,
+    1740.6,
+    -5108.3,
+    1802.0
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r143",
+   "slug": "bob_eating_chocos_vs_alice_studying",
+   "title": "Bob eating chocos vs Alice studying",
+   "text": "[stick figure carrying boxes] [stick figure carrying boxes] ... [stick figure carrying a box]\nBob is eating chocos for all time t\n\nBecause alice studied she gets more chocos in\nthe long run than Bob, so\nwhile her reward $r_t$ is not\nthe best for low t, her\nvalue is.\n\n[stick figure with arrow] ... [stick figure with box \u00d730]\nAlice is studying                    Alice can afford\nbut not eating chocos                30x choco bars\n                                      per day now that\n                                      she's rich",
+   "context": "Illustrates the RL concept that immediate reward vs long-run value can diverge, using a Bob-eats-now vs Alice-studies-then-gets-rich analogy.",
+   "bbox": [
+    -6106.2,
+    1744.8,
+    -5646.4,
+    2059.6
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r144",
+   "slug": "reinforcement_learning_vs_supervised_learning",
+   "title": "Reinforcement learning vs supervised learning",
+   "text": "What makes this different from supervised learning?\n\nReward evaluated only for state Not action, you don't know the correct action\n\nSupervised learning you know the correct action!",
+   "context": null,
+   "bbox": [
+    -6096.3,
+    2100.0,
+    -5586.3,
+    2185.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r145",
+   "slug": "value_function",
+   "title": "Value Function",
+   "text": "Value Function\n\nSpp you are a character in a video game like mario, you can take actions\n(like \u2190 \u2191 \u2192 \u2193 fireball, etc) which depend on your state (jumping, running, etc).\nYou want to get as far as possible, where the farther you are in levels\nis better. What function do you use?\n\nF = 5 (know we jumped over pipe)\n$s_1 = T(s_0, a_0 = \\uparrow)$\n\n[diagram: mario-like character with arrows for actions $a_t=\\uparrow$, $a_t=\\leftarrow$, $a_t=\\downarrow$, and a green pipe]\n\n$x_t$ - states     $a_t \\in \\Gamma(x_t)$ - actions which can happen in state $x_t$\n\n$x_{new} = T(x,a)$ - New state after action    $r(x,a)$ - payoff from action a in state x\n\n$V(x_t) = \\max_{\\{a_t\\}_{t=0}^\\infty} \\sum_{t=0}^\\infty \\beta^t r(x_t,a_t)$    $a_t \\in \\Gamma(x_t)$, $x_{t+1} = T(x_t,a_t)$",
+   "context": "Introduces the RL value function using a Mario video-game analogy where actions/states evolve via a transition function T and payoff r.",
+   "bbox": [
+    -5498.0,
+    2301.1,
+    -4835.2,
+    2630.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r146",
+   "slug": "conditional_flow_matching_notes",
+   "title": "Conditional Flow Matching notes",
+   "text": "[diagram: bump-shaped curve between points $z_0$ and $z_1$]\n\nERM minimizes the vector field directly, the policy and direct regression problem.        MLE evaluates loss on target examples in $p_1$ space as a way to learn the vector field\n\nTrick: fit $z_t$ v data\n\nWhy should this CFM loss have the same minimizer?       TODO work out the const!\n$\\mathcal{L}_{cFM}(\\theta) = \\mathcal{L}_{FM}(\\theta) + constant$ in $\\phi$\n\nsimulate particular examples from your training set. we have to gain insight about VF\n\nNow grant hat, how do you choose this? Seems like we replaced $u_t$ for conditional $u_t$ but how does that help?\n\n[diagram: teal bracket labeled $u_t(z_t)$ and dashed lines from nodes $z_0$ (yellow, labeled with $\\theta_0$-like marks) and $z_1$ converging toward $z_t$, with $u_t(z_t|z_1)$ labeled]\n\nNotice the unconditional $u_t$ is the average of the conditionals. That's how you get consistent.\n\nWell we could just define a straight line path between $z_0$ and $z_1$:\n$z_t = (1-t)z_0 + tz_1 \\Rightarrow u_t = \\dot z_t = -z_0 + z_1$\n\nBetter we wouldn't do that, our $u_t(z_0)$ didn't directly have loving data relation. Although, now we have this specific form\n\nWhy this specific form? Optimal transport? Works well\nin practice?",
+   "context": "Working notes on conditional flow matching (CFM) loss, comparing it to ERM/MLE and deriving why interpolating between z0 and z1 gives a consistent vector field.",
+   "bbox": [
+    -1196.8,
+    2354.8,
+    -392.6,
+    2781.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r147",
+   "slug": "bellman_s_equation",
+   "title": "Bellman's Equation",
+   "text": "Bellman's Equation\n\n$V(x_0) = \\max_{a_0} [r(x_0,a_0) + \\beta V(x_1)]$     $a_0 \\in \\Gamma(x_0)$   $x_1 = T(x_0,a_0)$\n\nIn case the actions are probabilistic\n\n$V(x_0) = \\max_{p(a_0)} \\left[ \\quad + \\beta \\sum_i p(a_0,x) \\sum_j p(x_j|x_0,a_{0,k}) V(x_j) \\right]$\n\nGoal is to find a function V that satisfies this recursion",
+   "context": null,
+   "bbox": [
+    -5497.4,
+    2703.9,
+    -4808.5,
+    2956.1
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r148",
+   "slug": "log_density_transform_continuity_equation",
+   "title": "Log-density transform / continuity equation",
+   "text": "How does\nlog density transform according to $g_\\phi(t,z_t)$?\n\nContinuity of probability coeqs\n$\\dfrac{\\partial q(z_t)}{\\partial t} = -\\nabla_{z_t}\\left(q \\dfrac{dz_t}{dt}\\right)$\n\nThe problem is\nwe don't know\n$q(z_t)$ from our\nNN we just know\n$\\dfrac{dz_t}{dt}$.\n\nNote\n$\\dfrac{d}{dt}q = \\dfrac{\\partial q}{\\partial t} + \\nabla_{z_t}q \\dfrac{dz_t}{dt}$\n\n$\\Rightarrow \\dfrac{dq}{dt} = q \\cdot \\nabla \\dfrac{dz}{dt}$\n\n$\\Rightarrow \\dfrac{d\\log q(z_t)}{dt} = -Tr\\left[\\dfrac{d}{dz_t} g_\\phi(t,z_t)\\right]$   \u2190 this is continuity eq.   [does zero mean Ave?]\n\n$= 0.5$\nprob flowing\nout\nprob flowing\nin\nBoundary\n\n[diagram: wavy curve]\n\n$z_{t_0} = u = \\theta + \\int_{t=1}^{t_0} \\dot z_t\\, dt = \\theta - \\int_0^1 g_\\phi(t,z_t)\\,dt$\n\nso then $\\log q(z_{t_1}) = \\log q(z_{t_0}) + \\int_0^1 \\cdot Tr\\left[\\dfrac{d}{dz_t} g\\phi\\right] dt$\n\n$\\log q(z_{t_0}) = \\log q(z_{t_1}) - \\int_0^1 Tr\\left[\\dfrac{d}{dz_t} g\\phi\\right] dt$\n\nTry a MLE w/ this",
+   "context": "Derives the continuity equation for how log-density of a sample evolves under a learned vector field g_phi in a continuous normalizing flow / flow-matching model.",
+   "bbox": [
+    -579.3,
+    2966.0,
+    61.8,
+    3235.4
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r149",
+   "slug": "fr_chet_distribution",
+   "title": "Fr\u00e9chet Distribution",
+   "text": "Fr\u00e9chet Distribution\n\n$p(x|\\alpha) = \\dfrac{\\alpha}{x^{\\alpha+1}} \\exp(-x\\exp(-\\alpha))$\n\n\u25b7 Spp $F(z|\\alpha) = \\begin{cases} \\exp(-z\\exp(-\\alpha)) & x>0 \\\\ 0 & x<0 \\end{cases}$ and\n\n$x = \\max(\\{z\\})$, then x follows a Frechet\ndist.",
+   "context": null,
+   "bbox": [
+    1392.4,
+    3029.0,
+    1688.2,
+    3193.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r150",
+   "slug": "weibull_distribution",
+   "title": "Weibull Distribution",
+   "text": "Weibull Distribution\n\n$p(x|\\beta) = \\beta(-x)^{\\beta-1} e^{-(-x)^\\beta}$\n\n\u25b7 If $p(z|\\beta)$ has bounded tails,   x = max(z)\n\nas $N \\to \\infty$   $x \\sim p(x|\\beta)$",
+   "context": null,
+   "bbox": [
+    1816.3,
+    3030.4,
+    2033.2,
+    3135.9
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r151",
+   "slug": "generalized_extreme_value_distribution",
+   "title": "Generalized Extreme Value Distribution",
+   "text": "$\\frac{1}{0}$   $\\frac{1}{5}$   $\\frac{1}{10}$        $\\frac{1}{20}$  >\n\n\u25b7 comes from  $p(z<x) = \\prod_i^n p(x_i<x) = p(x_i<x)^n$\n                                        z assumes no correlation!\n\nGeneralized Extreme Value Distribution",
+   "context": "Notes the derivation of extreme-value distributions from the probability that all n i.i.d. samples are below x, assuming no correlation.",
+   "bbox": [
+    1064.5,
+    3285.0,
+    1545.2,
+    3391.5
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r152",
+   "slug": "importance_weight_clipping",
+   "title": "Importance Weight Clipping",
+   "text": "Importance Weight Clipping",
+   "context": null,
+   "bbox": [
+    2802.3,
+    4118.6,
+    2920.1,
+    4131.2
+   ],
+   "links_out": [],
+   "links_in": [],
+   "kind": "region"
+  },
+  {
+   "id": "r153",
+   "slug": "estimator_bias_consistency_efficiency",
+   "title": "Estimator bias, consistency, efficiency",
+   "text": "Bias of Estimator\nBias($\\hat\\rho_n, \\rho$) = $\\mathbb{E}_{p(x|\\rho)}[\\hat\\rho_n(x)] - \\rho$   This expectation is taken over $\\hat\\rho$, in, don't sub off $n\\to\\infty$\n\nConsistent Estimator\nSay you are trying to estimate $\\rho$. $\\hat\\rho$ is an estimator of $\\rho$. If as $n\\to\\infty$ (number of samples) $\\hat\\rho \\to \\rho$, then $\\hat\\rho$ is a consistent estimator, else as we increase $N$ estimators, but Var[$\\hat\\rho$] is $\\to$ not the true $\\rho \\to 0$ it doesn't mean if Bias[$\\hat\\rho$]$\\to 0$.\n\nEfficiency of an Estimator\nwhen trying to estimate $\\rho$ if $\\hat\\rho$ are estimators the efficiency is\nEff($\\hat\\rho$) = $\\dfrac{Var(\\hat\\rho)}{min(Var(\\hat\\rho))}$   so its a ratio of the min var by the current one.\n\nLaw of total expectation\n$\\mathbb{E}_x[x] = \\mathbb{E}_y[\\mathbb{E}_{x|y}[x|y]]$\n\nLaw of conditional variance/covariance\n$Cov_{xy}(x,y) = \\mathbb{E}_z[Cov(x,y|z)] + Cov_z(\\mathbb{E}[x|z],\\mathbb{E}[y|z])$    the expectation is of x or if z!\n\npf:  $\\mathbb{E}_{xy}[xy] - \\mathbb{E}_x[x]\\mathbb{E}[y]$\n    $= \\mathbb{E}_z[\\mathbb{E}_{xy|z}[xy]] - \\mathbb{E}_x[\\mathbb{E}_{x|z}[x|z]]\\mathbb{E}_y[\\mathbb{E}_{y|z}[y|z]]$\n    $= \\mathbb{E}_z[Cov_{xy|z}(x,y) + \\mathbb{E}_{x|z}[x|z]\\mathbb{E}_{y|z}[y|z]]$\n       $-\\mathbb{E}_x[\\mathbb{E}_{x|z}[x|z]]\\mathbb{E}_y[\\mathbb{E}_{y|z}[y|z]]$\n    $= \\mathbb{E}_z[Cov_{xy|z}(x,y)]$\n      $+\\mathbb{E}_z[\\mathbb{E}_{x|z}[x|z]\\mathbb{E}_{y|z}[y|z]] - \\mathbb{E}_z[\\mathbb{E}_{x|z}[x|z]]\\mathbb{E}_z[\\mathbb{E}_{y|z}[y|z]]$",
+   "context": "Statistics notes deriving properties of estimators (bias, consistency, efficiency) and proving the law of total covariance.",
+   "bbox": [
+    3916.6,
+    4881.1,
+    4851.5,
+    5305.0
    ],
    "links_out": [],
    "links_in": [],
