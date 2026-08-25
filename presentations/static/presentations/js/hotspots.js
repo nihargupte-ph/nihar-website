@@ -20,7 +20,7 @@
     (h.links || []).forEach((l) => links.append(P.el('a', { href: l.url, target: '_blank', rel: 'noopener', text: l.label || l.url })));
     c.hidden = false; c.classList.toggle('hotspot-card--pinned', !!pin); place(x, y);
   }
-  function hide(force) { if (pinned && !force) return; pinned = null; const c = card(); if (c) { c.hidden = true; c.classList.remove('hotspot-card--pinned'); } document.querySelectorAll('.hotspot.active').forEach((e) => e.classList.remove('active')); }
+  function hide(force) { if (pinned && !force) return; pinned = null; const c = card(); if (c) { c.hidden = true; c.classList.remove('hotspot-card--pinned'); } document.querySelectorAll('.hotspot.active,[data-hotspot].active').forEach((e) => e.classList.remove('active')); }
 
   function wireRect(el, h) {
     el.addEventListener('pointerenter', (e) => { if (!touch && !pinned) show(h, e.clientX, e.clientY, false); });
