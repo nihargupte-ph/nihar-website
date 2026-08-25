@@ -53,7 +53,8 @@
     document.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
     document.addEventListener('touchend', (e) => {
       if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (e.target.closest('canvas.draw,.comments-panel,.ask-panel')) return;
+      if (document.body.classList.contains('drawing')) return;
+      if (e.target.closest('canvas.draw,.comments-panel,.ask-panel,.overlay')) return;
       if (dx < -60) S.next({ user: true }); else if (dx > 60) S.prev({ user: true });
     });
   };
