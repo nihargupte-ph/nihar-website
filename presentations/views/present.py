@@ -3,6 +3,7 @@ import io
 import qrcode
 import qrcode.image.svg
 from django.contrib.admin.views.decorators import staff_member_required
+from django.db import IntegrityError, transaction
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
@@ -24,10 +25,16 @@ def qr_svg(url):
 
 def _session(deck):
     s = Session.open_for(deck.slug)
-    if s is None:
-        s = Session.objects.create(deck_slug=deck.slug, current_slide_id=deck.slides[0].id)
-    elif not s.current_slide_id:
-        s.set_slide(deck.slides[0].id)
+    if s is not None:
+        if not s.current_slide_id:
+            s.set_slide(deck.slides[0].id)
+        return s
+    try:
+        with transaction.atomic():
+            s = Session.objects.create(deck_slug=deck.slug, current_slide_id=deck.slides[0].id)
+    except IntegrityError:
+        # Lost the race to create the open session — another request beat us to it.
+        s = Session.open_for(deck.slug)
     return s
 
 
@@ -103,6 +110,10 @@ def interaction(request, slug, iid, state):
 @staff_member_required
 @require_POST
 def video(request, slug):
+    try:
+        deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
     s = _open_session_or_400(slug)
     if s is None:
         return bad('no open session')
@@ -118,6 +129,10 @@ def video(request, slug):
 @staff_member_required
 @require_POST
 def lock(request, slug):
+    try:
+        deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
     s = Session.open_for(slug)
     if s is None:
         return bad('no open session')
@@ -129,10 +144,19 @@ def lock(request, slug):
 @staff_member_required
 @require_POST
 def unlock(request, slug):
+    try:
+        deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
     s = Session.archived_for(slug)
     if s is None:
         return bad('nothing to unlock')
-    s.unlock()
+    if Session.open_for(slug) is not None:
+        return bad('another session is open', 409)
+    try:
+        s.unlock()
+    except IntegrityError:
+        return bad('another session is open', 409)
     _touch(s)
     return JsonResponse({'ok': True, 'v': s.version})
 
@@ -140,6 +164,10 @@ def unlock(request, slug):
 @staff_member_required
 @require_GET
 def state(request, slug):
+    try:
+        deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
     s = Session.open_for(slug) or Session.archived_for(slug)
     if s is None:
         return bad('no session', 404)

@@ -69,6 +69,36 @@ def test_lock_and_unlock(deck, staff_client):
     assert Session.open_for('ex') == s
 
 
+def test_broken_deck_yaml_gives_500_on_presenter_actions(deck, staff_client):
+    staff_client.get('/presentations/ex/present/')
+    (deck / 'deck.yaml').write_text('title: broken\n')
+    registry.clear_cache()
+    r1 = _post(staff_client, '/presentations/ex/present/video/', {'playing': True, 't': 1})
+    assert r1.status_code == 500 and b'expertise' in r1.content
+    r2 = _post(staff_client, '/presentations/ex/present/goto/', {'slide': 'results'})
+    assert r2.status_code == 500 and b'expertise' in r2.content
+
+
+def test_unlock_conflicts_with_another_open_session(deck, staff_client):
+    staff_client.get('/presentations/ex/present/')
+    s1 = Session.open_for('ex')
+    assert _post(staff_client, '/presentations/ex/present/lock/').status_code == 200
+    # Baseline: unlocking the sole archived session with nothing else open still works.
+    assert _post(staff_client, '/presentations/ex/present/unlock/').status_code == 200
+    s1.refresh_from_db()
+    assert not s1.is_locked
+    # Re-lock it, then open a fresh session for the same deck (the old one archived).
+    assert _post(staff_client, '/presentations/ex/present/lock/').status_code == 200
+    staff_client.get('/presentations/ex/present/')
+    s2 = Session.open_for('ex')
+    assert s2 is not None and s2.pk != s1.pk
+    r = _post(staff_client, '/presentations/ex/present/unlock/')
+    assert r.status_code == 409
+    s1.refresh_from_db()
+    assert s1.is_locked
+    assert Session.open_for('ex') == s2
+
+
 def test_livecache_ttl(deck, staff_client, monkeypatch):
     from presentations import livecache
     calls = []

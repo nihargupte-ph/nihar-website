@@ -30,6 +30,12 @@ class Session(models.Model):
 
     class Meta:
         ordering = ['-started_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['deck_slug'], condition=models.Q(is_locked=False),
+                name='uniq_open_session_per_deck',
+            )
+        ]
 
     def __str__(self):
         return f'{self.deck_slug} [{self.join_code}]'

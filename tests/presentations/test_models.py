@@ -60,6 +60,13 @@ def test_concurrent_interaction_state_updates_both_survive():
     assert fresh.interaction_states == {'a': 'open', 'b': 'open'}
 
 
+def test_second_open_session_for_same_deck_raises_integrity_error():
+    from django.db import IntegrityError
+    Session.objects.create(deck_slug='ex')
+    with pytest.raises(IntegrityError):
+        Session.objects.create(deck_slug='ex')
+
+
 def test_response_unique_per_participant_interaction():
     s = Session.objects.create(deck_slug='ex')
     p = Participant.objects.create(session=s, expertise_tag='theory')
