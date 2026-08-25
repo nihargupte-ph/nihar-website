@@ -1,0 +1,9 @@
+{% load static %}<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join · {{ deck.title }}</title><link rel="stylesheet" href="{% static 'presentations/css/deck.css' %}"><style>:root{ {{ theme_css|safe }} }</style></head>
+<body><form class="join" method="post" action="{% url 'presentations:phone-join' session.join_code %}">{% csrf_token %}
+<h2>{{ deck.title }}</h2><p style="opacity:.75">{{ deck.date }}{% if deck.subtitle %} · {{ deck.subtitle }}{% endif %}</p>
+<label>I mostly do…</label>
+<div class="tags">{% for t in deck.expertise %}<label><input type="radio" name="expertise_tag" value="{{ t }}" required> {{ t }}</label>{% endfor %}</div>
+<label for="dn">Name (optional)</label><input id="dn" class="txt" name="display_name" maxlength="60" placeholder="used only to sign your comments">
+<p><button class="btn btn--primary" type="submit" style="width:100%;padding:.8rem;font-size:1.1rem">Join</button></p>
+</form></body></html>
