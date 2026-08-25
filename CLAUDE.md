@@ -54,7 +54,7 @@ python manage.py collectstatic    # Collect static files
 ## Django Apps
 
 - **homepage**: Main homepage app
-- **presentations**: interactive, audience-synced talks. Engine in `presentations/`; each talk is a folder `presentations/decks/<slug>/` with a `deck.yaml` (see `decks/_template/deck.yaml` and `decks/example/`). Scaffold with `python manage.py newdeck <slug> --title "…" --from <svg-export-dir>`; validate with `python manage.py checkdecks`. Spec: `docs/superpowers/specs/2026-08-25-interactive-presentations-design.md`.
+- **presentations**: interactive, audience-synced talks. Engine in `presentations/`; each talk is a folder `presentations/decks/<slug>/` with a `deck.yaml` (see `decks/_template/deck.yaml` and `decks/example/`). Scaffold with `python manage.py newdeck <slug> --title "…" --from <talk.pdf | export-dir>`; validate with `python manage.py checkdecks`. Spec: `docs/superpowers/specs/2026-08-25-interactive-presentations-design.md`.
 
 ## Related Documentation
 

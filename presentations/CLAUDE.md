@@ -8,13 +8,16 @@ Reference deck that exercises everything: `presentations/decks/example/`.
 ## Authoring a deck (the only editor is `deck.yaml`)
 
 ```bash
-# scaffold from a folder of Canva SVG exports (+ optional .mp4/.webm)
-micromamba run -n django-nihar-website python manage.py newdeck <slug> --title "…" --from ~/Downloads/canva-export/ [--date YYYY-MM-DD]
+# scaffold from a Canva PDF export ("PDF Standard"), or a folder of .svg/.pdf/.mp4/.webm exports
+micromamba run -n django-nihar-website python manage.py newdeck <slug> --title "…" --from ~/Downloads/talk.pdf [--date YYYY-MM-DD]
+micromamba run -n django-nihar-website python manage.py newdeck <slug> --title "…" --from ~/Downloads/canva-export/
 micromamba run -n django-nihar-website python manage.py checkdecks   # validate every deck; run after each edit
 ```
 
 `newdeck` sanitises the SVGs, numbers them `slides/NN-<id>.svg`, derives `theme:` from their colours/fonts,
-and writes `deck.yaml` with commented examples. Then edit `deck.yaml`:
+and writes `deck.yaml` with commented examples. A PDF is split with poppler (`pdftocairo`/`pdfinfo`) into one
+slide per page (ids `page-NN`); inside a folder it expands in place, so files sort by name (zero-pad: `01…`) and
+videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaults — set it by hand. Then edit `deck.yaml`:
 
 - `slides:` order = talk order. Kinds: `svg:` (16:9 stage), `html:` (a Django template file in the deck folder,
   extends `presentations/slide_base.html`, scrolls, may set `underlay: slides/x.svg`), `video:` (+ `poster:`).
