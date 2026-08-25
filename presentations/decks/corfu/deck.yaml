@@ -1,0 +1,83 @@
+# Copied by `manage.py newdeck`. Everything about a talk lives in this folder.
+# ids are persistence keys: renaming a slide id orphans its comments, renaming an
+# interaction id orphans its responses. Never renumber them after a session.
+#footer: {name: Your Name, affiliation: Institute, bg: '#e8e6e1', fg: '#444444'}   # bottom bar; slides may set `footer: false`
+#  - id: q-example
+#    type: choice          # choice | numeric | distribution | text
+#    prompt: Which one?
+#    options: [A, B, C]
+#    answer: B
+#  - id: title
+#    svg: slides/01-title.svg
+#    hotspots:
+#      - rect: [0.1, 0.1, 0.3, 0.2]     # x, y, w, h as fractions of the 16:9 stage
+#        title: A thing
+#        body: "Markdown **body**"
+#        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
+#    ask: [q-example]                    # phone widget appears when opened
+#    show:
+#      - {id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}   # where the aggregate is drawn
+#  - id: page
+#    html: 02-page.html                  # free-form template extending presentations/slide_base.html
+#    underlay: slides/02-frame.svg       # optional Canva backdrop
+#  - id: outro
+#    video: slides/03-outro.mp4
+#    poster: slides/03-outro.jpg
+title: 'Detecting Eccentricity: what are our Current Prospects?'
+date: '2026-09-01'
+venue: GW eccentricity @ Corfu, Greece
+subtitle: ''
+transition: none
+expertise:
+- theory
+- data analysis
+- instrumentation
+- not a physicist
+theme:
+  bg: '#1f2429'
+  fg: '#f4f1ea'
+  accents:
+  - '#37b49f'
+  - '#e9c46a'
+  - '#e76f51'
+  font_display: Montserrat
+  font_body: Inter
+interactions: []
+slides:
+- id: page-01
+  svg: slides/01-page-01.svg
+- id: page-02
+  svg: slides/02-page-02.svg
+- id: page-03
+  svg: slides/03-page-03.svg
+- id: timeline
+  html: 04-timeline.html
+
+# --- examples (uncomment and adapt) ---
+#footer:                   # bottom bar on every slide: name · affiliation · page number
+#  name: Nihar Gupte
+#  affiliation: MPI Grav. Phys & UMD
+#  bg: '#e8e6e1'           # optional colours (hex)
+#  fg: '#444444'
+#interactions:
+#  - id: q-example
+#    type: choice          # choice | numeric | distribution | text
+#    prompt: Which one?
+#    options: [A, B, C]
+#    answer: B
+#slides:
+#  - id: orbits
+#    svg: slides/02-orbits.svg
+#    hotspots:
+#      - rect: [0.1, 0.1, 0.3, 0.2]
+#        title: A thing
+#        body: "Markdown **body**"
+#        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
+#    ask: [q-example]
+#    show: [{id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}]
+#  - id: orbits-2
+#    svg: slides/03-orbits-2.svg
+#    continues: true       # reveal step: counts as the same slide number as the one before
+#  - id: page
+#    html: 03-page.html
+#    underlay: slides/03-frame.svg

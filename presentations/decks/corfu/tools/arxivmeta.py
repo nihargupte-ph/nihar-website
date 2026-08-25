@@ -58,7 +58,7 @@ def entry_id(first_author, v1_date):
 def make_entry(meta, lane):
     return {'id': entry_id(meta['first_author'], meta['v1_date']), 'lane': lane,
             'first_author': meta['first_author'],
-            'authors': ', '.join(_surname(a) for a in meta['authors']),
+            'authors': ', '.join(_surname(a) for a in meta['authors'][:6]) + (' et al.' if len(meta['authors']) > 6 else ''),
             'title': meta['title'], 'arxiv': meta['arxiv'], 'v1_date': meta['v1_date'],
             'figure': None, 'caption': ''}
 
