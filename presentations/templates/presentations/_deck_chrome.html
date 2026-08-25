@@ -3,7 +3,7 @@
   <span class="deck-chrome__title">{{ deck.title }}</span>
   <span class="deck-chrome__counter"><span id="slide-num">1</span> / {{ deck.slides|length }}</span>
   <span class="deck-chrome__status" id="deck-status">
-    {% if mode == 'present' %}<span class="pres-badge pres-badge--live">LIVE</span>{% endif %}
+    {% if mode == 'present' and not session.is_locked %}<span class="pres-badge pres-badge--live">LIVE</span>{% endif %}
     {% if session and session.is_locked %}<span class="pres-badge">LOCKED</span>{% endif %}
   </span>
   {% block chrome_extra %}{% endblock %}

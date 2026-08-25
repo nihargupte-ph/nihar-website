@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET
 
 from .. import registry
@@ -20,6 +21,7 @@ def index(request):
     return render(request, 'presentations/index.html', {'rows': rows})
 
 
+@ensure_csrf_cookie
 def archive(request, slug):
     try:
         deck = deck_or_404(slug)

@@ -1,6 +1,7 @@
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_POST
 
 from .. import interactions as interaction_types
@@ -21,6 +22,7 @@ def _session(code):
     return s
 
 
+@ensure_csrf_cookie
 def phone(request, code):
     session = _session(code)
     if session.is_locked:

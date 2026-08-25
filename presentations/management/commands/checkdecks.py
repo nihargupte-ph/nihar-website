@@ -1,6 +1,6 @@
 import sys
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 
 from presentations import registry
 from presentations.schema import DeckError, load_deck
@@ -12,8 +12,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         root = registry.decks_dir()
+        if not root.is_dir():
+            raise CommandError('decks dir missing')
         bad = 0
         for d in sorted(p for p in root.iterdir() if p.is_dir() and not p.name.startswith('_')):
+            if not registry.valid_slug(d.name):
+                bad += 1
+                self.stderr.write(f'{d.name}: ERROR folder name must match [a-z0-9][a-z0-9-]*')
+                continue
             try:
                 deck = load_deck(d, interaction_validator=interactions.validate)
             except DeckError as e:

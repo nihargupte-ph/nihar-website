@@ -1,5 +1,6 @@
 """Discovers presentations/decks/*/deck.yaml. Cached per process; DEBUG re-reads on mtime change."""
 import logging
+import re
 from pathlib import Path
 
 from django.conf import settings
@@ -10,6 +11,12 @@ from .schema import DeckError, load_deck
 
 log = logging.getLogger(__name__)
 _cache = {}   # slug -> (mtime, Deck)
+
+SLUG_RE = re.compile(r'[a-z0-9][a-z0-9-]*')   # same rule newdeck enforces; a folder that breaks it is not a deck
+
+
+def valid_slug(name):
+    return bool(SLUG_RE.fullmatch(name))
 
 
 def decks_dir():
@@ -23,7 +30,7 @@ def clear_cache():
 def _load(slug):
     d = decks_dir() / slug
     yaml_path = d / 'deck.yaml'
-    if not d.is_dir() or not yaml_path.is_file() or slug.startswith('_'):
+    if not d.is_dir() or not yaml_path.is_file() or not valid_slug(slug):
         raise Http404(f"No presentation '{slug}'")
     mtime = yaml_path.stat().st_mtime
     hit = _cache.get(slug)
@@ -45,7 +52,7 @@ def all_decks():
     root = decks_dir()
     if not root.is_dir():
         return out
-    for d in sorted(p for p in root.iterdir() if p.is_dir() and not p.name.startswith('_')):
+    for d in sorted(p for p in root.iterdir() if p.is_dir() and valid_slug(p.name)):
         try:
             out.append(_load(d.name))
         except (DeckError, Http404) as e:

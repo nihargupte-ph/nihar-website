@@ -54,6 +54,25 @@ def test_checkdecks_command(decks, capsys):
         call_command('checkdecks')
 
 
+def test_bad_folder_name_is_skipped_not_a_500(decks, anon_client, db):
+    """A folder name that isn't a valid slug can't be a deck URL, so it must never reach reverse()."""
+    make_deck(decks).rename(decks / 'bad name')
+    make_deck(decks)   # 'ex'
+    registry.clear_cache()
+    assert [d.slug for d in registry.all_decks()] == ['ex']
+    with pytest.raises(Http404):
+        registry.get_deck('bad name')
+    r = anon_client.get('/presentations/')
+    assert r.status_code == 200 and b'bad name' not in r.content
+
+    from presentations.finders import DeckStaticFinder
+    assert DeckStaticFinder().find('decks/bad name/slides/01.svg') is None
+
+    from django.core.management import call_command
+    with pytest.raises(SystemExit):
+        call_command('checkdecks')
+
+
 def test_index_page_lists_decks(decks, anon_client, db):
     make_deck(decks)
     r = anon_client.get('/presentations/')

@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_POST
 
 from .. import livecache
@@ -46,6 +47,7 @@ def _touch(session):
 
 
 @staff_member_required
+@ensure_csrf_cookie
 def present(request, slug):
     try:
         deck = deck_or_404(slug)
@@ -88,7 +90,7 @@ def new_session(request, slug):
     return JsonResponse({'ok': True, 'code': s.join_code})
 
 
-def _open_session_or_400(slug):
+def _open_session(slug):
     s = Session.open_for(slug)
     return s
 
@@ -100,7 +102,7 @@ def goto(request, slug):
         deck = deck_or_404(slug)
     except DeckErrorResponse as e:
         return deck_error_response(request, e)
-    s = _open_session_or_400(slug)
+    s = _open_session(slug)
     if s is None:
         return bad('no open session')
     sid = json_body(request).get('slide')
@@ -118,7 +120,7 @@ def interaction(request, slug, iid, state):
         deck = deck_or_404(slug)
     except DeckErrorResponse as e:
         return deck_error_response(request, e)
-    s = _open_session_or_400(slug)
+    s = _open_session(slug)
     if s is None:
         return bad('no open session')
     if deck.interaction(iid) is None:
@@ -137,7 +139,7 @@ def video(request, slug):
         deck_or_404(slug)
     except DeckErrorResponse as e:
         return deck_error_response(request, e)
-    s = _open_session_or_400(slug)
+    s = _open_session(slug)
     if s is None:
         return bad('no open session')
     body = json_body(request)

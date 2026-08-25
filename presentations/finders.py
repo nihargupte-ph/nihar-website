@@ -6,7 +6,7 @@ from django.core.exceptions import SuspiciousFileOperation
 from django.core.files.storage import FileSystemStorage
 from django.utils._os import safe_join
 
-from .registry import decks_dir
+from .registry import decks_dir, valid_slug
 
 _SUBDIRS = {'static': '', 'slides': 'slides'}
 
@@ -17,7 +17,7 @@ class DeckStaticFinder(BaseFinder):
         if not root.is_dir():
             return
         for d in sorted(root.iterdir()):
-            if d.is_dir() and not d.name.startswith('_'):
+            if d.is_dir() and valid_slug(d.name):
                 for sub, prefix in _SUBDIRS.items():
                     if (d / sub).is_dir():
                         yield d.name, prefix, d / sub

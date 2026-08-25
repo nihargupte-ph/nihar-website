@@ -3,6 +3,7 @@
   <h3 style="margin:.2rem 0 .6rem">Questions &amp; comments</h3>
   <div id="comment-list"></div>
   <form class="comment-form" id="comment-form" autocomplete="off">
+    {% csrf_token %}
     <p style="font-size:.8rem;opacity:.75" id="comment-target">On this slide</p>
     <input type="text" name="website" tabindex="-1" aria-hidden="true">
     <textarea name="body" maxlength="1000" placeholder="Ask about this slide… (markdown ok)"></textarea>
