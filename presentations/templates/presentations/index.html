@@ -1,9 +1,21 @@
 {% extends 'homepage/base.html' %}
 {% block content %}
-<section id="main" class="wrapper" style="padding:4rem 0;">
+<style>
+  .pres-header {
+    background: #1a1a2e;
+    color: #ffffff;
+    text-align: center;
+    padding: 6em 2em 2.5em 2em;
+  }
+  .pres-header h2 { color: #ffffff; margin-bottom: 0.5em; }
+  .pres-header p { color: #cccccc; margin-bottom: 0; text-align: center; }
+</style>
+<div class="pres-header">
+  <h2>Presentations</h2>
+  <p>Interactive presentations that I have given at conferences or university seminars.</p>
+</div>
+<section id="main" class="wrapper" style="padding:3rem 0;">
   <div class="container">
-    <h2>Presentations</h2>
-    <p>Talks given as interactive, audience-synced decks. Each one stays up afterwards with the room's answers and a comment layer.</p>
     <ul class="pres-list" style="list-style:none;padding:0;">
       {% for row in rows %}
       <li style="margin:1.2rem 0;">
