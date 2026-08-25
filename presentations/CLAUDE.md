@@ -40,6 +40,9 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
 - ids are persistence keys — never rename a slide/interaction id after a session has run.
 - Deck-local JS/CSS/data go in `decks/<slug>/static/` → served at `/static/decks/<slug>/…` (use `{{ deck_static }}` in html slides).
   Videos are git-LFS tracked (`presentations/decks/**/*.mp4|webm`).
+- Corfu deck: `static/timeline/timeline.json` drives the citation-timeline html slide (lanes `real-data|simulated|likelihood`);
+  `tools/figpicker.py` (run from the deck folder) pulls arXiv sources and lets you click a figure per paper into
+  `static/timeline/figs/`; `tools/arxivmeta.py <ids> --lane=…` prints new entries; verdicts in `tools/citations.md`.
 
 ## Giving the talk
 
