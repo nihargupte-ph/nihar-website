@@ -39,6 +39,8 @@ class Command(BaseCommand):
             self.stderr.write(f'{dest} already exists')
             sys.exit(1)
         template = root / '_template'
+        if not template.is_dir():
+            raise CommandError('presentations/decks/_template is missing')
         shutil.copytree(template, dest)
         (dest / 'slides').mkdir(exist_ok=True)
         (dest / 'static').mkdir(exist_ok=True)

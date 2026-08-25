@@ -2,6 +2,7 @@ from pathlib import Path
 import pytest
 import yaml
 from django.core.management import call_command
+from django.core.management.base import CommandError
 
 from presentations.sanitize import sanitize_svg
 from presentations.theme import derive_theme
@@ -67,3 +68,38 @@ def test_newdeck_from_dir(tmp_path, settings):
     assert load_deck(d).title == 'My Talk'
     with pytest.raises(SystemExit):
         call_command('newdeck', 'my-talk', '--title', 'dup')
+
+
+CASE_HREF = '''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 10 10">
+<a xlink:HREF="https://evil.example"><text>t</text></a>
+<a HREF="javascript:alert(1)"><text>t2</text></a>
+<use xlink:href="#ok"/><image href="data:image/png;base64,AAAA"/>
+</svg>'''
+
+
+def test_sanitize_svg_href_case_insensitive_and_javascript_scheme():
+    out = sanitize_svg(CASE_HREF)
+    assert 'evil.example' not in out
+    assert 'javascript:' not in out
+    assert 'href="#ok"' in out and 'data:image/png' in out
+
+
+SMIL = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+<rect width="5" height="5" fill="#123456"><set attributeName="onclick" to="alert(1)"/></rect>
+<a><animate attributeName="href" to="javascript:alert(1)"/></a>
+<circle cx="1" cy="1" r="1" fill="#654321"/>
+</svg>'''
+
+
+def test_sanitize_svg_drops_smil_animation_tags():
+    out = sanitize_svg(SMIL)
+    assert '<set' not in out and '<animate' not in out
+    assert 'onclick' not in out and 'javascript:' not in out
+    assert 'fill="#123456"' in out and 'fill="#654321"' in out
+
+
+def test_newdeck_missing_template_raises_command_error(tmp_path, settings):
+    settings.PRESENTATIONS_DECKS_DIR = tmp_path / 'decks'
+    (tmp_path / 'decks').mkdir(parents=True)
+    with pytest.raises(CommandError):
+        call_command('newdeck', 'x', '--title', 'X')
