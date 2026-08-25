@@ -3,6 +3,7 @@
 # interaction id orphans its responses. Never renumber them after a session.
 title: New talk
 date: 2026-01-01
+venue: ''                 # where it was given, shown under the title: 'GR-Amaldi @ Glasgow, UK'
 subtitle: ""
 transition: none          # none | fade | slide
 #footer: {name: Your Name, affiliation: Institute, bg: '#e8e6e1', fg: '#444444'}   # bottom bar; slides may set `footer: false`

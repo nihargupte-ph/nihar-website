@@ -165,3 +165,9 @@ def test_continues_defaults_to_plain_numbering(tmp_path):
 def test_continues_validation(tmp_path):
     _expect_error(tmp_path, GOOD.replace('    svg: slides/01.svg', '    svg: slides/01.svg\n    continues: true'), 'first slide cannot continue')
     _expect_error(tmp_path, GOOD.replace('    svg: slides/02.svg', '    svg: slides/02.svg\n    continues: yes please'), "slide 'results': continues must be true or false")
+
+
+def test_venue_is_optional_free_text(tmp_path):
+    assert load_deck(make_deck(tmp_path)).venue == ''
+    deck = load_deck(make_deck(tmp_path, GOOD.replace('date: 2026-09-12', 'date: 2026-09-12\nvenue: GR-Amaldi @ Glasgow, UK')))
+    assert deck.venue == 'GR-Amaldi @ Glasgow, UK'

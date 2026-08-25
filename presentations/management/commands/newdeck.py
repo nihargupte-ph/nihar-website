@@ -120,7 +120,7 @@ class Command(BaseCommand):
         theme = derive_theme(svgs) if svgs else None
 
         deck = {
-            'title': title, 'date': date, 'subtitle': '', 'transition': 'none',
+            'title': title, 'date': date, 'venue': '', 'subtitle': '', 'transition': 'none',
             'expertise': ['theory', 'data analysis', 'instrumentation', 'not a physicist'],
         }
         if theme:

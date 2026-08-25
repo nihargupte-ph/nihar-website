@@ -103,3 +103,10 @@ def test_static_finder_rejects_path_traversal(decks):
     assert f.find('decks/ex/../../deck.yaml') is None
     assert f.find('decks/ex/slides/../../../../nihar_website/settings.py') is None
     assert f.find('decks/ex/../ex/app.js') is None
+
+
+def test_index_shows_venue_and_date_under_the_title(decks, anon_client, db):
+    from .test_schema import GOOD
+    make_deck(decks, GOOD.replace('date: 2026-09-12', 'date: 2026-09-12\nvenue: GW eccentricity @ Corfu, Greece'))
+    html = anon_client.get('/presentations/').content.decode()
+    assert '<div class="pres-meta">GW eccentricity @ Corfu, Greece · 2026-09-12</div>' in html

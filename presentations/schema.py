@@ -71,6 +71,7 @@ class Deck:
     title: str
     date: str
     subtitle: str
+    venue: str            # where the talk was given, e.g. 'GR-Amaldi @ Glasgow, UK'
     transition: str
     expertise: list[str]
     theme: dict
@@ -260,6 +261,6 @@ def load_deck(deck_dir, interaction_validator=None):
     warnings = [f"interaction '{i.id}' is never asked on any slide" for i in interactions if i.id not in asked]
 
     return Deck(slug=deck_dir.name, dir=deck_dir, title=str(raw['title']), date=str(raw.get('date') or ''),
-                subtitle=str(raw.get('subtitle') or ''), transition=transition, expertise=expertise,
+                subtitle=str(raw.get('subtitle') or ''), venue=str(raw.get('venue') or ''), transition=transition, expertise=expertise,
                 theme=theme, interactions=interactions, slides=slides, footer=footer, page_count=number,
                 warnings=warnings)

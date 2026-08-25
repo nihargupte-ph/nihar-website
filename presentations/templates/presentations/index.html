@@ -9,6 +9,9 @@
   }
   .pres-header h2 { color: #ffffff; margin-bottom: 0.5em; }
   .pres-header p { color: #cccccc; margin-bottom: 0; text-align: center; }
+  .pres-list li { margin: 1.4rem 0; }
+  .pres-list a { font-size: 1.3rem; }
+  .pres-meta { font-size: 0.85rem; opacity: 0.7; margin-top: 0.15rem; }
 </style>
 <div class="pres-header">
   <h2>Presentations</h2>
@@ -18,10 +21,10 @@
   <div class="container">
     <ul class="pres-list" style="list-style:none;padding:0;">
       {% for row in rows %}
-      <li style="margin:1.2rem 0;">
-        <a href="{% url 'presentations:archive' row.deck.slug %}" style="font-size:1.3rem;">{{ row.deck.title }}</a>
-        <span style="opacity:.7;margin-left:.6rem;">{{ row.deck.date }}{% if row.deck.subtitle %} · {{ row.deck.subtitle }}{% endif %}</span>
+      <li>
+        <a href="{% url 'presentations:archive' row.deck.slug %}">{{ row.deck.title }}</a>
         {% if row.status == 'live' %}<span class="pres-badge pres-badge--live">LIVE</span>{% elif row.status == 'archived' %}<span class="pres-badge">archived</span>{% endif %}
+        <div class="pres-meta">{% if row.deck.venue %}{{ row.deck.venue }} · {% endif %}{{ row.deck.date }}{% if row.deck.subtitle %} · {{ row.deck.subtitle }}{% endif %}</div>
       </li>
       {% empty %}
       <li>No presentations yet.</li>

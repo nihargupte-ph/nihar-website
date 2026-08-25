@@ -31,6 +31,7 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
 - `interactions:` top-level list — `type: choice|numeric|distribution|text` (+ config). A slide `ask: [id]`s it
   (phone widget appears when opened) and any slide `show: [{id, rect}]`s the aggregate (html slides:
   `<div data-interaction="id">` and `show: [{id}]` with no rect).
+- `venue:` free text shown under the title on the index/join pages (`GR-Amaldi @ Glasgow, UK`).
 - `expertise:` 2–6 tags for the join screen; aggregates are sliceable by tag / "vs rest".
 - `footer: {name, affiliation, bg, fg}` draws a thin bar (name · affiliation · `N / total`) at the bottom of every
   slide; omit it for none, `footer: false` on a slide to skip that slide (title slide). `continues: true` on a
