@@ -105,8 +105,28 @@ theme:                                        # newdeck pre-fills from the SVGs;
   font_display: "Montserrat"
   font_body: "Inter"
 
+interactions:                                 # declared once, deck-wide
+  - id: q-orbits
+    type: choice
+    prompt: Which of these orbits is eccentric?
+    options: [A, B, C, D]
+    answer: B                                 # optional; shown on "reveal"
+  - id: q-prior
+    type: distribution
+    prompt: Your prior on e at formation
+    axis: {min: 0, max: 1, bins: 20, label: "e"}
+  - id: q-rate
+    type: numeric
+    prompt: Merger rate (Gpc⁻³ yr⁻¹)
+    log: true
+    truth: 23.9                               # optional
+  - id: q-word
+    type: text
+    prompt: One word for eccentric orbits
+    max_len: 30
+
 slides:
-  - id: title                                 # stable id; responses/comments key on it
+  - id: title                                 # stable id; comments key on it
     svg: slides/01-title.svg
 
   - id: orbits
@@ -119,57 +139,47 @@ slides:
           quasi-normal modes take over. See §4 of the paper.
         links:
           - {label: "arXiv:2401.01234", url: "https://arxiv.org/abs/2401.01234"}
-    interaction:
-      type: choice
-      id: q-orbits
-      rect: [0.60, 0.68, 0.36, 0.28]          # where the aggregate is drawn on the projector
-      prompt: Which of these orbits is eccentric?
-      options: [A, B, C, D]
-      answer: B                               # optional; shown on "reveal"
+    ask: [q-orbits]                           # phone widget for these appears when opened
+
+  - id: orbits-results
+    svg: slides/03-orbits-results.svg
+    show:                                     # draw aggregates here (any slide, any number)
+      - {id: q-orbits, rect: [0.10, 0.25, 0.80, 0.65]}
 
   - id: prior
-    svg: slides/03-prior.svg
-    interaction:
-      type: distribution
-      id: q-prior
-      rect: [0.10, 0.30, 0.80, 0.60]
-      prompt: Your prior on e at formation
-      axis: {min: 0, max: 1, bins: 20, label: "e"}
+    svg: slides/04-prior.svg
+    ask: [q-prior]
+    show:                                     # asking and showing on the same slide is fine too
+      - {id: q-prior, rect: [0.10, 0.30, 0.80, 0.60]}
 
   - id: posterior
-    html: 04-posterior.html                   # free-form page; scrolls; may declare interactions too
-    interaction:
-      type: numeric
-      id: q-rate
-      prompt: Merger rate (Gpc⁻³ yr⁻¹)
-      log: true
-      truth: 23.9                             # optional
-    # no rect: html slides mount aggregates with <div data-interaction="q-rate">
+    html: 05-posterior.html                   # free-form page; scrolls
+    ask: [q-rate]
+    # html slides show aggregates with <div data-interaction="q-rate"> — no rect
 
   - id: words
-    svg: slides/05-words.svg
-    interaction:
-      type: text
-      id: q-word
-      rect: [0.05, 0.25, 0.90, 0.65]
-      prompt: One word for eccentric orbits
-      max_len: 30
+    svg: slides/06-words.svg
+    ask: [q-word]
+    show:
+      - {id: q-word, rect: [0.05, 0.25, 0.90, 0.65]}
 
   - id: outro
-    video: slides/06-outro.mp4
-    poster: slides/06-outro.jpg               # optional; newdeck generates with ffmpeg if available
+    video: slides/07-outro.mp4
+    poster: slides/07-outro.jpg               # optional; newdeck generates with ffmpeg if available
 ```
 
-Validation (at startup and by `manage.py checkdecks`): every `id` unique
-within a deck; every file exists; `type` is registered; the type's
-`config_schema` accepts the entry; svg/video slides with an interaction must
-give `rect`; html slides must not. Validation errors raise at startup in
-DEBUG and 500 with a clear message on the deck's pages in production, never
-crash other decks.
+Validation (at startup and by `manage.py checkdecks`): every slide `id` and
+interaction `id` unique within a deck; every file exists; every `type` is
+registered and its `config_schema` accepts the entry; every `ask`/`show`
+reference resolves; `show` entries on svg/video slides must give `rect`,
+on html slides must not; every interaction is asked on at least one slide
+(warning, not error). Validation errors raise at startup in DEBUG and 500
+with a clear message on the deck's pages in production, never crash other
+decks.
 
-Slide `id`s are the persistence key. `newdeck` assigns them from filenames;
-renaming an id after a session orphans its responses/comments (documented in
-`_template/deck.yaml`).
+Slide `id`s (comments) and interaction `id`s (responses) are the
+persistence keys. `newdeck` assigns slide ids from filenames; renaming an id
+after a session orphans its data (documented in `_template/deck.yaml`).
 
 ## 6. Slide kinds
 
@@ -205,12 +215,12 @@ A **rect** in stage fractions `[x, y, w, h]`:
 | use          | authored by | behaviour |
 |--------------|-------------|-----------|
 | hotspot      | deck.yaml   | hover → outline + popover card anchored to the cursor (flips near edges). Click pins it open (scrollable body, clickable links); click-away/Esc closes. Phone: tap opens, tap-away closes; faint corner marker so people know it's there. |
-| interaction  | deck.yaml   | where the aggregate renders on present/archive. Nothing drawn while `hidden`. |
+| show         | deck.yaml   | where an interaction's aggregate renders on present/archive. Nothing drawn while that interaction is `hidden`; `closed` draws only the response counter. |
 | comment      | audience    | tap "+" → a default box appears under the finger → drag to move, corner handles to resize → type. Rendered as numbered outlines; hover/tap shows the thread. |
 
 On **html** slides there is no stage, so: hotspots are markup
-(`<span data-hotspot="Ringdown" data-body="…" data-link="…">`), interactions
-mount into `<div data-interaction="q-rate">`, and comments anchor to
+(`<span data-hotspot="Ringdown" data-body="…" data-link="…">`), aggregates
+mount into `<div data-interaction="q-rate">` (the slide must `ask` or `show` it), and comments anchor to
 `<section data-anchor="fig-2">` elements (or the slide as a whole). The
 toolkit auto-marks `data-anchor` elements with a small "💬 n" affordance.
 
@@ -218,12 +228,21 @@ toolkit auto-marks `data-anchor` elements with a small "💬 n" affordance.
 
 ### Lifecycle
 
-`hidden → open → closed → revealed`, driven only by the presenter. Phones may
-respond only while `open` (server enforces; 409 otherwise). `closed` shows
-"n responses — waiting"; `revealed` shows the aggregate (and `answer`/`truth`
-if configured). On lock, every interaction that was ever `open` becomes
-`revealed` permanently; ones never opened stay `hidden` and are omitted from
-the archive.
+`hidden → open → closed → revealed`, driven only by the presenter. State is
+per interaction and session-wide, independent of which slide anyone is on:
+while an interaction is `open`, the widget is shown on every phone (below
+whatever slide they're viewing, with the prompt), so asking on slide 4 and
+showing on slide 9 works, as does opening a question while lingering on an
+unrelated slide. Phones may respond only while `open` (server enforces; 409
+otherwise). `closed` shows "n responses — waiting" wherever it is `show`n;
+`revealed` shows the aggregate (and `answer`/`truth` if configured). Several
+interactions may be open at once; the phone stacks them.
+
+The presenter bar lists the interactions the current slide `ask`s or `show`s
+with their state buttons, plus an "all interactions" dropdown so any can be
+driven from any slide. On lock, every interaction that was ever `open`
+becomes `revealed` permanently; ones never opened stay `hidden` and are
+omitted from the archive.
 
 ### Plugin contract
 
@@ -387,7 +406,7 @@ the list grows.
 to `pytest.ini`):
 
 - `test_schema.py` — deck.yaml validation: good deck loads; each failure mode
-  (dup id, missing file, unknown type, html-with-rect) raises with the path.
+  (dup id, missing file, unknown type, unresolved ask/show, html show-with-rect, svg show-without-rect) raises with the path.
 - `test_interactions.py` — `aggregate()` for each type on hand-built
   payloads, including the empty and n<3 cases; `clean_payload` rejections.
 - `test_state_machine.py` — respond when `hidden/closed` → 409; open → 200 and
@@ -407,7 +426,8 @@ to `pytest.ini`):
 
 `decks/example/` is a real, short deck (≈8 slides) used by tests and as the
 living reference: one svg with two hotspots, one of each interaction type,
-one html slide with an underlay and a Plotly widget reading a small JSON from
+at least one interaction asked on one slide and shown on a later one, one
+html slide with an underlay and a Plotly widget reading a small JSON from
 its `static/`, one video slide. SVGs are simple hand-made placeholders, not
 Canva exports.
 
