@@ -1,4 +1,6 @@
-from django.http import HttpResponseNotFound, HttpResponseServerError
+import json
+
+from django.http import HttpResponseNotFound, HttpResponseServerError, JsonResponse
 from django.template.loader import render_to_string
 
 from .. import registry
@@ -25,3 +27,22 @@ def deck_error_response(request, exc):
 
 def placeholder(request, *args, **kwargs):
     return HttpResponseNotFound()
+
+
+def live_state(session):
+    return {
+        'v': session.version, 'slide': session.current_slide_id, 'locked': session.is_locked,
+        'interactions': session.interaction_states, 'video': session.video_state,
+        'participants': session.participants.count(),
+    }
+
+
+def json_body(request):
+    try:
+        return json.loads(request.body or b'{}')
+    except ValueError:
+        return {}
+
+
+def bad(msg, status=400):
+    return JsonResponse({'error': msg}, status=status)

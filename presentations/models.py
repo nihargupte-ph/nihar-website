@@ -1,7 +1,8 @@
 import secrets
 import string
 
-from django.db import models
+from django.db import models, transaction
+from django.db.models import F
 from django.utils import timezone
 
 INTERACTION_STATES = ('hidden', 'open', 'closed', 'revealed')
@@ -39,35 +40,55 @@ class Session(models.Model):
         self.save()
         self.refresh_from_db(fields=['version'])
 
+    def _apply(self, fields, mutate):
+        """Re-read the row under lock, apply `mutate(fresh)`, save the changed
+        `fields` plus a version bump, then sync the result back onto self.
+        Guards against a concurrent presenter request clobbering a
+        read-modify-write on JSON fields like interaction_states."""
+        with transaction.atomic():
+            fresh = Session.objects.select_for_update().get(pk=self.pk)
+            mutate(fresh)
+            fresh.version = F('version') + 1
+            fresh.save(update_fields=[*fields, 'version'])
+        self.refresh_from_db()
+
     def set_slide(self, slide_id):
-        self.current_slide_id = slide_id
-        self.bump()
+        def mutate(fresh):
+            fresh.current_slide_id = slide_id
+        self._apply(['current_slide_id'], mutate)
 
     def set_interaction_state(self, interaction_id, state):
         if state not in INTERACTION_STATES:
             raise ValueError(f'invalid state {state!r}')
-        states = dict(self.interaction_states)
-        states[interaction_id] = state
-        self.interaction_states = states
-        self.bump()
+
+        def mutate(fresh):
+            states = dict(fresh.interaction_states)
+            states[interaction_id] = state
+            fresh.interaction_states = states
+        self._apply(['interaction_states'], mutate)
 
     def set_video_state(self, playing, t):
-        self.video_state = {'playing': bool(playing), 't': float(t), 'at': timezone.now().timestamp()}
-        self.bump()
+        video_state = {'playing': bool(playing), 't': float(t), 'at': timezone.now().timestamp()}
+
+        def mutate(fresh):
+            fresh.video_state = video_state
+        self._apply(['video_state'], mutate)
 
     def lock(self):
-        self.interaction_states = {
-            k: ('revealed' if v in ('open', 'closed', 'revealed') else v)
-            for k, v in self.interaction_states.items()
-        }
-        self.is_locked = True
-        self.ended_at = timezone.now()
-        self.bump()
+        def mutate(fresh):
+            fresh.interaction_states = {
+                k: ('revealed' if v in ('open', 'closed', 'revealed') else v)
+                for k, v in fresh.interaction_states.items()
+            }
+            fresh.is_locked = True
+            fresh.ended_at = timezone.now()
+        self._apply(['interaction_states', 'is_locked', 'ended_at'], mutate)
 
     def unlock(self):
-        self.is_locked = False
-        self.ended_at = None
-        self.bump()
+        def mutate(fresh):
+            fresh.is_locked = False
+            fresh.ended_at = None
+        self._apply(['is_locked', 'ended_at'], mutate)
 
     def state_for(self, interaction_id):
         return self.interaction_states.get(interaction_id, 'hidden')

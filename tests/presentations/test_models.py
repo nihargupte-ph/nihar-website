@@ -50,6 +50,16 @@ def test_open_for_and_archived_for():
     assert Session.open_for('nope') is None
 
 
+def test_concurrent_interaction_state_updates_both_survive():
+    created = Session.objects.create(deck_slug='ex')
+    s1 = Session.objects.get(pk=created.pk)
+    s2 = Session.objects.get(pk=created.pk)
+    s1.set_interaction_state('a', 'open')
+    s2.set_interaction_state('b', 'open')
+    fresh = Session.objects.get(pk=created.pk)
+    assert fresh.interaction_states == {'a': 'open', 'b': 'open'}
+
+
 def test_response_unique_per_participant_interaction():
     s = Session.objects.create(deck_slug='ex')
     p = Participant.objects.create(session=s, expertise_tag='theory')
