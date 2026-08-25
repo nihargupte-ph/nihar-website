@@ -1,0 +1,20 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+<section id="main" class="wrapper" style="padding:4rem 0;">
+  <div class="container">
+    <h2>Presentations</h2>
+    <p>Talks given as interactive, audience-synced decks. Each one stays up afterwards with the room's answers and a comment layer.</p>
+    <ul class="pres-list" style="list-style:none;padding:0;">
+      {% for row in rows %}
+      <li style="margin:1.2rem 0;">
+        <a href="{% url 'presentations:archive' row.deck.slug %}" style="font-size:1.3rem;">{{ row.deck.title }}</a>
+        <span style="opacity:.7;margin-left:.6rem;">{{ row.deck.date }}{% if row.deck.subtitle %} · {{ row.deck.subtitle }}{% endif %}</span>
+        {% if row.status == 'live' %}<span class="pres-badge pres-badge--live">LIVE</span>{% elif row.status == 'archived' %}<span class="pres-badge">archived</span>{% endif %}
+      </li>
+      {% empty %}
+      <li>No presentations yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

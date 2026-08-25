@@ -1,0 +1,32 @@
+title: Example deck
+date: 2026-08-25
+subtitle: engine reference deck
+transition: fade
+expertise: [theory, data analysis, instrumentation, not a physicist]
+theme:
+  bg: "#1f2429"
+  fg: "#f4f1ea"
+  accents: ["#37b49f", "#e9c46a", "#e76f51"]
+  font_display: "Montserrat"
+  font_body: "Inter"
+interactions:
+  - id: q-orbits
+    type: choice
+    prompt: Which orbit is eccentric?
+    options: [A, B, C, D]
+    answer: B
+slides:
+  - id: title
+    svg: slides/01-title.svg
+  - id: orbits
+    svg: slides/02-orbits.svg
+    hotspots:
+      - rect: [0.55, 0.15, 0.35, 0.4]
+        title: Orbit B
+        body: "This one has **e ≈ 0.3** at 10 Hz. See the paper."
+        links: [{label: "arXiv:2401.01234", url: "https://arxiv.org/abs/2401.01234"}]
+    ask: [q-orbits]
+  - id: orbits-results
+    svg: slides/03-results.svg
+    show:
+      - {id: q-orbits, rect: [0.1, 0.25, 0.8, 0.65]}
