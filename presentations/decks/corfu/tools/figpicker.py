@@ -62,7 +62,7 @@ def _to_png(path, out):
     if path.suffix.lower() in RASTER:
         shutil.copyfile(path, out)
         return out.exists()
-    r = subprocess.run(['pdftocairo', '-png', '-singlefile', '-r', '110', str(path), str(out.with_suffix(''))],
+    r = subprocess.run(['pdftocairo', '-png', '-singlefile', '-r', '200', str(path), str(out.with_suffix(''))],
                        capture_output=True, text=True)
     return r.returncode == 0 and out.exists()
 
@@ -130,7 +130,7 @@ a{{color:#37b49f}}.cap{{width:22rem}}</style>
 {''.join(rows)}
 <script>
 async function post(id, file, caption){{const r=await fetch('/pick',{{method:'POST',headers:{{'content-type':'application/json'}},body:JSON.stringify({{id,file,caption}})}});if(!r.ok)alert(await r.text());else location.reload();}}
-document.querySelectorAll('figure').forEach(f=>f.onclick=()=>post(f.dataset.id,f.dataset.file,f.closest('section').querySelector('.cap').value||f.title));
+document.querySelectorAll('figure').forEach(f=>f.onclick=()=>post(f.dataset.id,f.dataset.file,f.closest('section').querySelector('.cap').value));
 document.querySelectorAll('.nofig').forEach(b=>b.onclick=()=>post(b.dataset.id,null,''));
 </script>'''
 
