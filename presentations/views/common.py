@@ -1,13 +1,12 @@
 import json
 
-from django.http import HttpResponseNotFound, HttpResponseServerError, JsonResponse
+from django.http import HttpResponseServerError, JsonResponse
 from django.template.loader import render_to_string
 
 from .. import registry
 from .. import interactions as interaction_types
 from ..models import Participant, Response
 from ..schema import DeckError
-from ..textutil import hash_ip
 
 
 class DeckErrorResponse(Exception):
@@ -26,10 +25,6 @@ def deck_or_404(slug):
 def deck_error_response(request, exc):
     html = render_to_string('presentations/deck_error.html', {'error': exc.err}, request=request)
     return HttpResponseServerError(html)
-
-
-def placeholder(request, *args, **kwargs):
-    return HttpResponseNotFound()
 
 
 def live_state(session):

@@ -11,11 +11,21 @@ Presentations.registerInteraction('distribution', {
       ctx.clearRect(0, 0, cw, ch); ctx.fillStyle = getComputedStyle(c).getPropertyValue('--accent') || '#37b49f';
       w.forEach((v, i) => { const h = v / max * (ch - 8); ctx.fillRect(i * bw + 1, ch - h, bw - 2, h); });
     }
-    let down = false;
-    const paint = (e) => { const r = c.getBoundingClientRect(); const i = Math.min(bins - 1, Math.max(0, Math.floor((e.clientX - r.left) / r.width * bins))); w[i] = Math.max(0, 1 - (e.clientY - r.top) / r.height); draw(); };
-    c.addEventListener('pointerdown', (e) => { down = true; c.setPointerCapture(e.pointerId); paint(e); });
+    let down = false, lastBin = null, lastVal = 0;
+    const paint = (e) => {
+      const r = c.getBoundingClientRect();
+      const i = Math.min(bins - 1, Math.max(0, Math.floor((e.clientX - r.left) / r.width * bins)));
+      const v = Math.max(0, 1 - (e.clientY - r.top) / r.height);
+      // a fast drag only fires a handful of pointer events: fill the bins it skipped over
+      if (lastBin != null && Math.abs(i - lastBin) > 1) {
+        const step = i > lastBin ? 1 : -1;
+        for (let k = lastBin + step; k !== i; k += step) w[k] = lastVal + (v - lastVal) * ((k - lastBin) / (i - lastBin));
+      }
+      w[i] = v; lastBin = i; lastVal = v; draw();
+    };
+    c.addEventListener('pointerdown', (e) => { down = true; lastBin = null; c.setPointerCapture(e.pointerId); paint(e); });
     c.addEventListener('pointermove', (e) => { if (down) paint(e); });
-    c.addEventListener('pointerup', () => { down = false; }); c.addEventListener('pointercancel', () => { down = false; });
+    c.addEventListener('pointerup', () => { down = false; lastBin = null; }); c.addEventListener('pointercancel', () => { down = false; lastBin = null; });
     requestAnimationFrame(draw); addEventListener('resize', draw);
   },
   aggregate(el, config, agg, ctx) {

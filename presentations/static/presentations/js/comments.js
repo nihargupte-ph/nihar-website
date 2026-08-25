@@ -34,6 +34,7 @@
     st.ov.removeEventListener('pointerdown', st.down); st.ov.removeEventListener('pointermove', st.move); st.ov.removeEventListener('pointerup', st.up);
     st.ov.removeEventListener('pointercancel', st.cancel); st.ov.removeEventListener('lostpointercapture', st.cancel);
     document.removeEventListener('keydown', st.escKey);
+    if (st.pointerId != null) { try { st.ov.releasePointerCapture(st.pointerId); } catch (err) {} st.pointerId = null; }
     st.ov.style.pointerEvents = ''; st.ov.style.cursor = ''; st.ov.style.touchAction = '';
     document.body.classList.remove('drawing');
     if (removeRect && st.rect) st.rect.remove();
@@ -43,9 +44,9 @@
   function startDraw() {
     if (drawState) cancelDraw();
     const id = P.stage.current(); const ov = P.stage.overlay(id); if (!ov) { alertText('This slide is a page — use the 💬 marks next to sections.'); return; }
-    const inner = ov.parentElement; const st = { ov, start: null, rect: null }; drawState = st;
+    const inner = ov.parentElement; const st = { ov, start: null, rect: null, pointerId: null }; drawState = st;
     st.move = (e) => { if (!st.start) return; const [x, y] = P.stage.px2frac(inner, e.clientX, e.clientY); const r = [Math.min(st.start[0], x), Math.min(st.start[1], y), Math.abs(x - st.start[0]), Math.abs(y - st.start[1])]; if (st.rect) st.rect.remove(); st.rect = P.stage.rectEl('comment-box active', r); ov.append(st.rect); drawing = r; };
-    st.down = (e) => { st.start = P.stage.px2frac(inner, e.clientX, e.clientY); try { ov.setPointerCapture(e.pointerId); } catch (err) {} e.preventDefault(); };
+    st.down = (e) => { st.start = P.stage.px2frac(inner, e.clientX, e.clientY); try { ov.setPointerCapture(e.pointerId); st.pointerId = e.pointerId; } catch (err) {} e.preventDefault(); };
     st.up = (e) => {
       if (!st.start) return; st.move(e); let r = drawing;
       if (!r || r[2] < 0.02 || r[3] < 0.02) {
@@ -53,7 +54,6 @@
         if (st.rect) st.rect.remove(); st.rect = P.stage.rectEl('comment-box active', r); ov.append(st.rect);
       }
       pendingAnchor = { rect: r.map((v) => Math.round(v * 1000) / 1000) }; P.$('#comment-target').textContent = 'On the boxed region';
-      try { ov.releasePointerCapture(e.pointerId); } catch (err) {}
       teardownDraw(false); open(true); P.$('textarea', form()).focus();
     };
     st.cancel = () => cancelDraw();
@@ -64,7 +64,7 @@
     document.addEventListener('keydown', st.escKey);
     open(false);
   }
-  C.onSlide = () => { pendingAnchor = null; const t = P.$('#comment-target'); if (t) t.textContent = 'On this slide'; hideNotice(); render(); };
+  C.onSlide = () => { cancelDraw(); pendingAnchor = null; const t = P.$('#comment-target'); if (t) t.textContent = 'On this slide'; hideNotice(); render(); };
   C.mount = function () {
     if (!panel()) return;
     if (!notice()) { const n = P.el('div', { id: 'comment-notice', class: 'too-small' }); n.hidden = true; list().before(n); }

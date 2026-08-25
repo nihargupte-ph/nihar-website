@@ -1,4 +1,3 @@
-from pathlib import Path
 import pytest
 import yaml
 from django.core.management import call_command

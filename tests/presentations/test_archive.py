@@ -1,7 +1,7 @@
 import json
 import pytest
 from presentations import registry
-from .test_schema import make_deck, GOOD
+from .test_schema import make_deck
 
 SVG = '<?xml version="1.0"?><!DOCTYPE svg><svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><rect width="10" height="10"/></svg>'
 PAGE = '{% extends "presentations/slide_base.html" %}{% block slide %}<h1 data-hotspot="H" data-body="b">Page {{ theme.bg }}</h1><div data-interaction="q1"></div>{% endblock %}'

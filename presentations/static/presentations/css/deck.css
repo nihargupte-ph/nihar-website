@@ -50,6 +50,7 @@ a{color:var(--accent)}
 .widget .bars .bar i{display:block;height:1.1rem;background:var(--accent);border-radius:4px;transition:width .4s}
 .widget .bars .bar.correct i{background:var(--accent-2,#e9c46a)}
 .widget .n{font-size:.75rem;opacity:.7;text-align:right}
+.too-small{opacity:.7;font-style:italic;padding:1rem}
 .widget .too-small{opacity:.7;font-style:italic;padding:1rem}
 .slice{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.3rem}
 .slice button{font-size:.7rem;padding:.15rem .5rem}

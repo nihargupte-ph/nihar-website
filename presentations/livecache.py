@@ -1,3 +1,5 @@
+"""Per-process cache: each of the 3 gunicorn workers keeps its own copy, so a worker that missed an
+invalidate() serves state at most TTL seconds stale and then self-heals on the next rebuild."""
 import time
 
 TTL = 1.0
