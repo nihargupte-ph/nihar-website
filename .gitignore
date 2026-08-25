@@ -150,3 +150,6 @@ push-and-deploy.sh
 cv-src/
 # SDD scratch workspace
 .superpowers/
+
+# DB backups created by deploy/update.sh
+backups/

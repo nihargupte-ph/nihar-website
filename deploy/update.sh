@@ -28,6 +28,11 @@ echo "Collecting static files..."
 echo "Fixing permissions..."
 chmod -R o+rX "${PROJECT_DIR}/staticfiles"
 
+echo "Backing up database..."
+mkdir -p "${PROJECT_DIR}/backups"
+cp "${PROJECT_DIR}/db.sqlite3" "${PROJECT_DIR}/backups/db-$(date +%F-%H%M).sqlite3"
+ls -1t "${PROJECT_DIR}/backups"/db-*.sqlite3 | tail -n +15 | xargs -r rm --
+
 echo "Running migrations..."
 "${ENV_PYTHON}" manage.py migrate --noinput
 

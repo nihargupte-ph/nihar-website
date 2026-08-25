@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#1f2429"/>
+  <text x="120" y="200" font-family="Montserrat, sans-serif" font-size="96" fill="#f4f1ea">One word</text>
+  <circle cx="1400" cy="400" r="180" fill="none" stroke="#37b49f" stroke-width="12"/>
+</svg>

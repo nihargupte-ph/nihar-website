@@ -1,6 +1,6 @@
 title: Example deck
 date: 2026-08-25
-subtitle: engine reference deck
+subtitle: engine reference deck — one of everything
 transition: fade
 expertise: [theory, data analysis, instrumentation, not a physicist]
 theme:
@@ -9,12 +9,27 @@ theme:
   accents: ["#37b49f", "#e9c46a", "#e76f51"]
   font_display: "Montserrat"
   font_body: "Inter"
+
 interactions:
   - id: q-orbits
     type: choice
     prompt: Which orbit is eccentric?
     options: [A, B, C, D]
     answer: B
+  - id: q-prior
+    type: distribution
+    prompt: Your prior on e at 10 Hz
+    axis: {min: 0, max: 1, bins: 20, label: "e"}
+  - id: q-rate
+    type: numeric
+    prompt: BBH merger rate (Gpc⁻³ yr⁻¹)
+    log: true
+    truth: 23.9
+  - id: q-word
+    type: text
+    prompt: One word for eccentric orbits
+    max_len: 30
+
 slides:
   - id: title
     svg: slides/01-title.svg
@@ -23,10 +38,31 @@ slides:
     hotspots:
       - rect: [0.55, 0.15, 0.35, 0.4]
         title: Orbit B
-        body: "This one has **e ≈ 0.3** at 10 Hz. See the paper."
+        body: "This one has **e ≈ 0.3** at 10 Hz. Notice the precessing periapsis."
         links: [{label: "arXiv:2401.01234", url: "https://arxiv.org/abs/2401.01234"}]
+      - rect: [0.05, 0.6, 0.4, 0.3]
+        title: Why it matters
+        body: "Eccentricity is a fingerprint of dynamical formation."
     ask: [q-orbits]
   - id: orbits-results
     svg: slides/03-results.svg
     show:
       - {id: q-orbits, rect: [0.1, 0.25, 0.8, 0.65]}
+  - id: prior
+    svg: slides/04-prior.svg
+    ask: [q-prior]
+    show:
+      - {id: q-prior, rect: [0.1, 0.3, 0.8, 0.6]}
+  - id: posterior
+    html: 05-posterior.html
+    underlay: slides/05-frame.svg
+    ask: [q-rate]
+    show: [{id: q-rate}]
+  - id: words
+    svg: slides/06-words.svg
+    ask: [q-word]
+    show:
+      - {id: q-word, rect: [0.05, 0.25, 0.9, 0.65]}
+  - id: outro
+    video: slides/07-outro.mp4
+    poster: slides/07-outro.jpg
