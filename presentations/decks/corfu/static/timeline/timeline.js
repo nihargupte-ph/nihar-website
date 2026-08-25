@@ -15,6 +15,24 @@
   const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'text') n.textContent = v; else if (k === 'html') n.innerHTML = v; else n.setAttribute(k, v); } n.append(...kids); return n; };
   const escapeHtml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+  // Keep entries at their date, but at least MIN_GAP apart: push down, then shift each
+  // touching cluster back up by half its mean displacement so it straddles the true dates.
+  function layout(want) {
+    const pos = want.slice();
+    for (let i = 1; i < pos.length; i++) pos[i] = Math.max(pos[i], pos[i - 1] + MIN_GAP);
+    for (let i = 0; i < pos.length;) {
+      let j = i; while (j + 1 < pos.length && pos[j + 1] - pos[j] <= MIN_GAP + 0.01) j++;
+      if (j > i) {
+        let shift = 0; for (let k = i; k <= j; k++) shift += pos[k] - want[k]; shift /= (j - i + 1);
+        const room = i > 0 ? pos[i] - pos[i - 1] - MIN_GAP : pos[i] - TOP;
+        const up = Math.max(0, Math.min(shift / 2, room));
+        for (let k = i; k <= j; k++) pos[k] -= up;
+      }
+      i = j + 1;
+    }
+    return pos;
+  }
+
   root.innerHTML = '';
   root.append(el('div', { class: 'tl-head tl-head--axis', text: 'year' }));
   data.lanes.forEach((l) => root.append(el('div', { class: 'tl-head', text: l.title })));
@@ -24,11 +42,11 @@
   const byId = {};
   data.lanes.forEach((l) => {
     const lane = el('div', { class: 'tl-lane', 'data-lane': l.id, style: `height:${height}px` });
-    let last = -Infinity;
     const mine = entries.filter((e) => e.lane === l.id);
     if (!mine.length) lane.append(el('div', { class: 'tl-empty', text: 'coming soon' }));
-    mine.forEach((e) => {
-      const top = Math.max(yFor(e.v1_date), last + MIN_GAP); last = top;
+    const tops = layout(mine.map((e) => yFor(e.v1_date)));
+    mine.forEach((e, i) => {
+      const top = tops[i];
       const b = el('button', { class: 'tl-entry', type: 'button', 'data-id': e.id, style: `top:${top}px`, 'aria-haspopup': 'dialog' },
         el('span', { class: 'tl-dot' }), el('span', { class: 'tl-label', html: `${escapeHtml(e.first_author)}<small>${e.v1_date.slice(0, 4)}</small>` }));
       byId[e.id] = e; lane.append(b);
