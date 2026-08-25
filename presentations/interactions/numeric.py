@@ -52,8 +52,15 @@ class Numeric(Interaction):
         return out
 
     def aggregate(self, payloads, config):
-        values = sorted(float(p['value']) for p in payloads if 'value' in p)
-        errs = [p.get('err') for p in payloads if 'value' in p]
+        pairs = sorted(
+            (
+                (float(p['value']), float(p['err']) if p.get('err') is not None else None)
+                for p in payloads if 'value' in p
+            ),
+            key=lambda pair: pair[0],
+        )
+        values = [v for v, _ in pairs]
+        errs = [e for _, e in pairs]
         return {
             'n': len(values), 'values': values, 'errs': errs,
             'median': statistics.median(values) if values else None,

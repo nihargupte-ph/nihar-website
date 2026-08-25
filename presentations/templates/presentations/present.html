@@ -21,6 +21,7 @@
   <span id="participants">0 joined</span>
   <button class="btn" id="qr-toggle">QR</button>
   <button class="btn" id="lock-btn">{% if session.is_locked %}Unlock{% else %}Lock{% endif %}</button>
+  <button class="btn" id="new-session-btn" {% if not session.is_locked %}hidden{% endif %}>New session</button>
 </div>
 <script id="deck-data" type="application/json">{{ deck_data }}</script>
 <script src="{% static 'presentations/js/core.js' %}"></script>

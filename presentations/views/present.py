@@ -29,6 +29,9 @@ def _session(deck):
         if not s.current_slide_id:
             s.set_slide(deck.slides[0].id)
         return s
+    archived = Session.archived_for(deck.slug)
+    if archived is not None:
+        return archived
     try:
         with transaction.atomic():
             s = Session.objects.create(deck_slug=deck.slug, current_slide_id=deck.slides[0].id)
@@ -53,8 +56,9 @@ def present(request, slug):
     base = f'/presentations/{slug}/present/'
     urls = {
         'state': base + 'state/', 'goto': base + 'goto/', 'interaction': base + 'interaction/',
-        'video': base + 'video/', 'lock': base + 'lock/', 'unlock': base + 'unlock/',
-        'aggregate': f'/p/{session.join_code}/aggregate/',
+        'video': base + 'video/', 'lock': base + 'lock/', 'unlock': base + 'unlock/', 'new': base + 'new/',
+        'aggregate': (f'/presentations/{slug}/aggregate/' if session.is_locked
+                      else f'/p/{session.join_code}/aggregate/'),
         'comment': reverse('presentations:comment', args=[slug]),
         'comments': f'/presentations/{slug}/comments/',
     }
@@ -64,6 +68,24 @@ def present(request, slug):
         'theme_css': theme_css(deck.theme), 'deck_data': deck_json_script(data),
         'join_url': join_url, 'qr': qr_svg(join_url),
     })
+
+
+@staff_member_required
+@require_POST
+def new_session(request, slug):
+    try:
+        deck = deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
+    if Session.open_for(slug) is not None:
+        return bad('a session is already open', 409)
+    try:
+        with transaction.atomic():
+            s = Session.objects.create(deck_slug=slug, current_slide_id=deck.slides[0].id)
+    except IntegrityError:
+        return bad('a session is already open', 409)
+    _touch(s)
+    return JsonResponse({'ok': True, 'code': s.join_code})
 
 
 def _open_session_or_400(slug):

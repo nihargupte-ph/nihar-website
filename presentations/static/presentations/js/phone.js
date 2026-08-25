@@ -1,5 +1,6 @@
 (function () {
   const P = Presentations; const U = P.data.urls; let following = true; let live = null; const states = {}; const answered = {};
+  for (const [iid, d] of Object.entries(P.data.interactions || {})) states[iid] = d.state;
   const panel = P.$('#ask-panel'), pill = P.$('#follow-pill');
   P.stage.swipe(); P.stage.buttons(); P.hotspots.mount(); if (P.comments) P.comments.mount();
   P.stage.onChange((id, n, o) => { if (o.user) { following = id === live; pill.hidden = following; } P.widgets.mountShown(id, states); if (P.comments) P.comments.onSlide(id); });

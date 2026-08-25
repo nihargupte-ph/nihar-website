@@ -48,6 +48,13 @@ def test_numeric_payload_and_aggregate():
     assert n.aggregate([], NUM) == {'n': 0, 'values': [], 'errs': [], 'median': None, 'q16': None, 'q84': None}
 
 
+def test_numeric_aggregate_sorts_errs_with_values():
+    n = I.get('numeric')
+    agg = n.aggregate([{'value': 10, 'err': 5}, {'value': 1}, {'value': 100, 'err': 50}], NUM)
+    assert agg['values'] == [1.0, 10.0, 100.0]
+    assert agg['errs'] == [None, 5.0, 50.0]
+
+
 def test_numeric_min_max():
     n = I.get('numeric')
     cfg = {'prompt': 'p', 'min': 0, 'max': 10}

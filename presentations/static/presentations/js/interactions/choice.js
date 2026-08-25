@@ -27,13 +27,13 @@
     const d = P.interactions.def(iid); if (!d) return;
     if (state === 'hidden') { el.innerHTML = ''; el.style.visibility = 'hidden'; return; }
     el.style.visibility = 'visible';
+    if (state === 'closed' && P.data.mode !== 'present') { el.innerHTML = ''; el.append(P.el('h4', { text: d.config.prompt }), P.el('div', { class: 'too-small', text: 'waiting for reveal' })); return; }
+    if (state === 'open' && P.data.mode !== 'present') { el.innerHTML = ''; el.append(P.el('h4', { text: d.config.prompt }), P.el('div', { class: 'too-small', text: 'open — answer on your phone' })); return; }
     const tag = W.tag[iid] || 'all';
     let agg = null;
     try { agg = await P.api.get(P.data.urls.aggregate + encodeURIComponent(iid) + '/?tag=' + encodeURIComponent(tag)); } catch (e) { agg = null; }
     el.innerHTML = '';
     el.append(P.el('h4', { text: d.config.prompt }));
-    if (state === 'closed' && P.data.mode !== 'present') { el.append(P.el('div', { class: 'too-small', text: `${agg ? agg.n : '…'} responses — waiting for reveal` })); return; }
-    if (state === 'open' && P.data.mode !== 'present') { el.append(P.el('div', { class: 'too-small', text: 'open — answer on your phone' })); return; }
     if (!agg) { el.append(P.el('div', { class: 'too-small', text: 'results not available' })); return; }
     const slice = P.el('div', { class: 'slice' });
     for (const t of ['all', ...(P.data.expertise || [])]) {

@@ -89,7 +89,7 @@ def test_unlock_conflicts_with_another_open_session(deck, staff_client):
     assert not s1.is_locked
     # Re-lock it, then open a fresh session for the same deck (the old one archived).
     assert _post(staff_client, '/presentations/ex/present/lock/').status_code == 200
-    staff_client.get('/presentations/ex/present/')
+    assert _post(staff_client, '/presentations/ex/present/new/').status_code == 200
     s2 = Session.open_for('ex')
     assert s2 is not None and s2.pk != s1.pk
     r = _post(staff_client, '/presentations/ex/present/unlock/')
@@ -97,6 +97,37 @@ def test_unlock_conflicts_with_another_open_session(deck, staff_client):
     s1.refresh_from_db()
     assert s1.is_locked
     assert Session.open_for('ex') == s2
+
+
+def test_present_page_after_lock_offers_new_session(deck, staff_client):
+    staff_client.get('/presentations/ex/present/')
+    assert _post(staff_client, '/presentations/ex/present/lock/').status_code == 200
+    r = staff_client.get('/presentations/ex/present/')
+    assert r.status_code == 200
+    body = r.content.decode()
+    assert 'Unlock' in body
+    assert 'id="new-session-btn"' in body
+    tag = body.split('id="new-session-btn"')[1].split('>')[0]
+    assert 'hidden' not in tag
+    assert Session.objects.filter(deck_slug='ex').count() == 1
+
+
+def test_new_session_while_locked(deck, staff_client):
+    staff_client.get('/presentations/ex/present/')
+    assert _post(staff_client, '/presentations/ex/present/lock/').status_code == 200
+    r = _post(staff_client, '/presentations/ex/present/new/')
+    assert r.status_code == 200
+    assert Session.objects.filter(deck_slug='ex').count() == 2
+    new = Session.open_for('ex')
+    assert new is not None and not new.is_locked
+    assert r.json()['code'] == new.join_code
+
+
+def test_new_session_conflicts_with_open_session(deck, staff_client):
+    staff_client.get('/presentations/ex/present/')
+    r = _post(staff_client, '/presentations/ex/present/new/')
+    assert r.status_code == 409
+    assert Session.objects.filter(deck_slug='ex').count() == 1
 
 
 def test_livecache_ttl(deck, staff_client, monkeypatch):
