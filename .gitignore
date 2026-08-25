@@ -153,3 +153,6 @@ cv-src/
 
 # DB backups created by deploy/update.sh
 backups/
+
+# arXiv source cache of the corfu figure picker
+presentations/decks/*/tools/.cache/
