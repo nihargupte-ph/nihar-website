@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     # custom
     'homepage.apps.HomepageConfig',
-    'blog'
+    'blog',
+    'presentations',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +165,7 @@ if not DEBUG:
             },
         },
     }
+
+# Presentations app
+LOGIN_URL = '/admin/login/'
+PRESENTATIONS_DECKS_DIR = BASE_DIR / 'presentations' / 'decks'

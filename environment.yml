@@ -12,6 +12,12 @@ dependencies:
   - pyseobnr
   - lalsuite
   - sqlparse
+  - pyyaml
   - pip
   - pip:
     - python-decouple
+    - jsonschema
+    - markdown
+    - bleach
+    - qrcode
+    - pytest-django
