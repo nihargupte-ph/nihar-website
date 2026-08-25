@@ -1,4 +1,4 @@
-from django.http import HttpResponseServerError
+from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.template.loader import render_to_string
 
 from .. import registry
@@ -21,3 +21,7 @@ def deck_or_404(slug):
 def deck_error_response(request, exc):
     html = render_to_string('presentations/deck_error.html', {'error': exc.err}, request=request)
     return HttpResponseServerError(html)
+
+
+def placeholder(request, *args, **kwargs):
+    return HttpResponseNotFound()
