@@ -1,10 +1,12 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.http import require_GET
 
 from .. import registry
 from ..models import Session
 from ..render import deck_json, deck_json_script, rendered_slides, theme_css
-from .common import DeckErrorResponse, deck_error_response, deck_or_404
+from .common import DeckErrorResponse, aggregate_payload, bad, deck_error_response, deck_or_404
 
 
 def index(request):
@@ -35,3 +37,20 @@ def archive(request, slug):
         'deck': deck, 'slides': rendered_slides(deck, request), 'theme_css': theme_css(deck.theme),
         'deck_data': deck_json_script(data), 'live': live, 'session': session,
     })
+
+
+@require_GET
+def archive_aggregate(request, slug, iid):
+    try:
+        deck = deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
+    session = Session.archived_for(slug)
+    if session is None:
+        return bad('no archived session', 404)
+    if session.state_for(iid) != 'revealed' and deck.interaction(iid) is not None:
+        return bad('not revealed', 403)
+    payload, status = aggregate_payload(deck, session, iid, request.GET.get('tag'), True)
+    if payload is None:
+        return bad('unknown interaction', 404)
+    return JsonResponse(payload, status=status)
