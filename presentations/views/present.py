@@ -56,6 +56,7 @@ def present(request, slug):
         'video': base + 'video/', 'lock': base + 'lock/', 'unlock': base + 'unlock/',
         'aggregate': f'/p/{session.join_code}/aggregate/',
         'comment': reverse('presentations:comment', args=[slug]),
+        'comments': f'/presentations/{slug}/comments/',
     }
     data = deck_json(deck, session, 'present', urls)
     return render(request, 'presentations/present.html', {

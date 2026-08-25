@@ -1,13 +1,14 @@
 from django.urls import path
 
-from .views import archive, common, phone, present
+from .views import archive, comments, phone, present
 
 app_name = 'presentations'
 urlpatterns = [
     path('presentations/', archive.index, name='index'),
     path('presentations/<slug:slug>/', archive.archive, name='archive'),
     path('presentations/<slug:slug>/aggregate/<str:iid>/', archive.archive_aggregate, name='archive-aggregate'),
-    path('presentations/<slug:slug>/comment/', common.placeholder, name='comment'),
+    path('presentations/<slug:slug>/comment/', comments.create, name='comment'),
+    path('presentations/<slug:slug>/comments/', comments.list_comments, name='comments'),
     path('presentations/<slug:slug>/present/', present.present, name='present'),
     path('presentations/<slug:slug>/present/state/', present.state, name='present-state'),
     path('presentations/<slug:slug>/present/goto/', present.goto, name='present-goto'),

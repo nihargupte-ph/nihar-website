@@ -12,6 +12,7 @@
 {% if live and live.current_slide_id %}<div class="live-banner">This talk is live right now — <a href="/p/{{ live.join_code }}/">join on your phone</a></div>{% endif %}
 {% include 'presentations/_slides.html' %}
 {% include 'presentations/_hotspot_card.html' %}
+{% include 'presentations/_comments.html' %}
 <nav class="deck-nav"><button id="prev" aria-label="previous">‹</button><button id="next" aria-label="next">›</button></nav>
 <script id="deck-data" type="application/json">{{ deck_data }}</script>
 <script src="{% static 'presentations/js/core.js' %}"></script>

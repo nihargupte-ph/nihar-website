@@ -35,7 +35,8 @@ def phone(request, code):
                                                           'theme_css': theme_css(deck.theme)})
     base = f'/p/{session.join_code}/'
     urls = {'state': base + 'state/', 'respond': base + 'respond/', 'aggregate': base + 'aggregate/',
-            'comment': reverse('presentations:comment', args=[deck.slug])}
+            'comment': reverse('presentations:comment', args=[deck.slug]),
+            'comments': f'/presentations/{deck.slug}/comments/'}
     data = deck_json(deck, session, 'phone', urls)
     data['participant'] = {'name': participant.display_name, 'tag': participant.expertise_tag}
     return render(request, 'presentations/phone.html', {

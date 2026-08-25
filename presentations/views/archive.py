@@ -30,6 +30,7 @@ def archive(request, slug):
     urls = {
         'aggregate': f'/presentations/{slug}/aggregate/',
         'comment': reverse('presentations:comment', args=[slug]),
+        'comments': f'/presentations/{slug}/comments/',
         'state': None,
     }
     data = deck_json(deck, session, 'archive', urls)
