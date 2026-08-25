@@ -1,0 +1,139 @@
+# Copied by `manage.py newdeck`. Everything about a talk lives in this folder.
+# ids are persistence keys: renaming a slide id orphans its comments, renaming an
+# interaction id orphans its responses. Never renumber them after a session.
+#  - id: q-example
+#    type: choice          # choice | numeric | distribution | text
+#    prompt: Which one?
+#    options: [A, B, C]
+#    answer: B
+#  - id: title
+#    svg: slides/01-title.svg
+#    hotspots:
+#      - rect: [0.1, 0.1, 0.3, 0.2]     # x, y, w, h as fractions of the 16:9 stage
+#        title: A thing
+#        body: "Markdown **body**"
+#        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
+#    ask: [q-example]                    # phone widget appears when opened
+#    show:
+#      - {id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}   # where the aggregate is drawn
+#  - id: page
+#    html: 02-page.html                  # free-form template extending presentations/slide_base.html
+#    underlay: slides/02-frame.svg       # optional Canva backdrop
+#  - id: outro
+#    video: slides/03-outro.mp4
+#    poster: slides/03-outro.jpg
+title: Population Properties of Eccentric Binary Black Holes @ GR-Amaldi
+date: '2024-05-29'
+subtitle: ''
+transition: none
+footer:
+  name: Nihar Gupte
+  affiliation: MPI Grav. Phys & UMD
+  bg: '#e8e6e1'
+  fg: '#444444'
+expertise:
+- theory
+- data analysis
+- instrumentation
+- not a physicist
+theme:
+  bg: '#1f2429'
+  fg: '#f4f1ea'
+  accents:
+  - '#37b49f'
+  - '#e9c46a'
+  - '#e76f51'
+  font_display: Montserrat
+  font_body: Inter
+interactions: []
+slides:
+- id: page-01
+  svg: slides/01-page-01.svg
+  footer: false          # title slide
+- id: page-02
+  svg: slides/02-page-02.svg
+- id: page-03
+  svg: slides/03-page-03.svg
+- id: page-04
+  svg: slides/04-page-04.svg
+  continues: true
+- id: page-05
+  svg: slides/05-page-05.svg
+- id: page-06
+  svg: slides/06-page-06.svg
+  continues: true
+- id: page-07
+  svg: slides/07-page-07.svg
+  continues: true
+- id: page-08
+  svg: slides/08-page-08.svg
+- id: page-09
+  svg: slides/09-page-09.svg
+- id: page-10
+  svg: slides/10-page-10.svg
+- id: page-11
+  svg: slides/11-page-11.svg
+- id: page-12
+  svg: slides/12-page-12.svg
+  continues: true
+- id: page-13
+  svg: slides/13-page-13.svg
+  continues: true
+- id: page-14
+  svg: slides/14-page-14.svg
+- id: page-15
+  svg: slides/15-page-15.svg
+  continues: true
+- id: page-16
+  svg: slides/16-page-16.svg
+  continues: true
+- id: page-17
+  svg: slides/17-page-17.svg
+  continues: true
+- id: page-18
+  svg: slides/18-page-18.svg
+  continues: true
+- id: page-19
+  svg: slides/19-page-19.svg
+- id: page-20
+  svg: slides/20-page-20.svg
+- id: page-21
+  svg: slides/21-page-21.svg
+- id: page-22
+  svg: slides/22-page-22.svg
+  continues: true
+- id: page-23
+  svg: slides/23-page-23.svg
+- id: page-24
+  svg: slides/24-page-24.svg
+- id: page-25
+  svg: slides/25-page-25.svg
+- id: page-26
+  svg: slides/26-page-26.svg
+- id: page-27
+  svg: slides/27-page-27.svg
+- id: page-28
+  svg: slides/28-page-28.svg
+- id: page-29
+  svg: slides/29-page-29.svg
+
+# --- examples (uncomment and adapt) ---
+#interactions:
+#  - id: q-example
+#    type: choice          # choice | numeric | distribution | text
+#    prompt: Which one?
+#    options: [A, B, C]
+#    answer: B
+#slides:
+#  - id: orbits
+#    svg: slides/02-orbits.svg
+#    hotspots:
+#      - rect: [0.1, 0.1, 0.3, 0.2]
+#        title: A thing
+#        body: "Markdown **body**"
+#        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
+#    ask: [q-example]
+#    show: [{id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}]
+#  - id: page
+#    html: 03-page.html
+#    underlay: slides/03-frame.svg
