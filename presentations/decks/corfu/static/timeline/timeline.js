@@ -4,7 +4,7 @@
   const base = root.dataset.src.replace(/timeline\.json$/, '');
   const data = await (await fetch(root.dataset.src)).json();
   const touch = matchMedia('(hover: none)').matches;
-  const PX_PER_DAY = 0.9, MIN_GAP = 40, TOP = 24, BOTTOM = 40;
+  const PX_PER_DAY = 1.3, MIN_GAP = 34, TOP = 24, BOTTOM = 40;
   const day = (iso) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5;
   const entries = data.entries.slice().sort((a, b) => a.v1_date.localeCompare(b.v1_date));
   const years = entries.map((e) => +e.v1_date.slice(0, 4));
