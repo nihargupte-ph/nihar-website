@@ -13,11 +13,25 @@ _DOCTYPE = re.compile(r'<!DOCTYPE[^>]*>', re.S | re.I)
 _ROOT = re.compile(r'<svg\b([^>]*)>', re.S)
 _ATTR = re.compile(r'\s(width|height|preserveAspectRatio)\s*=\s*"[^"]*"')
 _NUM = re.compile(r'[\d.]+')
+_ID = re.compile(r'\sid="([^"]+)"')
+_REF = re.compile(r"(href=\"#|url\(#|url\('#|url\(\"#)([^\"'\)\s]+)")
 
 
-def inline_svg(path):
+def namespace_ids(text, ns):
+    """Prefix every id (and #id reference) with `ns--`. Exports reuse ids like glyph0-1 on every page,
+    and all slides of a deck are inlined into one document, so unprefixed ids would resolve to the first slide's."""
+    ids = set(_ID.findall(text))
+    if not ids:
+        return text
+    text = _ID.sub(lambda m: f' id="{ns}--{m.group(1)}"', text)
+    return _REF.sub(lambda m: f'{m.group(1)}{ns}--{m.group(2)}' if m.group(2) in ids else m.group(0), text)
+
+
+def inline_svg(path, ns=None):
     text = Path(path).read_text(encoding='utf-8')
     text = _DOCTYPE.sub('', _XML_DECL.sub('', text)).strip()
+    if ns:
+        text = namespace_ids(text, ns)
     m = _ROOT.search(text)
     if not m:
         return mark_safe('')
@@ -52,11 +66,11 @@ def rendered_slides(deck, request):
     for n, s in enumerate(deck.slides):
         row = {'slide': s, 'index': n, 'markup': '', 'video_url': '', 'poster_url': '', 'underlay': ''}
         if s.kind == 'svg':
-            row['markup'] = inline_svg(deck.dir / s.path)
+            row['markup'] = inline_svg(deck.dir / s.path, ns=s.id)
         elif s.kind == 'html':
             row['markup'] = mark_safe(render_html_slide(deck, s, request))
             if s.underlay:
-                row['underlay'] = inline_svg(deck.dir / s.underlay)
+                row['underlay'] = inline_svg(deck.dir / s.underlay, ns=f'{s.id}-u')
         else:
             row['video_url'] = slide_static_url(deck, s.path)
             row['poster_url'] = slide_static_url(deck, s.poster) if s.poster else ''

@@ -53,3 +53,33 @@ def test_archive_shows_readable_500_for_broken_deck(deck, anon_client, db):
     registry.clear_cache()
     r = anon_client.get('/presentations/ex/')
     assert r.status_code == 500 and b'expertise' in r.content
+
+
+GLYPHS = '''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 10 10">
+<defs><symbol id="glyph0-1"><path d="M {d} 0 L 1 1"/></symbol><clipPath id="clip1"><rect width="5" height="5"/></clipPath>
+<mask id="mask0"><rect width="1" height="1"/></mask></defs>
+<g clip-path="url(#clip1)" style="mask:url(#mask0)"><use xlink:href="#glyph0-1" x="1"/><use href="#glyph0-1" x="2"/></g>
+</svg>'''
+
+
+def test_inline_svg_namespaces_ids_and_references(deck):
+    # pdftocairo (and Canva) reuse the same ids on every page; inlined into one document they'd collide
+    from presentations.render import inline_svg
+    (deck / 'slides' / 'g.svg').write_text(GLYPHS.format(d=3))
+    out = inline_svg(deck / 'slides' / 'g.svg', ns='intro')
+    assert 'id="intro--glyph0-1"' in out and 'id="intro--clip1"' in out and 'id="intro--mask0"' in out
+    assert 'xlink:href="#intro--glyph0-1"' in out and 'href="#intro--glyph0-1" x="2"' in out
+    assert 'clip-path="url(#intro--clip1)"' in out and 'mask:url(#intro--mask0)' in out
+    import re
+    assert not re.search(r'(id="|#)(glyph0-1|clip1|mask0)\b', out)
+
+
+def test_page_inlines_same_ids_on_two_slides_without_collision(deck, anon_client, db):
+    (deck / 'slides' / '01.svg').write_text(GLYPHS.format(d=3))
+    (deck / 'slides' / '02.svg').write_text(GLYPHS.format(d=7))
+    html = anon_client.get('/presentations/ex/').content.decode()
+    import re
+    ids = re.findall(r'id="([^"]*glyph0-1)"', html)
+    assert len(ids) == 2 and len(set(ids)) == 2, ids
+    for i in ids:
+        assert html.count(f'href="#{i}"') == 2
