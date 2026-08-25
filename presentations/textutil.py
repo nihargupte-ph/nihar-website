@@ -8,7 +8,7 @@ from django.conf import settings
 _ALLOWED_TAGS = ['p', 'em', 'strong', 'code', 'pre', 'a', 'ul', 'ol', 'li', 'blockquote', 'br', 'h3', 'h4']
 _ALLOWED_ATTRS = {'a': ['href', 'title', 'rel', 'target']}
 _STOPWORDS = set('a an the and or of to in on for is are it its this that with as at by from be'.split())
-_WORD_RE = re.compile(r"[a-z0-9][a-z0-9'\-]*")
+_WORD_RE = re.compile(r"[^\W_][^\W_'\-]*(?:['\-][^\W_]+)*", re.UNICODE)
 
 
 def _link_attrs(attrs, new=False):

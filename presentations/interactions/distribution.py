@@ -29,6 +29,8 @@ class Distribution(Interaction):
         w = [float(x) for x in payload['weights']]
         if len(w) != bins:
             raise ValueError(f'weights must have {bins} entries')
+        if any(x != x or x in (float('inf'), float('-inf')) for x in w):
+            raise ValueError('weights must be finite')
         if any(x < 0 for x in w):
             raise ValueError('weights must be >= 0')
         total = sum(w)

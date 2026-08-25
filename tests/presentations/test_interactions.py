@@ -71,6 +71,18 @@ def test_distribution_payload_normalises():
         d.clean_payload({'weights': [1, -1, 1, 1]}, DIST)     # negative
 
 
+def test_distribution_rejects_non_finite_and_non_numeric_weights():
+    d = I.get('distribution')
+    with pytest.raises(ValueError):
+        d.clean_payload({'weights': [1, float('nan'), 1, 1]}, DIST)
+    with pytest.raises(ValueError):
+        d.clean_payload({'weights': [1, float('inf'), 1, 1]}, DIST)
+    with pytest.raises(ValueError):
+        d.clean_payload({'weights': [1, 'abc', 1, 1]}, DIST)
+    with pytest.raises(ValueError):
+        d.clean_payload({'weights': [1, True, 1, 1]}, DIST)
+
+
 def test_distribution_aggregate():
     d = I.get('distribution')
     agg = d.aggregate([{'weights': [1, 0, 0, 0]}, {'weights': [0, 0, 0, 1]}], DIST)
@@ -78,6 +90,13 @@ def test_distribution_aggregate():
     assert agg['mean'] == [0.5, 0.0, 0.0, 0.5]
     assert agg['curves'] == [[1, 0, 0, 0], [0, 0, 0, 1]]
     assert agg['edges'] == [0.0, 0.25, 0.5, 0.75, 1.0]
+
+
+def test_distribution_aggregate_empty():
+    d = I.get('distribution')
+    assert d.aggregate([], DIST) == {
+        'n': 0, 'mean': [0.0, 0.0, 0.0, 0.0], 'curves': [], 'edges': [0.0, 0.25, 0.5, 0.75, 1.0],
+    }
 
 
 # --- text ---
@@ -102,6 +121,11 @@ def test_text_profanity_rejected():
         t.clean_payload({'text': 'fuck'}, TXT)
 
 
+def test_text_aggregate_empty():
+    t = I.get('text')
+    assert t.aggregate([], TXT) == {'n': 0, 'counts': {}}
+
+
 # --- textutil ---
 def test_render_markdown_allowlist():
     from presentations.textutil import render_markdown
@@ -114,3 +138,8 @@ def test_hash_ip_is_stable_and_opaque():
     from presentations.textutil import hash_ip
     assert hash_ip('1.2.3.4') == hash_ip('1.2.3.4') and len(hash_ip('1.2.3.4')) == 64
     assert '1.2.3.4' not in hash_ip('1.2.3.4')
+
+
+def test_tokenize_words_is_unicode_aware():
+    from presentations.textutil import tokenize_words
+    assert tokenize_words('café naïve привет 世界') == ['café', 'naïve', 'привет', '世界']
