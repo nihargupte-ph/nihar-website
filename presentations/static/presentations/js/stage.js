@@ -35,7 +35,7 @@
     if (n < 0 || n >= list.length) return;
     idx = n;
     document.querySelectorAll('.slide').forEach((el) => { el.hidden = Number(el.dataset.index) !== n; });
-    const num = document.querySelector('#slide-num'); if (num) num.textContent = String(n + 1);
+    const num = document.querySelector('#slide-num'); if (num) num.textContent = String(list[n].number || n + 1);
     document.querySelectorAll('video').forEach((v) => { if (!v.closest('.slide') || v.closest('.slide').hidden) v.pause(); });
     listeners.forEach((cb) => cb(list[n].id, n, opts || {}));
   };

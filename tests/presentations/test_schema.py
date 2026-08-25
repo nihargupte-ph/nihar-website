@@ -147,3 +147,21 @@ def test_footer_validation(tmp_path):
 
 def test_transition_defaults_to_none(tmp_path):
     assert load_deck(make_deck(tmp_path)).transition == 'none'
+
+
+def test_continues_collapses_reveal_steps_into_one_logical_slide(tmp_path):
+    text = GOOD.replace('    svg: slides/02.svg', '    svg: slides/02.svg\n    continues: true')
+    deck = load_deck(make_deck(tmp_path, text))
+    assert [s.continues for s in deck.slides] == [False, True, False, False]
+    assert [s.number for s in deck.slides] == [1, 1, 2, 3]
+    assert deck.page_count == 3
+
+
+def test_continues_defaults_to_plain_numbering(tmp_path):
+    deck = load_deck(make_deck(tmp_path))
+    assert [s.number for s in deck.slides] == [1, 2, 3, 4] and deck.page_count == 4
+
+
+def test_continues_validation(tmp_path):
+    _expect_error(tmp_path, GOOD.replace('    svg: slides/01.svg', '    svg: slides/01.svg\n    continues: true'), 'first slide cannot continue')
+    _expect_error(tmp_path, GOOD.replace('    svg: slides/02.svg', '    svg: slides/02.svg\n    continues: yes please'), "slide 'results': continues must be true or false")

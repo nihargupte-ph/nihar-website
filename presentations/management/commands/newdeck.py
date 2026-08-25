@@ -158,6 +158,9 @@ _EXAMPLES = '''
 #        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
 #    ask: [q-example]
 #    show: [{id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}]
+#  - id: orbits-2
+#    svg: slides/03-orbits-2.svg
+#    continues: true       # reveal step: counts as the same slide number as the one before
 #  - id: page
 #    html: 03-page.html
 #    underlay: slides/03-frame.svg

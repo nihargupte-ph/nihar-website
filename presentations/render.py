@@ -93,9 +93,9 @@ def deck_json(deck, session, mode, urls):
     states = session.interaction_states if session else {}
     return {
         'slug': deck.slug, 'title': deck.title, 'mode': mode, 'transition': deck.transition,
-        'theme': deck.theme, 'expertise': deck.expertise,
+        'theme': deck.theme, 'expertise': deck.expertise, 'page_count': deck.page_count,
         'slides': [{
-            'id': s.id, 'kind': s.kind, 'index': n,
+            'id': s.id, 'kind': s.kind, 'index': n, 'number': s.number,
             'hotspots': [{'rect': h.rect, 'title': h.title, 'body_html': render_markdown(h.body), 'links': h.links}
                          for h in s.hotspots],
             'ask': s.ask, 'show': [{'id': r.id, 'rect': r.rect} for r in s.show],

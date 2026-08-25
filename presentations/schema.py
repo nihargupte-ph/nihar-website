@@ -56,6 +56,8 @@ class Slide:
     ask: list[str] = field(default_factory=list)
     show: list[ShowRef] = field(default_factory=list)
     footer: bool = True
+    continues: bool = False   # reveal step: same logical slide as the previous one
+    number: int = 0           # logical slide number, set by load_deck
 
     @property
     def uses_stage(self):
@@ -75,6 +77,7 @@ class Deck:
     interactions: list[InteractionDef]
     slides: list[Slide]
     footer: dict | None = None
+    page_count: int = 0
     warnings: list[str] = field(default_factory=list)
 
     def slide(self, slide_id):
@@ -166,8 +169,13 @@ def _parse_slide(entry, n, deck_dir, path, interaction_ids):
     footer = entry.get('footer', True)
     if not isinstance(footer, bool):
         raise DeckError(path, f'{where}: footer must be true or false')
+    continues = entry.get('continues', False)
+    if not isinstance(continues, bool):
+        raise DeckError(path, f'{where}: continues must be true or false')
+    if continues and n == 0:
+        raise DeckError(path, f'{where}: the first slide cannot continue a previous one')
     return Slide(id=sid, kind=kind, path=rel, poster=poster, underlay=underlay,
-                 hotspots=hotspots, ask=ask, show=show, footer=footer)
+                 hotspots=hotspots, ask=ask, show=show, footer=footer, continues=continues)
 
 
 def _parse_footer(raw, path):
@@ -242,10 +250,16 @@ def load_deck(deck_dir, interaction_validator=None):
         slides.append(s)
     if not slides:
         raise DeckError(path, 'slides must contain at least one slide')
+    number = 0
+    for s in slides:
+        if not s.continues:
+            number += 1
+        s.number = number
 
     asked = {a for s in slides for a in s.ask}
     warnings = [f"interaction '{i.id}' is never asked on any slide" for i in interactions if i.id not in asked]
 
     return Deck(slug=deck_dir.name, dir=deck_dir, title=str(raw['title']), date=str(raw.get('date') or ''),
                 subtitle=str(raw.get('subtitle') or ''), transition=transition, expertise=expertise,
-                theme=theme, interactions=interactions, slides=slides, footer=footer, warnings=warnings)
+                theme=theme, interactions=interactions, slides=slides, footer=footer, page_count=number,
+                warnings=warnings)

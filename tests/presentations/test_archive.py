@@ -1,3 +1,4 @@
+import re
 import json
 import pytest
 from presentations import registry
@@ -100,3 +101,16 @@ def test_footer_bar_on_every_slide_except_opted_out(deck, anon_client, db):
 def test_no_footer_bar_without_footer_config(deck, anon_client, db):
     html = anon_client.get('/presentations/ex/').content.decode()
     assert 'slide-footer' not in html
+
+
+def test_counters_use_logical_numbers_for_reveal_steps(deck, anon_client, db):
+    y = (deck / 'deck.yaml').read_text().replace('interactions:', 'footer: {name: N, affiliation: A}\ninteractions:')
+    y = y.replace('    svg: slides/02.svg', '    svg: slides/02.svg\n    continues: true')
+    (deck / 'deck.yaml').write_text(y)
+    registry.clear_cache()
+    html = anon_client.get('/presentations/ex/').content.decode()
+    footers = re.findall(r'<span>(\d+ / \d+)</span></div>', html)
+    assert footers == ['1 / 3', '1 / 3', '2 / 3', '3 / 3']
+    assert '<span id="slide-num">1</span> / 3' in html
+    data = json.loads(html.split('id="deck-data" type="application/json">')[1].split('</script>')[0])
+    assert [s['number'] for s in data['slides']] == [1, 1, 2, 3] and data['page_count'] == 3
