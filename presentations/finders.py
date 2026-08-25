@@ -2,7 +2,9 @@
 import os
 
 from django.contrib.staticfiles.finders import BaseFinder
+from django.core.exceptions import SuspiciousFileOperation
 from django.core.files.storage import FileSystemStorage
+from django.utils._os import safe_join
 
 from .registry import decks_dir
 
@@ -32,13 +34,17 @@ class DeckStaticFinder(BaseFinder):
                 if s != slug:
                     continue
                 if prefix and rel.startswith(prefix + '/'):
-                    candidate = base / rel[len(prefix) + 1:]
+                    sub_rel = rel[len(prefix) + 1:]
                 elif not prefix and not rel.startswith('slides/'):
-                    candidate = base / rel
+                    sub_rel = rel
                 else:
                     continue
-                if candidate.is_file():
-                    matches.append(str(candidate))
+                try:
+                    candidate = safe_join(str(base), sub_rel)
+                except SuspiciousFileOperation:
+                    continue
+                if os.path.isfile(candidate):
+                    matches.append(candidate)
         if all:
             return matches
         return matches[0] if matches else None

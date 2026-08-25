@@ -72,3 +72,15 @@ def test_static_finder_maps_deck_static_and_slides(decks):
     assert f.find('decks/ex/deck.yaml') is None
     listed = {p for p, _ in f.list([])}
     assert 'app.js' in listed and '01.svg' in listed   # slides root yields paths relative to slides/, storage.prefix adds 'decks/ex/slides'
+    assert f.find('decks/ex/app.js', all=True) == [str(d / 'static' / 'app.js')]
+
+
+def test_static_finder_rejects_path_traversal(decks):
+    from presentations.finders import DeckStaticFinder
+    d = make_deck(decks)
+    (d / 'static').mkdir()
+    (d / 'static' / 'app.js').write_text('1')
+    f = DeckStaticFinder()
+    assert f.find('decks/ex/../../deck.yaml') is None
+    assert f.find('decks/ex/slides/../../../../nihar_website/settings.py') is None
+    assert f.find('decks/ex/../ex/app.js') is None
