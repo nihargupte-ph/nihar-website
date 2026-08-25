@@ -11,6 +11,13 @@ a{color:var(--accent)}
 .pres-badge--live{background:#d33;color:#fff}
 .live-banner{position:fixed;top:40px;left:0;right:0;padding:.4rem;text-align:center;background:var(--accent);color:#000;z-index:19}
 .deck{position:absolute;inset:40px 0 0 0;overflow:hidden}
+/* fullscreen (F11 or the Fullscreen API): drop the top chrome so the slide footer is the only indication */
+@media (display-mode: fullscreen){
+  .deck-chrome{display:none}
+  .live-banner{top:0}
+  .deck{inset:0}
+  .stage__inner{width:min(100%,calc(100vh * 16 / 9))}
+}
 .slide{position:absolute;inset:0}
 .slide[hidden]{display:none}
 .deck[data-transition="fade"] .slide{animation:fadein .35s ease}
