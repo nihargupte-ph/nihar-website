@@ -4,6 +4,7 @@
     {% if row.slide.kind == 'html' %}
       {% if row.underlay %}<div class="stage stage--underlay"><div class="stage__inner">{{ row.underlay }}</div></div>{% endif %}
       {{ row.markup }}
+      {% if row.footer %}{% include 'presentations/_footer.html' %}{% endif %}
     {% else %}
       <div class="stage">
         <div class="stage__inner">
@@ -12,6 +13,7 @@
           {% endif %}
           <svg class="overlay" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet"></svg>
           <div class="stage__widgets"></div>
+          {% if row.footer %}{% include 'presentations/_footer.html' %}{% endif %}
         </div>
       </div>
     {% endif %}

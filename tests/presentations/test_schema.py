@@ -58,7 +58,7 @@ def test_good_deck_loads(tmp_path):
     assert deck.interaction('q1').config == {'prompt': 'Which?', 'options': ['A', 'B']}
     assert deck.slide_index('page') == 2
     assert [i.id for i in deck.interactions_for_slide(deck.slides[1])] == ['q1']
-    assert deck.transition == 'fade'
+    assert deck.transition == 'none'
 
 
 def _expect_error(tmp_path, text, needle, **kw):
@@ -116,3 +116,34 @@ def test_unasked_interaction_is_warning_not_error(tmp_path):
     text = GOOD.replace('ask: [q1]', '')
     deck = load_deck(make_deck(tmp_path, text))
     assert deck.warnings == ["interaction 'q1' is never asked on any slide"]
+
+
+FOOTER = GOOD.replace('interactions:', 'footer: {name: Nihar Gupte, affiliation: MPI & UMD}\ninteractions:')
+
+
+def test_footer_parsed_with_default_colours_and_per_slide_opt_out(tmp_path):
+    text = FOOTER.replace('    video: slides/03.mp4', '    video: slides/03.mp4\n    footer: false')
+    deck = load_deck(make_deck(tmp_path, text))
+    assert deck.footer == {'name': 'Nihar Gupte', 'affiliation': 'MPI & UMD', 'bg': '#e8e6e1', 'fg': '#444444'}
+    assert [s.footer for s in deck.slides] == [True, True, True, False]
+
+
+def test_footer_custom_colours(tmp_path):
+    text = FOOTER.replace('affiliation: MPI & UMD}', 'affiliation: MPI & UMD, bg: "#123456", fg: "#FFF"}')
+    deck = load_deck(make_deck(tmp_path, text))
+    assert deck.footer['bg'] == '#123456' and deck.footer['fg'] == '#FFF'
+
+
+def test_footer_off_by_default_and_when_false(tmp_path):
+    assert load_deck(make_deck(tmp_path)).footer is None
+    assert load_deck(make_deck(tmp_path, GOOD.replace('interactions:', 'footer: false\ninteractions:'))).footer is None
+
+
+def test_footer_validation(tmp_path):
+    _expect_error(tmp_path, GOOD.replace('interactions:', 'footer: {affiliation: x}\ninteractions:'), 'footer: name is required')
+    _expect_error(tmp_path, FOOTER.replace('MPI & UMD}', 'MPI & UMD, bg: red}'), 'footer.bg must be a hex colour')
+    _expect_error(tmp_path, FOOTER.replace('    svg: slides/02.svg', '    svg: slides/02.svg\n    footer: maybe'), "slide 'results': footer must be true or false")
+
+
+def test_transition_defaults_to_none(tmp_path):
+    assert load_deck(make_deck(tmp_path)).transition == 'none'

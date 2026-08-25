@@ -83,3 +83,20 @@ def test_page_inlines_same_ids_on_two_slides_without_collision(deck, anon_client
     assert len(ids) == 2 and len(set(ids)) == 2, ids
     for i in ids:
         assert html.count(f'href="#{i}"') == 2
+
+
+def test_footer_bar_on_every_slide_except_opted_out(deck, anon_client, db):
+    y = (deck / 'deck.yaml').read_text().replace('interactions:', 'footer: {name: Nihar Gupte, affiliation: MPI & UMD, bg: "#abcdef"}\ninteractions:')
+    y = y.replace('    html: page.html', '    html: page.html\n    footer: false')
+    (deck / 'deck.yaml').write_text(y)
+    registry.clear_cache()
+    html = anon_client.get('/presentations/ex/').content.decode()
+    assert html.count('class="slide-footer"') == 3
+    assert 'Nihar Gupte' in html and 'MPI &amp; UMD' in html
+    assert '1 / 4' in html and '2 / 4' in html and '4 / 4' in html and '3 / 4' not in html
+    assert 'background:#abcdef;color:#444444' in html
+
+
+def test_no_footer_bar_without_footer_config(deck, anon_client, db):
+    html = anon_client.get('/presentations/ex/').content.decode()
+    assert 'slide-footer' not in html

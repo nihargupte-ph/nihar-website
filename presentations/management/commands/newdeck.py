@@ -120,7 +120,7 @@ class Command(BaseCommand):
         theme = derive_theme(svgs) if svgs else None
 
         deck = {
-            'title': title, 'date': date, 'subtitle': '', 'transition': 'fade',
+            'title': title, 'date': date, 'subtitle': '', 'transition': 'none',
             'expertise': ['theory', 'data analysis', 'instrumentation', 'not a physicist'],
         }
         if theme:
@@ -137,6 +137,11 @@ class Command(BaseCommand):
 
 _EXAMPLES = '''
 # --- examples (uncomment and adapt) ---
+#footer:                   # bottom bar on every slide: name · affiliation · page number
+#  name: Nihar Gupte
+#  affiliation: MPI Grav. Phys & UMD
+#  bg: '#e8e6e1'           # optional colours (hex)
+#  fg: '#444444'
 #interactions:
 #  - id: q-example
 #    type: choice          # choice | numeric | distribution | text

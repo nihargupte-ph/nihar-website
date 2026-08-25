@@ -27,6 +27,8 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
   (phone widget appears when opened) and any slide `show: [{id, rect}]`s the aggregate (html slides:
   `<div data-interaction="id">` and `show: [{id}]` with no rect).
 - `expertise:` 2–6 tags for the join screen; aggregates are sliceable by tag / "vs rest".
+- `footer: {name, affiliation, bg, fg}` draws a thin bar (name · affiliation · `N / total`) at the bottom of every
+  slide; omit it for none, `footer: false` on a slide to skip that slide (title slide). `transition:` defaults to `none`.
 - ids are persistence keys — never rename a slide/interaction id after a session has run.
 - Deck-local JS/CSS/data go in `decks/<slug>/static/` → served at `/static/decks/<slug>/…` (use `{{ deck_static }}` in html slides).
   Videos are git-LFS tracked (`presentations/decks/**/*.mp4|webm`).

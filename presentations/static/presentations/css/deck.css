@@ -24,6 +24,9 @@ a{color:var(--accent)}
 .stage__inner{position:relative;aspect-ratio:16/9;width:min(100%,calc((100vh - 40px) * 16 / 9));max-height:100%}
 .stage__inner>.slide-svg,.stage__inner>.slide-video{position:absolute;inset:0;width:100%;height:100%;display:block}
 .slide-video{object-fit:contain;background:#000}
+.slide-footer{position:absolute;left:0;right:0;bottom:0;height:4%;display:flex;align-items:center;justify-content:space-between;padding:0 1.2%;font-family:var(--font-body);font-size:1.6cqh;line-height:1;white-space:nowrap;z-index:2;pointer-events:none}
+.stage__inner{container-type:size}
+.slide--html .slide-footer{position:sticky;height:2rem;font-size:.8rem;padding:0 1rem}
 .overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .overlay .hotspot{fill:transparent;stroke:transparent;pointer-events:all;cursor:pointer;transition:stroke .15s}
 .overlay .hotspot:hover,.overlay .hotspot.active{stroke:var(--accent);stroke-width:4;fill:rgba(255,255,255,.04)}

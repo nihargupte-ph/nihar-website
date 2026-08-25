@@ -64,7 +64,8 @@ def render_html_slide(deck, slide, request):
 def rendered_slides(deck, request):
     out = []
     for n, s in enumerate(deck.slides):
-        row = {'slide': s, 'index': n, 'markup': '', 'video_url': '', 'poster_url': '', 'underlay': ''}
+        row = {'slide': s, 'index': n, 'markup': '', 'video_url': '', 'poster_url': '', 'underlay': '',
+               'footer': bool(deck.footer and s.footer)}
         if s.kind == 'svg':
             row['markup'] = inline_svg(deck.dir / s.path, ns=s.id)
         elif s.kind == 'html':

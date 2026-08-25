@@ -175,3 +175,12 @@ def test_newdeck_pdf_without_poppler_is_a_clear_error(tmp_path, settings, monkey
     monkeypatch.setattr(shutil, 'which', lambda name: None)
     with pytest.raises(CommandError, match='pdftocairo'):
         call_command('newdeck', 'nopoppler', '--title', 'X', '--from', str(pdf))
+
+
+def test_newdeck_defaults_to_no_transition_and_documents_footer(tmp_path, settings):
+    settings.PRESENTATIONS_DECKS_DIR = tmp_path / 'decks'
+    _template(tmp_path)
+    call_command('newdeck', 'plain', '--title', 'Plain')
+    text = (tmp_path / 'decks' / 'plain' / 'deck.yaml').read_text()
+    assert yaml.safe_load(text)['transition'] == 'none'
+    assert '#footer:' in text and 'affiliation' in text

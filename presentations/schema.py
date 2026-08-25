@@ -6,7 +6,11 @@ from pathlib import Path
 
 import yaml
 
+import re
+
 TRANSITIONS = ('fade', 'slide', 'none')
+DEFAULT_FOOTER = {'bg': '#e8e6e1', 'fg': '#444444'}
+_HEX_COLOUR = re.compile(r'^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$')
 DEFAULT_THEME = {
     'bg': '#1f2429', 'fg': '#f4f1ea', 'accents': ['#37b49f', '#e9c46a', '#e76f51'],
     'font_display': 'Montserrat', 'font_body': 'Inter',
@@ -51,6 +55,7 @@ class Slide:
     hotspots: list[Hotspot] = field(default_factory=list)
     ask: list[str] = field(default_factory=list)
     show: list[ShowRef] = field(default_factory=list)
+    footer: bool = True
 
     @property
     def uses_stage(self):
@@ -69,6 +74,7 @@ class Deck:
     theme: dict
     interactions: list[InteractionDef]
     slides: list[Slide]
+    footer: dict | None = None
     warnings: list[str] = field(default_factory=list)
 
     def slide(self, slide_id):
@@ -157,8 +163,28 @@ def _parse_slide(entry, n, deck_dir, path, interaction_ids):
         if kind != 'html' and rect is None:
             raise DeckError(path, f"{where}: show '{s['id']}': svg/video slides must give rect")
         show.append(ShowRef(id=str(s['id']), rect=_rect(rect, where, path) if rect is not None else None))
+    footer = entry.get('footer', True)
+    if not isinstance(footer, bool):
+        raise DeckError(path, f'{where}: footer must be true or false')
     return Slide(id=sid, kind=kind, path=rel, poster=poster, underlay=underlay,
-                 hotspots=hotspots, ask=ask, show=show)
+                 hotspots=hotspots, ask=ask, show=show, footer=footer)
+
+
+def _parse_footer(raw, path):
+    """Bottom bar: name · affiliation · page number. Absent or false → no bar."""
+    if not raw:
+        return None
+    if not isinstance(raw, dict):
+        raise DeckError(path, 'footer must be a mapping with name and affiliation, or false')
+    if not raw.get('name'):
+        raise DeckError(path, 'footer: name is required')
+    footer = {'name': str(raw['name']), 'affiliation': str(raw.get('affiliation') or '')}
+    for key in ('bg', 'fg'):
+        value = raw.get(key, DEFAULT_FOOTER[key])
+        if not isinstance(value, str) or not _HEX_COLOUR.match(value):
+            raise DeckError(path, f"footer.{key} must be a hex colour like '#e8e6e1', got {value!r}")
+        footer[key] = value
+    return footer
 
 
 def load_deck(deck_dir, interaction_validator=None):
@@ -180,7 +206,7 @@ def load_deck(deck_dir, interaction_validator=None):
         raise DeckError(path, 'expertise must be a list of 2–6 tags')
     expertise = [str(e) for e in expertise]
 
-    transition = raw.get('transition', 'fade')
+    transition = raw.get('transition', 'none')
     if transition not in TRANSITIONS:
         raise DeckError(path, f'transition must be one of {TRANSITIONS}')
 
@@ -188,6 +214,8 @@ def load_deck(deck_dir, interaction_validator=None):
     theme.update(raw.get('theme') or {})
     if not isinstance(theme.get('accents'), list) or not theme['accents']:
         raise DeckError(path, 'theme.accents must be a non-empty list')
+
+    footer = _parse_footer(raw.get('footer'), path)
 
     interactions, ids = [], set()
     for n, entry in enumerate(raw.get('interactions') or []):
@@ -220,4 +248,4 @@ def load_deck(deck_dir, interaction_validator=None):
 
     return Deck(slug=deck_dir.name, dir=deck_dir, title=str(raw['title']), date=str(raw.get('date') or ''),
                 subtitle=str(raw.get('subtitle') or ''), transition=transition, expertise=expertise,
-                theme=theme, interactions=interactions, slides=slides, warnings=warnings)
+                theme=theme, interactions=interactions, slides=slides, footer=footer, warnings=warnings)
