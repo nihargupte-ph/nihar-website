@@ -184,3 +184,110 @@ def test_newdeck_defaults_to_no_transition_and_documents_footer(tmp_path, settin
     text = (tmp_path / 'decks' / 'plain' / 'deck.yaml').read_text()
     assert yaml.safe_load(text)['transition'] == 'none'
     assert '#footer:' in text and 'affiliation' in text
+
+
+RESLIDES_YAML = '''# header comment
+title: Talk
+date: 2026-01-01
+expertise: [a, b]
+footer: {name: N, affiliation: A}
+interactions:
+  - id: q1
+    type: choice
+    prompt: p
+    options: [A, B]
+slides:
+- id: page-01
+  svg: slides/01-page-01.svg
+  footer: false
+  hotspots:
+  - rect: [0.1, 0.1, 0.2, 0.2]
+    title: Hot
+  ask: [q1]
+- id: page-02
+  svg: slides/02-page-02.svg
+  show:
+  - id: q1
+    rect: [0.1, 0.2, 0.8, 0.6]
+- id: page        # my html
+  html: page.html
+  underlay: slides/frame.svg
+- id: vid
+  video: slides/04-vid.mp4
+# --- examples ---
+#slides: nope
+'''
+OLD_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><text>OLD</text></svg>'
+NEW_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><text>NEW {}</text></svg>'
+PAGE = '{% extends "presentations/slide_base.html" %}{% block slide %}hi{% endblock %}'
+
+
+def _reslides_deck(tmp_path, settings):
+    settings.PRESENTATIONS_DECKS_DIR = tmp_path / 'decks'
+    d = tmp_path / 'decks' / 'rs'
+    (d / 'slides').mkdir(parents=True)
+    (d / 'deck.yaml').write_text(RESLIDES_YAML)
+    (d / 'page.html').write_text(PAGE)
+    for f in ('01-page-01.svg', '02-page-02.svg', 'frame.svg'):
+        (d / 'slides' / f).write_text(OLD_SVG)
+    (d / 'slides' / '04-vid.mp4').write_bytes(b'v')
+    src = tmp_path / 'export'; src.mkdir()
+    for i in (1, 2, 3):
+        (src / f'{i:02d}-page-{i:02d}.svg').write_text(NEW_SVG.format(i))
+    return d, src
+
+
+def test_reslides_replaces_svgs_and_moves_html_video_to_end(tmp_path, settings, db, capsys):
+    d, src = _reslides_deck(tmp_path, settings)
+    call_command('reslides', 'rs', '--from', str(src))
+    text = (d / 'deck.yaml').read_text()
+    y = yaml.safe_load(text)
+    assert [s['id'] for s in y['slides']] == ['page-01', 'page-02', 'page-03', 'page', 'vid']
+    assert y['slides'][0]['footer'] is False and y['slides'][0]['hotspots'][0]['title'] == 'Hot' and y['slides'][0]['ask'] == ['q1']
+    assert y['slides'][1]['show'] == [{'id': 'q1', 'rect': [0.1, 0.2, 0.8, 0.6]}]
+    assert y['slides'][2] == {'id': 'page-03', 'svg': 'slides/03-page-03.svg'}
+    assert y['slides'][3]['underlay'] == 'slides/frame.svg' and y['slides'][4]['video'] == 'slides/04-vid.mp4'
+    assert '# my html' in text and '#slides: nope' in text and '# header comment' in text
+    assert 'footer: {name: N, affiliation: A}' in text
+    assert 'NEW 1' in (d / 'slides' / '01-page-01.svg').read_text()
+    assert 'NEW 3' in (d / 'slides' / '03-page-03.svg').read_text()
+    assert (d / 'slides' / 'frame.svg').read_text() == OLD_SVG
+    assert (d / 'slides' / '04-vid.mp4').exists()
+    assert (d / 'deck.yaml.bak').read_text() == RESLIDES_YAML
+    from presentations.schema import load_deck
+    assert [s.kind for s in load_deck(d).slides] == ['svg', 'svg', 'svg', 'html', 'video']
+    out = capsys.readouterr().out
+    assert 'carried' in out and 'page-01' in out
+
+
+def test_reslides_drops_unmatched_old_svg_config_but_keeps_backup(tmp_path, settings, db, capsys):
+    d, src = _reslides_deck(tmp_path, settings)
+    (src / '02-page-02.svg').unlink()
+    (src / '03-page-03.svg').unlink()
+    call_command('reslides', 'rs', '--from', str(src))
+    y = yaml.safe_load((d / 'deck.yaml').read_text())
+    assert [s['id'] for s in y['slides']] == ['page-01', 'page', 'vid']
+    assert not (d / 'slides' / '02-page-02.svg').exists()
+    assert 'page-02' in (d / 'deck.yaml.bak').read_text()
+    assert 'dropped' in capsys.readouterr().out
+
+
+def test_reslides_dry_run_changes_nothing(tmp_path, settings, db, capsys):
+    d, src = _reslides_deck(tmp_path, settings)
+    call_command('reslides', 'rs', '--from', str(src), '--dry-run')
+    assert (d / 'deck.yaml').read_text() == RESLIDES_YAML
+    assert not (d / 'deck.yaml.bak').exists()
+    assert (d / 'slides' / '01-page-01.svg').read_text() == OLD_SVG
+    assert not (d / 'slides' / '03-page-03.svg').exists()
+    assert 'page-03' in capsys.readouterr().out
+
+
+def test_reslides_refuses_when_deck_has_a_session_unless_forced(tmp_path, settings, db):
+    from presentations.models import Session
+    d, src = _reslides_deck(tmp_path, settings)
+    Session.objects.create(deck_slug='rs')
+    with pytest.raises(CommandError, match='session'):
+        call_command('reslides', 'rs', '--from', str(src))
+    assert (d / 'deck.yaml').read_text() == RESLIDES_YAML
+    call_command('reslides', 'rs', '--from', str(src), '--force')
+    assert (d / 'slides' / '03-page-03.svg').exists()

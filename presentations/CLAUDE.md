@@ -12,10 +12,15 @@ Reference deck that exercises everything: `presentations/decks/example/`.
 micromamba run -n django-nihar-website python manage.py newdeck <slug> --title "…" --from ~/Downloads/talk.pdf [--date YYYY-MM-DD]
 micromamba run -n django-nihar-website python manage.py newdeck <slug> --title "…" --from ~/Downloads/canva-export/
 micromamba run -n django-nihar-website python manage.py checkdecks   # validate every deck; run after each edit
+# re-export from Canva later: replace ALL svg slides, keep html/video entries (moved to the end of slides: to reorder)
+micromamba run -n django-nihar-website python manage.py reslides <slug> --from ~/Downloads/talk-v2.pdf [--dry-run] [--force]
 ```
 
 `newdeck` sanitises the SVGs, numbers them `slides/NN-<id>.svg`, derives `theme:` from their colours/fonts,
-and writes `deck.yaml` with commented examples. A PDF is split with poppler (`pdftocairo`/`pdfinfo`) into one
+and writes `deck.yaml` with commented examples. `reslides` re-imports the svg layer: old svg files are deleted,
+new pages come in as `page-NN`, authored `hotspots/ask/show/footer` are carried over where the id matches (else
+they're only in `deck.yaml.bak`), everything above `slides:` and all inline comments survive. It refuses if the
+deck has had a session (ids are persistence keys) unless `--force`. A PDF is split with poppler (`pdftocairo`/`pdfinfo`) into one
 slide per page (ids `page-NN`); inside a folder it expands in place, so files sort by name (zero-pad: `01…`) and
 videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaults — set it by hand. Then edit `deck.yaml`:
 
