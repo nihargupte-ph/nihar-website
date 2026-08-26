@@ -45,6 +45,7 @@
     const mine = entries.filter((e) => e.lane === l.id);
     if (!mine.length) lane.append(el('div', { class: 'tl-empty', text: 'coming soon' }));
     const tops = layout(mine.map((e) => yFor(e.v1_date)));
+    if (mine.length) lane.append(el('div', { class: 'tl-line', style: `top:${tops[0]}px;height:${tops[tops.length - 1] - tops[0]}px` }));
     mine.forEach((e, i) => {
       const top = tops[i];
       const b = el('button', { class: 'tl-entry', type: 'button', 'data-id': e.id, style: `top:${top}px`, 'aria-haspopup': 'dialog' },
@@ -55,6 +56,8 @@
   });
   root.removeAttribute('aria-busy');
 
+  const link = (e) => e.arxiv ? `<a href="https://arxiv.org/abs/${escapeHtml(e.arxiv)}" target="_blank" rel="noopener">arXiv:${escapeHtml(e.arxiv)}</a>`
+    : e.url ? `<a href="${escapeHtml(e.url)}" target="_blank" rel="noopener">${escapeHtml(e.link_label || 'paper')}</a>` : '';
   let active = null, hideTimer = null;
   function show(btn) {
     const e = byId[btn.dataset.id]; if (!e) return; clearTimeout(hideTimer);
@@ -62,7 +65,7 @@
     active = btn; btn.classList.add('active');
     popup.innerHTML = '';
     popup.append(el('h2', { class: 'tl-popup__title', text: e.title }),
-      el('p', { class: 'tl-popup__meta', html: `${escapeHtml(e.authors)} · ${e.v1_date}<a href="https://arxiv.org/abs/${escapeHtml(e.arxiv)}" target="_blank" rel="noopener">arXiv:${escapeHtml(e.arxiv)}</a>` }));
+      el('p', { class: 'tl-popup__meta', html: `${escapeHtml(e.authors)} · ${e.v1_date}${link(e)}` }));
     if (e.figure) popup.append(el('img', { class: 'tl-popup__fig', src: base + e.figure, alt: e.caption || e.title }));
     else popup.append(el('div', { class: 'tl-popup__nofig', text: 'No figure chosen yet' }));
     if (e.caption) popup.append(el('p', { class: 'tl-popup__cap', text: e.caption }));

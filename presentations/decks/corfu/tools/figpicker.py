@@ -115,7 +115,7 @@ def render_index(timeline, figs, cache):
         chosen = (f'<img class="chosen" src="/figs/{h(e["figure"].split("/")[-1])}?{time.time():.0f}">'
                   if e.get('figure') else '<em>nothing chosen</em>')
         rows.append(f'''<section id="{h(e["id"])}"><header><b>{h(e["first_author"])} {e["v1_date"][:4]}</b> · {h(e["title"])}
-          <a href="https://arxiv.org/abs/{h(e["arxiv"])}" target="_blank">arXiv:{h(e["arxiv"])}</a>
+          {f'<a href="https://arxiv.org/abs/{h(e["arxiv"])}" target="_blank">arXiv:{h(e["arxiv"])}</a>' if e.get("arxiv") else f'<a href="{h(e.get("url") or "#")}" target="_blank">{h(e.get("link_label") or "paper")}</a>'}
           <span class="state">{chosen}</span>
           <label>caption <input class="cap" value="{h(e.get("caption") or "")}" placeholder="Fig. 2 — posterior on e"></label>
           <button class="nofig" data-id="{h(e["id"])}">No figure</button></header>
@@ -142,6 +142,9 @@ def serve(deck_dir, port, refresh_all):
     figs = {}
     todo = [e for e in load()['entries'] if refresh_all or not e.get('figure')]
     for i, e in enumerate(todo, 1):
+        if not e.get('arxiv'):
+            print(f'[{i}/{len(todo)}] {e["id"]}: no arXiv source — drop a PNG at static/timeline/figs/{e["id"]}.png by hand', flush=True)
+            continue
         print(f'[{i}/{len(todo)}] {e["arxiv"]} {e["first_author"]} …', flush=True)
         try:
             d = fetch_source(e['arxiv'], cache)

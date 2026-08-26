@@ -4,7 +4,7 @@ Sources: the introduction / related-work sections of arXiv:2603.29019 (Gupte+ 20
 (Malagon & O'Shaughnessy 2026) and arXiv:2512.19513 (Xu+ 2025), plus the three source papers themselves.
 Rule: **include** iff the paper runs eccentricity inference or an eccentric search on real LVK strain data
 (single events, catalogue reanalyses, population constraints built on real-event posteriors).
-Dates are arXiv v1 (`published` field of the arXiv API), not journal dates.
+Dates are arXiv v1 (`published` field of the arXiv API), not journal dates — except entries with no arXiv version, which use the journal date.
 
 | arXiv | First author | v1 | Verdict | Reason |
 |---|---|---|---|---|
@@ -50,7 +50,7 @@ Dates are arXiv v1 (`published` field of the arXiv API), not journal dates.
 | 2503.13062, 2412.12823†, 2001.11736, 2404.05288, 2407.04762, 2502.03929, 1910.00784 | various | | exclude | waveform-model papers (†Gamboa included above because it also runs real-event PE) |
 | 2302.11257, 2507.08345, 2209.03390 | Shaikh / Ramos-Buades | | exclude | eccentricity-definition papers |
 | — | Sun (PRD 92, 044034, 2015) | | exclude | injection/forecast study; no arXiv version found |
-| — | Fei & Yang (CTP 76, 075402, 2024) | | unresolved | cited for GW200105 eccentricity but the title is a Brans–Dicke test; no arXiv id found — probable mis-citation |
+| — (DOI 10.1088/1572-9494/ad4bbb) | Fei | 2024-05-15 (journal; no arXiv version) | include | GW200105 eccentricity analysis (per the user; cited by 2603.29019); date is the journal's online date |
 | — | Wagner (PhD thesis, RIT 2025) | | unresolved | no arXiv version |
 
 Not cited in those sections but arguably belong in this lane (add if wanted): the LVK eccentric searches

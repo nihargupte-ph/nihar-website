@@ -169,6 +169,19 @@
    "caption": ""
   },
   {
+   "id": "fei-2024",
+   "lane": "real-data",
+   "first_author": "Fei",
+   "authors": "Fei, Yang",
+   "title": "Test of the Brans–Dicke theory with GW200105 and GW200115",
+   "arxiv": null,
+   "url": "https://doi.org/10.1088/1572-9494/ad4bbb",
+   "link_label": "Commun. Theor. Phys. 76, 075402",
+   "v1_date": "2024-05-15",
+   "figure": null,
+   "caption": ""
+  },
+  {
    "id": "gamboa-2024",
    "lane": "real-data",
    "first_author": "Gamboa",

@@ -27,9 +27,14 @@ def test_entries_are_well_formed():
         assert set(e) >= {'id', 'lane', 'first_author', 'authors', 'title', 'arxiv', 'v1_date', 'figure', 'caption'}, e['id']
         assert e['lane'] in LANES, e['id']
         assert re.fullmatch(r'\d{4}-\d{2}-\d{2}', e['v1_date']), e['id']
-        assert re.fullmatch(r'\d{4}\.\d{4,5}|[a-z\-]+/\d{7}', e['arxiv']), e['id']
-        assert e['id'] not in ids and e['arxiv'] not in arxivs, e['id']
-        ids.add(e['id']); arxivs.add(e['arxiv'])
+        if e['arxiv'] is None:
+            assert e.get('url', '').startswith('https://'), f"{e['id']}: non-arXiv entries need a url"
+        else:
+            assert re.fullmatch(r'\d{4}\.\d{4,5}|[a-z\-]+/\d{7}', e['arxiv']), e['id']
+            assert e['arxiv'] not in arxivs, e['id']
+            arxivs.add(e['arxiv'])
+        assert e['id'] not in ids, e['id']
+        ids.add(e['id'])
         if e['figure'] is not None:
             assert (TL / e['figure']).is_file(), e['id']
 
