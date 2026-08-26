@@ -7,6 +7,7 @@ figure to PNG, and serves a page where clicking a thumbnail writes it into
 static/timeline/figs/<id>.png and timeline.json. Ctrl-C to stop.
 Only papers without a chosen figure are fetched unless --all is given.
 """
+import filecmp
 import gzip
 import html
 import io
@@ -104,12 +105,17 @@ def pick(timeline_path, entry_id, png, caption):
     return entry
 
 
-def render_index(timeline, figs, cache):
+def render_index(timeline, figs, cache, figs_dir=None):
     h = html.escape
+
+    def is_picked(e, f):
+        chosen = figs_dir and e.get('figure') and (figs_dir / e['figure'].split('/')[-1])
+        return bool(chosen and chosen.is_file() and filecmp.cmp(f, chosen, shallow=False))
+
     rows = []
     for e in sorted(timeline['entries'], key=lambda e: e['v1_date']):
         thumbs = ''.join(
-            f'<figure data-id="{h(e["id"])}" data-file="{h(str(f))}" title="{h(f.name)}">'
+            f'<figure class="{"picked" if is_picked(e, f) else ""}" data-id="{h(e["id"])}" data-file="{h(str(f))}" title="{h(f.name)}">'
             f'<img loading="lazy" src="/cache/{h(str(f.relative_to(cache)))}"><figcaption>{h(f.name)}</figcaption></figure>'
             for f in figs.get(e['id'], []))
         chosen = (f'<img class="chosen" src="/figs/{h(e["figure"].split("/")[-1])}?{time.time():.0f}">'
@@ -123,15 +129,25 @@ def render_index(timeline, figs, cache):
     return f'''<!doctype html><meta charset="utf-8"><title>figpicker</title>
 <style>body{{font:14px system-ui;margin:1rem 2rem;background:#151515;color:#eee}}section{{margin-bottom:2rem;border-top:1px solid #444;padding-top:.6rem}}
 header{{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;position:sticky;top:0;background:#151515;padding:.4rem 0;z-index:2}}
-.grid{{display:flex;flex-wrap:wrap;gap:.6rem}}figure{{margin:0;width:220px;cursor:pointer;border:2px solid transparent;padding:2px}}figure:hover{{border-color:#37b49f}}
+.grid{{display:flex;flex-wrap:wrap;gap:.6rem}}figure{{margin:0;width:220px;cursor:pointer;border:3px solid transparent;padding:2px;position:relative}}figure:hover{{border-color:#37b49f}}
+figure.picked{{border-color:#e9c46a;background:#e9c46a22}}figure.picked::after{{content:"✓ chosen";position:absolute;top:4px;left:4px;background:#e9c46a;color:#000;font-weight:700;font-size:12px;padding:2px 6px;border-radius:4px}}
+.state.saved{{color:#e9c46a;font-weight:700}}
 img{{max-width:100%;background:#fff}}.chosen{{height:70px;width:auto}}figcaption{{font-size:11px;opacity:.6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 a{{color:#37b49f}}.cap{{width:22rem}}</style>
-<h1>Pick a figure per paper</h1><p>Click a thumbnail to choose it (the caption box is saved with it). Ctrl-C the server when done.</p>
+<h1>Pick a figure per paper</h1><p>Click a thumbnail to choose it — it gets a gold border and a "✓ chosen" badge, and the header shows it. The caption box is saved with it. Ctrl-C the server when done.</p>
 {''.join(rows)}
 <script>
-async function post(id, file, caption){{const r=await fetch('/pick',{{method:'POST',headers:{{'content-type':'application/json'}},body:JSON.stringify({{id,file,caption}})}});if(!r.ok)alert(await r.text());else location.reload();}}
-document.querySelectorAll('figure').forEach(f=>f.onclick=()=>post(f.dataset.id,f.dataset.file,f.closest('section').querySelector('.cap').value));
-document.querySelectorAll('.nofig').forEach(b=>b.onclick=()=>post(b.dataset.id,null,''));
+async function post(id, file, caption, fig){{
+  const r=await fetch('/pick',{{method:'POST',headers:{{'content-type':'application/json'}},body:JSON.stringify({{id,file,caption}})}});
+  const sec=document.getElementById(id), state=sec.querySelector('.state');
+  if(!r.ok){{state.textContent='error: '+await r.text();return;}}
+  sec.querySelectorAll('figure.picked').forEach(f=>f.classList.remove('picked'));
+  if(fig){{fig.classList.add('picked');state.innerHTML='<img class="chosen" src="/figs/'+id+'.png?'+Date.now()+'"> saved';}}
+  else state.textContent='nothing chosen';
+  state.classList.add('saved');setTimeout(()=>state.classList.remove('saved'),1500);
+}}
+document.querySelectorAll('figure').forEach(f=>f.onclick=()=>post(f.dataset.id,f.dataset.file,f.closest('section').querySelector('.cap').value,f));
+document.querySelectorAll('.nofig').forEach(b=>b.onclick=()=>post(b.dataset.id,null,'',null));
 </script>'''
 
 
@@ -162,7 +178,7 @@ def serve(deck_dir, port, refresh_all):
         def do_GET(self):
             p = urllib.parse.unquote(self.path.split('?')[0])
             if p == '/':
-                return self._send(200, render_index(load(), figs, cache).encode())
+                return self._send(200, render_index(load(), figs, cache, tl_dir / 'figs').encode())
             for prefix, base in (('/cache/', cache), ('/figs/', tl_dir / 'figs')):
                 if p.startswith(prefix):
                     f = (base / p[len(prefix):]).resolve()
