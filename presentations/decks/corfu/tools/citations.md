@@ -26,7 +26,7 @@ Dates are arXiv v1 (`published` field of the arXiv API), not journal dates — e
 | 2503.15393 | Morras | 2025-03-19 | include | eccentricity of the NSBH GW200105 (pyEFPE) |
 | 2504.15833 | Planas | 2025-04-22 | include | IMRPhenomTEHM reanalysis of GWTC BBHs |
 | 2506.01760 | Planas | 2025-06-02 | include | eccentric IMR analysis of NSBH mergers |
-| 2506.17105 | Romero-Shaw | 2025-06-20 | include | GW200208_222617 as an eccentric merger |
+| 2506.17105 | Romero-Shaw | 2025-06-20 | exclude | GW200208_222617 astrophysical implications; no new data analysis (user's call, 2026-08-25) |
 | 2507.22862 | McMillin | 2025-07-30 | include | targeted eccentric NR PE for GW200208_22 and GW190620 |
 | 2508.00179 | Kacanja | 2025-07-31 | include | eccentricity in LVK BNS and NSBH signals |
 | 2508.12460 | Jan | 2025-08-17 | include | GW200105 eccentricity with multiple waveforms (RIFT) |

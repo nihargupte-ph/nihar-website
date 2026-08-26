@@ -66,7 +66,7 @@
    "title": "Eccentricity Estimate for Black Hole Mergers with Numerical Relativity Simulations",
    "arxiv": "2009.05461",
    "v1_date": "2020-09-11",
-   "figure": null,
+   "figure": "figs/gayathri-2020.png",
    "caption": ""
   },
   {
@@ -77,7 +77,7 @@
    "title": "GW190521 as a dynamical capture of two nonspinning black holes",
    "arxiv": "2106.05575",
    "v1_date": "2021-06-10",
-   "figure": null,
+   "figure": "figs/gamba-2021.png",
    "caption": ""
   },
   {
@@ -88,7 +88,7 @@
    "title": "Correlations in gravitational-wave reconstructions from eccentric binaries: A case study with GW151226 and GW170608",
    "arxiv": "2107.07981",
    "v1_date": "2021-07-16",
-   "figure": null,
+   "figure": "figs/o-shea-2021.png",
    "caption": ""
   },
   {
@@ -99,7 +99,7 @@
    "title": "Signs of eccentricity in two gravitational-wave signals may indicate a sub-population of dynamically assembled binary black holes",
    "arxiv": "2108.01284",
    "v1_date": "2021-08-03",
-   "figure": null,
+   "figure": "figs/romero-shaw-2021.png",
    "caption": ""
   },
   {
@@ -110,7 +110,7 @@
    "title": "Four eccentric mergers increase the evidence that LIGO--Virgo--KAGRA's binary black holes form dynamically",
    "arxiv": "2206.14695",
    "v1_date": "2022-06-29",
-   "figure": null,
+   "figure": "figs/romero-shaw-2022.png",
    "caption": ""
   },
   {
@@ -121,7 +121,7 @@
    "title": "Inferring eccentricity evolution from observations of coalescing binary black holes",
    "arxiv": "2207.10474",
    "v1_date": "2022-07-21",
-   "figure": null,
+   "figure": "figs/bonino-2022.png",
    "caption": ""
   },
   {
@@ -132,7 +132,7 @@
    "title": "Eccentricity estimation for five binary black hole mergers with higher-order gravitational wave modes",
    "arxiv": "2208.01766",
    "v1_date": "2022-08-02",
-   "figure": null,
+   "figure": "figs/iglesias-2022.png",
    "caption": ""
   },
   {
@@ -143,7 +143,7 @@
    "title": "Bayesian inference of binary black holes with inspiral-merger-ringdown waveforms using two eccentric parameters",
    "arxiv": "2309.15528",
    "v1_date": "2023-09-27",
-   "figure": null,
+   "figure": "figs/ramos-buades-2023.png",
    "caption": ""
   },
   {
@@ -154,7 +154,7 @@
    "title": "Evidence for eccentricity in the population of binary black holes observed by LIGO-Virgo-KAGRA",
    "arxiv": "2404.14286",
    "v1_date": "2024-04-22",
-   "figure": null,
+   "figure": "figs/gupte-2024.png",
    "caption": ""
   },
   {
@@ -167,8 +167,8 @@
    "url": "https://doi.org/10.1088/1572-9494/ad4bbb",
    "link_label": "Commun. Theor. Phys. 76, 075402",
    "v1_date": "2024-05-15",
-   "figure": null,
-   "caption": ""
+   "figure": "figs/fei-2024.png",
+   "caption": "Posterior on e₀ for GW200105"
   },
   {
    "id": "gamboa-2024",
@@ -178,7 +178,7 @@
    "title": "Accurate waveforms for eccentric, aligned-spin binary black holes: The multipolar effective-one-body model SEOBNRv5EHM",
    "arxiv": "2412.12823",
    "v1_date": "2024-12-17",
-   "figure": null,
+   "figure": "figs/gamboa-2024.png",
    "caption": ""
   },
   {
@@ -189,7 +189,7 @@
    "title": "Orbital eccentricity in a neutron star - black hole merger",
    "arxiv": "2503.15393",
    "v1_date": "2025-03-19",
-   "figure": null,
+   "figure": "figs/morras-2025.png",
    "caption": ""
   },
   {
@@ -200,7 +200,7 @@
    "title": "Eccentric or circular? A reanalysis of binary black hole gravitational wave events for orbital eccentricity signatures",
    "arxiv": "2504.15833",
    "v1_date": "2025-04-22",
-   "figure": null,
+   "figure": "figs/planas-2025.png",
    "caption": ""
   },
   {
@@ -211,18 +211,7 @@
    "title": "First eccentric inspiral-merger-ringdown analysis of neutron star-black hole mergers",
    "arxiv": "2506.01760",
    "v1_date": "2025-06-02",
-   "figure": null,
-   "caption": ""
-  },
-  {
-   "id": "romero-shaw-2025",
-   "lane": "real-data",
-   "first_author": "Romero-Shaw",
-   "authors": "Romero-Shaw, Stegmann, Tagawa, Gerosa, Samsing, Gupte et al.",
-   "title": "GW200208_222617 as an eccentric black-hole binary merger: properties and astrophysical implications",
-   "arxiv": "2506.17105",
-   "v1_date": "2025-06-20",
-   "figure": null,
+   "figure": "figs/planas-2025-b.png",
    "caption": ""
   },
   {
@@ -233,7 +222,7 @@
    "title": "Parameter Estimation with Targeted Eccentric Numerical-Relativity Simulations for GW200208_22 and GW190620",
    "arxiv": "2507.22862",
    "v1_date": "2025-07-30",
-   "figure": null,
+   "figure": "figs/mcmillin-2025.png",
    "caption": ""
   },
   {
@@ -244,7 +233,7 @@
    "title": "Eccentricity signatures in LIGO-Virgo-KAGRA's BNS and NSBH binaries",
    "arxiv": "2508.00179",
    "v1_date": "2025-07-31",
-   "figure": null,
+   "figure": "figs/kacanja-2025.png",
    "caption": ""
   },
   {
@@ -255,7 +244,7 @@
    "title": "GW200105: A detailed study of eccentricity in the neutron star-black hole binary",
    "arxiv": "2508.12460",
    "v1_date": "2025-08-17",
-   "figure": null,
+   "figure": "figs/jan-2025.png",
    "caption": ""
   },
   {
@@ -266,7 +255,7 @@
    "title": "GW241011 and GW241110: Exploring Binary Formation and Fundamental Physics with Asymmetric, High-Spin Black Hole Coalescence",
    "arxiv": "2510.26931",
    "v1_date": "2025-10-30",
-   "figure": null,
+   "figure": "figs/lvk-2025.png",
    "caption": ""
   },
   {
@@ -277,7 +266,7 @@
    "title": "Detection of GW200105 with a targeted eccentric search",
    "arxiv": "2512.10803",
    "v1_date": "2025-12-11",
-   "figure": null,
+   "figure": "figs/phukon-2025.png",
    "caption": ""
   },
   {
@@ -288,7 +277,7 @@
    "title": "Parameter estimation for the GWTC-4.0 catalog with phenomenological waveform models that include orbital eccentricity and an updated description of spin precession",
    "arxiv": "2512.19513",
    "v1_date": "2025-12-22",
-   "figure": null,
+   "figure": "figs/xu-2025.png",
    "caption": ""
   },
   {
@@ -299,7 +288,7 @@
    "title": "Measuring Eccentricity and Addressing Waveform Systematics in GW231123",
    "arxiv": "2512.20060",
    "v1_date": "2025-12-23",
-   "figure": null,
+   "figure": "figs/jan-2025-b.png",
    "caption": ""
   },
   {
@@ -310,7 +299,7 @@
    "title": "Population Properties of Binary Black Holes with Eccentricity",
    "arxiv": "2602.11030",
    "v1_date": "2026-02-11",
-   "figure": null,
+   "figure": "figs/zeeshan-2026.png",
    "caption": ""
   },
   {
@@ -321,7 +310,7 @@
    "title": "Eccentricity constraints disfavor single-single capture in nuclear star clusters as the origin of all LIGO-Virgo-KAGRA binary black holes",
    "arxiv": "2603.29019",
    "v1_date": "2026-03-30",
-   "figure": null,
+   "figure": "figs/gupte-2026.png",
    "caption": ""
   },
   {
@@ -332,7 +321,7 @@
    "title": "Assessing the imprint of eccentricity in GW signatures using two independent waveform models",
    "arxiv": "2605.12818",
    "v1_date": "2026-05-12",
-   "figure": null,
+   "figure": "figs/malagon-2026.png",
    "caption": ""
   }
  ]
