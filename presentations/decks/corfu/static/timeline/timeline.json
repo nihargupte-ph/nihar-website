@@ -22,7 +22,7 @@
    "title": "Searching for Eccentricity: Signatures of Dynamical Formation in the First Gravitational-Wave Transient Catalogue of LIGO and Virgo",
    "arxiv": "1909.05466",
    "v1_date": "2019-09-12",
-   "figure": null,
+   "figure": "figs/romero-shaw-2019.png",
    "caption": ""
   },
   {
@@ -33,7 +33,7 @@
    "title": "Measuring eccentricity of binary black holes in GWTC-1 by using inspiral-only waveform",
    "arxiv": "2002.05528",
    "v1_date": "2020-02-13",
-   "figure": null,
+   "figure": "figs/wu-2020.png",
    "caption": ""
   },
   {
@@ -44,18 +44,7 @@
    "title": "Measuring the eccentricity of GW170817 and GW190425",
    "arxiv": "2005.14146",
    "v1_date": "2020-05-28",
-   "figure": null,
-   "caption": ""
-  },
-  {
-   "id": "lvc-2020",
-   "lane": "real-data",
-   "first_author": "LVC",
-   "authors": "LIGO Scientific & Virgo Collaborations",
-   "title": "Properties and astrophysical implications of the 150 Msun binary black hole merger GW190521",
-   "arxiv": "2009.01190",
-   "v1_date": "2020-09-02",
-   "figure": null,
+   "figure": "figs/lenon-2020.png",
    "caption": ""
   },
   {
@@ -66,7 +55,7 @@
    "title": "GW190521: orbital eccentricity and signatures of dynamical formation in a binary black hole merger signal",
    "arxiv": "2009.04771",
    "v1_date": "2020-09-10",
-   "figure": null,
+   "figure": "figs/romero-shaw-2020.png",
    "caption": ""
   },
   {

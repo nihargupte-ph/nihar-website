@@ -1,11 +1,11 @@
 """Throwaway figure picker for the citation timeline.
 
-    micromamba run -n django-nihar-website python tools/figpicker.py [--port 8765] [--all]
+    micromamba run -n django-nihar-website python tools/figpicker.py [--port 8765]
 
 Downloads each paper's arXiv source into tools/.cache/<arxiv>/, renders every
 figure to PNG, and serves a page where clicking a thumbnail writes it into
 static/timeline/figs/<id>.png and timeline.json. Ctrl-C to stop.
-Only papers without a chosen figure are fetched unless --all is given.
+Sources are cached, so re-runs only re-list the figures.
 """
 import filecmp
 import gzip
@@ -151,12 +151,12 @@ document.querySelectorAll('.nofig').forEach(b=>b.onclick=()=>post(b.dataset.id,n
 </script>'''
 
 
-def serve(deck_dir, port, refresh_all):
+def serve(deck_dir, port):
     tl_dir = deck_dir / 'static' / 'timeline'; tl_json = tl_dir / 'timeline.json'; cache = deck_dir / 'tools' / '.cache'
     cache.mkdir(parents=True, exist_ok=True)
     load = lambda: json.loads(tl_json.read_text())  # noqa: E731
     figs = {}
-    todo = [e for e in load()['entries'] if refresh_all or not e.get('figure')]
+    todo = load()['entries']
     for i, e in enumerate(todo, 1):
         if not e.get('arxiv'):
             print(f'[{i}/{len(todo)}] {e["id"]}: no arXiv source — drop a PNG at static/timeline/figs/{e["id"]}.png by hand', flush=True)
@@ -203,4 +203,4 @@ def serve(deck_dir, port, refresh_all):
 
 if __name__ == '__main__':
     port = int(sys.argv[sys.argv.index('--port') + 1]) if '--port' in sys.argv else 8765
-    serve(DECK, port, '--all' in sys.argv)
+    serve(DECK, port)

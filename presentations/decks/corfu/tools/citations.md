@@ -11,7 +11,7 @@ Dates are arXiv v1 (`published` field of the arXiv API), not journal dates — e
 | 1909.05466 | Romero-Shaw | 2019-09-12 | include | eccentricity reanalysis of all GWTC-1 BBHs |
 | 2002.05528 | Wu | 2020-02-13 | include | GWTC-1 eccentricity with inspiral-only waveform |
 | 2005.14146 | Lenon | 2020-05-28 | include | eccentricity of GW170817 and GW190425 (BNS) |
-| 2009.01190 | LVC | 2020-09-02 | include (borderline) | GW190521 properties paper; compares the data to eccentric NR as an alternative hypothesis |
+| 2009.01190 | LVC | 2020-09-02 | exclude | GW190521 properties paper; no eccentric data analysis (user's call, 2026-08-25) |
 | 2009.04771 | Romero-Shaw | 2020-09-10 | include | eccentric PE on GW190521 |
 | 2009.05461 | Gayathri | 2020-09-11 | include | GW190521 vs eccentric NR simulations |
 | 2106.05575 | Gamba | 2021-06-10 | include | GW190521 as a dynamical capture (hyperbolic/eccentric PE) |
