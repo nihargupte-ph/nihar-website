@@ -14,6 +14,13 @@
   const height = yFor(`${y1}-01-01`) + BOTTOM;
   const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'text') n.textContent = v; else if (k === 'html') n.innerHTML = v; else n.setAttribute(k, v); } n.append(...kids); return n; };
   const escapeHtml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // "Gupte+" for 3+ authors, "Fei & Yang" for exactly two, bare name for one author or a collaboration.
+  const label = (e) => {
+    const names = (e.authors || '').split(', ');
+    if (/Collaboration/.test(e.authors || '') || names.length <= 1) return e.first_author;
+    if (names.length === 2 && !/et al\.$/.test(e.authors)) return `${names[0]} & ${names[1]}`;
+    return `${e.first_author}+`;
+  };
 
   // Keep entries at their date, but at least MIN_GAP apart: push down, then shift each
   // touching cluster back up by half its mean displacement so it straddles the true dates.
@@ -49,7 +56,7 @@
     mine.forEach((e, i) => {
       const top = tops[i];
       const b = el('button', { class: 'tl-entry', type: 'button', 'data-id': e.id, style: `top:${top}px`, 'aria-haspopup': 'dialog' },
-        el('span', { class: 'tl-dot' }), el('span', { class: 'tl-label', html: `${escapeHtml(e.first_author)}<small>${e.v1_date.slice(0, 4)}</small>` }));
+        el('span', { class: 'tl-dot' }), el('span', { class: 'tl-label', html: `${escapeHtml(label(e))}<small>${e.v1_date.slice(0, 4)}</small>` }));
       byId[e.id] = e; lane.append(b);
     });
     root.append(lane);
