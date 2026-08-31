@@ -33,6 +33,14 @@ def poster_detail(request, poster_slug):
             'background_color': '#2b2220',
             'text_color': '#ffffff',
         },
+        'loop-the-loop-2': {
+            'title': 'Loop the Loop 2',
+            'description': '',
+            'image': 'images/posters/loop_the_loop_poster.jpg',
+            'pdf': 'images/posters/loop_the_loop_poster.pdf',
+            'background_color': '#37b49f',
+            'text_color': '#ffffff',
+        },
     }
 
     if poster_slug not in posters:

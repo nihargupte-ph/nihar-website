@@ -1,0 +1,29 @@
+{% load static %}<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ deck.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ deck.theme.font_display|urlencode }}:wght@400;700&family={{ deck.theme.font_body|urlencode }}:wght@400;600&display=swap">
+<link rel="stylesheet" href="{% static 'presentations/css/deck.css' %}">
+<style>:root{ {{ theme_css|safe }} }</style>
+</head>
+<body class="mode-archive">
+{% with mode='archive' %}{% include 'presentations/_deck_chrome.html' %}{% endwith %}
+{% if live and live.current_slide_id %}<div class="live-banner">This talk is live right now — <a href="/p/{{ live.join_code }}/">join on your phone</a></div>{% endif %}
+{% include 'presentations/_slides.html' %}
+{% include 'presentations/_hotspot_card.html' %}
+{% include 'presentations/_comments.html' %}
+<script id="deck-data" type="application/json">{{ deck_data }}</script>
+<script src="{% static 'presentations/js/core.js' %}"></script>
+<script src="{% static 'presentations/js/sync.js' %}"></script>
+<script src="{% static 'presentations/js/stage.js' %}"></script>
+<script src="{% static 'presentations/js/hotspots.js' %}"></script>
+<script src="{% static 'presentations/js/widgets.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/choice.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/numeric.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/distribution.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/text.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/prior.js' %}"></script>
+<script src="{% static 'presentations/js/comments.js' %}"></script>
+<script src="{% static 'presentations/js/archive.js' %}"></script>
+</body></html>

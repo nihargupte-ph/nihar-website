@@ -1,0 +1,127 @@
+{% extends "presentations/slide_base.html" %}
+{% block slide %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ deck_static }}bayes/bayes.css">
+{% verbatim %}
+<h1 class="bf-title">What is discovery? What is significance?</h1>
+
+<section class="bf-def">
+  <p class="bf-lead">One problem with just looking at the posterior is that it doesn’t allow us to compare models. We can instead look at the Bayes factors</p>
+  <div class="bf-math">\[ \mathcal{B}_{12} \;=\; \frac{p(d\,|\,\mathcal{M}_1)}{p(d\,|\,\mathcal{M}_2)} \]</div>
+</section>
+
+<nav class="bf-qs" aria-label="questions">
+  <button class="bf-q" data-q="significant"><span>How do I determine what is significant?</span></button>
+  <button class="bf-q" data-q="trials"><span>I took 100 measurements, how do I set up my significance?</span></button>
+  <button class="bf-q" data-q="neither"><span>What if neither of my models is correct?</span></button>
+  <button class="bf-q" data-q="systematics"><span>I believe there are systematics in my likelihood model</span></button>
+  <button class="bf-q" data-q="priors"><span>Bayes factors are sensitive to priors</span></button>
+</nav>
+
+<div id="bf-answer" class="bf-answer" hidden>
+  <article data-q="significant">
+    <ul class="bf-top bf-top--plain">
+      <li>Do not use arbitrary thresholds related to 5 sigma or Bayes factor tables (Kass &amp; Raftery)!</li>
+      <li>You should set your prior odds based on your expectations for the physical effect.</li>
+    </ul>
+    <figure class="bf-lyons">
+      <table>
+        <thead>
+          <tr><th>Search</th><th>Degree of surprise</th><th>Impact</th><th>LEE</th><th>Systematics</th><th>Number of \(\sigma\)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Higgs search</td><td>Medium</td><td>Very high</td><td>Mass</td><td>Medium</td><td>5</td></tr>
+          <tr><td>Single top</td><td>No</td><td>Low</td><td>No</td><td>No</td><td>3</td></tr>
+          <tr><td>SUSY</td><td>Yes</td><td>Very high</td><td>Very large</td><td>Yes</td><td>7</td></tr>
+          <tr><td>\(B_s\) oscillations</td><td>Medium/low</td><td>Medium</td><td>\(\Delta m\)</td><td>No</td><td>4</td></tr>
+          <tr><td>Neutrino oscillations</td><td>Medium</td><td>High</td><td>\(\sin^2(2\theta), \Delta m^2\)</td><td>No</td><td>4</td></tr>
+          <tr><td>\(B_s \to \mu\mu\)</td><td>No</td><td>Low/Medium</td><td>No</td><td>Medium</td><td>3</td></tr>
+          <tr><td>Pentaquark</td><td>Yes</td><td>High/very high</td><td>M, decay mode</td><td>Medium</td><td>7</td></tr>
+          <tr><td>\((g-2)_\mu\) anomaly</td><td>Yes</td><td>High</td><td>No</td><td>Yes</td><td>4</td></tr>
+          <tr><td>H spin \(\neq 0\)</td><td>Yes</td><td>High</td><td>No</td><td>Medium</td><td>5</td></tr>
+          <tr><td>\(4^{th}\) generation \(q, l, \nu\)</td><td>Yes</td><td>High</td><td>M, mode</td><td>No</td><td>6</td></tr>
+          <tr><td>\(\mathrm{v}_\nu > c\)</td><td>Enormous</td><td>Enormous</td><td>No</td><td>Yes</td><td>\(>8\)</td></tr>
+          <tr><td>Dark matter (direct)</td><td>Medium</td><td>High</td><td>Medium</td><td>Yes</td><td>5</td></tr>
+          <tr><td>Dark energy</td><td>Yes</td><td>Very high</td><td>Strength</td><td>Yes</td><td>5</td></tr>
+          <tr><td>Grav waves</td><td>No</td><td>High</td><td>Enormous</td><td>Yes</td><td>7</td></tr>
+        </tbody>
+      </table>
+      <figcaption>Lyons 2013 (arXiv:1310.1284), Table 1.</figcaption>
+    </figure>
+  </article>
+  <article data-q="trials">
+    <ul class="bf-top">
+      <li><strong>You need to choose a global property of the data. Not just one individual Bayes factor!</strong></li>
+    </ul>
+    <figure class="ec-fig">
+      <svg data-plot="eccbf" data-src="/static/decks/corfu/bayes/eccbf.json" viewBox="0 0 440 440" role="img" aria-label="Distribution of the eccentric versus quasi-circular Bayes factor across the catalogue"></svg>
+    </figure>
+  </article>
+  <article data-q="neither">
+    <ul class="bf-top bf-top--plain">
+      <li>If I ask if the strain in LIGO is an elephant stomping (\(\mathcal{M}_1\)) or a boson star merger (\(\mathcal{M}_2\)), the Bayes factor will show overwhelming evidence for the boson star merger, but that doesn’t mean it’s a boson star merger.</li>
+      <li>You need to compare your model against all state of the art models (and possibly even future ones)!</li>
+      <li>You can also do posterior predictive checks to see if the data is consistent with your model.</li>
+    </ul>
+    <figure class="bf-ppc">
+      <img src="/static/decks/corfu/bayes/detector-projection.png" alt="Whitened strain data in LIGO Hanford and Livingston with the 90% credible waveform projections for the eccentric and quasi-circular models">
+      <figcaption>GW200129, Gupte+ 2024 (arXiv:2404.14286), Fig. 5.</figcaption>
+    </figure>
+  </article>
+  <article data-q="systematics">
+    <div class="bf-or">
+      <div class="bf-or__opt">Get a better likelihood. This could involve improving your waveform model or improving your noise model.</div>
+      <div class="bf-or__word" aria-hidden="true">OR</div>
+      <div class="bf-or__opt">Trust that the Bayes factor you obtained dominates over your expected systematics.</div>
+    </div>
+  </article>
+  <article data-q="priors">
+    <ul class="bf-top">
+      <li>Yes, and that’s the point. One should be careful to choose a reasonable prior.</li>
+      <li>The Occam penalty is a feature of the Bayes factor, not a bug. For a flat likelihood the model with a smaller prior volume is preferred.</li>
+    </ul>
+    <div class="bf-split">
+      <div class="bf-split__left">
+        <p class="bf-prior__lead">Choose a good prior, \(p(e\,|\,\lambda)\)</p>
+        <div id="bf-prior" class="bf-prior">
+          <svg data-plot="prior" viewBox="0 0 300 170"></svg>
+          <div class="bf-prior__legend">
+            <span class="prior"><i></i>\(p(e\,|\,\lambda)\)</span>
+            <span class="lik"><i></i>\(\mathcal{L}(e)\)</span>
+            <span class="post"><i></i>\(p(e\,|\,d,\lambda)\)</span>
+          </div>
+          <div class="bf-prior__ctl">
+            <input type="range" data-ctl="prior" min="0" max="3" step="1" value="0" aria-label="fiducial eccentricity prior">
+          </div>
+          <div class="bf-prior__name"><output data-out="name"></output></div>
+        </div>
+      </div>
+      <div class="bf-split__right">
+        <div class="bf-math bf-math--odds">\[ \mathcal{O}_{12} \;=\; \frac{p(\mathcal{M}_1)}{p(\mathcal{M}_2)}\;\frac{p(d\,|\,\mathcal{M}_1)}{p(d\,|\,\mathcal{M}_2)} \;=\; \mathcal{P}_{12}\,\mathcal{B}_{12} \]</div>
+        <div id="bf-mix" class="bf-mix">
+          <div class="bf-mix__row">
+            <figure class="bf-mix__panel"><div class="bf-mix__tag">\(\mathcal{M}_1\)</div><svg data-plot="spike" viewBox="0 0 200 84"></svg><figcaption>\(\delta(e)\)</figcaption></figure>
+            <div class="bf-mix__op">+</div>
+            <figure class="bf-mix__panel"><div class="bf-mix__tag">\(\mathcal{M}_2\)</div><svg data-plot="unif" viewBox="0 0 200 84"></svg><figcaption>\(\mathcal{U}(e)\)</figcaption></figure>
+            <div class="bf-mix__op">=</div>
+            <figure class="bf-mix__panel"><div class="bf-mix__tag">&nbsp;</div><svg data-plot="mix" viewBox="0 0 200 84"></svg><figcaption>\(w\,\delta(e) + (1-w)\,\mathcal{U}(e)\)</figcaption></figure>
+          </div>
+          <div class="bf-mix__ctl">
+            <label><em>w</em> <input type="range" data-ctl="w" min="0.01" max="0.99" step="0.01" value="0.5"> <output data-out="w">0.50</output></label>
+          </div>
+          <div class="bf-mix__out">
+            <span class="bf-mix__test">\(\log_{10}\mathcal{B}_{\mathcal{U}}\) = <output data-out="lnb"></output></span>
+            <span class="bf-mix__big">\(\log_{10}\mathcal{O}\) = <output data-out="odds"></output></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+{% endverbatim %}
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" defer></script>
+<script src="{{ deck_static }}bayes/bayes.js" defer></script>
+<script src="{{ deck_static }}bayes/priors.js" defer></script>
+<script src="{{ deck_static }}bayes/trials.js" defer></script>
+{% endblock %}

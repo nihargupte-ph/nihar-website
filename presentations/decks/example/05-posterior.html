@@ -1,0 +1,15 @@
+{% extends "presentations/slide_base.html" %}
+{% block slide %}
+<h1>The posterior on <span data-hotspot="Eccentricity" data-body="Orbital eccentricity measured at a reference frequency of 10 Hz." data-link="https://arxiv.org/abs/2401.01234">e</span></h1>
+<p>This is an <em>html</em> slide: it scrolls, it can run anything, and it inherits the deck theme. Drag the slider to change the smoothing.</p>
+<section data-anchor="posterior-plot" style="margin:1rem 0">
+  <div id="posterior-plot" data-src="{{ deck_static }}posterior.json" style="height:360px"></div>
+  <label>Smoothing <input id="smooth" type="range" min="0" max="3" step="1" value="0"></label>
+</section>
+<section data-anchor="rate-question">
+  <h3>How many BBH mergers per Gpc³ per year?</h3>
+  <div data-interaction="q-rate"></div>
+</section>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="{{ deck_static }}posterior.js" defer></script>
+{% endblock %}

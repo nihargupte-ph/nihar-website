@@ -1,0 +1,142 @@
+# Copied by `manage.py newdeck`. Everything about a talk lives in this folder.
+# ids are persistence keys: renaming a slide id orphans its comments, renaming an
+# interaction id orphans its responses. Never renumber them after a session.
+#footer: {name: Your Name, affiliation: Institute, bg: '#e8e6e1', fg: '#444444'}   # bottom bar; slides may set `footer: false`
+#  - id: q-example
+#    type: choice          # choice | numeric | distribution | text
+#    prompt: Which one?
+#    options: [A, B, C]
+#    answer: B
+#  - id: title
+#    svg: slides/01-title.svg
+#    hotspots:
+#      - rect: [0.1, 0.1, 0.3, 0.2]     # x, y, w, h as fractions of the 16:9 stage
+#        title: A thing
+#        body: "Markdown **body**"
+#        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
+#    ask: [q-example]                    # phone widget appears when opened
+#    show:
+#      - {id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}   # where the aggregate is drawn
+#  - id: page
+#    html: 02-page.html                  # free-form template extending presentations/slide_base.html
+#    underlay: slides/02-frame.svg       # optional Canva backdrop
+#  - id: outro
+#    video: slides/03-outro.mp4
+#    poster: slides/03-outro.jpg
+title: 'Detecting Eccentricity: what are our Current Prospects?'
+date: '2026-09-01'
+venue: GW eccentricity @ Corfu, Greece
+subtitle: ''
+transition: none
+expertise:
+- theory
+- data analysis
+- instrumentation
+- not a physicist
+# Matches the Canva export: near-white ground, warm ink, Baskerville Display PT headings
+# (Libre Baskerville is the closest Google-Fonts stand-in), Inter body. Accents are the
+# red + teal from the institute logos, used for links and the three timeline lanes.
+footer:
+  name: Nihar Gupte
+  affiliation: MPI Grav. Phys & UMD
+  bg: '#f1efe9'
+  fg: '#504c44'
+theme:
+  bg: '#fdfdfd'
+  fg: '#504c44'
+  accents:
+  - '#b3262e'
+  - '#2a7f7a'
+  - '#504c44'
+  font_display: Libre Baskerville
+  font_body: Inter
+interactions:
+- id: ecc-prior
+  type: prior
+  prompt: Draw your prior on eccentricity
+  axis: {min: -11, max: 0, bins: 88, label: "log₁₀ e"}
+  log_uniform_min: -4            # the reference log-uniform prior starts at e = 1e-4
+slides:
+- {id: page-01, svg: slides/01-page-01.svg, footer: false}
+- {id: page-02, svg: slides/02-page-02.svg}
+- id: channels
+  html: 05-channels.html
+- {id: page-03, svg: slides/03-page-03.svg}
+- {id: page-04, svg: slides/04-page-04.svg}
+- {id: page-05, svg: slides/05-page-05.svg}
+- id: bayes
+  html: 10-bayes.html
+- {id: page-06, svg: slides/06-page-06.svg}
+- id: ecc-prior
+  html: 12-prior-poll.html
+  ask: [ecc-prior]
+  show: [{id: ecc-prior}]
+- {id: page-07, svg: slides/07-page-07.svg}
+- {id: page-08, svg: slides/08-page-08.svg}
+- {id: page-09, svg: slides/09-page-09.svg}
+- {id: page-10, svg: slides/10-page-10.svg}
+- {id: page-11, svg: slides/11-page-11.svg}
+- {id: page-12, svg: slides/12-page-12.svg}
+- {id: page-13, svg: slides/13-page-13.svg}
+- {id: page-14, svg: slides/14-page-14.svg}
+- {id: page-15, svg: slides/15-page-15.svg}
+- {id: page-16, svg: slides/16-page-16.svg}
+- {id: page-17, svg: slides/17-page-17.svg}
+- {id: page-18, svg: slides/18-page-18.svg}
+- {id: page-19, svg: slides/19-page-19.svg}
+- {id: page-20, svg: slides/20-page-20.svg}
+- {id: page-21, svg: slides/21-page-21.svg}
+- {id: page-22, svg: slides/22-page-22.svg}
+- {id: page-23, svg: slides/23-page-23.svg}
+- {id: page-24, svg: slides/24-page-24.svg}
+- {id: page-25, svg: slides/25-page-25.svg}
+- {id: page-26, svg: slides/26-page-26.svg}
+- {id: page-27, svg: slides/27-page-27.svg}
+- {id: page-28, svg: slides/28-page-28.svg}
+- {id: page-29, svg: slides/29-page-29.svg}
+- {id: page-30, svg: slides/30-page-30.svg}
+- {id: page-31, svg: slides/31-page-31.svg}
+- {id: page-32, svg: slides/32-page-32.svg}
+- id: riskgrid
+  html: 11-riskgrid.html
+- {id: page-34, svg: slides/34-page-34.svg}
+- {id: page-35, svg: slides/35-page-35.svg}
+- {id: page-36, svg: slides/36-page-36.svg}
+- {id: page-37, svg: slides/37-page-37.svg}
+- {id: page-38, svg: slides/38-page-38.svg}
+- {id: page-39, svg: slides/39-page-39.svg}
+- {id: page-40, svg: slides/40-page-40.svg}
+- {id: page-41, svg: slides/41-page-41.svg}
+- {id: page-42, svg: slides/42-page-42.svg}
+- {id: page-43, svg: slides/43-page-43.svg}
+- {id: page-44, svg: slides/44-page-44.svg}
+- id: timeline
+  html: 04-timeline.html
+# --- examples (uncomment and adapt) ---
+#footer:                   # bottom bar on every slide: name · affiliation · page number
+#  name: Nihar Gupte
+#  affiliation: MPI Grav. Phys & UMD
+#  bg: '#e8e6e1'           # optional colours (hex)
+#  fg: '#444444'
+#interactions:
+#  - id: q-example
+#    type: choice          # choice | numeric | distribution | text
+#    prompt: Which one?
+#    options: [A, B, C]
+#    answer: B
+#slides:
+#  - id: orbits
+#    svg: slides/02-orbits.svg
+#    hotspots:
+#      - rect: [0.1, 0.1, 0.3, 0.2]
+#        title: A thing
+#        body: "Markdown **body**"
+#        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
+#    ask: [q-example]
+#    show: [{id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}]
+#  - id: orbits-2
+#    svg: slides/03-orbits-2.svg
+#    continues: true       # reveal step: counts as the same slide number as the one before
+#  - id: page
+#    html: 03-page.html
+#    underlay: slides/03-frame.svg

@@ -1,0 +1,45 @@
+# Copied by `manage.py newdeck`. Everything about a talk lives in this folder.
+# ids are persistence keys: renaming a slide id orphans its comments, renaming an
+# interaction id orphans its responses. Never renumber them after a session.
+title: New talk
+date: 2026-01-01
+venue: ''                 # where it was given, shown under the title: 'GR-Amaldi @ Glasgow, UK'
+subtitle: ""
+transition: none          # none | fade | slide
+#footer: {name: Your Name, affiliation: Institute, bg: '#e8e6e1', fg: '#444444'}   # bottom bar; slides may set `footer: false`
+expertise:                # 2–6 tags shown on the phone join screen
+  - theory
+  - data analysis
+  - instrumentation
+  - not a physicist
+theme:                    # newdeck derives these from your SVGs; edit freely
+  bg: "#1f2429"
+  fg: "#f4f1ea"
+  accents: ["#37b49f", "#e9c46a", "#e76f51"]
+  font_display: "Montserrat"
+  font_body: "Inter"
+
+interactions: []
+#  - id: q-example
+#    type: choice          # choice | numeric | distribution | text
+#    prompt: Which one?
+#    options: [A, B, C]
+#    answer: B
+
+slides: []
+#  - id: title
+#    svg: slides/01-title.svg
+#    hotspots:
+#      - rect: [0.1, 0.1, 0.3, 0.2]     # x, y, w, h as fractions of the 16:9 stage
+#        title: A thing
+#        body: "Markdown **body**"
+#        links: [{label: "arXiv", url: "https://arxiv.org/abs/..."}]
+#    ask: [q-example]                    # phone widget appears when opened
+#    show:
+#      - {id: q-example, rect: [0.5, 0.6, 0.45, 0.35]}   # where the aggregate is drawn
+#  - id: page
+#    html: 02-page.html                  # free-form template extending presentations/slide_base.html
+#    underlay: slides/02-frame.svg       # optional Canva backdrop
+#  - id: outro
+#    video: slides/03-outro.mp4
+#    poster: slides/03-outro.jpg

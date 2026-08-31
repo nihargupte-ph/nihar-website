@@ -148,3 +148,11 @@ push-and-deploy.sh
 
 # CV LaTeX source (local-only; built PDF lives in static/assets/cv.pdf)
 cv-src/
+# SDD scratch workspace
+.superpowers/
+
+# DB backups created by deploy/update.sh
+backups/
+
+# arXiv source cache of the corfu figure picker
+presentations/decks/*/tools/.cache/

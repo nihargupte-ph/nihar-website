@@ -1,0 +1,38 @@
+{% load static %}<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ deck.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ deck.theme.font_display|urlencode }}:wght@400;700&family={{ deck.theme.font_body|urlencode }}:wght@400;600&display=swap">
+<link rel="stylesheet" href="{% static 'presentations/css/deck.css' %}">
+<style>:root{ {{ theme_css|safe }} }</style>
+</head>
+<body class="mode-present">
+{% with mode='present' %}{% include 'presentations/_deck_chrome.html' %}{% endwith %}
+{% include 'presentations/_slides.html' %}
+{% include 'presentations/_hotspot_card.html' %}
+{% include 'presentations/_comments.html' %}
+<div class="qr-box" id="qr-box" hidden>{{ qr }}<div>{{ join_url }}</div></div>
+<div class="present-bar" id="present-bar">
+  <button class="btn" id="prev">‹</button><button class="btn" id="next">›</button>
+  <span id="present-interactions"></span>
+  <select id="all-interactions" class="btn"><option value="">all interactions…</option>{% for i in deck.interactions %}<option value="{{ i.id }}">{{ i.id }} ({{ i.type }})</option>{% endfor %}</select>
+  <span class="grow"></span>
+  <span id="participants">0 joined</span>
+  <button class="btn" id="lock-btn">{% if session.is_locked %}Unlock{% else %}Lock{% endif %}</button>
+  <button class="btn" id="new-session-btn" {% if not session.is_locked %}hidden{% endif %}>New session</button>
+</div>
+<script id="deck-data" type="application/json">{{ deck_data }}</script>
+<script src="{% static 'presentations/js/core.js' %}"></script>
+<script src="{% static 'presentations/js/sync.js' %}"></script>
+<script src="{% static 'presentations/js/stage.js' %}"></script>
+<script src="{% static 'presentations/js/hotspots.js' %}"></script>
+<script src="{% static 'presentations/js/widgets.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/choice.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/numeric.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/distribution.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/text.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/prior.js' %}"></script>
+<script src="{% static 'presentations/js/comments.js' %}"></script>
+<script src="{% static 'presentations/js/present.js' %}"></script>
+</body></html>

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     # custom
     'homepage.apps.HomepageConfig',
-    'blog'
+    'blog',
+    'presentations',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,12 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'presentations.finders.DeckStaticFinder',
+]
+
 # Media files (User uploaded content)
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -164,3 +171,7 @@ if not DEBUG:
             },
         },
     }
+
+# Presentations app
+LOGIN_URL = '/admin/login/'
+PRESENTATIONS_DECKS_DIR = BASE_DIR / 'presentations' / 'decks'

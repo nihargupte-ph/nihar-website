@@ -1,0 +1,7 @@
+{% extends "presentations/slide_base.html" %}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}riskgrid/riskgrid.css">
+<h1 class="rg-title">Where does the evidence stand, event by event?</h1>
+<div id="rg-root" class="rg" data-src="/static/decks/corfu/riskgrid/riskgrid.json"></div>
+<script src="{{ deck_static }}riskgrid/riskgrid.js" defer></script>
+{% endblock %}

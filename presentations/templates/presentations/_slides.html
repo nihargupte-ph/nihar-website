@@ -1,0 +1,22 @@
+<main class="deck" id="deck" data-transition="{{ deck.transition }}">
+  {% for row in slides %}
+  <section class="slide slide--{{ row.slide.kind }}" data-slide-id="{{ row.slide.id }}" data-index="{{ row.index }}" {% if row.index != 0 %}hidden{% endif %}>
+    {% if row.slide.kind == 'html' %}
+      {% if row.underlay %}<div class="stage stage--underlay"><div class="stage__inner">{{ row.underlay }}</div></div>{% endif %}
+      {{ row.markup }}
+      {% if row.footer %}{% include 'presentations/_footer.html' %}{% endif %}
+    {% else %}
+      <div class="stage">
+        <div class="stage__inner">
+          {% if row.slide.kind == 'svg' %}{{ row.markup }}{% else %}
+          <video class="slide-video" src="{{ row.video_url }}" {% if row.poster_url %}poster="{{ row.poster_url }}"{% endif %} playsinline preload="metadata"></video>
+          {% endif %}
+          <svg class="overlay" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="stage__widgets"></div>
+          {% if row.footer %}{% include 'presentations/_footer.html' %}{% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </section>
+  {% endfor %}
+</main>
