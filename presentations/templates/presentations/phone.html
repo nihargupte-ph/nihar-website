@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ deck.title }}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ deck.theme.font_display|urlencode }}:wght@600;800&family={{ deck.theme.font_body|urlencode }}:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ deck.theme.font_display|urlencode }}:wght@400;700&family={{ deck.theme.font_body|urlencode }}:wght@400;600&display=swap">
 <link rel="stylesheet" href="{% static 'presentations/css/deck.css' %}">
 <style>:root{ {{ theme_css|safe }} }</style>
 </head>
@@ -25,6 +25,7 @@
 <script src="{% static 'presentations/js/interactions/numeric.js' %}"></script>
 <script src="{% static 'presentations/js/interactions/distribution.js' %}"></script>
 <script src="{% static 'presentations/js/interactions/text.js' %}"></script>
+<script src="{% static 'presentations/js/interactions/prior.js' %}"></script>
 <script src="{% static 'presentations/js/comments.js' %}"></script>
 <script src="{% static 'presentations/js/phone.js' %}"></script>
 </body></html>

@@ -1,7 +1,5 @@
 <header class="deck-chrome" id="deck-chrome">
   <a class="deck-chrome__home" href="{% url 'presentations:index' %}" title="All presentations">◀</a>
-  <span class="deck-chrome__title">{{ deck.title }}</span>
-  <span class="deck-chrome__counter"><span id="slide-num">{{ deck.slides.0.number }}</span> / {{ deck.page_count }}</span>
   <span class="deck-chrome__status" id="deck-status">
     {% if mode == 'present' and not session.is_locked %}<span class="pres-badge pres-badge--live">LIVE</span>{% endif %}
     {% if session and session.is_locked %}<span class="pres-badge">LOCKED</span>{% endif %}

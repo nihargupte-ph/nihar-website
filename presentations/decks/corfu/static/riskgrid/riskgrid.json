@@ -1,0 +1,18 @@
+{
+ "note": "transcribed from the event table on page 34 of the Corfu export; scale: risk columns read low=good, significance columns read high=good",
+ "columns": [
+  {"key": "waveform",   "label": "waveform risk",               "scale": "risk"},
+  {"key": "noise",      "label": "noise risk",                  "scale": "risk"},
+  {"key": "sampler",    "label": "sampler/settings risk",       "scale": "risk"},
+  {"key": "search",     "label": "search significance",         "scale": "significance"},
+  {"key": "pe",         "label": "parameter estimation significance", "scale": "significance"},
+  {"key": "overall",    "label": "overall significance",        "scale": "significance"}
+ ],
+ "rows": [
+  {"event": "GW190701",    "waveform": "High",   "noise": "High",   "sampler": "Medium", "search": "High", "pe": "Medium", "overall": "Low"},
+  {"event": "GW190521",    "waveform": "Medium", "noise": "Low",    "sampler": "Medium", "search": "High", "pe": "Low",    "overall": "Low"},
+  {"event": "GW200208_22", "waveform": "Low",    "noise": "Low",    "sampler": "Low",    "search": "Low",  "pe": "Low",    "overall": "Low"},
+  {"event": "GW200129",    "waveform": "Low",    "noise": "Medium", "sampler": "Low",    "search": "High", "pe": "High",   "overall": "High"},
+  {"event": "GW200105",    "waveform": "Low",    "noise": "Low",    "sampler": "Low",    "search": "High", "pe": "Low",    "overall": "Low"}
+ ]
+}

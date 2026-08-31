@@ -1,0 +1,12 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00000.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00001.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00002.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00003.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00004.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00005.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00006.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00007.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00008.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00009.mp4'
+file 'file:/home/n/Documents/Random/Website/nihar-website/presentations/decks/corfu/tools/manim/media_out/videos/scene_cluster_capture/720p30/partial_movie_files/ClusterCapture/uncached_00010.mp4'

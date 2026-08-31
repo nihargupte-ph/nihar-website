@@ -11,6 +11,7 @@ urlpatterns = [
     path('presentations/<slug:slug>/comments/', comments.list_comments, name='comments'),
     path('presentations/<slug:slug>/present/', present.present, name='present'),
     path('presentations/<slug:slug>/present/new/', present.new_session, name='present-new'),
+    path('presentations/<slug:slug>/present/phone-preview/', present.phone_preview, name='present-phone-preview'),
     path('presentations/<slug:slug>/present/state/', present.state, name='present-state'),
     path('presentations/<slug:slug>/present/goto/', present.goto, name='present-goto'),
     path('presentations/<slug:slug>/present/interaction/<str:iid>/<str:state>/', present.interaction, name='present-interaction'),

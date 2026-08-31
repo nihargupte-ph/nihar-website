@@ -113,7 +113,7 @@ def render_index(timeline, figs, cache, figs_dir=None):
         return bool(chosen and chosen.is_file() and filecmp.cmp(f, chosen, shallow=False))
 
     rows = []
-    for e in sorted(timeline['entries'], key=lambda e: e['v1_date']):
+    for e in sorted((e for e in timeline['entries'] if e.get('lane') != 'model'), key=lambda e: e['v1_date']):
         thumbs = ''.join(
             f'<figure class="{"picked" if is_picked(e, f) else ""}" data-id="{h(e["id"])}" data-file="{h(str(f))}" title="{h(f.name)}">'
             f'<img loading="lazy" src="/cache/{h(str(f.relative_to(cache)))}"><figcaption>{h(f.name)}</figcaption></figure>'
@@ -156,7 +156,7 @@ def serve(deck_dir, port):
     cache.mkdir(parents=True, exist_ok=True)
     load = lambda: json.loads(tl_json.read_text())  # noqa: E731
     figs = {}
-    todo = load()['entries']
+    todo = [e for e in load()['entries'] if e.get('lane') != 'model']   # waveform-model rules carry no figure
     for i, e in enumerate(todo, 1):
         if not e.get('arxiv'):
             print(f'[{i}/{len(todo)}] {e["id"]}: no arXiv source — drop a PNG at static/timeline/figs/{e["id"]}.png by hand', flush=True)

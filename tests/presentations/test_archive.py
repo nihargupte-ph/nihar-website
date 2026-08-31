@@ -111,6 +111,5 @@ def test_counters_use_logical_numbers_for_reveal_steps(deck, anon_client, db):
     html = anon_client.get('/presentations/ex/').content.decode()
     footers = re.findall(r'<span>(\d+ / \d+)</span></div>', html)
     assert footers == ['1 / 3', '1 / 3', '2 / 3', '3 / 3']
-    assert '<span id="slide-num">1</span> / 3' in html
     data = json.loads(html.split('id="deck-data" type="application/json">')[1].split('</script>')[0])
     assert [s['number'] for s in data['slides']] == [1, 1, 2, 3] and data['page_count'] == 3

@@ -2,8 +2,8 @@ import pytest
 from presentations import interactions as I
 
 
-def test_registry_has_four_types():
-    assert set(I.all_types()) == {'choice', 'numeric', 'distribution', 'text'}
+def test_registry_has_five_types():
+    assert set(I.all_types()) == {'choice', 'numeric', 'distribution', 'text', 'prior'}
     with pytest.raises(ValueError):
         I.get('nope')
 

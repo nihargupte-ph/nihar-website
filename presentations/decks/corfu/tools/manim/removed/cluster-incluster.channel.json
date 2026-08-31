@@ -1,0 +1,50 @@
+{
+  "id": "cluster-incluster",
+  "name": "Clusters — in-cluster mergers",
+  "sub": "binaries that merge before they are ejected",
+  "group": "dynamical",
+  "graph": "clusters",
+  "papers": [
+    "Samsing:2013kua",
+    "Samsing:2017rat",
+    "Zevin:2018kzq",
+    "Miller:2001ez",
+    "Gultekin:2005fd"
+  ],
+  "band": [
+    -6,
+    -2
+  ],
+  "peak": -3.5,
+  "mechanism": "With post-Newtonian terms in the few-body dynamics, a comparable number of cluster binaries merge inside the cluster between encounters, before any recoil can eject them. Their last encounter left them with a higher eccentricity than the ejected population.",
+  "prediction": "The middle peak of the cluster distribution, e₁₀Hz ~ 10⁻⁵–10⁻² — the orange histogram of Rodriguez+ 2018, Fig. 1 and the 'in-cluster' population of Zevin+ 2019, Fig. 6 (left) — still below what LVK can resolve today, but a target for ET/CE and for LISA, where these systems are visibly eccentric.",
+  "sources": [
+    {
+      "label": "Rodriguez+ 2018 — in-cluster peak",
+      "arxiv": "1712.04937"
+    },
+    {
+      "label": "Samsing & Ramirez-Ruiz 2017 — assembly rate of eccentric mergers",
+      "arxiv": "1703.09703"
+    },
+    {
+      "label": "Zevin+ 2019 — binary–binary contribution",
+      "arxiv": "1810.00901"
+    }
+  ],
+  "media": {
+    "type": "none",
+    "note": "pick an animation with tools/videopicker.py"
+  },
+  "figure": {
+    "src": "figs/zevin-2019-fig6.png",
+    "caption": "Zevin+ 2019, Fig. 6: eccentricity distributions (left) and delay times (right) for ejected, in-cluster and GW-capture inspirals from binary–binary encounters; horizontal lines mark the LISA and LIGO bands."
+  },
+  "row": "circular",
+  "previous_media": {
+    "type": "youtube",
+    "id": "_Y6QPzv24jo",
+    "credit": "Manuel Arca Sedda — ARGdf N-body simulation of three stellar black holes in a dense nuclear cluster",
+    "caption": "A binary–single encounter: the outcome is a tight eccentric binary and a fast single black hole."
+  }
+}

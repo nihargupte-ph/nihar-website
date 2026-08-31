@@ -3,14 +3,6 @@
   {
    "id": "real-data",
    "title": "Real-data analyses"
-  },
-  {
-   "id": "simulated",
-   "title": "Data analysis (simulated)"
-  },
-  {
-   "id": "likelihood",
-   "title": "Likelihood modelling"
   }
  ],
  "entries": [
@@ -322,6 +314,215 @@
    "arxiv": "2605.12818",
    "v1_date": "2026-05-12",
    "figure": "figs/malagon-2026.png",
+   "caption": ""
+  },
+  {
+   "id": "lange-2026",
+   "lane": "real-data",
+   "first_author": "Lange",
+   "authors": "Lange, Chiaramello, Lott, Henshaw, Nagar, O'Shaughnessy et al.",
+   "title": "Gravitational Wave Hyperbolic Catalog: Reanalyzing High-Mass Gravitational Wave Signals Using Hyperbolic Waveforms",
+   "arxiv": "2605.21640",
+   "v1_date": "2026-05-20",
+   "figure": "figs/lange-2026.png",
+   "caption": ""
+  },
+  {
+   "id": "cao-2017",
+   "lane": "model",
+   "model": "SEOBNRE",
+   "first_author": "Cao",
+   "authors": "Cao, Han",
+   "title": "A waveform model for eccentric binary black hole based on effective-one-body-numerical-relativity (EOBNR) formalism",
+   "arxiv": "1708.00166",
+   "v1_date": "2017-08-01",
+   "note": "SEOBNRE (aligned-spin eccentric EOB IMR) — used by Romero-Shaw+ 2019, Romero-Shaw+ 2020, Romero-Shaw+ 2021, Romero-Shaw+ 2022 (injections only in Wu+ 2020)"
+  },
+  {
+   "id": "huerta-2014",
+   "lane": "model",
+   "model": "EccentricFD",
+   "first_author": "Huerta",
+   "authors": "Huerta, Kumar, McWilliams, O'Shaughnessy, Yunes",
+   "title": "Accurate and efficient waveforms for compact binaries on eccentric orbits",
+   "arxiv": "1408.3406",
+   "v1_date": "2014-08-14",
+   "note": "EccentricFD (enhanced post-circular, non-spinning inspiral-only) — used by Wu+ 2020"
+  },
+  {
+   "id": "moore-2016",
+   "lane": "model",
+   "model": "TaylorF2Ecc",
+   "first_author": "Moore",
+   "authors": "Moore, Favata, Arun, Mishra",
+   "title": "Gravitational-wave phasing for low-eccentricity inspiralling compact binaries to 3PN order",
+   "arxiv": "1605.00304",
+   "v1_date": "2016-05-01",
+   "note": "TaylorF2Ecc (3PN eccentric phasing added to TaylorF2) — used by Lenon+ 2020, Morras+ 2025 (cross-check), Phukon+ 2025 (search template bank)"
+  },
+  {
+   "id": "chiaramello-2020",
+   "lane": "model",
+   "model": "TEOBResumS eccentric",
+   "first_author": "Chiaramello",
+   "authors": "Chiaramello, Nagar",
+   "title": "A faithful analytical effective one body waveform model for spin-aligned, moderately eccentric, coalescing black hole binaries",
+   "arxiv": "2001.11736",
+   "v1_date": "2020-01-31",
+   "note": "TEOBResumS eccentric extension (basis of Dalí) — used by Gamba+ 2021, O'Shea+ 2021, Bonino+ 2022, Iglesias+ 2022, McMillin+ 2025, Malagon & O'Shaughnessy 2026, Lange+ 2026"
+  },
+  {
+   "id": "nagar-2021-dali",
+   "lane": "model",
+   "model": "TEOBResumS-Dalí",
+   "first_author": "Nagar",
+   "authors": "Nagar, Bonino, Rettegno",
+   "title": "Effective one body multipolar waveform model for spin-aligned, quasi-circular, eccentric, hyperbolic black hole binaries",
+   "arxiv": "2101.08624",
+   "v1_date": "2021-01-21",
+   "note": "TEOBResumS-Dalí with higher modes (spin-aligned, non-circular) — used by Bonino+ 2022, Iglesias+ 2022, Lange+ 2026"
+  },
+  {
+   "id": "nagar-2024-dali",
+   "lane": "model",
+   "model": "TEOBResumS-Dalí 2024",
+   "first_author": "Nagar",
+   "authors": "Nagar, Gamba, Rettegno, Fantini, Bernuzzi",
+   "title": "Effective-one-body waveform model for non-circularized, planar, coalescing black hole binaries: the importance of radiation reaction",
+   "arxiv": "2404.05288",
+   "v1_date": "2024-04-08",
+   "note": "TEOBResumS-Dalí (2024 non-circularized planar model, NR-informed) — used by Kacanja+ 2025, LVK 2025 (GW241011/GW241110), Malagon & O'Shaughnessy 2026, Lange+ 2026; Jan+ 2025 (GIOTTO-branch Dalí)"
+  },
+  {
+   "id": "ramos-buades-2021-seobnrv4ehm",
+   "lane": "model",
+   "model": "SEOBNRv4EHM",
+   "first_author": "Ramos-Buades",
+   "authors": "Ramos-Buades, Buonanno, Khalil, Ossokine",
+   "title": "Effective-one-body multipolar waveforms for eccentric binary black holes with non-precessing spins",
+   "arxiv": "2112.06952",
+   "v1_date": "2021-12-13",
+   "note": "SEOBNRv4EHM (aligned-spin eccentric EOB, higher modes) — used by Ramos-Buades+ 2023, Gupte+ 2024; comparison samples in Gamboa+ 2024"
+  },
+  {
+   "id": "gamboa-2024-seobnrv5ehm",
+   "lane": "model",
+   "model": "SEOBNRv5EHM",
+   "first_author": "Gamboa",
+   "authors": "Gamboa, Buonanno, Enficiaud, Khalil, Ramos-Buades, Pompili et al.",
+   "title": "Accurate waveforms for eccentric, aligned-spin binary black holes: The multipolar effective-one-body model SEOBNRv5EHM",
+   "arxiv": "2412.12823",
+   "v1_date": "2024-12-17",
+   "note": "SEOBNRv5EHM model paper (also in the real-data lane) — used by Kacanja+ 2025, Jan+ 2025, LVK 2025, Gupte+ 2026, Malagon & O'Shaughnessy 2026, Zeeshan+ 2026 (via Malagon posteriors); injections in Morras+ 2025"
+  },
+  {
+   "id": "planas-2025-tehm",
+   "lane": "model",
+   "model": "IMRPhenomTEHM",
+   "first_author": "Planas",
+   "authors": "Planas, Ramos-Buades, García-Quirós, Estellés, Husa, Haney",
+   "title": "Time-domain phenomenological multipolar waveforms for aligned-spin binary black holes in elliptical orbits",
+   "arxiv": "2503.13062",
+   "v1_date": "2025-03-17",
+   "note": "IMRPhenomTEHM (time-domain phenomenological, aligned-spin eccentric, multipolar) — used by Planas+ 2025 (BBH reanalysis), Planas+ 2025 (NSBH), Xu+ 2025 (GWTC-4.0)"
+  },
+  {
+   "id": "morras-2025-pyefpe",
+   "lane": "model",
+   "model": "pyEFPE",
+   "first_author": "Morras",
+   "authors": "Morras, Pratten, Schmidt",
+   "title": "Improved post-Newtonian waveform model for inspiralling precessing-eccentric compact binaries",
+   "arxiv": "2502.03929",
+   "v1_date": "2025-02-06",
+   "note": "pyEFPE (precessing-eccentric PN inspiral) — used by Morras+ 2025 (GW200105); Phukon+ 2025 bank ranges built from its posteriors"
+  },
+  {
+   "id": "healy-2020",
+   "lane": "model",
+   "model": "RIT eccentric NR",
+   "first_author": "Healy",
+   "authors": "Healy, Lousto",
+   "title": "The Third RIT binary black hole simulations catalog",
+   "arxiv": "2007.07910",
+   "v1_date": "2020-07-15",
+   "note": "RIT eccentric NR catalogues (3rd catalog 2007.07910; 4th, eccentric extension, 2202.00018) — used by Gayathri+ 2020 (GW190521 vs 611 eccentric RIT runs), McMillin+ 2025; validation set in Gamba+ 2021"
+  },
+  {
+   "id": "gamboa-2026-seobnrv6ehm",
+   "lane": "model",
+   "first_author": "Gamboa",
+   "authors": "Gamboa, Buonanno, Pompili, Enficiaud, Boyle, Kidder et al.",
+   "title": "Accurate waveforms for generic planar-orbit binary black holes: The multipolar effective-one-body model SEOBNRv6EHM",
+   "arxiv": "2605.28715",
+   "v1_date": "2026-05-27",
+   "model": "SEOBNRv6EHM",
+   "note": "SEOBNRv6EHM (multipolar EOB for generic planar orbits: eccentric + hyperbolic) — used by Pompili+ 2026; cited by Lange+ 2026"
+  },
+  {
+   "id": "paul-2024",
+   "lane": "model",
+   "first_author": "Paul",
+   "authors": "Paul, Maurya, Henry, Sharma, Satheesh, Divyajyoti et al.",
+   "title": "ESIGMAHM: An Eccentric, Spinning inspiral-merger-ringdown waveform model with Higher Modes for the detection and characterization of binary black holes",
+   "arxiv": "2409.13866",
+   "v1_date": "2024-09-20",
+   "model": "ESIGMAHM",
+   "note": "ESIGMAHM (eccentric, spinning IMR with higher modes) — compared/cited by Planas+ 2025 (NSBH), Lange+ 2026"
+  },
+  {
+   "id": "pompili-2026",
+   "lane": "real-data",
+   "first_author": "Pompili",
+   "authors": "Pompili, Gamboa, Buonanno",
+   "title": "Eccentric and unbound compact binaries in the LIGO-Virgo-KAGRA catalog: parameter estimation and waveform systematics with SEOBNRv6EHM",
+   "arxiv": "2605.28716",
+   "v1_date": "2026-05-27",
+   "figure": "figs/pompili-2026.png",
+   "caption": ""
+  },
+  {
+   "id": "liu-2023-seobnrev2",
+   "lane": "model",
+   "first_author": "Liu",
+   "authors": "Liu, Cao, Shao",
+   "title": "Upgraded waveform model of eccentric binary black hole based on effective-one-body-numerical-relativity for spin-aligned binary black holes",
+   "arxiv": "2306.15277",
+   "v1_date": "2023-06-27",
+   "model": "SEOBNREv2",
+   "note": "SEOBNREv2: upgraded SEOBNRE for spin-aligned eccentric BBHs (Liu, Cao & Shao 2023)"
+  },
+  {
+   "id": "liu-2019-seobnre",
+   "lane": "model",
+   "first_author": "Liu",
+   "authors": "Liu, Cao, Shao",
+   "title": "Validating the Effective-One-Body Numerical-Relativity Waveform Models for Spin-aligned Binary Black Holes along Eccentric Orbits",
+   "arxiv": "1910.00784",
+   "v1_date": "2019-10-02",
+   "model": "SEOBNRE",
+   "note": "SEOBNRE validated against eccentric NR (second SEOBNRE paper) — cited for the model by Romero-Shaw+ 2020, Romero-Shaw+ 2021"
+  },
+  {
+   "id": "clarke-2026",
+   "lane": "real-data",
+   "first_author": "Clarke",
+   "authors": "Clarke, Romero-Shaw, Hoy, Stegmann, Lasky, Thrane",
+   "title": "A universal framework to identify eccentric binary mergers: GW200105 case study",
+   "arxiv": "2605.18742",
+   "v1_date": "2026-05-18",
+   "figure": null,
+   "caption": ""
+  },
+  {
+   "id": "tang-2026",
+   "lane": "real-data",
+   "first_author": "Tang",
+   "authors": "Tang, Yang, Wang, Yang",
+   "title": "Impact of higher-order modes on eccentricity measurement in binary black hole gravitational waves",
+   "arxiv": "2602.04642",
+   "v1_date": "2026-02-04",
+   "figure": null,
    "caption": ""
   }
  ]

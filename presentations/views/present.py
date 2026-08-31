@@ -73,6 +73,22 @@ def present(request, slug):
 
 
 @staff_member_required
+@require_GET
+def phone_preview(request, slug):
+    """Dev aid: the live join page inside a phone-shaped frame, so the presenter can see
+    what the audience sees (and answer polls) from the laptop."""
+    try:
+        deck = deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
+    session = _session(deck)
+    return render(request, 'presentations/phone_preview.html', {
+        'deck': deck, 'session': session, 'phone_url': f'/p/{session.join_code}/',
+        'present_url': reverse('presentations:present', args=[slug]),
+    })
+
+
+@staff_member_required
 @require_POST
 def new_session(request, slug):
     try:

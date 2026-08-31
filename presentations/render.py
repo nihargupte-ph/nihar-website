@@ -79,13 +79,30 @@ def rendered_slides(deck, request):
     return out
 
 
+def _is_light(hex_colour):
+    h = hex_colour.lstrip('#')
+    r, g, b = (int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.5
+
+
+# Surface tokens the chrome uses so panels/borders/buttons read on both dark and light decks.
+_DARK_SURFACES = {'--line': 'rgba(255,255,255,.15)', '--line-soft': 'rgba(255,255,255,.08)', '--surface': 'rgba(255,255,255,.12)',
+                  '--panel': 'rgba(10,10,10,.85)', '--panel-solid': '#151515', '--field': 'rgba(0,0,0,.4)', '--on-accent': '#000',
+                  '--shadow': '0 10px 40px rgba(0,0,0,.5)', '--scrim': 'rgba(0,0,0,.45)'}
+_LIGHT_SURFACES = {'--line': 'rgba(0,0,0,.14)', '--line-soft': 'rgba(0,0,0,.07)', '--surface': 'rgba(0,0,0,.07)',
+                   '--panel': 'rgba(255,255,255,.92)', '--panel-solid': '#ffffff', '--field': 'rgba(0,0,0,.04)', '--on-accent': '#fff',
+                   '--shadow': '0 10px 40px rgba(0,0,0,.18)', '--scrim': 'rgba(255,255,255,.75)'}
+
+
 def theme_css(theme):
     parts = [f"--bg:{theme['bg']}", f"--fg:{theme['fg']}"]
     for i, a in enumerate(theme['accents'], 1):
         parts.append(f'--accent-{i}:{a}')
     parts.append(f"--accent:{theme['accents'][0]}")
-    parts.append(f"--font-display:'{theme['font_display']}',sans-serif")
+    parts.append(f"--font-display:'{theme['font_display']}',serif")
     parts.append(f"--font-body:'{theme['font_body']}',sans-serif")
+    surfaces = _LIGHT_SURFACES if _is_light(theme['bg']) else _DARK_SURFACES
+    parts.extend(f'{k}:{v}' for k, v in surfaces.items())
     return ';'.join(parts)
 
 

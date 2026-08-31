@@ -6,6 +6,8 @@
     def: (iid) => (P.data.interactions || {})[iid],
     input(iid, el, submit, prior) { const d = P.interactions.def(iid); types[d.type].input(el, d.config, submit, prior); },
     aggregate(iid, el, agg, ctx) { const d = P.interactions.def(iid); types[d.type].aggregate(el, d.config, agg, ctx); },
+    // types may implement update(el, config, agg, ctx) → true to refresh a rendered aggregate in place
+    update(iid, el, agg, ctx) { const d = P.interactions.def(iid); const t = types[d.type]; return !!(t.update && t.update(el, d.config, agg, ctx)); },
   };
   const W = (P.widgets = { tag: {} });
   function box(slide, ref) {
@@ -34,21 +36,29 @@
     const base = inverted ? tag.slice(4) : tag;
     let agg = null;
     try { agg = await P.api.get(P.data.urls.aggregate + encodeURIComponent(iid) + '/?tag=' + encodeURIComponent(tag)); } catch (e) { agg = null; }
+    const live = P.$('.widget-body', el);
+    if (agg && !agg.too_small && live && el.dataset.key === state + '|' + tag && P.interactions.update(iid, live, agg, { revealed: state === 'revealed', tag })) {
+      const n = P.$('.n', el); if (n) n.textContent = `n = ${agg.n}`;
+      return;
+    }
+    el.dataset.key = state + '|' + tag;
     el.innerHTML = '';
     el.append(P.el('h4', { text: d.config.prompt }));
     if (!agg) { el.append(P.el('div', { class: 'too-small', text: 'results not available' })); return; }
     const pick = (t) => { W.tag[iid] = t; render(iid, el, state); };
     const slice = P.el('div', { class: 'slice' });
-    for (const t of ['all', ...(P.data.expertise || [])]) {
+    for (const t of (types[d.type].slicer === false ? [] : ['all', ...(P.data.expertise || [])])) {
       slice.append(P.el('button', { class: 'btn' + (t === base ? ' on' : ''), text: t, onclick: () => pick(t === 'all' ? 'all' : (inverted ? 'not:' + t : t)) }));
     }
-    slice.append(P.el('button', {
-      class: 'btn' + (inverted ? ' on' : ''), text: 'vs rest',
-      title: 'show everyone except the selected group',
-      onclick: () => { if (base === 'all') return; pick(inverted ? base : 'not:' + base); },
-    }));
-    el.append(slice);
-    const body = P.el('div'); el.append(body);
+    if (slice.children.length) {
+      slice.append(P.el('button', {
+        class: 'btn' + (inverted ? ' on' : ''), text: 'vs rest',
+        title: 'show everyone except the selected group',
+        onclick: () => { if (base === 'all') return; pick(inverted ? base : 'not:' + base); },
+      }));
+      el.append(slice);
+    }
+    const body = P.el('div', { class: 'widget-body' }); el.append(body);
     if (agg.too_small) { body.append(P.el('div', { class: 'too-small', text: `n = ${agg.n} — too small to show` })); return; }
     P.interactions.aggregate(iid, body, agg, { revealed: state === 'revealed', tag });
     el.append(P.el('div', { class: 'n', text: `n = ${agg.n}` }));

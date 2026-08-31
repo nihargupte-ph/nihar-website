@@ -1,9 +1,10 @@
 from .choice import Choice
 from .distribution import Distribution
 from .numeric import Numeric
+from .prior import Prior
 from .text import Text
 
-_REGISTRY = {cls.name: cls() for cls in (Choice, Numeric, Distribution, Text)}
+_REGISTRY = {cls.name: cls() for cls in (Choice, Numeric, Distribution, Text, Prior)}
 
 
 def get(name):
