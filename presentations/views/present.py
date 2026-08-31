@@ -12,7 +12,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_POST
 
 from .. import livecache
-from ..models import INTERACTION_STATES, Session
+from ..models import INTERACTION_STATES, Response, Session
 from ..render import deck_json, deck_json_script, rendered_slides, theme_css
 from .common import DeckErrorResponse, bad, deck_error_response, deck_or_404, json_body, live_state
 
@@ -59,6 +59,7 @@ def present(request, slug):
     urls = {
         'state': base + 'state/', 'goto': base + 'goto/', 'interaction': base + 'interaction/',
         'video': base + 'video/', 'lock': base + 'lock/', 'unlock': base + 'unlock/', 'new': base + 'new/',
+        'clear': base + 'clear/',
         'aggregate': (f'/presentations/{slug}/aggregate/' if session.is_locked
                       else f'/p/{session.join_code}/aggregate/'),
         'comment': reverse('presentations:comment', args=[slug]),
@@ -70,6 +71,25 @@ def present(request, slug):
         'theme_css': theme_css(deck.theme), 'deck_data': deck_json_script(data),
         'join_url': join_url, 'qr': qr_svg(join_url),
     })
+
+
+@staff_member_required
+@require_POST
+def clear_responses(request, slug, iid):
+    """Throw away everything answered so far for one interaction (rehearsal runs, a false start).
+    Participants stay joined and the interaction keeps its state, so people can answer again."""
+    try:
+        deck = deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
+    s = _open_session(slug)
+    if s is None:
+        return bad('no open session')
+    if deck.interaction(iid) is None:
+        return bad('unknown interaction')
+    deleted, _ = Response.objects.filter(session=s, interaction_id=iid).delete()
+    _touch(s)
+    return JsonResponse({'ok': True, 'deleted': deleted})
 
 
 @staff_member_required

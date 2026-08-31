@@ -3,7 +3,7 @@ import json
 import pytest
 from django.test import Client
 from presentations import registry
-from presentations.models import Session
+from presentations.models import Participant, Response, Session
 from .test_schema import make_deck
 
 pytestmark = pytest.mark.django_db
@@ -68,6 +68,36 @@ def test_prior_round_trip(live, staff_client):
     assert agg['mean'] == [0, 0.5, 0, 0.5]
     assert set(agg['comparisons']) == {'log_uniform', 'uniform'}
     assert a.get(f'/p/{code}/aggregate/ep/').status_code == 403     # phones wait for reveal
+
+
+def test_clear_poll_deletes_only_that_interactions_responses(live, staff_client, anon_client):
+    code = live.join_code
+    staff_client.post('/presentations/ex/present/interaction/ep/open/')
+    a = phone_client(code, 'A')
+    assert respond(a, code, {'weights': [1, 0, 0, 0], 'name': 'Ada'}).status_code == 200
+    Response.objects.create(participant=Participant.objects.first(), session=live,
+                            interaction_id='other', payload={'choice': 'A'})
+    r = staff_client.post('/presentations/ex/present/clear/ep/')
+    assert r.status_code == 200 and r.json()['deleted'] == 1
+    assert staff_client.get(f'/p/{code}/aggregate/ep/').json()['n'] == 0
+    assert Response.objects.filter(interaction_id='other').count() == 1     # untouched
+    assert live.participants.count() == 1                                   # people stay joined
+    # the poll is still open, so a phone can draw again
+    assert respond(a, code, {'weights': [0, 1, 0, 0], 'name': 'Ada'}).status_code == 200
+
+
+def test_clear_poll_is_staff_only_and_post_only(live, staff_client, anon_client):
+    assert anon_client.post('/presentations/ex/present/clear/ep/').status_code == 302
+    assert staff_client.get('/presentations/ex/present/clear/ep/').status_code == 405
+    assert staff_client.post('/presentations/ex/present/clear/nope/').status_code == 400
+
+
+def test_presenter_bar_swaps_the_interaction_dropdown_for_clear(live, staff_client):
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[2] / 'presentations'
+    assert 'all-interactions' not in (root / 'templates' / 'presentations' / 'present.html').read_text()
+    assert 'all-interactions' not in (root / 'static' / 'presentations' / 'js' / 'present.js').read_text()
+    assert 'Clear poll' in (root / 'static' / 'presentations' / 'js' / 'present.js').read_text()
 
 
 def test_phone_preview_page_is_staff_only_and_frames_the_join_url(live, staff_client, anon_client):

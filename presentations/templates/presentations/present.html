@@ -16,7 +16,6 @@
 <div class="present-bar" id="present-bar">
   <button class="btn" id="prev">‹</button><button class="btn" id="next">›</button>
   <span id="present-interactions"></span>
-  <select id="all-interactions" class="btn"><option value="">all interactions…</option>{% for i in deck.interactions %}<option value="{{ i.id }}">{{ i.id }} ({{ i.type }})</option>{% endfor %}</select>
   <span class="grow"></span>
   <span id="participants">0 joined</span>
   <button class="btn" id="lock-btn">{% if session.is_locked %}Unlock{% else %}Lock{% endif %}</button>

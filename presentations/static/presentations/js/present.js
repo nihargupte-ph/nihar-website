@@ -21,11 +21,17 @@
     const open = states[iid] === 'open';
     row.append(P.el('button', { class: 'btn' + (open ? ' on' : ''), text: open ? 'End poll' : (states[iid] === 'revealed' ? 'Reopen poll' : 'Start poll'),
                                 onclick: () => setState(iid, open ? 'revealed' : 'open') }));
+    row.append(P.el('button', { class: 'btn', text: 'Clear poll', title: 'delete every answer given so far',
+      onclick: async () => {
+        if (!confirm('Delete every answer to this poll? People stay joined and can answer again.')) return;
+        const r = await post(U.clear + encodeURIComponent(iid) + '/');
+        if (r.status === 200) refresh();
+      } }));
     return row;
   }
   function refresh() {
     const slide = P.data.slides[P.stage.index()]; ia.innerHTML = '';
-    const ids = [...new Set([...(slide.ask || []), ...(slide.show || []).map((r) => r.id), ...(P.$('#all-interactions').value ? [P.$('#all-interactions').value] : [])])];
+    const ids = [...new Set([...(slide.ask || []), ...(slide.show || []).map((r) => r.id)])];
     ids.forEach((iid) => ia.append(iaRow(iid)));
     P.widgets.mountShown(slide.id, states); P.widgets.refreshAll(states);
   }
@@ -41,7 +47,6 @@
   setInterval(() => {
     for (const [iid, at] of Object.entries(deadlines)) if (Date.now() >= at) setState(iid, 'revealed');
   }, 1000);
-  P.$('#all-interactions').addEventListener('change', refresh);
   P.stage.keys(() => { const v = P.$('.slide:not([hidden]) video'); if (v) { v.paused ? v.play() : v.pause(); post(U.video, { playing: !v.paused, t: v.currentTime }); } else P.stage.next({ user: true }); });
   P.stage.buttons(); P.hotspots.mount(); if (P.comments) P.comments.mount();
   P.stage.onChange((id) => { if (!P.data.session.locked) post(U.goto, { slide: id }); refresh(); autoOpen(id); if (P.comments) P.comments.onSlide(id); });
