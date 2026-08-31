@@ -15,8 +15,8 @@ def test_poll_slide_follows_significance_slide():
     d = deck()
     assert d.warnings == []
     ids = [s.id for s in d.slides]
-    # bayes (what is significance) → the "lets build a prior together" page → the poll
-    assert ids[ids.index('bayes') + 2] == 'ecc-prior'
+    # the poll comes straight after the "what is significance" slide
+    assert ids[ids.index("bayes") + 1] == "ecc-prior"
     s = d.slide('ecc-prior')
     assert s.kind == 'html' and s.ask == ['ecc-prior'] and [r.id for r in s.show] == ['ecc-prior']
 

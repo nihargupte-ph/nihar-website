@@ -66,11 +66,11 @@ slides:
 - {id: page-05, svg: slides/05-page-05.svg}
 - id: bayes
   html: 10-bayes.html
-- {id: page-06, svg: slides/06-page-06.svg}
 - id: ecc-prior
   html: 12-prior-poll.html
   ask: [ecc-prior]
   show: [{id: ecc-prior}]
+- {id: page-06, svg: slides/06-page-06.svg}
 - {id: page-07, svg: slides/07-page-07.svg}
 - {id: page-08, svg: slides/08-page-08.svg}
 - {id: page-09, svg: slides/09-page-09.svg}
@@ -97,9 +97,9 @@ slides:
 - {id: page-30, svg: slides/30-page-30.svg}
 - {id: page-31, svg: slides/31-page-31.svg}
 - {id: page-32, svg: slides/32-page-32.svg}
+- {id: page-33, svg: slides/33-page-33.svg}
 - id: riskgrid
   html: 11-riskgrid.html
-- {id: page-34, svg: slides/34-page-34.svg}
 - {id: page-35, svg: slides/35-page-35.svg}
 - {id: page-36, svg: slides/36-page-36.svg}
 - {id: page-37, svg: slides/37-page-37.svg}
@@ -110,6 +110,14 @@ slides:
 - {id: page-42, svg: slides/42-page-42.svg}
 - {id: page-43, svg: slides/43-page-43.svg}
 - {id: page-44, svg: slides/44-page-44.svg}
+- {id: page-45, svg: slides/45-page-45.svg}
+- {id: page-46, svg: slides/46-page-46.svg}
+- {id: page-47, svg: slides/47-page-47.svg}
+- {id: page-48, svg: slides/48-page-48.svg}
+- {id: page-49, svg: slides/49-page-49.svg}
+- {id: page-50, svg: slides/50-page-50.svg}
+- {id: page-51, svg: slides/51-page-51.svg}
+- {id: page-52, svg: slides/52-page-52.svg}
 - id: timeline
   html: 04-timeline.html
 # --- examples (uncomment and adapt) ---
