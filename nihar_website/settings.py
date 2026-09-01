@@ -133,6 +133,15 @@ STATICFILES_FINDERS = [
     'presentations.finders.DeckStaticFinder',
 ]
 
+# nginx serves /static/ as immutable for 30 days, so filenames must carry a content hash or a fix
+# never reaches a browser that has already loaded the page. The dev server has no manifest.
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': (
+        'django.contrib.staticfiles.storage.StaticFilesStorage' if DEBUG
+        else 'nihar_website.storage.ForgivingManifestStaticFilesStorage')},
+}
+
 # Media files (User uploaded content)
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
