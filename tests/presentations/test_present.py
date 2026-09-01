@@ -173,3 +173,14 @@ def test_fullscreen_actually_reclaims_the_chrome_bar():
     assert 'var(--chrome-h)' in inner
     block = re.search(r'@media \(display-mode: fullscreen\)\{[\s\S]*?\n\}', css).group(0)
     assert re.search(r'--chrome-h:\s*0', block), 'fullscreen must zero the chrome height'
+
+
+def test_the_presenter_bars_only_wake_when_the_pointer_reaches_their_edge():
+    """Any mouse movement anywhere used to pop the bottom bar (and the top chrome) open, which is
+    distracting while you are pointing at a slide. Each bar should reveal only when the pointer is
+    actually near its own edge of the screen."""
+    from pathlib import Path
+    js = (Path(__file__).resolve().parents[2] / 'presentations' / 'static' / 'presentations'
+          / 'js' / 'present.js').read_text()
+    assert 'clientY' in js, 'the wake handler has to look at where the pointer is'
+    assert 'EDGE' in js

@@ -62,8 +62,27 @@
   if (!P.data.session.locked) {
     P.$$('video').forEach((v) => { v.addEventListener('play', () => post(U.video, { playing: true, t: v.currentTime })); v.addEventListener('pause', () => post(U.video, { playing: false, t: v.currentTime })); });
   }
-  const wake = () => { bar.classList.remove('present-bar--hidden'); chrome.classList.remove('deck-chrome--hidden'); clearTimeout(hideTimer); hideTimer = setTimeout(() => { bar.classList.add('present-bar--hidden'); chrome.classList.add('deck-chrome--hidden'); }, 2000); };
-  document.addEventListener('mousemove', wake); wake();
+  // Each bar reveals only when the pointer reaches its own edge of the screen: waving the mouse
+  // over the slide while you talk should not keep popping the controls open. The zone is at least
+  // as deep as the bar itself, so the pointer is always inside it while you are using the bar.
+  const EDGE = 120;
+  const hideBoth = () => { bar.classList.add('present-bar--hidden'); chrome.classList.add('deck-chrome--hidden'); };
+  const wake = (e) => {
+    clearTimeout(hideTimer);
+    if (!e) {                       // the opening flash, so you can see the controls exist
+      bar.classList.remove('present-bar--hidden'); chrome.classList.remove('deck-chrome--hidden');
+      hideTimer = setTimeout(hideBoth, 4000);
+      return;
+    }
+    // Purely a function of where the pointer is: no timer, so the bar cannot vanish from under a
+    // menu you have open, and waving at the slide never pops it up.
+    const foot = Math.max(EDGE, bar.offsetHeight + 40), head = Math.max(EDGE, chrome.offsetHeight + 40);
+    bar.classList.toggle('present-bar--hidden', e.clientY < innerHeight - foot);
+    chrome.classList.toggle('deck-chrome--hidden', e.clientY > head);
+  };
+  document.addEventListener('mousemove', wake);
+  document.addEventListener('mouseleave', hideBoth);
+  wake();
   P.sync.onState((st) => { P.$('#participants').textContent = `${st.participants} joined`; });
   P.sync.start(U.state, 1000);
   P.stage.go(P.data.session && P.data.session.current ? P.data.session.current : 0);
