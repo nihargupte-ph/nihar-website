@@ -186,16 +186,22 @@ def test_the_presenter_bars_only_wake_when_the_pointer_reaches_their_edge():
     assert 'EDGE' in js
 
 
-def test_the_slide_footer_stays_at_the_bottom_of_a_short_html_slide():
+def test_no_deck_stylesheet_collapses_a_slide_page_and_strands_the_footer():
     """On an html slide the footer is a sibling *after* `.slide-page`, sticky to the bottom of the
-    scrollport. Sticky only pulls an element down when the content is tall enough to scroll, so a
-    slide whose page collapses — an underlay-only slide such as the expert-BF ones, whose deck CSS
-    sets `min-height:0` — left the name/affiliation bar sitting at the *top* of the slide. Lay the
-    slide out as a column so the page always takes the space above the footer."""
+    scrollport. Sticky only pulls an element down when there is enough content to scroll, so if a
+    deck stylesheet drops `.slide-page`'s `min-height:100%` the name/affiliation bar ends up at the
+    *top* of the slide — measured at y=0 of an 860px slide on page-16, the first GW190701 slide.
+
+    Forcing it with a flex column in deck.css is not the fix: that changes cross-axis sizing for
+    every html slide (the channels grid overflowed its slide by 248px, and the table of contents'
+    page went to 0 wide, taking its bottom-right QR corner into the middle of the slide)."""
     from pathlib import Path
     import re
-    css = (Path(__file__).resolve().parents[2] / 'presentations' / 'static' / 'presentations'
-           / 'css' / 'deck.css').read_text()
-    html = re.search(r'\n\.slide--html\{[^}]*\}', css).group(0)
-    assert 'flex-direction:column' in html
-    assert re.search(r'\.slide--html>\.slide-page\{[^}]*flex:1', css), 'the page must fill above the footer'
+    root = Path(__file__).resolve().parents[2] / 'presentations'
+    css = (root / 'static' / 'presentations' / 'css' / 'deck.css').read_text()
+    assert 'flex-direction:column' not in re.search(r'\n\.slide--html\{[^}]*\}', css).group(0)
+    assert 'min-height:100%' in re.search(r'\n\.slide-page\{[^}]*\}', css).group(0)
+    for sheet in sorted((root / 'decks').glob('*/static/*/*.css')):
+        for rule in re.findall(r'[^{}]*\.slide-page[^{}]*\{[^}]*\}', sheet.read_text()):
+            assert not re.search(r'min-height:\s*0', rule), \
+                f'{sheet.name} collapses .slide-page — the slide footer will sit at the top'

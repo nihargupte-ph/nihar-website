@@ -1,7 +1,9 @@
 /* The event slides are Canva exports (text is outlines), so the "expert prior" answer is drawn
    as an SVG <text> inside the underlay's own viewBox — see expertbf.js.  The marker div that
    the template renders only carries the slide id and the no-JS dash. */
-.slide-page.xbf-passthrough{max-width:none;padding:0;min-height:0;pointer-events:none}
+.slide-page.xbf-passthrough{max-width:none;padding:0;pointer-events:none}
+/* keep .slide-page at min-height:100% (deck.css): the slide footer is a sibling after it,
+   sticky to the bottom, and a collapsed page leaves it stranded at the top of the slide. */
 .slide-page.xbf-passthrough .xbf{display:none}
 
 .xbf{font:600 1rem var(--font-body);color:var(--accent-1,#b3262e)}
