@@ -61,6 +61,13 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
      slide's `<script>` would not run** — that is why only `kind: svg` slides are deferred; html slides (and the
      `underlay:` svg of an html slide) are always inlined. Corfu: 20.4 MB → 0.32 MB of HTML, 166 k → 13 k DOM nodes
      at load, peak ~12 k walking all 56 slides.
+  **Watch the underlays.** Every `underlay:` is inlined eagerly, so each html slide over a Canva page costs ~120 KB
+  of markup that deferral does not reclaim. The nine on corfu (the TOC plus the eight expert-BF event slides) take
+  the archive page from 0.32 MB to 1.35 MB — still fine, but the cost is linear in how many event slides get an
+  html overlay. If that grows much past a dozen, defer underlays too: `slide_markup` would need to serve an html
+  slide's underlay and `stage.js` to hydrate `.stage--underlay .stage__inner` (expertbf.js already retries every 4s
+  when the underlay svg is not there yet, so it would cope). Test: `test_archive_ships_only_a_window_of_slide_markup`
+  counts *deferred svg slides* and holds the page under 3 MB — do not count `class="slide-svg"`, underlays carry it too.
 - Corfu deck: `static/timeline/timeline.json` drives the citation-timeline html slide: one lane; `lane: real-data` entries are
   circles, `lane: model` entries (waveform models, `model` = display name, `note` = who used it) are horizontal rules. The column
   sits in the left 38vw and the popup docks right (58vw); container id is `#tl-root` (not `#timeline`, the slide hash);

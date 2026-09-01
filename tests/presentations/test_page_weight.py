@@ -165,13 +165,18 @@ def test_corfu_present_page_fits_in_a_phone(staff_client, db):
 @pytest.mark.skipif(not CORFU.is_dir(), reason='corfu deck not present')
 def test_archive_ships_only_a_window_of_slide_markup(anon_client, db):
     """52 svg slides of outlined text is 6 MB of markup even with the rasters gone. Only a few
-    are inlined; the rest name a URL the browser fetches when the slide is reached."""
+    are inlined; the rest name a URL the browser fetches when the slide is reached.
+
+    Counting `class="slide-svg"` is not the measure: an html slide's `underlay:` carries that class
+    too and is always inlined, so the corfu deck's nine underlays (the table of contents and the
+    eight expert-BF event slides) show up here without being eager *slides*. Count the svg slides
+    that were deferred, and hold the page to a size a phone can carry."""
     registry.clear_cache()
     html = anon_client.get('/presentations/corfu/').content.decode()
-    inlined = html.count('class="slide-svg"')
     deferred = html.count('data-svg-src=')
-    assert inlined <= 6, f'{inlined} slides inlined — the eager window is too wide'
-    assert deferred >= 40, f'only {deferred} slides deferred'
+    svg_slides = sum(1 for s in registry.get_deck('corfu').slides if s.kind == 'svg')
+    assert deferred >= svg_slides - 4, f'only {deferred} of {svg_slides} svg slides deferred'
+    assert len(html) / 1e6 < 3.0, f'the archive page is {len(html) / 1e6:.1f} MB of HTML'
     assert re.search(r'data-svg-src="/presentations/corfu/slide/page-40/"', html)
 
 
