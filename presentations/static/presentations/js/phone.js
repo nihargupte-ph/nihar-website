@@ -6,6 +6,15 @@
   P.$$('.slide-video').forEach((v) => { v.controls = true; });   // phones have no key handler — give them native controls
   P.stage.onChange((id, n, o) => { if (o.user) { following = id === live; pill.hidden = following; } P.widgets.mountShown(id, states); if (P.comments) P.comments.onSlide(id); });
   pill.addEventListener('click', () => { following = true; pill.hidden = true; if (live) P.stage.go(live); });
+  // The answer panel is fixed to the bottom; publish its height so the nav, the follow pill and
+  // the comment button ride above it instead of being buried under it (deck.css --ask-h).
+  const LIFT = [['#comment-toggle', 41.6], ['.deck-nav', 41.6], ['#follow-pill', 60]];
+  function measureAsk() {
+    const h = panel.hidden ? 0 : panel.offsetHeight + 10;   // +10 so nothing kisses the panel edge
+    for (const [sel, base] of LIFT) { const el = P.$(sel); if (el) el.style.bottom = (base + h) + 'px'; }
+  }
+  if (window.ResizeObserver) new ResizeObserver(measureAsk).observe(panel);
+  addEventListener('resize', measureAsk);
   function renderAsk() {
     const open = Object.entries(states).filter(([, s]) => s === 'open').map(([iid]) => iid);
     panel.hidden = !open.length;
@@ -20,6 +29,7 @@
       }, answered[iid]);
     }
     P.$$('.ask', panel).forEach((b) => { if (!open.includes(b.dataset.iid)) b.remove(); });
+    measureAsk();
   }
   P.sync.onState((st) => {
     if (st.locked) { location.href = '/presentations/' + P.data.slug + '/'; return; }

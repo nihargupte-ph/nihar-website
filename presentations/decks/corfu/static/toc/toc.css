@@ -1,0 +1,10 @@
+/* The table-of-contents page is the Canva slide (underlay); this only adds the join corner. */
+.slide-page:has(.toc){max-width:none;padding:0;height:100%;pointer-events:none}
+.toc{position:absolute;inset:0}
+.toc__corner{position:absolute;right:clamp(.8rem,2.5vw,2.5rem);bottom:clamp(2.6rem,7vh,4.5rem);
+  display:flex;flex-direction:column;align-items:center;gap:.35rem;pointer-events:auto;text-align:center}
+.toc__qr{background:#fff;border-radius:10px;padding:.4rem;line-height:0}
+.toc__qr:empty{display:none}
+.toc__qr svg{width:clamp(90px,10vw,150px);height:auto;display:block}
+.toc__url{font:600 clamp(.62rem,.85vw,.85rem) var(--font-body);opacity:.85}
+.toc__made{font:400 clamp(.55rem,.72vw,.72rem) var(--font-body);opacity:.5;letter-spacing:.02em}

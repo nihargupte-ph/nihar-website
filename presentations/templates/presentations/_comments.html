@@ -2,12 +2,14 @@
 <aside class="comments-panel" id="comments-panel">
   <h3 style="margin:.2rem 0 .6rem">Questions &amp; comments</h3>
   <div id="comment-list"></div>
-  <form class="comment-form" id="comment-form" autocomplete="off">
+  {# onsubmit:false — if the JS ever fails to bind, a tap on Post must do nothing, never navigate the phone away #}
+  <form class="comment-form" id="comment-form" autocomplete="off" action="" onsubmit="return false">
     {% csrf_token %}
     <p style="font-size:.8rem;opacity:.75" id="comment-target">On this slide</p>
     <input type="text" name="website" tabindex="-1" aria-hidden="true">
     <textarea name="body" maxlength="1000" placeholder="Ask about this slide… (markdown ok)"></textarea>
     <input class="txt" name="author_name" maxlength="60" placeholder="name (optional)" style="margin:.4rem 0">
+    <div id="comment-notice" class="too-small" hidden></div>
     <div style="display:flex;gap:.4rem"><button class="btn" type="button" id="comment-box-btn" title="draw a box on the slide">▭ point at something</button><span class="grow" style="flex:1"></span><button class="btn btn--primary" type="submit">Post</button></div>
   </form>
 </aside>

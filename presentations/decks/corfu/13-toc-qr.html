@@ -1,0 +1,12 @@
+{% extends "presentations/slide_base.html" %}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}toc/toc.css">
+<div id="toc-root" class="toc">
+  <aside class="toc__corner">
+    <div class="toc__qr" aria-label="join QR code"></div>
+    <div class="toc__url">nihargupte.com/presentations/corfu/</div>
+    <div class="toc__made">made with Claude Opus 5.0</div>
+  </aside>
+</div>
+<script src="{{ deck_static }}toc/toc.js" defer></script>
+{% endblock %}

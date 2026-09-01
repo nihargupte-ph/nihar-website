@@ -33,6 +33,7 @@
     if (!drawState) return; const st = drawState;
     st.ov.removeEventListener('pointerdown', st.down); st.ov.removeEventListener('pointermove', st.move); st.ov.removeEventListener('pointerup', st.up);
     st.ov.removeEventListener('pointercancel', st.cancel); st.ov.removeEventListener('lostpointercapture', st.cancel);
+    document.removeEventListener('touchmove', st.touchMove, { passive: false });
     document.removeEventListener('keydown', st.escKey);
     if (st.pointerId != null) { try { st.ov.releasePointerCapture(st.pointerId); } catch (err) {} st.pointerId = null; }
     st.ov.style.pointerEvents = ''; st.ov.style.cursor = ''; st.ov.style.touchAction = '';
@@ -61,13 +62,17 @@
     ov.style.pointerEvents = 'all'; ov.style.cursor = 'crosshair'; ov.style.touchAction = 'none'; document.body.classList.add('drawing');
     ov.addEventListener('pointerdown', st.down); ov.addEventListener('pointermove', st.move); ov.addEventListener('pointerup', st.up);
     ov.addEventListener('pointercancel', st.cancel); ov.addEventListener('lostpointercapture', st.cancel);
+    // touch-action alone doesn't stop iOS from scrolling/panning an SVG drag: swallow touchmove too
+    st.touchMove = (e) => { if (st.start) e.preventDefault(); };
+    document.addEventListener('touchmove', st.touchMove, { passive: false });
     document.addEventListener('keydown', st.escKey);
+    alertText('Drag across the slide to box what you mean (tap once for a small box, Esc to cancel).');
     open(false);
   }
   C.onSlide = () => { cancelDraw(); pendingAnchor = null; const t = P.$('#comment-target'); if (t) t.textContent = 'On this slide'; hideNotice(); render(); };
   C.mount = function () {
     if (!panel()) return;
-    if (!notice()) { const n = P.el('div', { id: 'comment-notice', class: 'too-small' }); n.hidden = true; list().before(n); }
+    if (!notice()) { const n = P.el('div', { id: 'comment-notice', class: 'too-small' }); n.hidden = true; form().append(n); }
     load();
     P.$('#comment-toggle').addEventListener('click', () => open(!panel().classList.contains('open')));
     P.$('#comment-box-btn').addEventListener('click', startDraw);

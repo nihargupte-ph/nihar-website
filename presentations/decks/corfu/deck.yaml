@@ -58,7 +58,9 @@ interactions:
   log_uniform_min: -4            # the reference log-uniform prior starts at e = 1e-4
 slides:
 - {id: page-01, svg: slides/01-page-01.svg, footer: false}
-- {id: page-02, svg: slides/02-page-02.svg}
+- id: page-02                       # table of contents + the join QR corner
+  html: 13-toc-qr.html
+  underlay: slides/02-page-02.svg
 - id: channels
   html: 05-channels.html
 - {id: page-03, svg: slides/03-page-03.svg}
