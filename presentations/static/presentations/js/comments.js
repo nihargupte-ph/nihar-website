@@ -26,7 +26,14 @@
       const n = bySlide(id).filter((c) => c.anchor && c.anchor.anchor === el.dataset.anchor).length; m.textContent = '💬 ' + (n || '');
     });
   }
-  function open(v) { panel().classList.toggle('open', v); }
+  // iOS shrinks the *visual* viewport to make room for the keyboard but leaves the layout viewport —
+  // and with it every position:fixed box — at full height, so a `bottom:0` panel keeps its form
+  // behind the keys. Inset the panel by the covered strip and keep the focused field in view.
+  function keyboardInset() {
+    const p = panel(), vv = window.visualViewport; if (!p || !vv) return;
+    p.style.bottom = Math.max(0, Math.round(innerHeight - vv.height - vv.offsetTop)) + 'px';
+  }
+  function open(v) { panel().classList.toggle('open', v); keyboardInset(); }
   function alertText(t) { const n = notice(); if (n) { n.textContent = t; n.hidden = false; } }
   function hideNotice() { const n = notice(); if (n) n.hidden = true; }
   function teardownDraw(removeRect) {
@@ -75,7 +82,14 @@
     if (!notice()) { const n = P.el('div', { id: 'comment-notice', class: 'too-small' }); n.hidden = true; form().append(n); }
     load();
     P.$('#comment-toggle').addEventListener('click', () => open(!panel().classList.contains('open')));
+    P.$('#comment-close').addEventListener('click', () => open(false));
     P.$('#comment-box-btn').addEventListener('click', startDraw);
+    if (window.visualViewport) {
+      visualViewport.addEventListener('resize', keyboardInset);
+      visualViewport.addEventListener('scroll', keyboardInset);
+    }
+    // the keyboard animates in after focus, so re-measure once it has settled
+    form().addEventListener('focusin', () => setTimeout(keyboardInset, 300));
     form().addEventListener('submit', async (e) => {
       e.preventDefault(); const f = form(); const body = f.body.value.trim(); if (!body) return;
       let r;

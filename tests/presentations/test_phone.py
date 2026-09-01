@@ -88,3 +88,39 @@ def test_locked_session_phone_redirects_to_archive(live, anon_client, staff_clie
     staff_client.post('/presentations/ex/present/lock/')
     r = anon_client.get(f'/p/{live.join_code}/')
     assert r.status_code == 302 and r['Location'] == '/presentations/ex/'
+
+
+# --- the comments panel on a phone -------------------------------------------------------------
+# `.comments-panel` is `width:min(380px,100vw)`, so on every iPhone it covers the whole screen —
+# including the fixed `#comment-toggle` at left:12px, which is what opened it. Measured in an
+# emulated iPhone 13 / SE / 12 Pro: zero pixels of the toggle are hittable once the panel is open,
+# and `stage.swipe()` deliberately ignores `.comments-panel`. Without a control inside the panel an
+# attendee who opens it is stuck there and has to reload the page.
+
+def _read(*parts):
+    from pathlib import Path
+    return (Path(__file__).resolve().parents[2] / 'presentations').joinpath(*parts).read_text()
+
+
+def test_comments_panel_carries_its_own_close_control():
+    tpl = _read('templates', 'presentations', '_comments.html')
+    assert 'id="comment-close"' in tpl, 'the panel covers the toggle on a phone — it needs its own ✕'
+    js = _read('static', 'presentations', 'js', 'comments.js')
+    assert '#comment-close' in js, 'the ✕ must actually be wired to close the panel'
+
+
+def test_comments_panel_stays_above_the_phone_keyboard():
+    """iOS shrinks the visual viewport, not the layout viewport, so a `bottom:0` fixed panel keeps
+    its form behind the keyboard. comments.js has to track visualViewport and inset the panel."""
+    js = _read('static', 'presentations', 'js', 'comments.js')
+    assert 'visualViewport' in js
+
+
+def test_comment_form_does_not_scroll_away_behind_a_backlog_of_questions():
+    """With a room's worth of questions the composer must stay put — an attendee should never have
+    to scroll a list to find the box. The panel is a column: fixed head, scrolling list, fixed form."""
+    css = _read('static', 'presentations', 'css', 'deck.css')
+    import re
+    panel = re.search(r'\.comments-panel\{[^}]*\}', css).group(0)
+    assert 'display:flex' in panel and 'flex-direction:column' in panel and 'overflow:hidden' in panel
+    assert re.search(r'#comment-list\{[^}]*flex:1[^}]*overflow:auto', css)

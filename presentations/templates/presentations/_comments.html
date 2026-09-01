@@ -1,6 +1,8 @@
 <button class="btn comment-toggle" id="comment-toggle">💬 <span id="comment-count">0</span></button>
 <aside class="comments-panel" id="comments-panel">
-  <h3 style="margin:.2rem 0 .6rem">Questions &amp; comments</h3>
+  {# the panel is full-width on a phone and buries #comment-toggle, so it carries its own way out #}
+  <div class="comments-panel__head"><h3>Questions &amp; comments</h3>
+    <button class="btn comments-panel__close" id="comment-close" type="button" aria-label="close questions">✕</button></div>
   <div id="comment-list"></div>
   {# onsubmit:false — if the JS ever fails to bind, a tap on Post must do nothing, never navigate the phone away #}
   <form class="comment-form" id="comment-form" autocomplete="off" action="" onsubmit="return false">

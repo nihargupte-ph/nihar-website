@@ -9,7 +9,8 @@ from ..textutil import hash_ip, render_markdown
 from .common import (DeckErrorResponse, bad, client_ip, deck_error_response, deck_or_404,
                      json_body, participant_from)
 
-RATE_LIMIT = 5
+RATE_LIMIT = 5                  # per person, per window
+IP_RATE_LIMIT = 30              # per IP: a lecture hall NATs to one address, so this is a room, not a person
 RATE_WINDOW = timedelta(minutes=1)
 
 
@@ -72,15 +73,22 @@ def create(request, slug):
     if not _valid_anchor(slide, anchor):
         return bad('bad anchor')
     ip = hash_ip(client_ip(request))
-    since = timezone.now() - RATE_WINDOW
-    if Comment.objects.filter(ip_hash=ip, created_at__gte=since).count() >= RATE_LIMIT:
-        return bad('too many comments, wait a minute', 429)
     participant = None
     for s in (Session.open_for(slug), Session.archived_for(slug)):
         if s is not None:
             participant = participant_from(request, s)
             if participant:
                 break
+    since = timezone.now() - RATE_WINDOW
+    recent = Comment.objects.filter(created_at__gte=since)
+    # Count the person when we know who they are; everyone in the room shares one IP.
+    if participant is not None:
+        if recent.filter(participant=participant).count() >= RATE_LIMIT:
+            return bad('too many comments, wait a minute', 429)
+        if recent.filter(ip_hash=ip).count() >= IP_RATE_LIMIT:
+            return bad('too many comments from this network, wait a minute', 429)
+    elif recent.filter(ip_hash=ip).count() >= RATE_LIMIT:
+        return bad('too many comments, wait a minute', 429)
     author = (body.get('author_name') or '').strip()[:60] or (participant.display_name if participant else '')
     c = Comment.objects.create(deck_slug=slug, slide_id=slide.id, anchor=anchor, author_name=author,
                                participant=participant, body=text, ip_hash=ip)

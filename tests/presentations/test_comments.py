@@ -63,3 +63,19 @@ def test_participant_signs_comment(deck, anon_client, staff_client):
     anon_client.post(f'/p/{s.join_code}/join/', {'expertise_tag': 'theory', 'display_name': 'Bo'})
     r = post(anon_client, {'slide': 'title', 'body': 'hi'})
     assert r.json()['author'] == 'Bo' and Comment.objects.get().participant is not None
+
+
+def test_rate_limit_counts_people_not_the_lecture_hall(deck, anon_client, staff_client):
+    """A conference room NATs to one public IP. Five questions from one keen attendee must not
+    silence everyone else for the rest of the minute."""
+    from django.test import Client
+    from presentations.models import Session
+    staff_client.get('/presentations/ex/present/')
+    s = Session.open_for('ex')
+    keen, quiet = anon_client, Client()
+    for c, name in ((keen, 'Ana'), (quiet, 'Bo')):
+        c.post(f'/p/{s.join_code}/join/', {'expertise_tag': 'theory', 'display_name': name})
+    for i in range(5):
+        assert post(keen, {'slide': 'title', 'body': f'ana {i}'}).status_code == 201
+    assert post(keen, {'slide': 'title', 'body': 'ana 6'}).status_code == 429       # still capped
+    assert post(quiet, {'slide': 'title', 'body': 'bo 1'}).status_code == 201       # but Bo is not
