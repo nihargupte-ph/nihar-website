@@ -9,6 +9,7 @@ import yaml
 from django.core.management.base import BaseCommand, CommandError
 
 from presentations import registry
+from presentations.rasters import RASTER_DIR, extract_rasters
 from presentations.sanitize import sanitize_svg
 from presentations.theme import derive_theme
 
@@ -73,7 +74,11 @@ def import_sources(src, dest, tmp_dir, start=1):
         used.add(sid)
         out = dest / 'slides' / f'{n:02d}-{sid}{ext}'
         if ext == '.svg':
-            out.write_text(sanitize_svg(f.read_text(encoding='utf-8')), encoding='utf-8')
+            # rasters out to files first: a whole deck of base64 payloads inlined into one page
+            # is what made the corfu archive 20 MB of HTML (see presentations/rasters.py)
+            text, _ = extract_rasters(sanitize_svg(f.read_text(encoding='utf-8')),
+                                      dest / 'slides' / RASTER_DIR)
+            out.write_text(text, encoding='utf-8')
             svgs.append(out)
             slides.append({'id': sid, 'svg': f'slides/{out.name}'})
         else:

@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -6,7 +6,7 @@ from django.views.decorators.http import require_GET
 
 from .. import registry
 from ..models import Session
-from ..render import deck_json, deck_json_script, rendered_slides, theme_css
+from ..render import asset_base, deck_json, deck_json_script, inline_svg, rendered_slides, theme_css
 from .common import DeckErrorResponse, aggregate_payload, bad, deck_error_response, deck_or_404
 
 
@@ -40,6 +40,23 @@ def archive(request, slug):
         'deck': deck, 'slides': rendered_slides(deck, request), 'theme_css': theme_css(deck.theme),
         'deck_data': deck_json_script(data), 'live': live, 'session': session,
     })
+
+
+@require_GET
+def slide_markup(request, slug, sid):
+    """One svg slide's inlined markup, for the slides the page did not ship (see render.EAGER_SLIDES).
+    Same bytes `rendered_slides` would have put in the page — id-namespaced, raster hrefs absolute."""
+    try:
+        deck = deck_or_404(slug)
+    except DeckErrorResponse as e:
+        return deck_error_response(request, e)
+    slide = next((s for s in deck.slides if s.id == sid), None)
+    if slide is None or slide.kind != 'svg':
+        raise Http404('no such svg slide')
+    html = inline_svg(deck.dir / slide.path, ns=slide.id, asset_base=asset_base(deck, slide.path))
+    r = HttpResponse(html, content_type='text/html; charset=utf-8')
+    r['Cache-Control'] = 'private, max-age=60'
+    return r
 
 
 @require_GET

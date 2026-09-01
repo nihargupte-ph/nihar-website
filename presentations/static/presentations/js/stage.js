@@ -27,6 +27,54 @@
   S.slideEl = (id) => document.querySelector(`.slide[data-slide-id="${CSS.escape(id)}"]`);
   S.overlay = (id) => { const s = S.slideEl(id); return s ? s.querySelector('.overlay') : null; };
   S.widgets = (id) => { const s = S.slideEl(id); return s ? s.querySelector('.stage__widgets') : null; };
+  // --- deferred slide markup -------------------------------------------------------------
+  // A deck of outlined-text exports is ~120 KB of markup a slide; all of corfu at once was 6 MB
+  // of HTML and iOS Safari jettisons the tab. The page ships a window (render.EAGER_SLIDES) and
+  // marks the rest `data-svg-src`; we fetch them as they are approached and drop them again once
+  // they are well behind, so what is resident stays bounded however far the deck is walked.
+  const NEAR = 2;          // hydrate this far either side of the current slide
+  const KEEP = 5;          // ... and drop anything further away than this
+  const pending = new Map();
+
+  S.hydrate = function (el) {
+    if (!el || !el.dataset.svgSrc) return Promise.resolve();
+    const inner = el.querySelector('.stage__inner');
+    if (!inner || inner.querySelector('.slide-svg')) return Promise.resolve();
+    const src = el.dataset.svgSrc;
+    if (pending.has(src)) return pending.get(src);
+    const p = fetch(src, { credentials: 'same-origin' })
+      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(src + ' -> ' + r.status))))
+      .then((html) => {
+        // the deck may have moved on while this was in flight — don't re-populate a slide the
+        // window has since dropped, or the DOM grows without bound as the deck is walked
+        if (Math.abs(Number(el.dataset.index) - idx) > KEEP) return;
+        if (inner.querySelector('.slide-svg')) return;
+        const holder = document.createElement('div');
+        holder.innerHTML = html;
+        const svg = holder.querySelector('svg');
+        if (svg) inner.insertBefore(svg, inner.firstChild);   // stays behind .overlay / widgets
+        el.dataset.hydrated = '1';
+      })
+      .catch((e) => { console.error('slide markup', e); })
+      .finally(() => pending.delete(src));
+    pending.set(src, p);
+    return p;
+  };
+
+  S.dehydrate = function (el) {
+    if (!el || !el.dataset.svgSrc) return;
+    const svg = el.querySelector('.stage__inner > .slide-svg');
+    if (svg) svg.remove();
+    delete el.dataset.hydrated;
+  };
+
+  S.window = function (n) {
+    document.querySelectorAll('.slide[data-svg-src]').forEach((el) => {
+      const d = Math.abs(Number(el.dataset.index) - n);
+      if (d <= NEAR) S.hydrate(el); else if (d > KEEP) S.dehydrate(el);
+    });
+  };
+
   S.index = () => idx;
   S.current = () => (slides()[idx] || {}).id;
   S.onChange = (cb) => listeners.push(cb);
@@ -35,6 +83,7 @@
     if (n < 0 || n >= list.length) return;
     idx = n;
     document.querySelectorAll('.slide').forEach((el) => { el.hidden = Number(el.dataset.index) !== n; });
+    S.window(n);
     const num = document.querySelector('#slide-num'); if (num) num.textContent = String(list[n].number || n + 1);
     document.querySelectorAll('video').forEach((v) => { if (!v.closest('.slide') || v.closest('.slide').hidden) v.pause(); });
     listeners.forEach((cb) => cb(list[n].id, n, opts || {}));

@@ -9,6 +9,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from presentations import registry
 from presentations.models import Session
+from presentations.rasters import RASTER_DIR, prune_rasters
 
 from .newdeck import import_sources
 
@@ -102,7 +103,7 @@ class Command(BaseCommand):
             dropped = [i for i, e in old_svg.items() if any(k not in ('id', 'svg') for k in e)]
             unmatched = list(old_svg)
 
-            new_files = sorted(p.name for p in (stage / 'slides').iterdir())
+            new_files = sorted(p.name for p in (stage / 'slides').iterdir() if p.is_file())
             self.stdout.write(f"import: {len(new_entries)} slides from {src}: {', '.join(e['id'] for e in new_entries)}")
             self.stdout.write(f"kept at end: {len(kept)} html/video entries")
             self.stdout.write(f"carried hotspots/ask/show/footer for: {', '.join(carried) or '-'}")
@@ -118,6 +119,13 @@ class Command(BaseCommand):
                     f.unlink()
             for name in new_files:
                 shutil.copy2(stage / 'slides' / name, dest / 'slides' / name)
+            staged_img = stage / 'slides' / RASTER_DIR
+            if staged_img.is_dir():
+                (dest / 'slides' / RASTER_DIR).mkdir(exist_ok=True)
+                for p in staged_img.iterdir():
+                    shutil.copy2(p, dest / 'slides' / RASTER_DIR / p.name)
+        # extracted rasters are content-hashed, so the ones the new export doesn't use are dead
+        prune_rasters(dest / 'slides')
 
         body = dump_entries(new_entries, indent) + ''.join(kept)
         yaml_path.write_text(before + body + after, encoding='utf-8')

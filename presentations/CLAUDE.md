@@ -14,6 +14,8 @@ micromamba run -n django-nihar-website python manage.py newdeck <slug> --title "
 micromamba run -n django-nihar-website python manage.py checkdecks   # validate every deck; run after each edit
 # re-export from Canva later: replace ALL svg slides, keep html/video entries (moved to the end of slides: to reorder)
 micromamba run -n django-nihar-website python manage.py reslides <slug> --from ~/Downloads/talk-v2.pdf [--dry-run] [--force]
+# retrofit a deck imported before the raster extraction landed (idempotent; leaves slide ids alone)
+micromamba run -n django-nihar-website python manage.py extractrasters [<slug>…] [--dry-run] [--prune]
 ```
 
 `newdeck` sanitises the SVGs, numbers them `slides/NN-<id>.svg`, derives `theme:` from their colours/fonts,
@@ -40,6 +42,25 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
 - ids are persistence keys — never rename a slide/interaction id after a session has run.
 - Deck-local JS/CSS/data go in `decks/<slug>/static/` → served at `/static/decks/<slug>/…` (use `{{ deck_static }}` in html slides).
   Videos are git-LFS tracked (`presentations/decks/**/*.mp4|webm`).
+- **Page weight (the iOS OOM fix).** Canva/poppler exports embed every bitmap as a base64 data URI and
+  `render.py` inlines *every* slide into one document: the corfu archive page was 20.4 MB of HTML (14.1 MB of it
+  base64) and iOS Safari jettisoned the tab — tapping the comment box (keyboard + relayout) was the last straw.
+  Two things now keep it small, and both must stay true of any new deck:
+  1. `presentations/rasters.py` writes the bitmaps out to `slides/img/<sha1>.<ext>` (straight bytes, no re-encode,
+     deduplicated by content — 96 embeds in corfu were 60 distinct files) and rewrites the `<image>` to the
+     **relative** href `img/<sha1>.png`, so the SVG also works when fetched on its own. `render.inline_svg` takes an
+     `asset_base` and makes those hrefs absolute (`/static/decks/<slug>/slides/img/…`) at inline time — a relative
+     href would otherwise resolve against `/presentations/<slug>/`, not against the SVG. `sanitize.py` allows exactly
+     that one href shape (`rasters.RASTER_HREF`) and nothing else relative. Hash names are self-busting under nginx's
+     30-day `immutable`. `newdeck`/`reslides` do this on import; `extractrasters` retrofits an existing deck
+     (`--prune` drops images no slide references any more; `reslides` prunes on its own).
+  2. Only `render.EAGER_SLIDES` (+1) svg slides ship their markup in the page; the rest carry
+     `data-svg-src="/presentations/<slug>/slide/<id>/"` (view `archive.slide_markup`, same bytes `rendered_slides`
+     would have inlined) and `stage.js` hydrates within ±2 of the current slide and dehydrates beyond ±5, so the
+     resident DOM is bounded however far the deck is walked. Hydration is a `fetch` + `innerHTML`, **so a deferred
+     slide's `<script>` would not run** — that is why only `kind: svg` slides are deferred; html slides (and the
+     `underlay:` svg of an html slide) are always inlined. Corfu: 20.4 MB → 0.32 MB of HTML, 166 k → 13 k DOM nodes
+     at load, peak ~12 k walking all 56 slides.
 - Corfu deck: `static/timeline/timeline.json` drives the citation-timeline html slide: one lane; `lane: real-data` entries are
   circles, `lane: model` entries (waveform models, `model` = display name, `note` = who used it) are horizontal rules. The column
   sits in the left 38vw and the popup docks right (58vw); container id is `#tl-root` (not `#timeline`, the slide hash);
@@ -158,13 +179,17 @@ mobile emulation (`pw.devices['iPhone 13']`) against `runserver`; WebKit's headl
   Cloudflare; engine assets are content-hashed by `nihar_website.storage.ForgivingManifestStaticFilesStorage`, but
   deck templates concatenate onto the `{{ deck_static }}` *directory* prefix, so `decks/<slug>/**` (deck js/css, the
   json they fetch, media) keeps one URL for ever. Editing a deck asset in place will not reach anyone who has already
-  loaded the deck. Slide svgs are safe — `render.py` inlines them into the (uncached) HTML. Fix would be a version
+  loaded the deck. Slide svgs are safe — `render.py` inlines them into the (uncached) HTML, and the rasters they
+  reference are content-hashed (`slides/img/<sha1>.png`), so those bust themselves. Fix would be a version
   segment in the prefix that `DeckStaticFinder` strips; until then, rename the file when its contents matter.
 - Phone: a viewer-started video is re-paused by the presenter-sync loop once the presenter has ever paused
   (`phone.js` `onState`); gate on `following` or drop — spec says phones don't follow playback.
 - No join rate limit (a NAT'd lecture hall shares one IP); a bored attendee could inflate `n` — delete the
   session in admin if it happens.
 - Comment boxes are draw-once (no move/resize); comment numbers can tie on identical timestamps.
+- Slide markup is still ~120 KB a slide (pdftocairo turns all text into outlined `<path>`/`<use>`), so a deck of
+  outlined text is ~6 MB of markup on disk however few slides are resident. Squeezing that means an svgo-style
+  pass on path precision, which risks changing the rendering — not attempted.
 - Sanitizer doesn't scan `<style>` element bodies; Plotly CDN tag has no SRI; `pytest-django` sits in prod
   `requirements.txt`; `stage.test.mjs` isn't wired into pytest.
 - `CLAUDE.md` (repo root) lines ~62–63 carry a pre-existing garbled docs link unrelated to this app.

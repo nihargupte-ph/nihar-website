@@ -1,4 +1,5 @@
 import json
+import posixpath
 import re
 from pathlib import Path
 
@@ -6,6 +7,7 @@ from django.template import engines
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 
+from .rasters import RASTER_ATTR
 from .textutil import render_markdown
 
 _XML_DECL = re.compile(r'<\?xml[^>]*\?>', re.S)
@@ -27,9 +29,15 @@ def namespace_ids(text, ns):
     return _REF.sub(lambda m: f'{m.group(1)}{ns}--{m.group(2)}' if m.group(2) in ids else m.group(0), text)
 
 
-def inline_svg(path, ns=None):
+def inline_svg(path, ns=None, asset_base=None):
+    """`asset_base` is the /static/ URL of the directory the SVG lives in. Extracted rasters are
+    referenced relatively (`img/<sha1>.png`) so the SVG works when fetched on its own, but this
+    markup is inlined into the *page* — where a relative href would resolve against
+    /presentations/<slug>/ — so those hrefs are made absolute here."""
     text = Path(path).read_text(encoding='utf-8')
     text = _DOCTYPE.sub('', _XML_DECL.sub('', text)).strip()
+    if asset_base:
+        text = RASTER_ATTR.sub(lambda m: f'{m.group(1)}="{asset_base}{m.group(2)}"', text)
     if ns:
         text = namespace_ids(text, ns)
     m = _ROOT.search(text)
@@ -52,6 +60,12 @@ def slide_static_url(deck, rel):
     return static(f'decks/{deck.slug}/{rel}')
 
 
+def asset_base(deck, rel):
+    """/static/ URL of the directory `rel` (a deck-relative file) sits in."""
+    parent = posixpath.dirname(str(rel).replace('\\', '/'))
+    return static(f'decks/{deck.slug}/' + (f'{parent}/' if parent else ''))
+
+
 def render_html_slide(deck, slide, request):
     src = (deck.dir / slide.path).read_text(encoding='utf-8')
     tpl = engines['django'].from_string(src)
@@ -61,17 +75,32 @@ def render_html_slide(deck, slide, request):
     }, request)
 
 
+# How many svg slides either side of the first one ship their markup in the page. A deck of
+# outlined-text exports is ~120 KB of markup per slide, and all 56 corfu slides at once was 6 MB
+# even after the rasters came out — enough to get the tab jettisoned on an iPhone. The rest name
+# `slide_url` and `stage.js` fetches (and drops again) them as the deck is walked.
+EAGER_SLIDES = 2
+
+
+def slide_markup_url(deck, slide):
+    return f'/presentations/{deck.slug}/slide/{slide.id}/'
+
+
 def rendered_slides(deck, request):
     out = []
     for n, s in enumerate(deck.slides):
         row = {'slide': s, 'index': n, 'markup': '', 'video_url': '', 'poster_url': '', 'underlay': '',
-               'footer': bool(deck.footer and s.footer)}
+               'svg_url': '', 'footer': bool(deck.footer and s.footer)}
         if s.kind == 'svg':
-            row['markup'] = inline_svg(deck.dir / s.path, ns=s.id)
+            if n <= EAGER_SLIDES:
+                row['markup'] = inline_svg(deck.dir / s.path, ns=s.id, asset_base=asset_base(deck, s.path))
+            else:
+                row['svg_url'] = slide_markup_url(deck, s)
         elif s.kind == 'html':
             row['markup'] = mark_safe(render_html_slide(deck, s, request))
             if s.underlay:
-                row['underlay'] = inline_svg(deck.dir / s.underlay, ns=f'{s.id}-u')
+                row['underlay'] = inline_svg(deck.dir / s.underlay, ns=f'{s.id}-u',
+                                             asset_base=asset_base(deck, s.underlay))
         else:
             row['video_url'] = slide_static_url(deck, s.path)
             row['poster_url'] = slide_static_url(deck, s.poster) if s.poster else ''
@@ -121,7 +150,7 @@ def deck_json(deck, session, mode, urls):
                          for i in deck.interactions},
         'session': ({'code': session.join_code, 'locked': session.is_locked, 'current': session.current_slide_id,
                      'version': session.version} if session else None),
-        'urls': urls,
+        'urls': {'slide': f'/presentations/{deck.slug}/slide/', **urls},
     }
 
 

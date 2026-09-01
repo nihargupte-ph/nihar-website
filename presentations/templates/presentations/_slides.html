@@ -1,6 +1,6 @@
 <main class="deck" id="deck" data-transition="{{ deck.transition }}">
   {% for row in slides %}
-  <section class="slide slide--{{ row.slide.kind }}" data-slide-id="{{ row.slide.id }}" data-index="{{ row.index }}" {% if row.index != 0 %}hidden{% endif %}>
+  <section class="slide slide--{{ row.slide.kind }}" data-slide-id="{{ row.slide.id }}" data-index="{{ row.index }}"{% if row.svg_url %} data-svg-src="{{ row.svg_url }}"{% endif %} {% if row.index != 0 %}hidden{% endif %}>
     {% if row.slide.kind == 'html' %}
       {% if row.underlay %}<div class="stage stage--underlay"><div class="stage__inner">{{ row.underlay }}</div></div>{% endif %}
       {{ row.markup }}

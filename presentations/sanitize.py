@@ -1,6 +1,8 @@
 import re
 import xml.etree.ElementTree as ET
 
+from .rasters import RASTER_HREF
+
 SVG_NS = 'http://www.w3.org/2000/svg'
 XLINK_NS = 'http://www.w3.org/1999/xlink'
 _BAD_TAGS = {
@@ -18,7 +20,9 @@ def _safe_href(v):
     v = (v or '').strip()
     if v.lower().startswith('javascript:'):
         return False
-    return v.startswith('#') or v.lower().startswith('data:')
+    # `img/<sha1>.<ext>` is what rasters.extract_rasters writes: a sibling file of the slide,
+    # no traversal, no scheme, no host.
+    return v.startswith('#') or v.lower().startswith('data:') or bool(RASTER_HREF.fullmatch(v))
 
 
 def sanitize_svg(text):
