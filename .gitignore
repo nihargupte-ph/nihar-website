@@ -156,3 +156,6 @@ backups/
 
 # arXiv source cache of the corfu figure picker
 presentations/decks/*/tools/.cache/
+
+# agent worktrees live inside the repo; never commit them as gitlinks
+.claude/worktrees/

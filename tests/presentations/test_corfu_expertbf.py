@@ -274,3 +274,17 @@ def test_browser_and_python_agree_on_the_dot_product(m, data):
             continue
         want = m.bayes_factor(probe, row['lambda'], row['k'])
         assert got[row['id']] == pytest.approx(want, rel=1e-12), row['id']
+
+
+def test_the_answer_is_placed_so_it_does_not_run_into_the_words_either_side():
+    """The blank is two underscores; a three-character answer is wider than that. Left-anchored and
+    unscaled it swallowed the space before "(uniform…" ("750(uniform"). Centring it instead closed
+    up the comma before, so "1,698, 750" read as the single number 1,698,750. So: anchor at the
+    blank's left edge (which follows ", ") and scale down to fit the blank plus the one space after
+    it, with a floor so the number stays readable from the back of the room."""
+    from pathlib import Path
+    js = (Path(__file__).resolve().parents[2] / 'presentations' / 'decks' / 'corfu' / 'static'
+          / 'expertbf' / 'expertbf.js').read_text()
+    assert "text-anchor', 'middle'" not in js, 'centring merges the answer with the comma before it'
+    assert 'MAX_OVERRUN' in js and 'getComputedTextLength' in js
+    assert 'Math.max(0.7,' in js, 'keep a floor on the shrink'

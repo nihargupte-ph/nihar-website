@@ -42,6 +42,8 @@
   // that pdftotext reports.  Tuned against the deck's own glyphs.
   const BASELINE = 0.79;
   const SIZE = 0.80;
+  // how far past the two underscores the answer may run before it is scaled down
+  const MAX_OVERRUN = 1.15;
 
   if (typeof document === 'undefined' || NS.mounted) return;
   const hosts = Array.from(document.querySelectorAll('.xbf:not([data-done])'));
@@ -97,9 +99,12 @@
       const n = ev && node(host);
       if (!n) continue;
       const b = ev.blank;
+      // Start at the blank's left edge, which is just after ", " — centring instead closed up the
+      // comma and let "1,698, 750" read as the single number 1,698,750.
       n.text.setAttribute('x', (b.x * n.box.width).toFixed(2));
       n.text.setAttribute('y', ((b.y + b.h * BASELINE) * n.box.height).toFixed(2));
-      n.text.setAttribute('font-size', (b.h * SIZE * n.box.height).toFixed(2));
+      const size = b.h * SIZE * n.box.height;
+      n.text.setAttribute('font-size', size.toFixed(2));
       const value = ev.fittable && agg && agg.mean
         ? NS.bayesFactor(agg.mean, ev.lambda, ev.k) : null;
       n.text.setAttribute('class', 'xbf-text' + (value == null ? ' xbf-text--none' : ''));
@@ -107,6 +112,12 @@
       const label = n.text.lastChild && n.text.lastChild.nodeType === 3
         ? n.text.lastChild : n.text.appendChild(document.createTextNode(''));
       label.data = NS.format(value);
+      // An answer is usually wider than the two underscores it replaces, and left unchecked it
+      // swallowed the space before "(uniform…". Allow it the blank plus that space, then scale to
+      // fit. Never below 70% — a number nobody can read from the back of the room is worse.
+      const room = b.w * MAX_OVERRUN * n.box.width;
+      const wide = n.text.getComputedTextLength();
+      if (wide > room) n.text.setAttribute('font-size', (size * Math.max(0.7, room / wide)).toFixed(2));
       n.text.firstChild.textContent = explain(ev, value, agg || {});
       host.title = n.text.firstChild.textContent;
       host.textContent = label.data;
