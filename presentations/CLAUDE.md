@@ -105,6 +105,11 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
 3. **Lock** at the end: freezes interactions as the archive at `/presentations/<slug>/`, bounces phones there.
    Locked present page offers **Unlock** (fat-finger recovery) and **New session** (re-give the talk).
 Comments are open to anyone forever, post-moderated in `/admin/presentations/comment/` (hide/unhide).
+On a phone `.comments-panel` covers the whole screen, so it is a column — head (title + ✕, the only way out;
+`#comment-toggle` is underneath it), scrolling `#comment-list`, pinned composer — and `comments.js` insets it from
+`visualViewport` so iOS's keyboard cannot bury the box. Rate limit: 5 comments/min per *participant* (a lecture hall
+NATs to one IP), with a 30/min per-IP ceiling behind it. Emulator harness for phone bugs: Playwright + Chromium
+mobile emulation (`pw.devices['iPhone 13']`) against `runserver`; WebKit's headless build does not start on this box.
 
 ## Dev workflow
 
@@ -118,6 +123,12 @@ Comments are open to anyone forever, post-moderated in `/admin/presentations/com
 
 ## Known gaps / deferred (from the branch review)
 
+- Deck assets are still cache-pinned. nginx serves `/static/` as `immutable` for 30 days (90 for svg) behind
+  Cloudflare; engine assets are content-hashed by `nihar_website.storage.ForgivingManifestStaticFilesStorage`, but
+  deck templates concatenate onto the `{{ deck_static }}` *directory* prefix, so `decks/<slug>/**` (deck js/css, the
+  json they fetch, media) keeps one URL for ever. Editing a deck asset in place will not reach anyone who has already
+  loaded the deck. Slide svgs are safe — `render.py` inlines them into the (uncached) HTML. Fix would be a version
+  segment in the prefix that `DeckStaticFinder` strips; until then, rename the file when its contents matter.
 - Phone: a viewer-started video is re-paused by the presenter-sync loop once the presenter has ever paused
   (`phone.js` `onState`); gate on `following` or drop — spec says phones don't follow playback.
 - No join rate limit (a NAT'd lecture hall shares one IP); a bored attendee could inflate `n` — delete the
