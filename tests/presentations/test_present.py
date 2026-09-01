@@ -144,3 +144,12 @@ def test_livecache_ttl(deck, staff_client, monkeypatch):
     assert livecache.get_state('ABC', builder) == {'v': 2}
     livecache.invalidate('ABC')
     assert livecache.get_state('ABC', builder) == {'v': 3}
+
+
+def test_fullscreen_letterbox_uses_the_deck_background_not_black():
+    """In fullscreen the 16:9 slide is letterboxed; the strip must read as margin, not black bars."""
+    from pathlib import Path
+    css = (Path(__file__).resolve().parents[2] / 'presentations' / 'static' / 'presentations' / 'css' / 'deck.css').read_text()
+    import re
+    block = re.search(r'@media \(display-mode: fullscreen\)\{[\s\S]*?\n\}', css).group(0)
+    assert 'background:var(--bg)' in block and '#000' not in block

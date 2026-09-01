@@ -14,11 +14,12 @@ a{color:var(--accent)}
 .live-banner a{color:inherit}
 .deck{position:absolute;inset:40px 0 0 0;overflow:hidden}
 /* fullscreen (F11 or the Fullscreen API): drop the top chrome so the slide footer is the only indication.
-   Like Canva's presenter: slide scales edge-to-edge, any aspect-ratio letterbox is black. */
+   The slide is 16:9; on any other screen shape the leftover strip takes the deck's own background so it
+   reads as margin rather than as black bars down the sides. */
 @media (display-mode: fullscreen){
   .deck-chrome{display:none}
   .live-banner{top:0}
-  body,.deck{background:#000}
+  body,.deck{background:var(--bg)}
   .deck{inset:0}
   .stage__inner{width:min(100%,calc(100vh * 16 / 9));background:var(--bg)}
 }
