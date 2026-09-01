@@ -153,3 +153,23 @@ def test_fullscreen_letterbox_uses_the_deck_background_not_black():
     import re
     block = re.search(r'@media \(display-mode: fullscreen\)\{[\s\S]*?\n\}', css).group(0)
     assert 'background:var(--bg)' in block and '#000' not in block
+
+
+def test_fullscreen_actually_reclaims_the_chrome_bar():
+    """The 40px chrome bar is hidden in fullscreen, so the stage must be sized against the full
+    viewport height. It was not: `.stage__inner{width:min(100%,calc((100vh - 40px)*16/9))}` sits
+    *after* the @media block in the file and a media query adds no specificity, so the later rule
+    won and the slide stayed 40px short — measured 1849x1040 inside a 1920x1080 fullscreen window,
+    centred, i.e. white margin on all four sides of a screen the slide should have filled exactly.
+
+    Carry the bar's height in a custom property instead, so one declaration serves both states and
+    source order cannot decide it."""
+    from pathlib import Path
+    import re
+    css = (Path(__file__).resolve().parents[2] / 'presentations' / 'static' / 'presentations'
+           / 'css' / 'deck.css').read_text()
+    inner = re.search(r'\n\.stage__inner\{[^}]*\}', css).group(0)
+    assert '40px' not in inner, 'the stage still hard-codes the chrome height'
+    assert 'var(--chrome-h)' in inner
+    block = re.search(r'@media \(display-mode: fullscreen\)\{[\s\S]*?\n\}', css).group(0)
+    assert re.search(r'--chrome-h:\s*0', block), 'fullscreen must zero the chrome height'

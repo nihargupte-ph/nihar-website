@@ -1,28 +1,30 @@
 *{box-sizing:border-box}
-:root{--line:rgba(255,255,255,.15);--line-soft:rgba(255,255,255,.08);--surface:rgba(255,255,255,.12);--panel:rgba(10,10,10,.85);--panel-solid:#151515;--field:rgba(0,0,0,.4);--on-accent:#000;--shadow:0 10px 40px rgba(0,0,0,.5);--scrim:rgba(0,0,0,.45)}
+:root{--chrome-h:40px;--line:rgba(255,255,255,.15);--line-soft:rgba(255,255,255,.08);--surface:rgba(255,255,255,.12);--panel:rgba(10,10,10,.85);--panel-solid:#151515;--field:rgba(0,0,0,.4);--on-accent:#000;--shadow:0 10px 40px rgba(0,0,0,.5);--scrim:rgba(0,0,0,.45)}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:var(--font-body)}
 h1,h2,h3{font-family:var(--font-display)}
 a{color:var(--accent)}
-.deck-chrome{position:fixed;top:0;left:0;right:0;height:40px;display:flex;align-items:center;gap:.8rem;padding:0 .8rem;font-size:.85rem;z-index:20;transition:opacity .3s;pointer-events:none}
+.deck-chrome{position:fixed;top:0;left:0;right:0;height:var(--chrome-h);display:flex;align-items:center;gap:.8rem;padding:0 .8rem;font-size:.85rem;z-index:20;transition:opacity .3s;pointer-events:none}
 .deck-chrome>*{pointer-events:auto}
 .deck-chrome--hidden{opacity:0;pointer-events:none}
 .deck-chrome__home{text-decoration:none;color:var(--fg);opacity:.45;font-size:.8rem}
 .deck-chrome__home:hover{opacity:.9}
 .pres-badge{display:inline-block;padding:.1rem .5rem;border-radius:999px;background:var(--surface);font-size:.7rem;letter-spacing:.06em}
 .pres-badge--live{background:#d33;color:#fff}
-.live-banner{position:fixed;top:40px;left:0;right:0;padding:.4rem;text-align:center;background:var(--accent);color:var(--on-accent);z-index:19}
+.live-banner{position:fixed;top:var(--chrome-h);left:0;right:0;padding:.4rem;text-align:center;background:var(--accent);color:var(--on-accent);z-index:19}
 .live-banner a{color:inherit}
-.deck{position:absolute;inset:40px 0 0 0;overflow:hidden}
+.deck{position:absolute;inset:var(--chrome-h) 0 0 0;overflow:hidden}
 /* fullscreen (F11 or the Fullscreen API): drop the top chrome so the slide footer is the only indication.
-   The slide is 16:9; on any other screen shape the leftover strip takes the deck's own background so it
-   reads as margin rather than as black bars down the sides. */
+   The bar's height is a custom property because .stage__inner sizes itself against it further down the
+   file — a media query adds no specificity, so an override up here would silently lose to the later rule
+   and leave the slide 40px short of the screen it is supposed to fill.
+   The slide is 16:9; on a screen of any other shape the leftover strip takes the deck's own background so
+   it reads as margin rather than as black bars. */
 @media (display-mode: fullscreen){
+  :root{--chrome-h:0px}
   .deck-chrome{display:none}
-  .live-banner{top:0}
-  body,.deck{background:var(--bg)}
-  .deck{inset:0}
-  .stage__inner{width:min(100%,calc(100vh * 16 / 9));background:var(--bg)}
+  body,.deck,.stage__inner{background:var(--bg)}
 }
+:root:fullscreen{--chrome-h:0px}   /* browsers that do not report display-mode for element fullscreen */
 .slide{position:absolute;inset:0}
 .slide[hidden]{display:none}
 .deck[data-transition="fade"] .slide{animation:fadein .35s ease}
@@ -33,7 +35,7 @@ a{color:var(--accent)}
 .slide-page{position:relative;min-height:100%;padding:3rem clamp(1rem,6vw,6rem);max-width:1400px;margin:0 auto;z-index:1}
 .stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .stage--underlay{z-index:0}
-.stage__inner{position:relative;aspect-ratio:16/9;width:min(100%,calc((100vh - 40px) * 16 / 9));max-height:100%}
+.stage__inner{position:relative;aspect-ratio:16/9;width:min(100%,calc((100vh - var(--chrome-h)) * 16 / 9));max-height:100%}
 .stage__inner>.slide-svg,.stage__inner>.slide-video{position:absolute;inset:0;width:100%;height:100%;display:block}
 .slide-video{object-fit:contain;background:#000}
 .slide-footer{position:absolute;left:0;right:0;bottom:0;height:2.8%;display:flex;align-items:center;justify-content:space-between;padding:0 1.2%;font-family:var(--font-body);font-size:1.2cqh;line-height:1;white-space:nowrap;z-index:2;pointer-events:none}
@@ -105,7 +107,7 @@ canvas.draw--prior{height:200px;color:var(--fg)}
 .prior-legend i.uni{border-top:2px dotted currentColor;opacity:.9}
 input.num,input.txt{width:100%;font-size:1.1rem;padding:.5rem;border-radius:8px;border:1px solid var(--line);background:var(--field);color:var(--fg)}
 /* a column: head and composer stay put, only the list of questions scrolls */
-.comments-panel{position:fixed;right:0;top:40px;bottom:0;width:min(380px,100vw);background:var(--panel-solid);border-left:1px solid var(--line);padding:.8rem;display:flex;flex-direction:column;overflow:hidden;z-index:28;transform:translateX(100%);transition:transform .25s}
+.comments-panel{position:fixed;right:0;top:var(--chrome-h);bottom:0;width:min(380px,100vw);background:var(--panel-solid);border-left:1px solid var(--line);padding:.8rem;display:flex;flex-direction:column;overflow:hidden;z-index:28;transform:translateX(100%);transition:transform .25s}
 #comment-list{flex:1;min-height:0;overflow:auto}
 .comment-form{flex:none;padding-top:.4rem}
 .comments-panel.open{transform:none}
