@@ -72,24 +72,26 @@ slides:
   html: 12-prior-poll.html
   ask: [ecc-prior]
   show: [{id: ecc-prior}]
-- {id: page-06, svg: slides/06-page-06.svg}
-- {id: page-07, svg: slides/07-page-07.svg}
-- {id: page-08, svg: slides/08-page-08.svg}
-- {id: page-09, svg: slides/09-page-09.svg}
+# page-06..09, 14, 16, 17 and 23 quote "__ (uniform, log-uni, expert prior)"; the Canva text is
+# outlines, so 14-expert-bf.html overlays the live number on the blank (tools/expertbf.py).
+- {id: page-06, html: 14-expert-bf.html, underlay: slides/06-page-06.svg}
+- {id: page-07, html: 14-expert-bf.html, underlay: slides/07-page-07.svg}
+- {id: page-08, html: 14-expert-bf.html, underlay: slides/08-page-08.svg}
+- {id: page-09, html: 14-expert-bf.html, underlay: slides/09-page-09.svg}
 - {id: page-10, svg: slides/10-page-10.svg}
 - {id: page-11, svg: slides/11-page-11.svg}
 - {id: page-12, svg: slides/12-page-12.svg}
 - {id: page-13, svg: slides/13-page-13.svg}
-- {id: page-14, svg: slides/14-page-14.svg}
+- {id: page-14, html: 14-expert-bf.html, underlay: slides/14-page-14.svg}
 - {id: page-15, svg: slides/15-page-15.svg}
-- {id: page-16, svg: slides/16-page-16.svg}
-- {id: page-17, svg: slides/17-page-17.svg}
+- {id: page-16, html: 14-expert-bf.html, underlay: slides/16-page-16.svg}
+- {id: page-17, html: 14-expert-bf.html, underlay: slides/17-page-17.svg}
 - {id: page-18, svg: slides/18-page-18.svg}
 - {id: page-19, svg: slides/19-page-19.svg}
 - {id: page-20, svg: slides/20-page-20.svg}
 - {id: page-21, svg: slides/21-page-21.svg}
 - {id: page-22, svg: slides/22-page-22.svg}
-- {id: page-23, svg: slides/23-page-23.svg}
+- {id: page-23, html: 14-expert-bf.html, underlay: slides/23-page-23.svg}
 - {id: page-24, svg: slides/24-page-24.svg}
 - {id: page-25, svg: slides/25-page-25.svg}
 - {id: page-26, svg: slides/26-page-26.svg}

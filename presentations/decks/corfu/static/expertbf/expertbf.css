@@ -1,0 +1,11 @@
+/* The event slides are Canva exports (text is outlines), so the "expert prior" answer is drawn
+   as an SVG <text> inside the underlay's own viewBox — see expertbf.js.  The marker div that
+   the template renders only carries the slide id and the no-JS dash. */
+.slide-page.xbf-passthrough{max-width:none;padding:0;min-height:0;pointer-events:none}
+.slide-page.xbf-passthrough .xbf{display:none}
+
+.xbf{font:600 1rem var(--font-body);color:var(--accent-1,#b3262e)}
+
+.xbf-text{fill:var(--accent-1,#b3262e);font-family:var(--font-body),Inter,sans-serif;font-weight:600;
+  letter-spacing:-.01em;pointer-events:auto;cursor:help}
+.xbf-text--none{fill:var(--fg,#504c44);opacity:.4;font-weight:400}

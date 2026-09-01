@@ -93,6 +93,37 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
   uniform in e (∝ e ln10, clipped at the top). `widgets.js` calls a type's optional `update()` on re-poll so the plot refreshes in
   place (keeps hover/filter). `static/prior-poll/poll.js` only clones the session QR (`#qr-box`) onto the slide in present mode.
   Payload metadata lives in `Response.payload` — no model change.
+- Corfu deck: `14-expert-bf.html` + `static/expertbf/` + `tools/expertbf.py` fill the `__` in "Bayes factor ~ 17, 3, __
+  (uniform, log-uni, expert prior)" with the number the **audience's** poll mixture implies. One template serves all eight
+  affected slides (`page-06..09` GW200208_22, `page-14` GW200105, `page-16/17` GW190701, `page-23` GW200129): each is now
+  `html: 14-expert-bf.html` + `underlay: slides/NN-page-NN.svg`, ids unchanged. Canva text is outlines, so the number is drawn
+  as an SVG `<text>` **inside the underlay's own viewBox** (SVG positions text by its baseline, so it lands on the underscores
+  at any window size); the `__` word boxes came from `pdftotext -bbox` (page size 1440×810 pt = the viewBox) and live in the
+  json as fractions. `tools/expertbf.py` (run from the deck folder) writes `static/expertbf/expertbf.json`; the browser only
+  does `B = k · Σ wᵢ Λᵢ` against the poll's `mean`. Aggregates 403 while the poll is hidden/open for non-staff, so a failed
+  fetch just leaves the dash — no session / no responses / poll still open all degrade to "—", never NaN.
+  **The maths, and what it assumes.** Three of the four pairs are one table (Gupte+ 2024, arXiv:2404.14286 Tab. 5), e₁₀Hz
+  uniform on [0, 0.5] or log-uniform on [1e-4, 0.5], eccentric aligned-spin (EAS) vs quasi-circular **precessing** (QCP).
+  With Λ(x) = L(x)/Z_QCAS on x = log₁₀e, B_{EAS/QCAS}(π) = ∫πΛ and B_{EAS/QCP}(π) = k∫πΛ with k = Z_QCAS/Z_QCP. The same
+  table's *nested* EAS/QCAS column is the trick: it pins Λ(−∞) = 1 exactly, and k = B_QCP/B_QCAS is measured twice (uniform
+  and log-uniform rows) and agrees to ≤0.03 dex — the first consistency check. Λ(x) = 1 + A·N(x; μ, σ) with σ taken from the
+  published 90% HDI on e₁₀Hz (not a free knob) and (A, μ) fixed exactly by the two quoted Bayes factors.
+  *Checks that passed:* (i) rigorous bound B_U/B_LU ≤ ln(e_max/e_min) = 8.52 for any Λ ≥ 0 — the three events sit at 66%,
+  92%, 69%; (ii) the implied bump eccentricity e* = 0.33 / 0.46 / 0.34 reproduces the published e₁₀Hz posteriors
+  (0.40 [0.25,0.48] / 0.46 [0.42,0.50] / 0.34 [0.28,0.45]) without ever being fitted to them.
+  *Assumptions and limits:* below e = 1e-4 nothing anchors Λ and it is **assumed** flat at its e→0 value — without that the
+  answer is formally unbounded above, since the audience puts most of its mass where the published analyses carry no
+  information; above e = 0.5 the runs never sampled and Λ relaxes back to the plateau, which should really fall, so the
+  number **over-estimates** for curves with mass at e > 0.5. The fitted bump is narrower than one 0.125-dex poll bin, so the
+  answer is driven by the audience's mass in the single bin at e ≈ 0.33–0.47; halving/tripling σ moves a fiducial expert
+  prior's answer by roughly −2%/+15% (GW200208_22, GW200129) and −7%/+70% (GW190701) — read the number as **one significant
+  figure**. `grid_error` in the json records the round-trip loss through the 88-bin grid (7%, 36%, 3%; the 36% is GW190701's
+  bump landing in the bin that straddles the e = 0.5 prior edge, not an error in the answer).
+  **GW200105 is deliberately left as a dash.** Its 17 and 1.3 come from *different* papers at a *different* reference
+  frequency (uniform: Morras+/Kacanja+/Planas+; log-uniform: Clarke+ 2026, e ∈ [1e-4, 0.2] at 20 Hz), and their ratio 13.1
+  exceeds ln(0.2/1e-4) = 7.60 — no non-negative likelihood reproduces both, so there is nothing to reweight. The tooltip says
+  so. Tests: `tests/presentations/test_corfu_expertbf.py` (round trips, the bound, the deck wiring, Python↔JS parity via
+  `tests/presentations/js/expertbf.test.mjs`).
 - Presenter dev aid: `/presentations/<slug>/present/phone-preview/` (staff) frames the live join page in a phone-shaped iframe so you
   can join and answer polls from the laptop (`phone` view sends `X-Frame-Options: SAMEORIGIN` for that).
 
