@@ -31,7 +31,12 @@ a{color:var(--accent)}
 .deck[data-transition="slide"] .slide{animation:slidein .35s ease}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
 @keyframes slidein{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
-.slide--html{overflow:auto;overflow-x:hidden}
+/* An html slide scrolls and its footer is a sibling after .slide-page, sticky to the bottom of the
+   scrollport. Sticky only pulls an element down once there is enough content to scroll, so a slide
+   whose page collapses — an underlay-only one — left the footer at the top. A column with the page
+   growing into the space above it puts the footer at the bottom whatever the content height. */
+.slide--html{overflow:auto;overflow-x:hidden;display:flex;flex-direction:column}
+.slide--html>.slide-page{flex:1 0 auto}
 .slide-page{position:relative;min-height:100%;padding:3rem clamp(1rem,6vw,6rem);max-width:1400px;margin:0 auto;z-index:1}
 .stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .stage--underlay{z-index:0}
