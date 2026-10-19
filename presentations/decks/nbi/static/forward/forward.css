@@ -1,0 +1,146 @@
+/* Forward-model pipeline: five cards on a track, two on screen. Each reveal step is its own slide
+   (display:none while hidden), so the keyframe below replays whenever a step is shown, sliding from
+   the previous step's offset to this one's.
+
+   step : 1    2    3    4    5    6    7    8    9
+   cards: 1    1-2  2-3  2-3  2-3  2-3  2-3  3-4  4-5
+   (steps 3-6 add the binary card's equations one by one; step 7 swaps them for its two plots) */
+.slide-page:has(.fwd){max-width:none;display:flex;flex-direction:column;padding:1rem 1.6vw 2.8rem;box-sizing:border-box}
+.slide-page h1.fwd-title{font-size:clamp(1.2rem,2vw,1.8rem);margin:0 0 .5rem;text-transform:uppercase;letter-spacing:.14em;font-weight:400;text-align:center}
+.fwd{--ink:#504c44;--paper:#f1efe9;--teal:#2a7f7a;--qc:#8f8a80;--best:#dd8452;--gc:#4c72b0;--nsc:#e24a33;--card:48.6%;--gap:2.8%;
+  position:relative;flex:1 1 0;min-height:0;display:flex;flex-direction:column;color:var(--ink);font-size:clamp(.66rem,min(1.05vw,1.85vh),1.12rem)}
+/* min(vw, vh): on a short window (zoomed browser, laptop with toolbars) the four capture equations must still fit */
+.fwd__bar{display:flex;align-items:center;gap:1rem;margin:0 0 .6rem;min-height:2rem}
+.fwd__btn{font:inherit;font-size:.9em;padding:.35em .9em;border:1.5px solid var(--teal);border-radius:999px;background:#fff;color:var(--teal);cursor:pointer}
+.fwd__btn:hover{background:var(--teal);color:#fff}
+.fwd__readout{font-variant-numeric:tabular-nums;opacity:.85;font-size:.95em}
+.fwd__readout sub,.fwd__steps output sub{font-size:.72em;line-height:0}
+.fwd__readout b{font-weight:600}
+.fwd__readout .gc{color:var(--gc)} .fwd__readout .nsc{color:var(--nsc)}
+
+.fwd__view{position:relative;flex:1 1 0;min-height:0;overflow:hidden}
+.fwd__track{position:absolute;inset:0;display:flex;gap:var(--gap);--from:0;--to:0;transform:translateX(calc(var(--to) * (var(--card) + var(--gap))));animation:fwd-scroll .7s cubic-bezier(.3,.7,.2,1)}
+@keyframes fwd-scroll{from{transform:translateX(calc(var(--from) * (var(--card) + var(--gap))))}to{transform:translateX(calc(var(--to) * (var(--card) + var(--gap))))}}
+.fwd[data-step="3"] .fwd__track{--from:0;--to:-1}
+.fwd:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"]) .fwd__track{--from:-1;--to:-1}
+.fwd[data-step="8"] .fwd__track{--from:-1;--to:-2}
+.fwd[data-step="9"] .fwd__track{--from:-2;--to:-3}
+
+.fwd__card{position:relative;flex:0 0 var(--card);min-width:0;box-sizing:border-box;display:flex;flex-direction:column;gap:.7rem;padding:.9rem 1.1rem .6rem;background:var(--paper)}
+.fwd__card + .fwd__card::before{content:"";position:absolute;left:-2.05rem;top:50%;border:.6rem solid transparent;border-left:.8rem solid var(--ink);opacity:.5;transform:translateY(-50%)}
+.fwd__card header{font-family:var(--font-display,serif);font-size:1.2em;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
+.fwd__num{display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:var(--teal);color:#fff;font:600 .8em var(--font-body,Inter),sans-serif}
+.fwd__viz,.fwd__plot{flex:1 1 0;min-height:0;display:flex;align-items:center;justify-content:center}
+.fwd__viz svg,.fwd__plot svg{width:100%;height:100%;display:block}
+.fwd__eq{margin:0;text-align:center;font-size:1.05em;white-space:nowrap;overflow:hidden}
+.fwd__eq .katex{font-size:1em}
+.fwd__src{margin:auto 0 0;font-size:.74em;opacity:.6;text-align:center}
+.fwd__src a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+
+/* reveal: a card exists from its step; the newest slides in from the right */
+.fwd__card{visibility:hidden}
+.fwd[data-step="1"] [data-n="1"],
+.fwd[data-step="2"] :is([data-n="1"],[data-n="2"]),
+.fwd:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"]) :is([data-n="2"],[data-n="3"]),
+.fwd[data-step="8"] :is([data-n="3"],[data-n="4"]),
+.fwd[data-step="9"] :is([data-n="4"],[data-n="5"]){visibility:visible}
+.fwd[data-step="1"] [data-n="1"],.fwd[data-step="2"] [data-n="2"],.fwd[data-step="3"] [data-n="3"],
+.fwd[data-step="8"] [data-n="4"],.fwd[data-step="9"] [data-n="5"]{animation:fwd-in .6s .15s ease both}
+@keyframes fwd-in{from{opacity:0;transform:translateX(14%)}to{opacity:1;transform:none}}
+
+/* card 1 */
+.fwd__hosts{gap:.8rem;align-items:stretch;flex:1.3 1 0}
+.fwd__hosts figure{flex:1 1 0;margin:0;display:flex;flex-direction:column;min-width:0;opacity:.38;filter:grayscale(.6);transition:opacity .35s,filter .35s}
+.fwd__hosts figure.is-drawn{opacity:1;filter:none}
+.fwd__hosts img{flex:1 1 0;min-height:0;width:100%;object-fit:cover;border:3px solid transparent;box-sizing:border-box}
+.fwd__hosts figure[data-host="gc"].is-drawn img{border-color:var(--gc)}
+.fwd__hosts figure[data-host="nsc"].is-drawn img{border-color:var(--nsc)}
+.fwd__hosts figcaption{font-size:.92em;text-align:center;margin-top:.3rem;line-height:1.25}
+.fwd__hosts figcaption small{display:block;font-size:.82em;opacity:.75}
+.fwd__beta{flex-direction:column;gap:.7rem;flex:.8 1 0}
+.fwd__beta label{display:flex;align-items:center;gap:.6rem;font-size:1.05em}
+.fwd__beta input{width:12rem;accent-color:var(--teal)}
+.fwd__beta output{font-variant-numeric:tabular-nums;font-weight:600;min-width:2.6em}
+.fwd__split{display:flex;width:80%;height:1.6rem;border-radius:4px;overflow:hidden;font-size:.8em;color:#fff}
+.fwd__split span{display:grid;place-items:center;transition:flex-grow .3s;min-width:0;overflow:hidden}
+.fwd__split [data-split="gc"]{background:var(--gc)} .fwd__split [data-split="nsc"]{background:var(--nsc)}
+
+/* card 2: thermal swarm beside the two log-normals */
+.fwd__duo{gap:.8rem}
+.fwd__duo .fwd__swarm{flex:0 0 38%;height:auto;max-height:100%}
+.fwd__duo svg[data-plot="sigma"]{flex:1 1 0}
+.fwd__swarm .bg{fill:#1d1c19}
+.fwd__swarm circle.star{fill:#f6efdc}
+.fwd__swarm text{fill:#f1efe9;font-size:16px}
+
+/* card 3: the capture, one equation per click (steps 3-6), then the two plots in their place (7+) */
+.fwd__steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem;flex:1 1 0;min-height:0}
+.fwd__steps li{display:grid;grid-template-columns:1fr auto;grid-template-areas:"k v" "m m";row-gap:.15rem;column-gap:.6rem;align-items:baseline;
+  padding:.35rem .8rem .45rem;background:#fff;border-left:3px solid var(--teal)}
+.fwd__k{grid-area:k;font-size:.74em;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.fwd__steps output{grid-area:v;font-variant-numeric:tabular-nums;font-weight:600;color:var(--teal);white-space:nowrap;font-size:.95em}
+.fwd__m{grid-area:m;text-align:center;white-space:nowrap;overflow:visible;padding:.3rem 0 .35rem}
+.fwd__m .katex{font-size:1.18em}
+.fwd__steps li{visibility:hidden}
+.fwd:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"]) [data-eq="1"],
+.fwd:is([data-step="4"],[data-step="5"],[data-step="6"]) [data-eq="2"],
+.fwd:is([data-step="5"],[data-step="6"]) [data-eq="3"],
+.fwd[data-step="6"] [data-eq="4"]{visibility:visible}
+.fwd[data-step="4"] [data-eq="2"],.fwd[data-step="5"] [data-eq="3"],.fwd[data-step="6"] [data-eq="4"]{animation:fwd-eq .45s ease both}
+@keyframes fwd-eq{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.fwd [data-n="3"] .fwd__pair{display:none;gap:1rem}
+.fwd:is([data-step="7"],[data-step="8"]) [data-n="3"] .fwd__steps{display:none}
+.fwd:is([data-step="7"],[data-step="8"]) [data-n="3"] .fwd__pair{display:flex;animation:fwd-eq .5s ease both}
+.fwd__pair svg{flex:1 1 0;min-width:0;height:100%}
+.fwd [data-n="3"] .fwd__pair svg .tick{font-size:13px}
+.fwd [data-n="3"] .fwd__pair svg .lbl{font-size:15px}
+
+/* card 4: the waveform takes most of the card, the explanation below, staggered in */
+.fwd [data-n="4"] .fwd__viz{flex:1.7 1 0}
+.fwd__search{gap:.6rem}
+.fwd__search svg[data-plot="wave"]{flex:520 1 0;min-width:0}
+.fwd__search svg[data-plot="bank"]{flex:330 1 0;min-width:0;cursor:pointer}
+.fwd__why{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem}
+.fwd__why li{display:grid;grid-template-columns:2.4em 1fr;gap:.5rem;line-height:1.35}
+.fwd__why b{font-size:1.15em;letter-spacing:.04em}
+.fwd__why em{font-style:normal}
+.fwd__why em.g{color:#4f9a3a} .fwd__why em.o{color:#dd8452}
+.fwd[data-step="8"] .fwd__why li{animation:fwd-eq .45s ease both}
+.fwd[data-step="8"] .fwd__why li:nth-child(1){animation-delay:.5s}
+.fwd[data-step="8"] .fwd__why li:nth-child(2){animation-delay:.9s}
+
+/* card 5 */
+.fwd__fig{flex:1 1 0;min-height:0;margin:0;display:flex;flex-direction:column;gap:.4rem}
+.fwd__fig svg{flex:1 1 0;min-height:0;width:100%}
+.fwd__fig figcaption{font-size:.86em;line-height:1.4;opacity:.85;text-align:center;padding:0 1rem}
+
+/* plots */
+.fwd svg .ax{stroke:var(--ink);stroke-opacity:.55;stroke-width:1;fill:none}
+.fwd svg .tick{font-size:11px;fill:var(--ink);fill-opacity:.75}
+.fwd svg .lbl{font-size:12.5px;fill:var(--ink)}
+.fwd svg .lbl--gc{fill:var(--gc)} .fwd svg .lbl--nsc{fill:var(--nsc)} .fwd svg .lbl--teal{fill:var(--teal)}
+.fwd svg .fit--gc{fill:var(--gc);fill-opacity:.15;stroke:var(--gc);stroke-width:2}
+.fwd svg .fit--nsc{fill:var(--nsc);fill-opacity:.13;stroke:var(--nsc);stroke-width:2}
+.fwd svg .curve{fill:none;stroke:var(--ink);stroke-width:1.6}
+.fwd svg .curve--fill{fill:var(--ink);fill-opacity:.1;stroke:var(--ink);stroke-width:1.4}
+.fwd svg .marker{stroke:var(--teal);stroke-width:2.2}
+.fwd svg .marker--dash{stroke:var(--teal);stroke-width:1.6;stroke-dasharray:4 3}
+.fwd svg .pdet--fixed{fill:none;stroke:#4c72b0;stroke-opacity:.6;stroke-width:1.1}
+.fwd svg .pdet--avg{fill:none;stroke:#dd8452;stroke-width:2.2}
+.fwd svg .wave--qc{fill:none;stroke:var(--qc);stroke-width:1.3}
+.fwd svg .wave--ecc{fill:none;stroke:var(--teal);stroke-width:1.4}
+/* card 4: text a little larger, to read at the same size as the other cards' plots */
+.fwd .fwd__search svg .tick{font-size:14px}
+.fwd .fwd__search svg .lbl{font-size:16px}
+.fwd svg .lbl--qc{fill:var(--qc)}
+/* the bank: a grid of templates; the scan box (the template's grey) walks it, cells warm by SNR once tried */
+.fwd svg .bank__title{font-size:17px;letter-spacing:.04em}
+.fwd svg .bank__box{fill:none;stroke:var(--ink);stroke-opacity:.6;stroke-width:1.4}
+.fwd svg .bank__bg{fill:var(--best);fill-opacity:0;transition:fill-opacity .3s}
+.fwd svg .bank__wave{fill:none;stroke:var(--qc);stroke-width:1;opacity:.55}
+.fwd svg .bank__snr{font-size:13px;fill:var(--ink);opacity:0;font-variant-numeric:tabular-nums;transition:opacity .25s}
+.fwd svg .bank__cell.is-seen .bank__snr{opacity:.9}
+.fwd svg .bank__cell.is-seen .bank__wave{opacity:.9}
+.fwd svg .bank__scan{fill:none;stroke:var(--qc);stroke-width:3.5;transition:transform .3s cubic-bezier(.3,.7,.2,1),stroke .3s}
+.fwd svg .bank__scan.is-best{stroke:var(--best)}
+.fwd svg .bank__best{fill:var(--best);font-weight:600}

@@ -1,0 +1,15 @@
+{% extends "presentations/slide_base.html" %}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}prior-poll/poll.css">
+<div id="pp-root" class="pp">
+  <h1 class="pp-title">What is <em>your</em> prior on eccentricity?</h1>
+  <div class="pp__body">
+    <div class="pp__widget" data-interaction="ecc-prior"></div>
+    <aside class="pp__side">
+      <div class="pp__qr" aria-label="join QR code"></div>
+      <div class="pp__clock" aria-live="off"></div>
+    </aside>
+  </div>
+</div>
+<script src="{{ deck_static }}prior-poll/poll.js" defer></script>
+{% endblock %}

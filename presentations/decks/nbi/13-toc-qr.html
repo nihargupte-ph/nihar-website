@@ -1,0 +1,10 @@
+{% extends "presentations/slide_base.html" %}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}toc/toc.css">
+<div id="toc-root" class="toc">
+  <aside class="toc__corner">
+    <div class="toc__qr" aria-label="QR code"><img src="{{ deck_static }}toc/archive-qr.svg" alt="QR code for nihargupte.com/presentations/nbi/"></div>
+  </aside>
+</div>
+<script src="{{ deck_static }}toc/toc.js" defer></script>
+{% endblock %}

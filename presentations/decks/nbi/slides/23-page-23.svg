@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440pt" height="809.999993pt" viewBox="0 0 1440 809.999993" version="1.2">
+<defs>
+<clipPath id="clip1">
+  <path d="M 17.453125 13.332031 L 1422 13.332031 L 1422 796 L 17.453125 796 Z M 17.453125 13.332031 " />
+</clipPath>
+<image id="image5" width="2318" height="1292" xlink:href="img/f42fae15af8912bf05a35b21fc8fb48c6f22c142.png" />
+</defs>
+<g id="surface1">
+<rect x="0" y="0" width="1440" height="809.999993" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;" />
+<rect x="0" y="0" width="1440" height="809.999993" style="fill:rgb(99.21875%,99.21875%,99.21875%);fill-opacity:1;stroke:none;" />
+<g clip-path="url(#clip1)" clip-rule="nonzero">
+<use xlink:href="#image5" transform="matrix(0.606018,0,0,0.606037,17.454661,13.330987)" />
+</g>
+</g>
+</svg>

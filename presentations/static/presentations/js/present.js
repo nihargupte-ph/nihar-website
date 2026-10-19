@@ -48,6 +48,12 @@
     for (const [iid, at] of Object.entries(deadlines)) if (Date.now() >= at) setState(iid, 'revealed');
   }, 1000);
   P.stage.keys(() => { const v = P.$('.slide:not([hidden]) video'); if (v) { v.paused ? v.play() : v.pause(); post(U.video, { playing: !v.paused, t: v.currentTime }); } else P.stage.next({ user: true }); });
+  // R or Home on a video slide: rewind to the start and play (leaving the slide only pauses it)
+  document.addEventListener('keydown', (e) => {
+    if (e.target.matches('input,textarea,select') || !(e.key === 'r' || e.key === 'R' || e.key === 'Home')) return;
+    const v = P.$('.slide:not([hidden]) video'); if (!v) return;
+    v.currentTime = 0; v.play(); post(U.video, { playing: true, t: 0 }); e.preventDefault();
+  });
   P.stage.buttons(); P.hotspots.mount(); if (P.comments) P.comments.mount();
   P.stage.onChange((id) => { if (!P.data.session.locked) post(U.goto, { slide: id }); refresh(); autoOpen(id); if (P.comments) P.comments.onSlide(id); });
   P.$('#lock-btn').addEventListener('click', async () => {

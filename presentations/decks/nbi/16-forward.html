@@ -1,0 +1,92 @@
+{% extends "presentations/slide_base.html" %}
+{# The single-single-capture forward model, host cluster -> selection function, as a left-scrolling
+   pipeline with two cards on screen. deck.yaml lists this template nine times as fwd-1..fwd-9
+   (`continues: true`); the step is the id after "fwd-". Cards appear at steps 1, 2, 3, 8, 9;
+   steps 3-6 reveal the binary card's four equations one per click and step 7 swaps them for the
+   two plots (see forward.css). Every number
+   comes from static/forward/forward.json (tools/forwardmodel.py); the browser only replays draws. #}
+{% block slide %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ deck_static }}forward/forward.css">
+<h1 class="fwd-title">A physics-informed population model, drawn forward</h1>
+<div class="fwd" data-step="{{ slide.id|slice:'4:' }}" data-src="{{ deck_static }}forward/forward.json">
+  <div class="fwd__bar">
+    <button type="button" class="fwd__btn" data-act="draw">Draw a binary</button>
+    <span class="fwd__readout" aria-live="polite"></span>
+  </div>
+  <div class="fwd__view"><div class="fwd__track">
+
+    <article class="fwd__card" data-n="1">
+      <header><span class="fwd__num">1</span>Pick a host cluster</header>
+      <div class="fwd__viz fwd__hosts">
+        <figure data-host="gc"><img src="{{ deck_static }}forward/gc-47tuc.jpg" alt="Hubble image of the globular cluster 47 Tucanae"><figcaption>Globular cluster<small>47 Tuc &middot; old, &sigma; &asymp; 1&ndash;20 km/s</small></figcaption></figure>
+        <figure data-host="nsc"><img src="{{ deck_static }}forward/nsc-galactic-centre.jpg" alt="Hubble infrared image of the Milky Way's nuclear star cluster"><figcaption>Nuclear star cluster<small>Milky Way centre &middot; &sigma; &asymp; 20&ndash;200 km/s</small></figcaption></figure>
+      </div>
+      <div class="fwd__plot fwd__beta">
+        <label>&beta; = P(NSC) <input type="range" min="0" max="1" step="0.01" value="0.16" data-ctl="beta"> <output data-out="beta">0.16</output></label>
+        <div class="fwd__split"><span data-split="gc">GC</span><span data-split="nsc">NSC</span></div>
+{% verbatim %}
+        <p class="fwd__eq">\( \text{host} \sim \begin{cases} \text{NSC} & \text{with probability } \beta \\ \text{GC} & \text{with probability } 1-\beta \end{cases} \)</p>
+{% endverbatim %}
+      </div>
+      <p class="fwd__src">Images: NASA, ESA &amp; Hubble Heritage (STScI/AURA)&ndash;ESA/Hubble</p>
+    </article>
+
+    <article class="fwd__card" data-n="2">
+      <header><span class="fwd__num">2</span>Draw its velocity dispersion</header>
+      <div class="fwd__viz fwd__duo">
+        <svg class="fwd__swarm" viewBox="0 0 300 300" aria-label="stars moving with the drawn dispersion"></svg>
+        <svg data-plot="sigma" viewBox="0 0 400 320" aria-label="log-normal fits to the globular- and nuclear-star-cluster dispersions"></svg>
+      </div>
+{% verbatim %}
+      <p class="fwd__eq">\( p(\sigma\,|\,\beta) = (1-\beta)\,p_{\rm GC}(\sigma) + \beta\,p_{\rm NSC}(\sigma), \qquad \log_{10}\sigma \sim \mathcal N(\mu, s) \)</p>
+{% endverbatim %}
+      <p class="fwd__src">Baumgardt &amp; Hilker 2018 &middot; Baldassare+ 2022</p>
+    </article>
+
+    <article class="fwd__card" data-n="3">
+      <header><span class="fwd__num">3</span>Draw a binary, then let it capture</header>
+{% verbatim %}
+      <ol class="fwd__steps">
+        <li data-eq="1"><span class="fwd__k">masses</span><output data-val="m"></output><span class="fwd__m">\( m_1 \sim p_{\rm PL+P}(m_1), \qquad q = \dfrac{m_2}{m_1} \sim q^{\beta_q} \)</span></li>
+        <li data-eq="2"><span class="fwd__k">speed at infinity</span><output data-val="v"></output><span class="fwd__m">\( p(v_\infty\,|\,\sigma) \propto v_\infty^{3/7} \exp\!\left(-\dfrac{v_\infty^2}{2\sigma_{\rm rel}^2}\right), \qquad \sigma_{\rm rel} = \sqrt{6}\,\sigma \)</span></li>
+        <li data-eq="3"><span class="fwd__k">closest approach</span><output data-val="rp"></output><span class="fwd__m">\( r_p \sim \mathcal U\big[0,\, r_{p,\max}\big], \qquad r_{p,\max} = \left(\dfrac{85\pi}{6\sqrt{2}}\,\dfrac{G^{7/2}\mu\, M^{5/2}}{c^5\, v_\infty^2}\right)^{2/7} \)</span></li>
+        <li data-eq="4"><span class="fwd__k">eccentricity at 10 Hz</span><output data-val="e"></output><span class="fwd__m">\( \left(\dfrac{GM}{(2\pi f_{\rm orb})^2}\right)^{1/3} = 1.76\, r_p\, \dfrac{e^{12/19}\left(1+\frac{121}{304}e^2\right)^{870/2299}}{1-e^2} \)</span></li>
+      </ol>
+{% endverbatim %}
+      <div class="fwd__plot fwd__pair">
+        <svg data-plot="mass" viewBox="0 0 300 400" aria-label="power law plus peak primary mass distribution"></svg>
+        <svg data-plot="ecc" viewBox="0 0 300 400" aria-label="eccentricity at 10 Hz for the drawn dispersion"></svg>
+      </div>
+      <p class="fwd__src">Peters 1964 &middot; Quinlan &amp; Shapiro 1989 &middot; <a href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.97.103014" target="_blank" rel="noopener">Samsing 2018</a> &middot; <a href="https://arxiv.org/abs/1907.11231" target="_blank" rel="noopener">Samsing+ 2020</a> &middot; Abbott+ 2023 (GWTC-3) &middot; Gupte+ 2026</p>
+    </article>
+
+    <article class="fwd__card" data-n="4">
+      <header><span class="fwd__num">4</span>Would a quasi-circular search find it?</header>
+      <div class="fwd__viz fwd__search">
+        <svg data-plot="wave" viewBox="0 0 520 500" aria-label="eccentric signal against the template being tried"></svg>
+        <svg data-plot="bank" viewBox="0 0 330 500" aria-label="a quasi-circular template bank, scanned template by template for the SNR"></svg>
+      </div>
+      <ol class="fwd__why">
+        <li><b>01</b><span>We miss a fraction of eccentric events, since our searches use <em class="g">quasi-circular template banks</em>.</span></li>
+        <li><b>02</b><span>To quantify this we find the <em class="o">best-fit optimal SNR</em> from a pycbc quasi-circular template bank.</span></li>
+      </ol>
+      <p class="fwd__src">Essick 2023 &middot; Gerosa &amp; Bellotti 2024 &middot; Gamboa+ 2024 (SEOBNRv5EHM)</p>
+    </article>
+
+    <article class="fwd__card" data-n="5">
+      <header><span class="fwd__num">5</span>The selection function</header>
+      <figure class="fwd__fig">
+        <svg data-plot="pdet" viewBox="0 0 440 250" aria-label="detection probability against eccentricity"></svg>
+        <figcaption>Fiducial binary: &#8499; = 35 M<sub>&#9737;</sub>, q = 1, d<sub>L</sub> = 2 Gpc, &chi;<sub>eff</sub> = 0, HLV.
+          The oscillations are the radial phase at plunge: it sets how much energy is radiated, and averaging over the anomaly smooths them out.</figcaption>
+      </figure>
+      <p class="fwd__src">Gupte+ 2026 &middot; Vijaykumar+ 2026</p>
+    </article>
+
+  </div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" defer></script>
+<script src="{{ deck_static }}forward/forward.js" defer></script>
+{% endblock %}

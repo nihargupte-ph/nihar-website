@@ -8,6 +8,7 @@ import numpy as np
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -246,6 +247,7 @@ def eccentricity_distribution(request):
 # Catalog of eccentric BBH
 # ---------------------------------------------------------------------------
 
+@xframe_options_sameorigin        # the NBI talk embeds it live (presentations/decks/nbi/18-catalog.html)
 def catalog_eccentric_bbh(request):
     return render(request, 'blog/catalog_eccentric_bbh.html')
 

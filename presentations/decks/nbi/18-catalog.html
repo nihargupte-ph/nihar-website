@@ -1,0 +1,16 @@
+{% extends "presentations/slide_base.html" %}
+{# A live embed of the eccentric-BBH catalog blog page, before "What if our priors are all wrong". Same origin,
+   so the blog view sends X-Frame-Options: SAMEORIGIN (blog/views.py) and catalog.js can scroll it.
+   The iframe only gets its src once the slide is shown: the page is heavy (3D mesh, posteriors). #}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}catalog/catalog.css">
+<div class="cat">
+  <div class="cat__chrome">
+    <span class="cat__dots"><i></i><i></i><i></i></span>
+    <a class="cat__url" href="https://nihargupte.com/blog/catalog-of-eccentric-binary-black-holes/" target="_blank" rel="noopener">nihargupte.com/blog/catalog-of-eccentric-binary-black-holes</a>
+    <a class="cat__open" href="https://nihargupte.com/blog/catalog-of-eccentric-binary-black-holes/" target="_blank" rel="noopener">Open &#8599;</a>
+  </div>
+  <iframe class="cat__frame" title="Catalog of eccentric binary black holes" data-src="/blog/catalog-of-eccentric-binary-black-holes/" loading="lazy"></iframe>
+</div>
+<script src="{{ deck_static }}catalog/catalog.js" defer></script>
+{% endblock %}

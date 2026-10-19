@@ -1,0 +1,11 @@
+{% extends "presentations/slide_base.html" %}
+{# One template for every slide that quotes "__ (uniform, log-uni, expert prior)". The slide is
+   the Canva page (underlay); this adds nothing but the number in the blank. `slide.id` picks the
+   event out of static/expertbf/expertbf.json (built by tools/expertbf.py). #}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}expertbf/expertbf.css">
+<div class="xbf xbf--none" data-slide="{{ slide.id }}"
+     data-src="{{ deck_static }}expertbf/expertbf.json"
+     title="Expert-prior Bayes factor — from the live eccentricity-prior poll.">&mdash;</div>
+<script src="{{ deck_static }}expertbf/expertbf.js" defer></script>
+{% endblock %}

@@ -152,6 +152,15 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
   exceeds ln(0.2/1e-4) = 7.60 — no non-negative likelihood reproduces both, so there is nothing to reweight. The tooltip says
   so. Tests: `tests/presentations/test_corfu_expertbf.py` (round trips, the bound, the deck wiring, Python↔JS parity via
   `tests/presentations/js/expertbf.test.mjs`).
+- NBI deck: `page-12` (degeneracy & waveform length) is `17-nametune.html` over its Canva underlay: a Name-That-Tune
+  player mounted into the underlay's 16:9 box (plus a still orbit cartoon, `tools/orbits.py`, under the figure), drawing a live log₁₀ B(t) per clip (x axis doubles as "number of cycles").
+  Three clips in order: in another room (YouTube "mr. brightside from another room"; its own wider `ROOM_SIGMA_MEM`, so B climbs slowly),
+  short & decisive (Beethoven 5), impostor (Ice Ice Baby vs Under Pressure). `tools/nametune.py` (run from the deck folder)
+  cuts them from `tools/audio/` (git-ignored: PD Musopen recordings from Commons + yt-dlp downloads of the official
+  uploads) into `static/nametune/` (mp3 + json) and `tools/audio/out/` (wav + labelled check spectrograms).
+  B(t) is a log-mel Gaussian listener vs a loudness-matched competitor; `SIGMA_MEM` (memory blur) is the one tuned knob.
+  The impostor's "Under Pressure" is Ice Ice Baby's own first two bars looped: the real Under Pressure recording differs
+  in mix/percussion and made B decisive in 0.2 s. Docstring has the model.
 - Presenter dev aid: `/presentations/<slug>/present/phone-preview/` (staff) frames the live join page in a phone-shaped iframe so you
   can join and answer polls from the laptop (`phone` view sends `X-Frame-Options: SAMEORIGIN` for that).
 
@@ -159,7 +168,8 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
 
 1. Log in at `/admin/` (staff), open `/presentations/<slug>/present/` — this window is the projector.
    Bottom bar auto-hides; move the mouse: prev/next, per-interaction `hidden → open → closed → revealed`,
-   **QR** (join code), **Lock**. Space = next, or play/pause on a video slide.
+   **QR** (join code), **Lock**. Space = next, or play/pause on a video slide; **R** / Home = restart the video from 0
+   (leaving a video slide only pauses it, so coming back resumes).
 2. Audience scans the QR → `/p/<CODE>/` → picks an expertise tag (name optional) → synced mirror with free roam.
 3. **Lock** at the end: freezes interactions as the archive at `/presentations/<slug>/`, bounces phones there.
    Locked present page offers **Unlock** (fat-finger recovery) and **New session** (re-give the talk).

@@ -1,0 +1,30 @@
+/* page-12's Name-That-Tune player. The page is the Canva slide (underlay); the panel is mounted into
+   the underlay's own 16:9 box (container-type:size), so % and cqh track the slide at any window size. */
+.slide-page:has(.nt){max-width:none;padding:0;height:100%;pointer-events:none}
+.nt-panel{position:absolute;left:48.6%;top:25.5%;width:49%;height:57%;display:flex;flex-direction:column;gap:1.2cqh;
+  font-family:var(--font-body);color:var(--fg,#504c44);pointer-events:auto;z-index:2}
+.nt-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1cqh}
+.nt-btn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:.4cqh;padding:.9cqh 1.1cqh;
+  border-radius:1cqh;background:#fff;border:.25cqh solid var(--c);min-width:0;transition:background .15s}
+.nt-btn:hover{background:color-mix(in srgb,var(--c) 8%,#fff)}
+.nt-btn[aria-pressed="true"]{background:color-mix(in srgb,var(--c) 14%,#fff)}
+.nt-btn[disabled]{cursor:default;opacity:.45;border-style:dashed}
+.nt-btn__head{display:flex;align-items:center;gap:.7cqh;font-weight:600;font-size:1.9cqh;line-height:1.1}
+.nt-btn__icon{flex:none;width:2.6cqh;height:2.6cqh;border-radius:50%;background:var(--c);display:grid;place-items:center}
+.nt-btn__icon svg{width:1.3cqh;height:1.3cqh;fill:#fff}
+.nt-btn__sub{font-size:1.55cqh;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt-btn__answer{font-size:1.65cqh;font-weight:600;color:var(--c);min-height:1.9cqh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt-snr{display:flex;gap:.4cqh;font-size:1.4cqh}
+.nt-snr span{all:unset;cursor:pointer;padding:.1cqh .6cqh;border-radius:.6cqh;border:.15cqh solid var(--c);opacity:.6}
+.nt-snr span[aria-pressed="true"]{background:var(--c);color:#fff;opacity:1}
+.nt-plot{flex:1;min-height:0;width:100%;display:block}
+.nt-plot text{font-family:var(--font-body);fill:var(--fg,#504c44)}
+.nt-plot .nt-axis{stroke:var(--fg,#504c44);stroke-width:1.5;fill:none;opacity:.7}
+.nt-plot .nt-grid{stroke:var(--fg,#504c44);stroke-width:1;opacity:.12}
+.nt-plot .nt-curve{fill:none;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.nt-plot .nt-curve--old{stroke-width:2.5;opacity:.35}
+.nt-plot .nt-head{stroke:var(--fg,#504c44);stroke-width:1.5;opacity:.6}
+.nt-plot .nt-reveal{stroke-width:2;stroke-dasharray:3 5}
+/* the eccentric-vs-precessing orbit cartoon, in the strip under the Tibrewal+ figure */
+.nt-orbits{position:absolute;left:5.4%;top:79.6%;width:26%;height:17%;object-fit:contain;pointer-events:none;z-index:1}
+.nt > .nt-orbits{display:none}
