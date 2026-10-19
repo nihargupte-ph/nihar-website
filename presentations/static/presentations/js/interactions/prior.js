@@ -10,12 +10,18 @@ Presentations.registerInteraction('prior', {
 
   input(el, config, submit, prior) {
     const P = Presentations; const ax = config.axis; const bins = ax.bins;
+    // w is the curve as drawn, 0..1 of the box height (the server normalises on submit); a resubmitted
+    // prior comes back as masses, so scale its peak to the top again
     const w = prior ? prior.weights.slice() : new Array(bins).fill(0);
+    { const m = Math.max(0, ...w); if (m > 0) for (let k = 0; k < bins; k++) w[k] /= m; }
+    const PAD = 18, TOP = 8;                 // x-axis labels below, headroom above: shared by drawing and touch
+    const yOf = (v, ch) => (ch - PAD) - v * (ch - PAD - TOP);
+    const vOf = (y, ch) => Math.max(0, Math.min(1, ((ch - PAD) - y) / (ch - PAD - TOP)));
     const me = (P.data.participant && P.data.participant.name) || '';
     const c = P.el('canvas', { class: 'draw draw--prior' }); el.append(c);
     el.append(P.el('div', { class: 'n', text: `drag left → right to draw p(${ax.label || 'x'}) · ${ax.min} → ${ax.max}` }));
     const row = P.el('div', { class: 'prior-row' }); el.append(row);
-    row.append(P.el('button', { class: 'btn', text: 'Clear', onclick: () => { w.fill(0); draw(); } }));
+    row.append(P.el('button', { class: 'btn prior-clear', text: 'Clear drawing', onclick: () => { w.fill(0); lastBin = null; draw(); } }));
     const f = P.el('div', { class: 'prior-form' }); el.append(f);
     const name = P.el('input', { class: 'txt', maxlength: 60, placeholder: 'anonymous', value: prior ? prior.name : me });
     const inst = P.el('input', { class: 'txt', maxlength: 80, placeholder: 'Institute', value: prior ? prior.institute : '' });
@@ -39,7 +45,7 @@ Presentations.registerInteraction('prior', {
     const ctx = c.getContext('2d');
     const draw = () => {
       c.width = c.clientWidth * devicePixelRatio; c.height = c.clientHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-      const cw = c.clientWidth, ch = c.clientHeight, pad = 18, max = Math.max(1e-9, ...w);
+      const cw = c.clientWidth, ch = c.clientHeight, pad = PAD;
       const fg = getComputedStyle(c).color || '#888';
       ctx.clearRect(0, 0, cw, ch);
       ctx.strokeStyle = fg; ctx.globalAlpha = .25; ctx.lineWidth = 1; ctx.font = '11px sans-serif'; ctx.fillStyle = fg; ctx.textAlign = 'center';
@@ -52,15 +58,16 @@ Presentations.registerInteraction('prior', {
       if (!w.some((v) => v > 0)) return;
       const accent = getComputedStyle(c).getPropertyValue('--accent') || '#37b49f';
       ctx.beginPath();
-      w.forEach((v, i) => { const x = (i + .5) / bins * cw, y = (ch - pad) - v / max * (ch - pad - 8); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+      // drawn at the height the finger set it (no rescaling to the tallest point), so the line stays under the finger
+      w.forEach((v, i) => { const x = (i + .5) / bins * cw, y = yOf(v, ch); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
       ctx.strokeStyle = accent; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.stroke();
       ctx.lineTo(cw, ch - pad); ctx.lineTo(0, ch - pad); ctx.closePath(); ctx.fillStyle = accent; ctx.globalAlpha = .18; ctx.fill(); ctx.globalAlpha = 1;
     };
     let down = false, lastBin = null, lastVal = 0;
     const paint = (e) => {
-      const r = c.getBoundingClientRect(), pad = 18;
+      const r = c.getBoundingClientRect();
       const i = Math.min(bins - 1, Math.max(0, Math.floor((e.clientX - r.left) / r.width * bins)));
-      const v = Math.max(0, Math.min(1, 1 - (e.clientY - r.top) / (r.height - pad)));
+      const v = vOf(e.clientY - r.top, r.height);
       if (lastBin != null && Math.abs(i - lastBin) > 1) {   // fast drags skip bins: interpolate them
         const step = i > lastBin ? 1 : -1;
         for (let k = lastBin + step; k !== i; k += step) w[k] = lastVal + (v - lastVal) * ((k - lastBin) / (i - lastBin));
@@ -100,6 +107,22 @@ Presentations.registerInteraction('prior', {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.classList.add('prior-plot'); wrap.append(svg);
     const tip = P.el('div', { class: 'prior-tip' }); tip.hidden = true; wrap.append(tip);
     const legend = P.el('div', { class: 'prior-legend' }); wrap.append(legend);
+    const odds = P.el('div', { class: 'prior-odds' }); wrap.append(odds);
+    // mass above the threshold, the bin it falls in split linearly (bins are equal steps on the axis)
+    const above = (ws) => {
+      const ax = st.config.axis, th = st.config.odds_threshold, w = (ax.max - ax.min) / ax.bins;
+      let tot = 0, hi = 0;
+      ws.forEach((v, k) => { const a = ax.min + k * w; tot += v; hi += v * Math.min(1, Math.max(0, (a + w - th) / w)); });
+      return tot > 0 ? hi / tot : null;
+    };
+    const ratio = (f) => {
+      if (f == null) return '—';
+      if (f >= 1) return '∞'; if (f <= 0) return '0';
+      const o = f / (1 - f), p = (x) => (x >= 10 ? x.toFixed(0) : x.toFixed(1));
+      if (o < 1e-3 || o > 1e3) return o.toExponential(1).replace('e', '×10^');   // a ratio like 1 : 437227911 reads as noise
+      return `${o.toPrecision(2)} (${o >= 1 ? p(o) + ' : 1' : '1 : ' + p(1 / o)})`;
+    };
+    const oddsText = (ws) => { const f = above(ws); return f == null ? '' : `P(${st.config.odds_label || 'above threshold'}) = ${f.toFixed(2)} · prior odds ${ratio(f)}`; };
     const ns = (tag, a, parent) => { const n = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const [k, v] of Object.entries(a)) n.setAttribute(k, v); (parent || svg).append(n); return n; };
     const redraw = () => {
       const a = st.agg, ax = st.config.axis, bins = ax.bins;
@@ -124,6 +147,14 @@ Presentations.registerInteraction('prior', {
       }
       const xl = ns('text', { x: (L + W - R) / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 15, fill: 'currentColor' }); xl.textContent = ax.label || '';
       const yl = ns('text', { x: 16, y: (T + H - B) / 2, 'text-anchor': 'middle', 'font-size': 15, fill: 'currentColor', transform: `rotate(-90 16 ${(T + H - B) / 2})` }); yl.textContent = 'p(' + (ax.label || 'x') + ')';
+      const showOdds = closed && st.config.odds_threshold != null;
+      if (showOdds) {                   // the threshold: everything right of it counts as eccentric
+        const x = L + (st.config.odds_threshold - ax.min) / (ax.max - ax.min) * (W - L - R);
+        ns('line', { x1: x, x2: x, y1: T, y2: H - B, stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-dasharray': '6 4' });
+        const tl = ns('text', { x: x + 6, y: T + 16, 'font-size': 15, fill: 'var(--accent)' }); tl.textContent = st.config.odds_label || '';
+      }
+      odds.hidden = !showOdds || !mean;
+      if (showOdds && mean) odds.textContent = `Mixture: ${oddsText(mean)}`;
       if (cmp) {
         ns('path', { d: path(cmp.log_uniform), fill: 'none', stroke: 'currentColor', 'stroke-opacity': .8, 'stroke-width': 2.5, 'stroke-dasharray': '10 6' });
         ns('path', { d: path(cmp.uniform), fill: 'none', stroke: 'currentColor', 'stroke-opacity': .8, 'stroke-width': 2.5, 'stroke-dasharray': '3 5' });
@@ -151,7 +182,9 @@ Presentations.registerInteraction('prior', {
     const showTip = (e, c) => {
       const who = [c.name || 'anonymous', c.institute].filter(Boolean).join(' · ');   // blank name reads as anonymous
       const tags = c.expertise.map((t) => (t === 'other' && c.other ? `other: ${c.other}` : t)).join(', ');
-      tip.innerHTML = `<b>${P.escape(who)}</b><br>${P.escape(tags || 'no expertise given')}`;
+      const closed = st.agg.state === 'closed' || st.agg.state === 'revealed';
+      const extra = closed && st.config.odds_threshold != null ? `<br>${P.escape(oddsText(c.weights))}` : '';
+      tip.innerHTML = `<b>${P.escape(who)}</b><br>${P.escape(tags || 'no expertise given')}${extra}`;
       tip.hidden = false;
       const r = wrap.getBoundingClientRect();
       tip.style.left = Math.min(r.width - 260, e.clientX - r.left + 14) + 'px'; tip.style.top = (e.clientY - r.top + 14) + 'px';

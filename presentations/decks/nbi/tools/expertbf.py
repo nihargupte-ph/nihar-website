@@ -1,7 +1,17 @@
 """Reweight the published eccentricity Bayes factors onto the audience's own prior.
 
 Run `python tools/expertbf.py` from the deck folder to regenerate
-`static/expertbf/expertbf.json`; the browser only does the final dot product.
+`static/expertbf/expertbf.json`.
+
+WHAT THE NBI SLIDES SHOW (prior odds, not the Lambda fit below)
+---------------------------------------------------------------
+Two models: eccentric with the uniform e prior (the published B_uniform is its evidence over
+quasi-circular) and quasi-circular, a delta function at e = 0. A drawn curve p(log10 e) is split
+between them: its mass at e_10Hz > 0.05 (ODDS_THRESHOLD) is "eccentric", the rest is indistinguishable
+from e = 0 and goes to the delta. So f = P(e > 0.05), the prior odds are O = f / (1 - f), and the
+blank shows the posterior odds O * B_uniform (the browser does this, expertbf.js). That needs only the
+uniform number, so GW200105 (17, uniform) is filled in too. The Lambda fit described below is kept as
+a consistency check of the published pairs; the slide number no longer uses it.
 
 WHAT THE SLIDES QUOTE
 ---------------------
@@ -81,11 +91,15 @@ E_MIN_LOG = 1e-4
 X_CEIL = math.log10(E_MAX)
 X_REF = math.log10(E_MIN_LOG)
 
+ODDS_THRESHOLD = 0.05       # e_10Hz below this is indistinguishable from e = 0: the delta-function model
 SOURCE = 'Gupte+ 2024, arXiv:2404.14286 Table 5 (e_10Hz; uniform [0, 0.5] / log-uniform [1e-4, 0.5])'
 
 EVENTS = [
     {
         'id': 'GW200208_22',
+        # the printed uniform / log-uniform numbers (word boxes incl. the comma): hover swaps them to P(ecc)
+        'numbers': {'uniform': {'x': 238.69188 / 1440, 'y': 120.371327 / 810, 'w': (264.97547 - 238.69188) / 1440, 'h': (144.698429 - 120.371327) / 810},
+                    'log_uniform': {'x': 270.691573 / 1440, 'y': 120.371327 / 810, 'w': (289.321813 - 270.691573) / 1440, 'h': (144.698429 - 120.371327) / 810}},
         'label': 'GW200208_22',
         'slides': ['page-51'],
         # x/y are fractions of the 1920x1080 stage: the "__" word box on the slide,
@@ -103,6 +117,9 @@ EVENTS = [
     },
     {
         'id': 'GW200105',
+        # the printed uniform / log-uniform numbers (word boxes incl. the comma): hover swaps them to P(ecc)
+        'numbers': {'uniform': {'x': 238.69188 / 1440, 'y': 186.647178 / 810, 'w': (264.97547 - 238.69188) / 1440, 'h': (210.97428 - 186.647178) / 810},
+                    'log_uniform': {'x': 270.691573 / 1440, 'y': 186.647178 / 810, 'w': (303.906507 - 270.691573) / 1440, 'h': (210.97428 - 186.647178) / 810}},
         'label': 'GW200105',
         'slides': ['page-11'],
         'blank': {'x': 309.622610 / 1440, 'y': 186.647178 / 810,
@@ -118,6 +135,9 @@ EVENTS = [
     },
     {
         'id': 'GW190701',
+        # the printed uniform / log-uniform numbers (word boxes incl. the comma): hover swaps them to P(ecc)
+        'numbers': {'uniform': {'x': 1084.363351 / 1440, 'y': 472.268537 / 810, 'w': (1131.692825 - 1084.363351) / 1440, 'h': (500.964111 - 472.268537) / 810},
+                    'log_uniform': {'x': 1138.438273 / 1440, 'y': 472.268537 / 810, 'w': (1170.332815 - 1138.438273) / 1440, 'h': (500.964111 - 472.268537) / 810}},
         'label': 'GW190701',
         'slides': ['page-13'],
         'blank': {'x': 1177.078263 / 1440, 'y': 472.268537 / 810,
@@ -131,6 +151,9 @@ EVENTS = [
     },
     {
         'id': 'GW200129',
+        # the printed uniform / log-uniform numbers (word boxes incl. the comma): hover swaps them to P(ecc)
+        'numbers': {'uniform': {'x': 230.809995 / 1440, 'y': 157.960941 / 810, 'w': (326.913764 - 230.809995) / 1440, 'h': (191.17748 - 157.960941) / 810},
+                    'log_uniform': {'x': 334.718705 / 1440, 'y': 157.960941 / 810, 'w': (412.20914 - 334.718705) / 1440, 'h': (191.17748 - 157.960941) / 810}},
         'label': 'GW200129',
         'slides': ['page-19', 'page-21', 'page-22'],      # one blank, the same box on all three reveal pages
         'blank': {'x': 420.014081 / 1440, 'y': 157.960941 / 810,
@@ -146,6 +169,30 @@ EVENTS = [
 
 
 # --- priors (densities in x = log10 e) ---------------------------------------------
+
+# GW200129 under each glitch mitigation (page-22's table): the same Table 5 rows, NRSur7dq4 (QCP) and
+# SEOBNRv4HM (QCAS) columns, fitted exactly like the events above. gwsubtract is the GW200129 event.
+GW200129_TABLE = {
+    'slides': ['page-22'],
+    # the Canva table image it covers, in the 1440x810 viewBox (read off a 72-dpi render of the page)
+    'box': {'x': 830 / 1440, 'y': 482 / 810, 'w': (1160 - 830) / 1440, 'h': (744 - 482) / 810},
+    'qcp_model': 'NRSur7dq4',
+    'rows': [
+        {'id': 'gwsubtract', 'label': 'gwsubtract', 'row': 'gwsubtract', 'qcp_model': 'NRSur7dq4',
+         'log10_b_qcp': {'uniform': 4.00, 'log_uniform': 3.23}, 'log10_b_qcas': {'uniform': 4.75, 'log_uniform': 3.98},
+         'posterior': {'e': 0.34, 'lo': 0.28, 'hi': 0.45}, 'source': SOURCE},
+        {'id': 'bw-a', 'label': 'BayesWave A', 'row': 'BayesWave A', 'qcp_model': 'NRSur7dq4',
+         'log10_b_qcp': {'uniform': 1.53, 'log_uniform': 0.94}, 'log10_b_qcas': {'uniform': 1.84, 'log_uniform': 1.26},
+         'posterior': {'e': 0.24, 'lo': 0.14, 'hi': 0.34}, 'source': SOURCE},
+        {'id': 'bw-b', 'label': 'BayesWave B', 'row': 'BayesWave B', 'qcp_model': 'NRSur7dq4',
+         'log10_b_qcp': {'uniform': 2.35, 'log_uniform': 1.70}, 'log10_b_qcas': {'uniform': 3.08, 'log_uniform': 2.43},
+         'posterior': {'e': 0.28, 'lo': 0.17, 'hi': 0.37}, 'source': SOURCE},
+        {'id': 'bw-c', 'label': 'BayesWave C', 'row': 'BayesWave C', 'qcp_model': 'NRSur7dq4',
+         'log10_b_qcp': {'uniform': 1.43, 'log_uniform': 0.76}, 'log10_b_qcas': {'uniform': 2.93, 'log_uniform': 2.27},
+         'posterior': {'e': 0.27, 'lo': 0.17, 'hi': 0.36}, 'source': SOURCE},
+    ],
+}
+
 
 def uniform_pdf(x):
     """Uniform in e on [0, E_MAX], expressed as a density in log10 e."""
@@ -357,6 +404,31 @@ def _probe(edges):
     return [x / s for x in w]
 
 
+def _fitted(ev, edges, probe):
+    """Everything the browser needs to reweight one (uniform, log-uniform) pair with any prior."""
+    f = fit(ev)
+    lb = lambda_bins(f, edges)
+    quoted = {k: 10.0 ** v for k, v in ev['log10_b_qcp'].items()}
+    # discretisation error of the round trip on the 0.125-dex grid
+    err = max(abs(bayes_factor(reference_masses(k, edges), lb, f['k']) / quoted[k] - 1.0)
+              for k in ('uniform', 'log_uniform'))
+    return {
+        'quoted': quoted,
+        'quoted_log10': dict(ev['log10_b_qcp']),
+        'qcp_model': ev['qcp_model'], 'row': ev['row'],
+        'posterior': ev['posterior'],
+        'k': f['k'], 'k_spread_dex': f['k_spread_dex'],
+        'A': f['A'], 'mu': f['mu'], 'sigma': f['sigma'],
+        'e_star': f['e_star'], 'e_star_delta': f['e_star_delta'],
+        'ratio': f['ratio'], 'ratio_bound': f['ratio_bound'],
+        'ratio_fraction': f['ratio_fraction'],
+        'lambda': lb,
+        'grid_tolerance': max(0.01, math.ceil(err * 200) / 200),
+        'grid_error': err,
+        'sigma_sensitivity': _sigma_sensitivity(ev, edges, probe),
+    }
+
+
 def build():
     edges = axis_edges()
     probe = _probe(edges)
@@ -365,6 +437,7 @@ def build():
         row = {
             'id': ev['id'], 'label': ev['label'], 'slides': list(ev['slides']),
             'blank': {k: round(v, 6) for k, v in ev['blank'].items()},
+            'numbers': {kind: {k: round(v, 6) for k, v in b.items()} for kind, b in ev['numbers'].items()},
             'source': ev['source'], 'fittable': ev.get('fittable', True),
         }
         if not row['fittable']:
@@ -375,27 +448,7 @@ def build():
             events.append(row)
             continue
 
-        f = fit(ev)
-        lb = lambda_bins(f, edges)
-        quoted = {k: 10.0 ** v for k, v in ev['log10_b_qcp'].items()}
-        # discretisation error of the round trip on the 0.125-dex grid
-        err = max(abs(bayes_factor(reference_masses(k, edges), lb, f['k']) / quoted[k] - 1.0)
-                  for k in ('uniform', 'log_uniform'))
-        row.update({
-            'quoted': quoted,
-            'quoted_log10': dict(ev['log10_b_qcp']),
-            'qcp_model': ev['qcp_model'], 'row': ev['row'],
-            'posterior': ev['posterior'],
-            'k': f['k'], 'k_spread_dex': f['k_spread_dex'],
-            'A': f['A'], 'mu': f['mu'], 'sigma': f['sigma'],
-            'e_star': f['e_star'], 'e_star_delta': f['e_star_delta'],
-            'ratio': f['ratio'], 'ratio_bound': f['ratio_bound'],
-            'ratio_fraction': f['ratio_fraction'],
-            'lambda': lb,
-            'grid_tolerance': max(0.01, math.ceil(err * 200) / 200),
-            'grid_error': err,
-            'sigma_sensitivity': _sigma_sensitivity(ev, edges, probe),
-        })
+        row.update(_fitted(ev, edges, probe))
         events.append(row)
 
     return {
@@ -405,7 +458,16 @@ def build():
         'axis': dict(AXIS),
         'edges': edges,
         'prior': {'e_max': E_MAX, 'e_min_log': E_MIN_LOG, 'ratio_bound': RATIO_BOUND},
+        'odds': {'threshold_log10': round(math.log10(ODDS_THRESHOLD), 6), 'threshold': ODDS_THRESHOLD,
+                 'label': 'e₁₀Hz > 0.05'},
         'events': events,
+        'tables': [{
+            'slides': list(GW200129_TABLE['slides']),
+            'box': {k: round(v, 6) for k, v in GW200129_TABLE['box'].items()},
+            'qcp_model': GW200129_TABLE['qcp_model'],
+            'rows': [{'id': r['id'], 'label': r['label'], 'source': r['source'], 'fittable': True,
+                      **_fitted(r, edges, probe)} for r in GW200129_TABLE['rows']],
+        }],
     }
 
 
@@ -425,6 +487,10 @@ def main():
                   f"ratio {r['ratio']:.2f}/{r['ratio_bound']:.2f}  grid err {r['grid_error']*100:.1f}%")
         else:
             print(f"{r['id']:12s} not computable: {r['reason'][:70]}...")
+    for r in data['tables'][0]['rows']:
+        print(f"  table {r['label']:12s} log10 B_U={r['quoted_log10']['uniform']:.2f} B_LU={r['quoted_log10']['log_uniform']:.2f}  "
+              f"k spread {r['k_spread_dex']:.3f} dex  e*={r['e_star']:.3f} (published {r['posterior']['e']})  "
+              f"ratio {r['ratio']:.2f}/{r['ratio_bound']:.2f}  grid err {r['grid_error']*100:.1f}%")
     print('wrote', os.path.normpath(out))
 
 

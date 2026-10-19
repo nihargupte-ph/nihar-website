@@ -2,7 +2,7 @@
   const P = Presentations; const U = P.data.urls; const states = {}; let hideTimer = null;
   for (const [iid, d] of Object.entries(P.data.interactions || {})) states[iid] = d.state;
   const bar = P.$('#present-bar'), chrome = P.$('#deck-chrome'), ia = P.$('#present-interactions');
-  const POLL_SECONDS = 90;                      // a poll runs 1:30, then ends itself
+  const POLL_SECONDS = 120;                     // a poll runs 2:00, then ends itself
   const deadlines = {};                         // iid -> epoch ms the countdown ends
   function post(url, body) { return P.api.post(url, body); }
   async function setState(iid, s) {

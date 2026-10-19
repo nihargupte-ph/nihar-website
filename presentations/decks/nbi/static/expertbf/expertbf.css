@@ -11,3 +11,9 @@
 .xbf-text{fill:var(--accent-1,#b3262e);font-family:var(--font-body),Inter,sans-serif;font-weight:600;
   letter-spacing:-.01em;pointer-events:auto;cursor:help}
 .xbf-text--none{fill:var(--fg,#504c44);opacity:.4;font-weight:400}
+.xbf-table__t{fill:var(--fg,#504c44);font-family:var(--font-body),Inter,sans-serif}
+/* hover/tap a quoted Bayes factor: P(eccentric) = O/(1+O) in a pill over the number */
+.xbf-prob__hit{fill:transparent;pointer-events:all;cursor:help}
+.xbf-prob{pointer-events:none}
+.xbf-prob__pill{fill:#fff;stroke:var(--accent-1,#b3262e);stroke-width:1.5}
+.xbf-prob__t{fill:var(--accent-1,#b3262e);font-family:var(--font-body),Inter,sans-serif;font-weight:600}

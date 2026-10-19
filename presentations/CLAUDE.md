@@ -152,6 +152,13 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
   exceeds ln(0.2/1e-4) = 7.60 — no non-negative likelihood reproduces both, so there is nothing to reweight. The tooltip says
   so. Tests: `tests/presentations/test_corfu_expertbf.py` (round trips, the bound, the deck wiring, Python↔JS parity via
   `tests/presentations/js/expertbf.test.mjs`).
+- NBI deck: the expert-prior blanks (`page-11/13/19/21/22/51`, `14-expert-bf.html` over the underlay) do **not** use corfu's
+  Lambda fit: each drawn curve is split between two models, eccentric with the uniform e prior (evidence ratio = the published
+  uniform Bayes factor) and quasi-circular = a delta at e = 0. f = mass at e₁₀Hz > 0.05 (`ODDS_THRESHOLD` in `tools/expertbf.py`,
+  `odds` in the json), prior odds O = f/(1−f), and the blank shows O × B_uniform (`NS.priorOdds` in `expertbf.js`), so GW200105
+  (uniform 17) is filled too. The poll's results plot shows the same f and O once closed (`odds_threshold` on the interaction,
+  engine `prior.js`). `page-22` also gets a redrawn GW200129 glitch-mitigation table (uniform, and uniform × O), rows from
+  Gupte+ 2024 Table 5. Deck asset URLs carry `?v=N` (bump on change: `/static/` is cached immutable for 30 days).
 - NBI deck: `page-12` (degeneracy & waveform length) is `17-nametune.html` over its Canva underlay: a Name-That-Tune
   player mounted into the underlay's 16:9 box (plus a still orbit cartoon, `tools/orbits.py`, under the figure), drawing a live log₁₀ B(t) per clip (x axis doubles as "number of cycles").
   Three clips in order: in another room (YouTube "mr. brightside from another room"; its own wider `ROOM_SIGMA_MEM`, so B climbs slowly),

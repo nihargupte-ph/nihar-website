@@ -55,6 +55,8 @@ interactions:
   prompt: Draw your prior on eccentricity
   axis: {min: -11, max: 0, bins: 88, label: "log₁₀ e"}
   log_uniform_min: -4            # the reference log-uniform prior starts at e = 1e-4
+  odds_threshold: -1.30103       # log10 0.05: once closed, show P(e > 0.05) and the prior odds f/(1-f)
+  odds_label: "e₁₀Hz > 0.05"
 slides:
 - {id: page-01, svg: slides/01-page-01.svg, footer: false}
 - id: page-02                       # table of contents + the QR corner

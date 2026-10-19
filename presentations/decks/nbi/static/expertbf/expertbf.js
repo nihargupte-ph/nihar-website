@@ -1,9 +1,12 @@
-// Fills the "__ (uniform, log-uni, expert prior)" blank on the event slides with the
-// Bayes factor the *audience's* prior implies, live from the `ecc-prior` poll.
+// Fills the "__ (uniform, log-uni, expert prior)" blank on the event slides with what the
+// *audience's* prior implies, live from the `ecc-prior` poll.
 //
-// Everything static (the per-event likelihood-ratio curve Lambda, binned onto the poll's
-// 88-bin log10 e axis, and the constant k) is precomputed by tools/expertbf.py into
-// expertbf.json; the browser only does the dot product B = k * sum(w_i Lambda_i).
+// The drawn curve is split between two models: eccentric with the uniform e prior (whose evidence
+// ratio is the published uniform Bayes factor) and quasi-circular, a delta at e = 0. Mass at
+// e_10Hz > 0.05 is "eccentric", the rest is indistinguishable from zero. So f = P(e > 0.05), the
+// prior odds are O = f / (1 - f), and the blank shows the posterior odds O * B_uniform.
+// (expertbf.json still carries the per-event Lambda fit from tools/expertbf.py as a consistency
+// check of the published pairs; NS.bayesFactor below is that, and is no longer drawn.)
 //
 // The slides are Canva SVG exports whose text is outlines, so the answer is drawn as an
 // SVG <text> *inside the underlay's own viewBox*: SVG positions text by its baseline, so
@@ -26,6 +29,35 @@
       total += w; sum += w * lambda[i];
     }
     return total > 0 ? k * sum / total : null;
+  };
+
+  // f = the curve's mass above the threshold (the bin it falls in split linearly), O = f / (1 - f)
+  NS.priorOdds = function (weights, axis, thLog10) {
+    if (!weights || !weights.length) return null;
+    const w = (axis.max - axis.min) / axis.bins;
+    let tot = 0, hi = 0;
+    for (let k = 0; k < weights.length; k++) {
+      const v = weights[k];
+      if (!(v >= 0) || !isFinite(v)) return null;
+      const a = axis.min + k * w;
+      tot += v; hi += v * Math.min(1, Math.max(0, (a + w - thLog10) / w));
+    }
+    if (!(tot > 0)) return null;
+    const f = hi / tot;
+    return { f, odds: f >= 1 ? Infinity : f / (1 - f) };
+  };
+
+  // P(eccentric | data) from odds O (a Bayes factor at even prior odds, or O x B): O / (1 + O).
+  // Near 1 it keeps the digits that matter: 17 -> 94%, 407 -> 99.8%, 10000 -> 99.99%.
+  NS.prob = function (O) {
+    if (O == null || !(O >= 0)) return '—';
+    if (!isFinite(O)) return '100%';
+    const p = O / (1 + O);
+    if (p < 0.99) return (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%';
+    const short = Number((100 * (1 - p)).toPrecision(1));            // the shortfall from 100%, one figure
+    if (short < 1e-3) return '>99.999%';
+    const d = Math.max(1, -Math.floor(Math.log10(short)));
+    return (100 - short).toFixed(d) + '%';
   };
 
   // Compact enough to fit the gap the underscores leave: 2 significant figures,
@@ -77,19 +109,15 @@
     return host._node;
   };
 
-  const explain = (ev, value, agg) => {
-    if (!ev.fittable) return ev.label + ': not computable — ' + ev.reason;
+  const explain = (ev, value, po, agg, odds) => {
     if (value == null) return ev.label + ': waiting for the eccentricity-prior poll.';
-    const spread = ev.sigma_sensitivity.map((s) => s.B).filter((b) => b != null);
-    const lo = Math.min.apply(null, spread), hi = Math.max.apply(null, spread);
-    return ev.label + ': B = ' + value.toPrecision(3) + ' under the audience\'s mixture prior (n = '
-      + agg.n + ').\nFitted from the quoted ' + NS.format(ev.quoted.uniform) + ' (uniform) and '
-      + NS.format(ev.quoted.log_uniform) + ' (log-uniform), giving a likelihood-ratio bump at e = '
-      + ev.e_star.toFixed(2) + '; the published e_10Hz posterior is ' + ev.posterior.e
-      + ' [' + ev.posterior.lo + ', ' + ev.posterior.hi + '].\nHalving/tripling the fitted likelihood '
-      + 'width moves a fiducial expert prior\'s answer over ' + NS.format(lo) + '–' + NS.format(hi)
-      + ', so read this as one significant figure.\nSource: ' + ev.source + '.';
+    return ev.label + ': ' + NS.format(value) + ' = prior odds × uniform-prior Bayes factor = '
+      + po.odds.toPrecision(2) + ' × ' + NS.format(ev.quoted.uniform) + '.\nPrior odds from the audience\'s mixture (n = '
+      + agg.n + '): f = P(' + odds.label + ') = ' + po.f.toFixed(2) + ', odds f/(1−f). Mass below '
+      + odds.threshold + ' counts as quasi-circular (a delta at e = 0), mass above as the eccentric model.\nSource: '
+      + ev.source + '.';
   };
+  const oddsOf = (data, agg) => (agg && agg.mean ? NS.priorOdds(agg.mean, data.axis, data.odds.threshold_log10) : null);
 
   const paint = (data, agg) => {
     const byId = {};
@@ -105,8 +133,8 @@
       n.text.setAttribute('y', ((b.y + b.h * BASELINE) * n.box.height).toFixed(2));
       const size = b.h * SIZE * n.box.height;
       n.text.setAttribute('font-size', size.toFixed(2));
-      const value = ev.fittable && agg && agg.mean
-        ? NS.bayesFactor(agg.mean, ev.lambda, ev.k) : null;
+      const po = oddsOf(data, agg);
+      const value = po && ev.quoted && ev.quoted.uniform ? po.odds * ev.quoted.uniform : null;
       n.text.setAttribute('class', 'xbf-text' + (value == null ? ' xbf-text--none' : ''));
       // textContent would clobber the <title>, so write the label node only
       const label = n.text.lastChild && n.text.lastChild.nodeType === 3
@@ -118,11 +146,88 @@
       const room = b.w * MAX_OVERRUN * n.box.width;
       const wide = n.text.getComputedTextLength();
       if (wide > room) n.text.setAttribute('font-size', (size * Math.max(0.7, room / wide)).toFixed(2));
-      n.text.firstChild.textContent = explain(ev, value, agg || {});
+      n.text.firstChild.textContent = explain(ev, value, po, agg || {}, data.odds);
+      hover(host, ev, n, value);
       host.title = n.text.firstChild.textContent;
       host.textContent = label.data;
     }
+    for (const tb of data.tables || []) for (const host of hosts) if (tb.slides.includes(host.dataset.slide)) table(host, tb, agg, data);
   };
+
+  // Hovering (or tapping) any of the three numbers swaps them for P(eccentric) = O / (1 + O): the printed
+  // uniform and log-uniform Bayes factors at even prior odds, the expert one with the audience's odds
+  // already in. The three probabilities are wider than the numbers, so they share one pill that starts
+  // on the first number and runs on over the line for as long as the pointer is there.
+  function hover(host, ev, n, value) {
+    const svg = n.text.ownerSVGElement, V = n.box;
+    if (!host._hover) {
+      const boxes = [ev.numbers && ev.numbers.uniform, ev.numbers && ev.numbers.log_uniform, ev.blank].filter(Boolean);
+      const b0 = boxes[0];
+      const g = svgEl('g', { class: 'xbf-prob', visibility: 'hidden' });
+      const r = svgEl('rect', { class: 'xbf-prob__pill', y: (b0.y * V.height).toFixed(1), height: (b0.h * V.height).toFixed(1), rx: (b0.h * V.height * 0.25).toFixed(1) });
+      const t = svgEl('text', { class: 'xbf-prob__t', x: (b0.x * V.width).toFixed(1), y: ((b0.y + b0.h * BASELINE) * V.height).toFixed(1), 'font-size': (b0.h * SIZE * V.height).toFixed(1) });
+      g.append(r, t);
+      svg.append(g);
+      let pinned = false;
+      const show = (on) => g.setAttribute('visibility', on || pinned ? 'visible' : 'hidden');
+      for (const b of boxes) {
+        const hit = svgEl('rect', { class: 'xbf-prob__hit', x: (b.x * V.width).toFixed(1), y: (b.y * V.height).toFixed(1), width: (b.w * V.width).toFixed(1), height: (b.h * V.height).toFixed(1) });
+        hit.addEventListener('pointerenter', () => show(true));
+        hit.addEventListener('pointerleave', () => show(false));
+        hit.addEventListener('click', (e) => { e.stopPropagation(); pinned = !pinned; show(pinned); });   // tap on a phone; not "next slide"
+        svg.append(hit);
+      }
+      host._hover = { r, t, b0 };
+    }
+    const { r, t, b0 } = host._hover, q = ev.quoted || {};
+    t.textContent = [q.uniform, q.log_uniform, value].map((O) => (O == null ? '—' : NS.prob(O))).join(',  ');
+    const pad = b0.h * V.height * 0.2;
+    r.setAttribute('x', (b0.x * V.width - pad).toFixed(1));
+    r.setAttribute('width', (t.getComputedTextLength() + 2 * pad).toFixed(1));
+  }
+
+  // page-22's glitch-mitigation table, redrawn over the Canva one: uniform prior as published, and
+  // the same row times the audience's prior odds. log10, coloured like Table 5 of Gupte+ 2024.
+  const SHADES = ['#FABCA4', '#FED7B0', '#FFFAD6', '#E6F4C1', '#C8E7B3', '#ABDAAF', '#92CEA9', '#8DCCA8', '#84BB9F', '#79B597'];
+  const shade = (lg) => SHADES[Math.max(0, Math.min(SHADES.length - 1, Math.floor(lg / 0.5)))];
+  const svgEl = (tag, attrs, text) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+  function table(host, tb, agg, data) {
+    const slide = host.closest('.slide');
+    const svg = slide && slide.querySelector('.stage--underlay .stage__inner > svg');
+    if (!svg || !svg.viewBox || !svg.viewBox.baseVal) return;
+    const V = svg.viewBox.baseVal, x0 = tb.box.x * V.width, y0 = tb.box.y * V.height, W = tb.box.w * V.width, H = tb.box.h * V.height;
+    if (!host._table) {
+      const g = svgEl('g', { class: 'xbf-table' });
+      g.append(svgEl('rect', { x: x0, y: y0, width: W, height: H, fill: '#fff' }));
+      const c1 = x0 + 0.40 * W, c2 = x0 + 0.70 * W, cw = 0.29 * W, head = 0.25 * H, rh = (H - head) / tb.rows.length;
+      const t = (x, y, s, attrs) => g.append(svgEl('text', { x, y, 'text-anchor': 'middle', class: 'xbf-table__t', ...attrs }, s));
+      t(c1 + cw, y0 + 0.30 * head, `${tb.qcp_model}  log₁₀ℬ`, { 'font-size': 15 });
+      t(c1 + cw / 2, y0 + 0.78 * head, 'uniform', { 'font-size': 15 });
+      t(c2 + cw / 2, y0 + 0.78 * head, 'expert prior', { 'font-size': 15, 'font-weight': 600 });
+      const cells = tb.rows.map((r, i) => {
+        const y = y0 + head + i * rh;
+        t(x0 + 0.02 * W, y + rh * 0.62, r.label, { 'text-anchor': 'start', 'font-size': 15, 'font-family': 'monospace' });
+        const u = r.quoted_log10.uniform;
+        g.append(svgEl('rect', { x: c1, y: y + 2, width: cw, height: rh - 4, fill: shade(u) }));
+        t(c1 + cw / 2, y + rh * 0.62, u.toFixed(2), { 'font-size': 16 });
+        const box = svgEl('rect', { x: c2, y: y + 2, width: cw, height: rh - 4, fill: '#eee' });
+        const val = svgEl('text', { x: c2 + cw / 2, y: y + rh * 0.62, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 600, class: 'xbf-table__t' }, '—');
+        const tip = svgEl('title'); box.append(tip);
+        g.append(box, val);
+        return { box, val, tip, row: r };
+      });
+      svg.append(g);
+      host._table = cells;
+    }
+    const po = oddsOf(data, agg);
+    for (const c of host._table) {
+      const b = po ? po.odds * c.row.quoted.uniform : null;
+      const lg = b != null && b > 0 ? Math.log10(b) : null;
+      c.val.textContent = lg == null ? '—' : lg.toFixed(1);
+      c.box.setAttribute('fill', lg == null ? '#eee' : shade(lg));
+      c.tip.textContent = explain(c.row, b, po, agg || {}, data.odds);
+    }
+  }
 
   const load = async () => {
     let data = NS.data;

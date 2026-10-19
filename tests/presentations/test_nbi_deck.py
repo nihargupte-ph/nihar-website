@@ -176,3 +176,28 @@ def test_degeneracy_aside_is_two_steps_figure_then_player():
     assert (a.continues, b.continues) == (False, True) and a.underlay == b.underlay
     html = (DECK / '17-nametune.html').read_text()
     assert "data-player=\"{% if slide.id == 'page-12' %}0{% else %}1{% endif %}\"" in html
+
+
+def test_gw200129_glitch_table_rows_reweight_back_to_the_published_numbers(data):
+    """Each mitigation row, given the uniform or log-uniform prior on the poll grid, returns its own row of Table 5."""
+    spec = importlib.util.spec_from_file_location('nbi_expertbf_t', DECK / 'tools' / 'expertbf.py')
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    (tb,) = data['tables']
+    assert tb['slides'] == ['page-22'] and [r['label'] for r in tb['rows']] == ['gwsubtract', 'BayesWave A', 'BayesWave B', 'BayesWave C']
+    edges = data['edges']
+    for r in tb['rows']:
+        assert r['ratio'] < r['ratio_bound'] and r['k_spread_dex'] <= 0.03
+        assert abs(r['e_star'] - r['posterior']['e']) < 0.05          # lands on the published e_10Hz, unfitted
+        for kind in ('uniform', 'log_uniform'):
+            got = mod.bayes_factor(mod.reference_masses(kind, edges), r['lambda'], r['k'])
+            assert abs(got / r['quoted'][kind] - 1) <= r['grid_tolerance']
+
+
+def test_expert_blank_is_prior_odds_times_the_uniform_bayes_factor(data):
+    """Delta-at-zero vs uniform-prior models: the json carries the threshold and every event its uniform B."""
+    assert data['odds']['threshold'] == 0.05 and abs(data['odds']['threshold_log10'] + 1.30103) < 1e-5
+    assert {e['id']: round(e['quoted']['uniform']) for e in data['events']} == {
+        'GW200208_22': 17, 'GW200105': 17, 'GW190701': 407, 'GW200129': 10000}
+    js = (DECK / 'static' / 'expertbf' / 'expertbf.js').read_text()
+    assert 'po.odds * ev.quoted.uniform' in js and 'po.odds * c.row.quoted.uniform' in js

@@ -44,7 +44,7 @@ def test_presenter_bar_has_no_qr_button_and_one_poll_button():
     assert 'id="qr-toggle"' not in present
     assert 'id="qr-box"' in present            # the poll slide clones it onto the slide
     js = (ROOT / 'presentations' / 'static' / 'presentations' / 'js' / 'present.js').read_text()
-    assert 'POLL_SECONDS = 90' in js
+    assert 'POLL_SECONDS = 120' in js          # two minutes (was 1:30 for corfu)
     assert "'hidden', 'open', 'closed', 'revealed'" not in js
 
 

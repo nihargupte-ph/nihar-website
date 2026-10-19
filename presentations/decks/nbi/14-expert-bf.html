@@ -1,11 +1,13 @@
 {% extends "presentations/slide_base.html" %}
 {# One template for every slide that quotes "__ (uniform, log-uni, expert prior)". The slide is
    the Canva page (underlay); this adds nothing but the number in the blank. `slide.id` picks the
-   event out of static/expertbf/expertbf.json (built by tools/expertbf.py). #}
+   event out of static/expertbf/expertbf.json (built by tools/expertbf.py). page-22 also gets the
+   GW200129 glitch-mitigation table (uniform vs expert prior). ?v=N busts the 30-day immutable cache on
+   /static/decks/: bump it whenever expertbf.js/css/json change. #}
 {% block slide %}
-<link rel="stylesheet" href="{{ deck_static }}expertbf/expertbf.css">
+<link rel="stylesheet" href="{{ deck_static }}expertbf/expertbf.css?v=4">
 <div class="xbf xbf--none" data-slide="{{ slide.id }}"
-     data-src="{{ deck_static }}expertbf/expertbf.json"
+     data-src="{{ deck_static }}expertbf/expertbf.json?v=4"
      title="Expert-prior Bayes factor — from the live eccentricity-prior poll.">&mdash;</div>
-<script src="{{ deck_static }}expertbf/expertbf.js" defer></script>
+<script src="{{ deck_static }}expertbf/expertbf.js?v=4" defer></script>
 {% endblock %}

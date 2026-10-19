@@ -4,6 +4,8 @@ Payload weights are bin masses (sum 1). `aggregate` returns every curve with its
 metadata (name / institute / expertise tags) so the presenter can hover and filter,
 the unweighted mean, and two reference priors on the same grid: log-uniform on
 [10^log_uniform_min, 10^max] (default: the whole axis) and uniform in e on [10^min, 10^max].
+Optional `odds_threshold` (a point on the axis, e.g. log10 0.05): once the poll is closed the screen
+shows, for the mixture and per curve, the mass above it and the prior odds f / (1 - f).
 """
 from .base import Interaction
 
@@ -26,6 +28,8 @@ class Prior(Interaction):
                 },
             },
             'log_uniform_min': {'type': 'number'},
+            'odds_threshold': {'type': 'number'},
+            'odds_label': {'type': 'string'},
         },
     }
     payload_schema = {
@@ -46,6 +50,9 @@ class Prior(Interaction):
         lo = config.get('log_uniform_min', a['min'])
         if not a['min'] <= lo < a['max']:
             raise ValueError('prior config: log_uniform_min must lie inside the axis')
+        th = config.get('odds_threshold')
+        if th is not None and not a['min'] < th < a['max']:
+            raise ValueError('prior config: odds_threshold must lie inside the axis')
 
     def normalise(self, payload, config):
         bins = config['axis']['bins']
