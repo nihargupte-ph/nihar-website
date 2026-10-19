@@ -155,6 +155,9 @@ Presentations.registerInteraction('prior', {
       }
       odds.hidden = !showOdds || !mean;
       if (showOdds && mean) odds.textContent = `Mixture: ${oddsText(mean)}`;
+      // a deck can word this its own way: it gets the mixture's fraction above the threshold
+      const fMix = showOdds && mean ? above(mean) : null;
+      el.dispatchEvent(new CustomEvent('prior-odds', { bubbles: true, detail: fMix == null ? null : { f: fMix, n: shown.length, filter: st.filter } }));
       if (cmp) {
         ns('path', { d: path(cmp.log_uniform), fill: 'none', stroke: 'currentColor', 'stroke-opacity': .8, 'stroke-width': 2.5, 'stroke-dasharray': '10 6' });
         ns('path', { d: path(cmp.uniform), fill: 'none', stroke: 'currentColor', 'stroke-opacity': .8, 'stroke-width': 2.5, 'stroke-dasharray': '3 5' });

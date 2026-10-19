@@ -13,3 +13,7 @@
 .pp__clock .prior-clock{position:static;font-size:clamp(2rem,4vw,3.4rem)}
 .mode-phone .pp__side{display:none}
 .mode-phone .pp__body{display:block}
+/* the audience's answer, once the poll is closed (poll.js); the widget's own "Mixture: ..." line is not shown here */
+.pp .prior-odds{display:none}
+.pp__belief{max-width:clamp(150px,14vw,240px);margin:0;text-align:center;font:500 clamp(1rem,1.5vw,1.35rem)/1.35 var(--font-body)}
+.pp__belief b{display:block;font:400 clamp(1.8rem,3.2vw,2.8rem)/1.15 var(--font-display,serif);color:var(--accent);margin:.15em 0}
