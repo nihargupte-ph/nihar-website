@@ -122,8 +122,9 @@ EVENTS = [
                     'log_uniform': {'x': 270.691573 / 1440, 'y': 186.647178 / 810, 'w': (303.906507 - 270.691573) / 1440, 'h': (210.97428 - 186.647178) / 810}},
         'label': 'GW200105',
         'slides': ['page-11'],
-        'blank': {'x': 309.622610 / 1440, 'y': 186.647178 / 810,
-                  'w': (327.994324 - 309.622610) / 1440, 'h': (210.974280 - 186.647178) / 810},
+        # the widened gap (Canva export 4): from a word space after the second number to one before "(uniform"
+        'blank': {'x': (303.906507 + 6.082) / 1440, 'y': 186.647178 / 810,
+                  'w': (349.66 - 6.082 - (303.906507 + 6.082)) / 1440, 'h': (210.97428 - 186.647178) / 810},
         'fittable': False,
         'quoted': {'uniform': 17.0, 'log_uniform': 1.3},
         'reason': ('the two quoted numbers come from different analyses (uniform: Morras+ 2025 / '
@@ -140,8 +141,9 @@ EVENTS = [
                     'log_uniform': {'x': 1138.438273 / 1440, 'y': 472.268537 / 810, 'w': (1170.332815 - 1138.438273) / 1440, 'h': (500.964111 - 472.268537) / 810}},
         'label': 'GW190701',
         'slides': ['page-13'],
-        'blank': {'x': 1177.078263 / 1440, 'y': 472.268537 / 810,
-                  'w': (1198.751336 - 1177.078263) / 1440, 'h': (500.964111 - 472.268537) / 810},
+        # the widened gap (Canva export 4): from a word space after the second number to one before "(uniform"
+        'blank': {'x': (1170.332815 + 7.174) / 1440, 'y': 472.268537 / 810,
+                  'w': (1231.06 - 7.174 - (1170.332815 + 7.174)) / 1440, 'h': (500.964111 - 472.268537) / 810},
         'row': 'BayesWave',
         'qcp_model': 'SEOBNRv4PHM',
         'log10_b_qcp': {'uniform': 2.61, 'log_uniform': 1.71},
@@ -156,8 +158,9 @@ EVENTS = [
                     'log_uniform': {'x': 334.718705 / 1440, 'y': 157.960941 / 810, 'w': (412.20914 - 334.718705) / 1440, 'h': (191.17748 - 157.960941) / 810}},
         'label': 'GW200129',
         'slides': ['page-19', 'page-21', 'page-22'],      # one blank, the same box on all three reveal pages
-        'blank': {'x': 420.014081 / 1440, 'y': 157.960941 / 810,
-                  'w': (457.639183 - 420.014081) / 1440, 'h': (191.177480 - 157.960941) / 810},
+        # the widened gap (Canva export 4): from a word space after the second number to one before "(uniform"
+        'blank': {'x': (412.20914 + 8.304) / 1440, 'y': 157.960941 / 810,
+                  'w': (505.910139 - 8.304 - (412.20914 + 8.304)) / 1440, 'h': (191.17748 - 157.960941) / 810},
         'row': 'gwsubtract',
         'qcp_model': 'NRSur7dq4',
         'log10_b_qcp': {'uniform': 4.00, 'log_uniform': 3.23},

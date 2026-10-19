@@ -60,14 +60,12 @@
     return (100 - short).toFixed(d) + '%';
   };
 
-  // Compact enough to fit the gap the underscores leave: 2 significant figures,
-  // one decimal below 10, a k suffix above 1000.
+  // Written out in full (6,300 not 6.3k): two significant figures, thousands separated; one decimal
+  // below 10. Read as one significant figure anyway (see tools/expertbf.py).
   NS.format = function (v) {
     if (v == null || !isFinite(v) || v < 0) return '—';
     if (v < 10) return v.toFixed(1);
-    if (v < 1000) { const p = Math.pow(10, Math.floor(Math.log10(v)) - 1); return String(Math.round(v / p) * p); }
-    if (v < 1e6) { const t = v / 1000; return (t < 10 ? t.toFixed(1) : String(Math.round(t / 10) * 10)) + 'k'; }
-    return v.toExponential(1).replace('e+', 'e');
+    return Number(v.toPrecision(2)).toLocaleString('en');
   };
 
   // Where the baseline and the cap height sit inside the ascender-to-descender word box
@@ -112,7 +110,7 @@
   const explain = (ev, value, po, agg, odds) => {
     if (value == null) return ev.label + ': waiting for the eccentricity-prior poll.';
     return ev.label + ': ' + NS.format(value) + ' = prior odds × uniform-prior Bayes factor = '
-      + po.odds.toPrecision(2) + ' × ' + NS.format(ev.quoted.uniform) + '.\nPrior odds from the audience\'s mixture (n = '
+      + po.odds.toPrecision(2) + ' × ' + Math.round(ev.quoted.uniform).toLocaleString('en') + '.\nPrior odds from the audience\'s mixture (n = '
       + agg.n + '): f = P(' + odds.label + ') = ' + po.f.toFixed(2) + ', odds f/(1−f). Mass below '
       + odds.threshold + ' counts as quasi-circular (a delta at e = 0), mass above as the eccentric model.\nSource: '
       + ev.source + '.';
@@ -143,7 +141,8 @@
       // An answer is usually wider than the two underscores it replaces, and left unchecked it
       // swallowed the space before "(uniform…". Allow it the blank plus that space, then scale to
       // fit. Never below 70% — a number nobody can read from the back of the room is worse.
-      const room = b.w * MAX_OVERRUN * n.box.width;
+      // the widened gaps are the true room; an old two-underscore blank may run on into the space after it
+      const room = b.w * (b.w * 1440 > 30 ? 1 : MAX_OVERRUN) * n.box.width;
       const wide = n.text.getComputedTextLength();
       if (wide > room) n.text.setAttribute('font-size', (size * Math.max(0.7, room / wide)).toFixed(2));
       n.text.firstChild.textContent = explain(ev, value, po, agg || {}, data.odds);
