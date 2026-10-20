@@ -5,10 +5,10 @@
    Under the waveform figure, an orbit cartoon of the two degenerate hypotheses (static/nametune/orbits.svg).
    Two steps: page-12 is the page and the figure alone (data-player=0), page-12b adds the player. #}
 {% block slide %}
-<link rel="stylesheet" href="{{ deck_static }}nametune/nametune.css">
+<link rel="stylesheet" href="{{ deck_static }}nametune/nametune.css?v=2">
 <div class="nt" data-src="{{ deck_static }}nametune/" data-player="{% if slide.id == 'page-12' %}0{% else %}1{% endif %}">
   {# under the Tibrewal+ figure: eccentric + aligned spins vs circular + precessing spins (tools/orbits.py) #}
   <img class="nt-orbits" src="{{ deck_static }}nametune/orbits.svg" alt="Two black holes on an eccentric orbit with spins along the orbital axis, beside two on a circular orbit with tilted, precessing spins">
 </div>
-<script src="{{ deck_static }}nametune/nametune.js" defer></script>
+<script src="{{ deck_static }}nametune/nametune.js?v=2" defer></script>
 {% endblock %}

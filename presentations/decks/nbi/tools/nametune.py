@@ -21,10 +21,15 @@ THE CLIPS (slide order)
                       original song (aligned by cross-correlation) through the room's transfer
                       function, fitted per mel band as data ~ g_k * original + N_k.
 3_short_decisive      Beethoven 5, the opening ta-ta-ta-TAAA.  Loud, clean, ~3 s + pads.
-4_impostor            Ice Ice Baby from its first note (the Under Pressure bass riff), long
+4_anthem              Liechtenstein's anthem, Oben am jungen Rhein (US Navy Band, after its 8 s snare
+                      roll): God Save the King's melody. The listener weighs God Save the King (another
+                      US Navy Band recording, DTW-aligned, same key) against La Marseillaise; nobody
+                      holds the Liechtenstein hypothesis, so B climbs (log10 B ~15) for the wrong song.
+4_impostor            (dropped from the slide; `impostor()` is kept but not called.)
+                      Ice Ice Baby from its first note (the Under Pressure bass riff), long
                       enough that the moment the listener's B turns decisive lands ~2/3 in.
 Recordings: Wikimedia Commons, public domain -- Beethoven 5/i (Musopen), Grieg Peer Gynt
-Suite 1/iv (Musopen Symphony).  YouTube (yt-dlp, official uploads): Ice Ice Baby, Under
+Suite 1/iv (Musopen Symphony), US Navy Band: Oben am jungen Rhein, God Save the King, La Marseillaise.  YouTube (yt-dlp, official uploads): Ice Ice Baby, Under
 Pressure (competitor for clip 2), Mr. Brightside, and the "from another room" version.  Edit the CUT_* constants
 to move a window.
 
@@ -81,6 +86,10 @@ CHOSEN_SNR = -10                 # the one the slide plays by default
 CUT_ROOM = ('brightside_another_room.mp3', 14.0, 24.0)  # steady level from ~14 s on
 ROOM_ORIGINAL = 'brightside.mp3'
 CUT_SHORT = ('beethoven5.ogg', 0.80, 4.12)              # ta-ta-ta-TAAA, to the fermata's release (onset 0.84 s)
+ANTHEM = ('liechtenstein_navy_band.ogg', 8.15, 10.0)     # Oben am jungen Rhein: after the 8 s snare roll, 10 s
+ANTHEM_BELIEF = 'god_save_the_king_navy_band.oga'          # what every listener hears it as
+ANTHEM_ALT = 'marseillaise.ogg'                            # the other anthem they might consider
+ANTHEM_SIGMA_MEM = 22.0          # memory blur: B climbs across the clip, off the 0-10 plot near the end
 IMP = 'ice_ice_baby.mp3'
 IMP_SEARCH = 24.0                # look for the reveal up to here
 REVEAL_FRAC = 2 / 3
@@ -410,11 +419,79 @@ def impostor(rng):
                          'reveal_in_song': round(start + reveal, 2), 'bar_s': round(bar, 4), 'lufs': lufs(clip)}}
 
 
+def onset(x, frac=0.1):
+    """First time the broadband 10 ms RMS reaches frac of its loud level (95th percentile)."""
+    m = x.mean(1)
+    w = int(0.01 * SR)
+    e = np.sqrt(np.convolve(m ** 2, np.ones(w) / w, 'same'))
+    return float(np.nonzero(e > frac * np.percentile(e, 95))[0][0]) / SR
+
+
+def dtw_follow(A, B):
+    """For each frame of A, the frame of B it lines up with: DTW on cosine distance of z-scored log-mel
+    frames, both starting together, B free to end anywhere (B is the longer, remembered performance)."""
+    z = lambda M: (lambda L: (L - L.mean(0)) / (L.std(0) + 1e-9))(np.log(M + 1e-30)).T
+    a, b = z(A), z(B)
+    a /= np.linalg.norm(a, axis=1, keepdims=True) + 1e-9
+    b /= np.linalg.norm(b, axis=1, keepdims=True) + 1e-9
+    C = 1 - a @ b.T
+    n, m = C.shape
+    D = np.full((n, m), np.inf)
+    D[0, 0] = C[0, 0]
+    for j in range(1, m):
+        D[0, j] = D[0, j - 1] + C[0, j]
+    for i in range(1, n):
+        D[i, 0] = D[i - 1, 0] + C[i, 0]
+        for j in range(1, m):
+            D[i, j] = C[i, j] + min(D[i - 1, j], D[i - 1, j - 1], D[i, j - 1])
+    i, j = n - 1, int(np.argmin(D[n - 1]))
+    match = [[] for _ in range(n)]
+    match[i].append(j)
+    while i > 0 or j > 0:
+        steps = [(i - 1, j - 1), (i - 1, j), (i, j - 1)]
+        i, j = min((s for s in steps if s[0] >= 0 and s[1] >= 0), key=lambda s: D[s])
+        match[i].append(j)
+    return np.array([int(round(np.mean(js))) for js in match])
+
+
+def anthem(rng):
+    """Liechtenstein's anthem, Oben am jungen Rhein, has God Save the King's melody note for note. The
+    listener compares God Save the King (a different US Navy Band performance, time-aligned by DTW: same
+    key, B flat) against La Marseillaise; nobody holds the Liechtenstein hypothesis, so B climbs for the
+    wrong answer and never turns back. Recordings: Wikimedia Commons, US Navy Band, public domain."""
+    for f in (ANTHEM[0], ANTHEM_BELIEF, ANTHEM_ALT):
+        if not (SRC / f).exists():
+            print(f'anthem skipped: put {f} in {SRC}')
+            return None
+    name, start, length = ANTHEM               # the recording opens with a snare roll; the tune starts ~8.3 s
+    clip = normalise(fade(load(name, start, length)), LUFS_LOUD)
+    write(clip, '4_anthem')
+    belief = load(ANTHEM_BELIEF, 0, 40)
+    belief = belief[int(max(0.0, onset(belief) - 0.05) * SR):]
+    alt = load(ANTHEM_ALT, 0, 40)
+    alt = alt[int(max(0.0, onset(alt) - 0.05) * SR):]
+    P = melpow(clip, 4000, 40)
+    Pb = melpow(belief, 4000, 40)
+    follow = dtw_follow(P, Pb)
+    right = Pb[:, follow]                     # God Save the King, as remembered, in step with the clip
+    floor = 1e-3 * P.mean(1)
+    lb = log10_bayes(P, right, melpow(alt, 4000, 40), floor, np.full(40, 0.31), sigma_mem=ANTHEM_SIGMA_MEM)
+    lb = lb[:int(length * FPS) + 1]
+    spectrogram(clip, '4_anthem', f'anthem: {name} {start:.2f}-{start + length:.2f} s', 4000)
+    return {'id': 'anthem', 'title': 'Whose anthem?', 'sub': 'a familiar tune',
+            'believed': 'God Save the King', 'answer': "Liechtenstein's anthem!",
+            'src': '4_anthem.mp3', 'duration': len(clip) / SR, **curve(lb),
+            'settings': {'source': name, 'start': round(start, 3), 'end': round(start + length, 3),
+                         'belief': ANTHEM_BELIEF, 'alt': ANTHEM_ALT, 'sigma_mem': ANTHEM_SIGMA_MEM,
+                         'tempo_ratio': round(float(follow[-1] - follow[0]) / max(1, len(follow) - 1), 3),
+                         'lufs': lufs(clip)}}
+
+
 def main():
     rng = np.random.default_rng(SEED)
     for old in list(OUT_STATIC.glob('*.mp3')) + list(OUT_STATIC.glob('*.png')) + list(OUT_WAV.glob('*')):
         old.unlink()
-    clips = [c for c in (another_room(rng), short_decisive(rng), impostor(rng)) if c]
+    clips = [c for c in (another_room(rng), short_decisive(rng), anthem(rng)) if c]   # impostor() kept, not shown
     meta = {'fps': FPS, 'sigma_mem': SIGMA_MEM, 'decisive': 2.0, 'clips': clips}
     (OUT_STATIC / 'nametune.json').write_text(json.dumps(meta, separators=(',', ':')))
     for c in clips:

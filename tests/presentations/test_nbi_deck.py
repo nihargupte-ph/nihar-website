@@ -201,3 +201,15 @@ def test_expert_blank_is_prior_odds_times_the_uniform_bayes_factor(data):
         'GW200208_22': 17, 'GW200105': 17, 'GW190701': 407, 'GW200129': 10000}
     js = (DECK / 'static' / 'expertbf' / 'expertbf.js').read_text()
     assert 'po.odds * ev.quoted.uniform' in js and 'po.odds * c.row.quoted.uniform' in js
+
+
+def test_nametune_third_clip_is_the_liechtenstein_anthem_heard_as_god_save_the_king():
+    nt = json.loads((DECK / 'static' / 'nametune' / 'nametune.json').read_text())
+    assert [c['id'] for c in nt['clips']] == ['another_room', 'short_decisive', 'anthem']
+    a = nt['clips'][2]
+    assert a['believed'] == 'God Save the King' and 'Liechtenstein' in a['answer']
+    assert (DECK / 'static' / 'nametune' / a['src']).exists()
+    lb = a['log10B']
+    assert lb[-1] > 10 and abs(a['duration'] - 10) < 0.5        # climbs off the 0-10 plot for the wrong song
+    assert all(b >= a_ - 0.3 for a_, b in zip(lb, lb[1:]))      # and never turns back
+    assert "id: 'anthem'" in (DECK / 'static' / 'nametune' / 'nametune.js').read_text()

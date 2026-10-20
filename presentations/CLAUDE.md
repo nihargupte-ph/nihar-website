@@ -162,7 +162,10 @@ videos go alongside. PDF text becomes outlines, so `theme:` falls back to defaul
 - NBI deck: `page-12` (degeneracy & waveform length) is `17-nametune.html` over its Canva underlay: a Name-That-Tune
   player mounted into the underlay's 16:9 box (plus a still orbit cartoon, `tools/orbits.py`, under the figure), drawing a live log₁₀ B(t) per clip (x axis doubles as "number of cycles").
   Three clips in order: in another room (YouTube "mr. brightside from another room"; its own wider `ROOM_SIGMA_MEM`, so B climbs slowly),
-  short & decisive (Beethoven 5), impostor (Ice Ice Baby vs Under Pressure). `tools/nametune.py` (run from the deck folder)
+  short & decisive (Beethoven 5), whose anthem? (Liechtenstein's *Oben am jungen Rhein*, US Navy Band: God Save the King's
+  melody, scored as God Save the King [another US Navy Band recording, DTW-aligned] vs La Marseillaise, so B climbs to ~15
+  for the wrong song; the answer line says "God Save the King!" until the clip ends). `impostor()` (Ice Ice Baby vs Under
+  Pressure) is kept in the script but off the slide. `tools/nametune.py` (run from the deck folder)
   cuts them from `tools/audio/` (git-ignored: PD Musopen recordings from Commons + yt-dlp downloads of the official
   uploads) into `static/nametune/` (mp3 + json) and `tools/audio/out/` (wav + labelled check spectrograms).
   B(t) is a log-mel Gaussian listener vs a loudness-matched competitor; `SIGMA_MEM` (memory blur) is the one tuned knob.

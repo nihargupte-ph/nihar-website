@@ -1,5 +1,5 @@
 // page-12 "an aside on degeneracy & waveform length": Name That Tune.
-// Three clips (short & loud / quiet through a wall / an impostor), each drawing the log10 Bayes
+// Three clips (in another room / short & loud / whose anthem?), each drawing the log10 Bayes
 // factor a listener has accumulated by time t, in step with the audio. The curves and the clip list
 // come from nametune.json (tools/nametune.py); the browser only plays and plots.
 // The panel is mounted into the underlay's 16:9 box so it sits in the Canva page's empty corner.
@@ -80,6 +80,8 @@
       tag.textContent = last > YMAX ? `↑ ${Math.round(last)}` : '';
       // the impostor reads as the song it imitates until the listener's B says otherwise
       if (c.alt_answer) active.btn.querySelector('.nt-btn__answer').textContent = t < c.reveal ? c.alt_answer + '?' : c.answer;
+      // the anthem: everyone is sure it is God Save the King; the truth only comes when it ends
+      if (c.believed) active.btn.querySelector('.nt-btn__answer').textContent = c.believed + '!';
       if (c.reveal != null && t >= c.reveal && !active.revealLine) {
         active.revealLine = el('line', { class: 'nt-reveal', stroke: active.colour, x1: xOf(c.reveal), x2: xOf(c.reveal), y1: Y1, y2: Y0 }, curves);
       }
@@ -124,7 +126,7 @@
     const SLOTS = [
       { id: 'another_room', title: 'In another room' },
       { id: 'short_decisive', title: 'Short but decisive' },
-      { id: 'impostor', title: 'The impostor' },
+      { id: 'anthem', title: 'Whose anthem?' },
     ];
     SLOTS.forEach((slot, i) => {
       const clip = data.clips.find((c) => c.id === slot.id);
@@ -170,5 +172,5 @@
   if (orbits && box) box.append(orbits);
   if (host.dataset.player === '0') return;          // page-12: the figure alone; the player comes on page-12b
 
-  fetch(BASE + 'nametune.json').then((r) => r.json()).then(mount, () => {});
+  fetch(BASE + 'nametune.json?v=2').then((r) => r.json()).then(mount, () => {});
 })();
