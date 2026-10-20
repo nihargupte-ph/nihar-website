@@ -35,7 +35,7 @@
 .fwd__eq{margin:0;text-align:center;font-size:1.05em;white-space:nowrap;overflow:hidden}
 .fwd__eq .katex{font-size:1em}
 .fwd__src{margin:auto 0 0;font-size:.74em;opacity:.6;text-align:center}
-.fwd__src a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.fwd__src a{color:inherit;text-decoration:none}
 
 /* reveal: a card exists from its step; the newest slides in from the right */
 .fwd__card{visibility:hidden}
