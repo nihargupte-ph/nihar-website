@@ -75,16 +75,16 @@ slides:
 - {id: eob-4, html: 15-eob.html, continues: true}
 - {id: eob-5, html: 15-eob.html, continues: true}
 - {id: eob-6, html: 15-eob.html, continues: true}
-# 03-05: accelerating inference with DINGO
-- {id: page-03, svg: slides/03-page-03.svg}
-- {id: page-04, svg: slides/04-page-04.svg}
-- {id: page-05, svg: slides/05-page-05.svg}
 - {id: page-06, svg: slides/06-page-06.svg}
 - {id: page-07, svg: slides/07-page-07.svg}
 - {id: page-08, svg: slides/08-page-08.svg}
 - id: bayes
   html: 10-bayes.html
-- id: ecc-prior                     # draw-your-own-prior poll, right after "what is significance"
+# 03-05: accelerating inference with DINGO, after "what is significance"
+- {id: page-03, svg: slides/03-page-03.svg}
+- {id: page-04, svg: slides/04-page-04.svg}
+- {id: page-05, svg: slides/05-page-05.svg}
+- id: ecc-prior                     # draw-your-own-prior poll, after "what is significance" and DINGO
   html: 12-prior-poll.html
   ask: [ecc-prior]
   show: [{id: ecc-prior}]
