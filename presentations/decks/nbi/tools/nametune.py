@@ -479,7 +479,7 @@ def anthem(rng):
     lb = lb[:int(length * FPS) + 1]
     spectrogram(clip, '4_anthem', f'anthem: {name} {start:.2f}-{start + length:.2f} s', 4000)
     return {'id': 'anthem', 'title': 'Whose anthem?', 'sub': 'a familiar tune',
-            'believed': 'God Save the King', 'answer': "Liechtenstein's anthem!",
+            'believed': 'God Save the King', 'answer': 'British national anthem, or\u00a0is\u00a0it?',   # keeps "or is it?" on one line
             'src': '4_anthem.mp3', 'duration': len(clip) / SR, **curve(lb),
             'settings': {'source': name, 'start': round(start, 3), 'end': round(start + length, 3),
                          'belief': ANTHEM_BELIEF, 'alt': ANTHEM_ALT, 'sigma_mem': ANTHEM_SIGMA_MEM,

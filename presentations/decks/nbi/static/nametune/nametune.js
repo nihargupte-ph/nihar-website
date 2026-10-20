@@ -172,5 +172,5 @@
   if (orbits && box) box.append(orbits);
   if (host.dataset.player === '0') return;          // page-12: the figure alone; the player comes on page-12b
 
-  fetch(BASE + 'nametune.json?v=2').then((r) => r.json()).then(mount, () => {});
+  fetch(BASE + 'nametune.json?v=3').then((r) => r.json()).then(mount, () => {});
 })();

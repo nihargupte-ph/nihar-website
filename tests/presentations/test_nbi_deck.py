@@ -207,7 +207,7 @@ def test_nametune_third_clip_is_the_liechtenstein_anthem_heard_as_god_save_the_k
     nt = json.loads((DECK / 'static' / 'nametune' / 'nametune.json').read_text())
     assert [c['id'] for c in nt['clips']] == ['another_room', 'short_decisive', 'anthem']
     a = nt['clips'][2]
-    assert a['believed'] == 'God Save the King' and 'Liechtenstein' in a['answer']
+    assert a['believed'] == 'God Save the King' and a['answer'].replace('\u00a0', ' ') == 'British national anthem, or is it?'
     assert (DECK / 'static' / 'nametune' / a['src']).exists()
     lb = a['log10B']
     assert lb[-1] > 10 and abs(a['duration'] - 10) < 0.5        # climbs off the 0-10 plot for the wrong song

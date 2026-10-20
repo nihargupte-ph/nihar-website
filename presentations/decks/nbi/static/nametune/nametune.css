@@ -13,7 +13,7 @@
 .nt-btn__icon{flex:none;width:2.6cqh;height:2.6cqh;border-radius:50%;background:var(--c);display:grid;place-items:center}
 .nt-btn__icon svg{width:1.3cqh;height:1.3cqh;fill:#fff}
 .nt-btn__sub{font-size:1.55cqh;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nt-btn__answer{font-size:1.65cqh;font-weight:600;color:var(--c);min-height:1.9cqh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt-btn__answer{font-size:1.65cqh;font-weight:600;color:var(--c);min-height:1.9cqh;line-height:1.2}   /* wraps: "British national anthem, or is it?" */
 .nt-snr{display:flex;gap:.4cqh;font-size:1.4cqh}
 .nt-snr span{all:unset;cursor:pointer;padding:.1cqh .6cqh;border-radius:.6cqh;border:.15cqh solid var(--c);opacity:.6}
 .nt-snr span[aria-pressed="true"]{background:var(--c);color:#fff;opacity:1}
