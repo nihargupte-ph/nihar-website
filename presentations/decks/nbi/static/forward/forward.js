@@ -130,7 +130,9 @@
     const c = S.cur, set = (k, html) => { root.querySelector(`[data-val="${k}"]`).innerHTML = html; };
     set('m', `m₁ = ${c.m1.toFixed(0)}, m₂ = ${c.m2.toFixed(0)} M☉`);
     set('v', `v<sub>∞</sub> = ${kms(c.vinf)} km/s`);
-    set('rp', `r<sub>p</sub> = ${c.rp >= 100 ? c.rp.toFixed(0) : c.rp.toPrecision(2)} GM/c²`);
+    // r_p comes in GM/c^2 of the drawn binary; GM_sun/c^2 = 1.4766 km
+    const km = c.rp * (c.m1 + c.m2) * 1.4766, k = Math.floor(Math.log10(km)), sup = (n) => String(n).replace(/\d/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
+    set('rp', `r<sub>p</sub> = ${km < 1e4 ? Math.round(km).toLocaleString('en') : (km / 10 ** k).toFixed(1) + ' × 10' + sup(k)} km`);
     set('e', `log<sub>10</sub> e = ${loge(c.e)}`);
   }
   function renderMass(root) {

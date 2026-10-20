@@ -7,7 +7,7 @@
    comes from static/forward/forward.json (tools/forwardmodel.py); the browser only replays draws. #}
 {% block slide %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ deck_static }}forward/forward.css">
+<link rel="stylesheet" href="{{ deck_static }}forward/forward.css?v=2">
 <h1 class="fwd-title">A physics-informed population model, drawn forward</h1>
 <div class="fwd" data-step="{{ slide.id|slice:'4:' }}" data-src="{{ deck_static }}forward/forward.json">
   <div class="fwd__bar">
@@ -50,7 +50,7 @@
       <ol class="fwd__steps">
         <li data-eq="1"><span class="fwd__k">masses</span><output data-val="m"></output><span class="fwd__m">\( m_1 \sim p_{\rm PL+P}(m_1), \qquad q = \dfrac{m_2}{m_1} \sim q^{\beta_q} \)</span></li>
         <li data-eq="2"><span class="fwd__k">speed at infinity</span><output data-val="v"></output><span class="fwd__m">\( p(v_\infty\,|\,\sigma) \propto v_\infty^{3/7} \exp\!\left(-\dfrac{v_\infty^2}{2\sigma_{\rm rel}^2}\right), \qquad \sigma_{\rm rel} = \sqrt{6}\,\sigma \)</span></li>
-        <li data-eq="3"><span class="fwd__k">closest approach</span><output data-val="rp"></output><span class="fwd__m">\( r_p \sim \mathcal U\big[0,\, r_{p,\max}\big], \qquad r_{p,\max} = \left(\dfrac{85\pi}{6\sqrt{2}}\,\dfrac{G^{7/2}\mu\, M^{5/2}}{c^5\, v_\infty^2}\right)^{2/7} \)</span></li>
+        <li data-eq="3"><span class="fwd__k">closest approach</span><output data-val="rp"></output><span class="fwd__m">\( r_p \sim \mathcal U\big[0,\, r_{p,\max}\big], \qquad r_{p,\max} \simeq 5.8\times10^{4}\,\mathrm{km}\left(\dfrac{M}{60\,M_\odot}\right)\!(4\eta)^{2/7}\left(\dfrac{v_\infty}{10\,\mathrm{km\,s^{-1}}}\right)^{-4/7} \)</span></li>
         <li data-eq="4"><span class="fwd__k">eccentricity at 10 Hz</span><output data-val="e"></output><span class="fwd__m">\( \left(\dfrac{GM}{(2\pi f_{\rm orb})^2}\right)^{1/3} = 1.76\, r_p\, \dfrac{e^{12/19}\left(1+\frac{121}{304}e^2\right)^{870/2299}}{1-e^2} \)</span></li>
       </ol>
 {% endverbatim %}
@@ -88,5 +88,5 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" defer></script>
-<script src="{{ deck_static }}forward/forward.js" defer></script>
+<script src="{{ deck_static }}forward/forward.js?v=2" defer></script>
 {% endblock %}
