@@ -67,6 +67,11 @@ slides:
   footer: false
 - id: channels
   html: 05-channels.html
+- {id: page-06, svg: slides/06-page-06.svg}
+- {id: page-07, svg: slides/07-page-07.svg}
+- {id: page-08, svg: slides/08-page-08.svg}
+- id: bayes
+  html: 10-bayes.html
 # EOB flowchart (Buonanno & Damour 1999), one box per click: six reveal steps of one slide,
 # the template reads the step off the last character of the id.
 - {id: eob-1, html: 15-eob.html}
@@ -75,11 +80,6 @@ slides:
 - {id: eob-4, html: 15-eob.html, continues: true}
 - {id: eob-5, html: 15-eob.html, continues: true}
 - {id: eob-6, html: 15-eob.html, continues: true}
-- {id: page-06, svg: slides/06-page-06.svg}
-- {id: page-07, svg: slides/07-page-07.svg}
-- {id: page-08, svg: slides/08-page-08.svg}
-- id: bayes
-  html: 10-bayes.html
 # 03-05: accelerating inference with DINGO, after "what is significance"
 - {id: page-03, svg: slides/03-page-03.svg}
 - {id: page-04, svg: slides/04-page-04.svg}
