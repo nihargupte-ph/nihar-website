@@ -50,7 +50,7 @@ def test_interactive_slides_and_video_are_in_place():
     ids = [s.id for s in _deck().slides]
     eob = [f'eob-{i}' for i in range(1, 7)]           # the EOB flowchart, one box per click
     dingo = ['page-03', 'page-04', 'page-05']
-    assert ids[:17] == ['page-01', 'page-02', 'channels', *eob, *dingo, 'page-06', 'page-07', 'page-08', 'bayes', 'ecc-prior']
+    assert ids[:18] == ['page-01', 'page-02', 'massplot', 'channels', *eob, *dingo, 'page-06', 'page-07', 'page-08', 'bayes', 'ecc-prior']
     assert ids[ids.index('page-25') + 1] == 'gw200129-chirp'      # right after the spectrogram
     assert 'riskgrid' not in ids                                  # dropped for this talk
     assert ids[ids.index('page-45') + 1] == 'timeline'
@@ -213,3 +213,11 @@ def test_nametune_third_clip_is_the_liechtenstein_anthem_heard_as_god_save_the_k
     assert lb[-1] > 10 and abs(a['duration'] - 10) < 0.5        # climbs off the 0-10 plot for the wrong song
     assert all(b >= a_ - 0.3 for a_, b in zip(lb, lb[1:]))      # and never turns back
     assert "id: 'anthem'" in (DECK / 'static' / 'nametune' / 'nametune.js').read_text()
+
+
+def test_massplot_is_a_full_bleed_lazy_embed_after_the_table_of_contents():
+    d = _deck()
+    s = d.slide('massplot')
+    assert (s.kind, s.path) == ('html', '19-massplot.html') and s.footer is False
+    html = (DECK / '19-massplot.html').read_text()
+    assert 'data-src="https://ligo.northwestern.edu/media/mass-plot/index.html"' in html and ' src="https://ligo' not in html

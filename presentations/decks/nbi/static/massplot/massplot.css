@@ -1,0 +1,7 @@
+/* Full-bleed embed of the LVK mass plot: the frame takes the whole slide, a small credit sits on top. */
+.slide-page:has(.mp){max-width:none;padding:0;height:100%;box-sizing:border-box;display:flex}
+.mp{position:relative;flex:1 1 auto;min-height:0;display:flex;background:#000}
+.mp__frame{flex:1 1 auto;width:100%;height:100%;border:0;display:block;background:#000}
+.mp__credit{position:absolute;right:.8rem;bottom:.6rem;font:500 .72rem var(--font-body,Inter),sans-serif;color:#fff;opacity:.55;
+  text-decoration:none;background:rgba(0,0,0,.35);padding:.2rem .55rem;border-radius:999px}
+.mp__credit:hover{opacity:1}

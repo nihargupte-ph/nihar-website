@@ -62,6 +62,9 @@ slides:
 - id: page-02                       # table of contents + the QR corner
   html: 13-toc-qr.html
   underlay: slides/02-page-02.svg
+- id: massplot                      # the LVK "stellar graveyard" mass plot, live and full-bleed (19-massplot.html)
+  html: 19-massplot.html
+  footer: false
 - id: channels
   html: 05-channels.html
 # EOB flowchart (Buonanno & Damour 1999), one box per click: six reveal steps of one slide,

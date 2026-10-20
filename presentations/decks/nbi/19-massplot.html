@@ -1,0 +1,13 @@
+{% extends "presentations/slide_base.html" %}
+{# The LIGO-Virgo-KAGRA "Masses in the Stellar Graveyard" interactive plot, full-bleed, just after the table
+   of contents. Cross-origin (ligo.northwestern.edu sends no X-Frame-Options / frame-ancestors), so it is
+   only framed, never scripted; the iframe gets its src once the slide is shown (massplot.js). #}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}massplot/massplot.css?v=1">
+<div class="mp">
+  <iframe class="mp__frame" title="LIGO-Virgo-KAGRA mass plot" data-src="https://ligo.northwestern.edu/media/mass-plot/index.html"
+          loading="lazy" referrerpolicy="no-referrer"></iframe>
+  <a class="mp__credit" href="https://ligo.northwestern.edu/media/mass-plot/index.html" target="_blank" rel="noopener" title="LIGO-Virgo-KAGRA | Aaron Geller | Northwestern">open &#8599;</a>
+</div>
+<script src="{{ deck_static }}massplot/massplot.js?v=1" defer></script>
+{% endblock %}
