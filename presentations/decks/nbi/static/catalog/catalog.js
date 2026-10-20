@@ -1,6 +1,6 @@
 // Live catalog embed (18-catalog.html): load the page only once the slide is actually shown, then
 // scroll it gently past the site navbar to the catalog title. Same origin, so the scroll is allowed.
-// When the pointer leaves the frame, hand focus back to the deck so Space / arrows keep working.
+// A click in the frame would keep the keyboard there, so focus goes straight back to the deck.
 (function () {
   const frame = document.querySelector('.cat__frame:not([data-done])');
   if (!frame) return;
@@ -24,7 +24,10 @@
   });
   io.observe(frame);
 
-  frame.addEventListener('mouseleave', () => {
+  // A click inside the frame gives it the keyboard, and keys typed in another page never reach the
+  // deck (so the arrows stopped working). The deck's window loses focus at that moment: take it straight
+  // back. The click itself still lands -- mouse events go to whatever is under the pointer.
+  addEventListener('blur', () => setTimeout(() => {
     if (document.activeElement === frame) { frame.blur(); window.focus(); }
-  });
+  }, 0));
 })();
