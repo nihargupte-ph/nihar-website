@@ -524,6 +524,21 @@
         return { ctx: ctx, w: rect.width, h: rect.height };
     }
 
+    // A canvas is sized once, from its on-screen box. If that happened while the page was hidden (a
+    // background tab, or framed in a slide deck that has moved on: the posteriors take ~10-20 s) the
+    // box was 0x0, the canvas came out 1x1 and got stretched over the whole card -- one flat orange bar
+    // per event. So every draw re-measures: skip the frame while hidden, rebuild if the size changed.
+    function refit(r) {
+        const rect = r.canvas.getBoundingClientRect();
+        if (rect.width < 1 || rect.height < 1) return false;
+        const dpr = window.devicePixelRatio || 1;
+        if (r.canvas.width !== Math.round(rect.width * dpr) || r.canvas.height !== Math.round(rect.height * dpr)) {
+            const setup = setupCanvas(r.canvas);
+            r.ctx = setup.ctx; r.w = setup.w; r.h = setup.h;
+        }
+        return true;
+    }
+
     // ---------------------------------------------------------------------
     // EventBox: lifecycle owner of one card
     // ---------------------------------------------------------------------
@@ -1191,6 +1206,7 @@
         }
 
         draw(t) {
+            if (!refit(this)) return;
             const ctx = this.ctx;
             ctx.clearRect(0, 0, this.w, this.h);
 
@@ -1343,6 +1359,7 @@
         }
 
         draw(t) {
+            if (!refit(this)) return;
             const ctx = this.ctx;
             ctx.clearRect(0, 0, this.w, this.h);
 
@@ -1499,6 +1516,7 @@
         }
 
         draw() {
+            if (!refit(this)) return;
             const ctx = this.ctx;
             const w = this.w, h = this.h;
             ctx.fillStyle = PALETTE.bg;
