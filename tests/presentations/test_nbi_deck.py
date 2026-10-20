@@ -50,7 +50,7 @@ def test_interactive_slides_and_video_are_in_place():
     ids = [s.id for s in _deck().slides]
     eob = [f'eob-{i}' for i in range(1, 7)]           # the EOB flowchart, one box per click
     dingo = ['page-03', 'page-04', 'page-05']
-    assert ids[:18] == ['page-01', 'page-02', 'massplot', 'channels', 'page-06', 'page-07', 'page-08', *eob, *dingo, 'bayes', 'ecc-prior']
+    assert ids[:18] == ['page-01', 'page-02', 'massplot', 'channels', 'page-06', 'page-07', 'page-08', *eob, 'bayes', 'ecc-prior', *dingo]
     assert ids[ids.index('page-25') + 1] == 'gw200129-chirp'      # right after the spectrogram
     assert 'riskgrid' not in ids                                  # dropped for this talk
     assert ids[ids.index('page-45') + 1] == 'timeline'
