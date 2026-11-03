@@ -1,0 +1,1857 @@
+{
+ "isolated": {
+  "nodes": [
+   {
+    "id": "1997A&A...327..620S",
+    "label": "Soberman+",
+    "year": 1997,
+    "arxiv": "astro-ph/9703016",
+    "title": "Stability criteria for mass transfer in binary stellar evolution",
+    "cites": 251,
+    "kind": "cited"
+   },
+   {
+    "id": "Bethe:1998bn",
+    "label": "Bethe & Brown",
+    "year": 1998,
+    "arxiv": "astro-ph/9802084",
+    "title": "Evolution of binary compact objects which merge",
+    "cites": 313,
+    "kind": "cited"
+   },
+   {
+    "id": "King:1999me",
+    "label": "King & Begelman",
+    "year": 1999,
+    "arxiv": "astro-ph/9904105",
+    "title": "Radiatively-driven outflows and avoidance of common-envelope evolution in close binaries",
+    "cites": 64,
+    "kind": "cited"
+   },
+   {
+    "id": "Belczynski:2001uc",
+    "label": "Belczynski+",
+    "year": 2001,
+    "arxiv": "astro-ph/0111452",
+    "title": "A Comprehensive study of binary compact objects as gravitational wave sources: Evolutionary channels, rates, and physical properties",
+    "cites": 944,
+    "kind": "cited"
+   },
+   {
+    "id": "Dominik:2012kk",
+    "label": "Dominik+",
+    "year": 2012,
+    "arxiv": "1202.4901",
+    "title": "Double Compact Objects I: The Significance of the Common Envelope on Merger Rates",
+    "cites": 815,
+    "kind": "cited"
+   },
+   {
+    "id": "Mandel:2015qlu",
+    "label": "Mandel & de Mink",
+    "year": 2015,
+    "arxiv": "1601.00007",
+    "title": "Merging binary black holes formed through chemically homogeneous evolution in short-period stellar binaries",
+    "cites": 517,
+    "kind": "cited"
+   },
+   {
+    "id": "deMink:2016vkw",
+    "label": "de Mink & Mandel",
+    "year": 2016,
+    "arxiv": "1603.02291",
+    "title": "The chemically homogeneous evolutionary channel for binary black hole mergers: rates and properties of gravitational-wave events detectable by advanced LIGO",
+    "cites": 374,
+    "kind": "cited"
+   },
+   {
+    "id": "1976IAUS...73...75P",
+    "label": "Nie+",
+    "year": 2026,
+    "arxiv": "2601.04355",
+    "title": "Formation of Recycled Pulsars in Common Envelope Binaries",
+    "cites": 2,
+    "kind": "cited"
+   },
+   {
+    "id": "ext:573348",
+    "label": "Vink+",
+    "year": 2001,
+    "arxiv": "astro-ph/0101509",
+    "title": "Mass-loss predictions for o and b stars as a function of metallicity",
+    "cites": 1047,
+    "kind": "shared",
+    "n": 4
+   },
+   {
+    "id": "ext:212030",
+    "label": "Webbink",
+    "year": 1984,
+    "arxiv": null,
+    "title": "Double white dwarfs as progenitors of R Coronae Borealis stars and Type I supernovae",
+    "cites": 1599,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:198262",
+    "label": "Eggleton",
+    "year": 1983,
+    "arxiv": null,
+    "title": "Approximations to the radii of Roche lobes",
+    "cites": 1416,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:329699",
+    "label": "Phinney",
+    "year": 1991,
+    "arxiv": null,
+    "title": "The Rate of neutron star binary mergers in the universe: Minimal predictions for gravity wave detector",
+    "cites": 452,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:544130",
+    "label": "Hurley+",
+    "year": 2000,
+    "arxiv": "astro-ph/0001295",
+    "title": "Comprehensive analytic formulae for stellar evolution as a function of mass and metallicity",
+    "cites": 1088,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:460806",
+    "label": "Lipunov+",
+    "year": 1997,
+    "arxiv": "astro-ph/9702060",
+    "title": "Formation and coalescence of relativistic binary stars: effect of kick velocity",
+    "cites": 154,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:498137",
+    "label": "Heger+",
+    "year": 1999,
+    "arxiv": "astro-ph/9904132",
+    "title": "Presupernova evolution of rotating massive stars. 1. Numerical method and evolution of the internal stellar structure",
+    "cites": 624,
+    "kind": "shared",
+    "n": 3
+   }
+  ],
+  "edges": [
+   [
+    "1976IAUS...73...75P",
+    "1997A&A...327..620S"
+   ],
+   [
+    "1976IAUS...73...75P",
+    "ext:573348"
+   ],
+   [
+    "1976IAUS...73...75P",
+    "ext:212030"
+   ],
+   [
+    "1976IAUS...73...75P",
+    "ext:198262"
+   ],
+   [
+    "Bethe:1998bn",
+    "ext:329699"
+   ],
+   [
+    "Belczynski:2001uc",
+    "Bethe:1998bn"
+   ],
+   [
+    "Belczynski:2001uc",
+    "ext:544130"
+   ],
+   [
+    "Belczynski:2001uc",
+    "ext:460806"
+   ],
+   [
+    "Belczynski:2001uc",
+    "ext:498137"
+   ],
+   [
+    "Belczynski:2001uc",
+    "ext:212030"
+   ],
+   [
+    "Dominik:2012kk",
+    "ext:544130"
+   ],
+   [
+    "Dominik:2012kk",
+    "ext:573348"
+   ],
+   [
+    "Dominik:2012kk",
+    "Belczynski:2001uc"
+   ],
+   [
+    "Dominik:2012kk",
+    "ext:212030"
+   ],
+   [
+    "1997A&A...327..620S",
+    "ext:198262"
+   ],
+   [
+    "Mandel:2015qlu",
+    "Bethe:1998bn"
+   ],
+   [
+    "Mandel:2015qlu",
+    "ext:460806"
+   ],
+   [
+    "Mandel:2015qlu",
+    "ext:573348"
+   ],
+   [
+    "Mandel:2015qlu",
+    "Dominik:2012kk"
+   ],
+   [
+    "Mandel:2015qlu",
+    "ext:329699"
+   ],
+   [
+    "Mandel:2015qlu",
+    "ext:198262"
+   ],
+   [
+    "Mandel:2015qlu",
+    "ext:544130"
+   ],
+   [
+    "Mandel:2015qlu",
+    "ext:498137"
+   ],
+   [
+    "deMink:2016vkw",
+    "ext:460806"
+   ],
+   [
+    "deMink:2016vkw",
+    "ext:573348"
+   ],
+   [
+    "deMink:2016vkw",
+    "ext:329699"
+   ],
+   [
+    "deMink:2016vkw",
+    "Mandel:2015qlu"
+   ],
+   [
+    "deMink:2016vkw",
+    "ext:498137"
+   ],
+   [
+    "deMink:2016vkw",
+    "Dominik:2012kk"
+   ]
+  ]
+ },
+ "triples": {
+  "nodes": [
+   {
+    "id": "kozai1962secular",
+    "label": "Kozai",
+    "year": 1962,
+    "arxiv": null,
+    "title": "Secular perturbations of asteroids with high inclination and eccentricity",
+    "cites": 894,
+    "kind": "cited"
+   },
+   {
+    "id": "lidov1962evolution",
+    "label": "Lidov",
+    "year": 1962,
+    "arxiv": null,
+    "title": "The evolution of orbits of artificial satellites of planets under the action of gravitational perturbations of external bodies",
+    "cites": 567,
+    "kind": "cited"
+   },
+   {
+    "id": "Wen:2002km",
+    "label": "Wen",
+    "year": 2002,
+    "arxiv": "astro-ph/0211492",
+    "title": "On the eccentricity distribution of coalescing black hole binaries driven by the Kozai mechanism in globular clusters",
+    "cites": 407,
+    "kind": "cited"
+   },
+   {
+    "id": "Kimpson:2016dgk",
+    "label": "Kimpson+",
+    "year": 2016,
+    "arxiv": "1608.05422",
+    "title": "Hierarchical black hole triples in young star clusters: impact of Kozai–Lidov resonance on mergers",
+    "cites": 69,
+    "kind": "cited"
+   },
+   {
+    "id": "Silsbee:2016djf",
+    "label": "Silsbee & Tremaine",
+    "year": 2016,
+    "arxiv": "1608.07642",
+    "title": "Lidov-Kozai Cycles with Gravitational Radiation: Merging Black Holes in Isolated Triple Systems",
+    "cites": 306,
+    "kind": "cited"
+   },
+   {
+    "id": "Antonini:2017ash",
+    "label": "Antonini+",
+    "year": 2017,
+    "arxiv": "1703.06614",
+    "title": "Binary black hole mergers from field triples: properties, rates and the impact of stellar evolution",
+    "cites": 353,
+    "kind": "cited"
+   },
+   {
+    "id": "Arca-Sedda:2018qgq",
+    "label": "Arca-Sedda+",
+    "year": 2018,
+    "arxiv": "1805.06458",
+    "title": "Order in the chaos - Eccentric black hole binary mergers in triples formed via strong binary–binary scatterings",
+    "cites": 108,
+    "kind": "cited"
+   },
+   {
+    "id": "Fragione:2020nib",
+    "label": "Fragione & Silk",
+    "year": 2020,
+    "arxiv": "2006.01867",
+    "title": "Repeated mergers and ejection of black holes within nuclear star clusters",
+    "cites": 117,
+    "kind": "cited"
+   },
+   {
+    "id": "Vigna-Gomez:2020fvw",
+    "label": "Vigna-Gómez+",
+    "year": 2020,
+    "arxiv": "2010.13669",
+    "title": "Massive Stellar Triples Leading to Sequential Binary Black-Hole Mergers in the Field",
+    "cites": 89,
+    "kind": "cited"
+   },
+   {
+    "id": "Stegmann:2021jen",
+    "label": "Stegmann+",
+    "year": 2021,
+    "arxiv": "2112.10786",
+    "title": "Evolution of massive stellar triples and implications for compact object binary formation",
+    "cites": 39,
+    "kind": "cited"
+   },
+   {
+    "id": "ext:46693",
+    "label": "Peters",
+    "year": 1964,
+    "arxiv": null,
+    "title": "Gravitational Radiation and the Motion of Two Point Masses",
+    "cites": 2041,
+    "kind": "shared",
+    "n": 6
+   },
+   {
+    "id": "ext:589655",
+    "label": "Blaes+",
+    "year": 2002,
+    "arxiv": "astro-ph/0203370",
+    "title": "The kozai mechanism and the evolution of binary supermassive black holes",
+    "cites": 271,
+    "kind": "shared",
+    "n": 5
+   },
+   {
+    "id": "ext:2948772",
+    "label": "Naoz",
+    "year": 2016,
+    "arxiv": "1601.07175",
+    "title": "The Eccentric Kozai-Lidov Effect and Its Applications",
+    "cites": 342,
+    "kind": "shared",
+    "n": 4
+   },
+   {
+    "id": "ext:1469425",
+    "label": "Antonini & Rasio",
+    "year": 2016,
+    "arxiv": "1606.04889",
+    "title": "Merging black hole binaries in galactic nuclei: implications for advanced-LIGO detections",
+    "cites": 470,
+    "kind": "shared",
+    "n": 4
+   },
+   {
+    "id": "ext:583030",
+    "label": "Miller & Hamilton",
+    "year": 2002,
+    "arxiv": "astro-ph/0202298",
+    "title": "Four-body effects in globular cluster black hole coalescence",
+    "cites": 244,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:544130",
+    "label": "Hurley+",
+    "year": 2000,
+    "arxiv": "astro-ph/0001295",
+    "title": "Comprehensive analytic formulae for stellar evolution as a function of mass and metallicity",
+    "cites": 1088,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:1469395",
+    "label": "Abbott+",
+    "year": 2016,
+    "arxiv": "1606.04855",
+    "title": "GW151226: Observation of Gravitational Waves from a 22-Solar-Mass Binary Black Hole Coalescence",
+    "cites": 3866,
+    "kind": "shared",
+    "n": 3
+   }
+  ],
+  "edges": [
+   [
+    "Wen:2002km",
+    "ext:583030"
+   ],
+   [
+    "Wen:2002km",
+    "ext:46693"
+   ],
+   [
+    "Wen:2002km",
+    "ext:589655"
+   ],
+   [
+    "Kimpson:2016dgk",
+    "ext:544130"
+   ],
+   [
+    "Kimpson:2016dgk",
+    "kozai1962secular"
+   ],
+   [
+    "Kimpson:2016dgk",
+    "ext:1469395"
+   ],
+   [
+    "Kimpson:2016dgk",
+    "ext:589655"
+   ],
+   [
+    "Kimpson:2016dgk",
+    "ext:583030"
+   ],
+   [
+    "Kimpson:2016dgk",
+    "lidov1962evolution"
+   ],
+   [
+    "Silsbee:2016djf",
+    "ext:46693"
+   ],
+   [
+    "Silsbee:2016djf",
+    "ext:589655"
+   ],
+   [
+    "Silsbee:2016djf",
+    "ext:2948772"
+   ],
+   [
+    "Silsbee:2016djf",
+    "Wen:2002km"
+   ],
+   [
+    "Antonini:2017ash",
+    "ext:544130"
+   ],
+   [
+    "Antonini:2017ash",
+    "kozai1962secular"
+   ],
+   [
+    "Antonini:2017ash",
+    "Kimpson:2016dgk"
+   ],
+   [
+    "Antonini:2017ash",
+    "ext:1469395"
+   ],
+   [
+    "Antonini:2017ash",
+    "ext:46693"
+   ],
+   [
+    "Antonini:2017ash",
+    "ext:589655"
+   ],
+   [
+    "Antonini:2017ash",
+    "lidov1962evolution"
+   ],
+   [
+    "Antonini:2017ash",
+    "Silsbee:2016djf"
+   ],
+   [
+    "Antonini:2017ash",
+    "ext:1469425"
+   ],
+   [
+    "Antonini:2017ash",
+    "ext:2948772"
+   ],
+   [
+    "Antonini:2017ash",
+    "Wen:2002km"
+   ],
+   [
+    "Fragione:2020nib",
+    "ext:46693"
+   ],
+   [
+    "Fragione:2020nib",
+    "ext:1469425"
+   ],
+   [
+    "Fragione:2020nib",
+    "Wen:2002km"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "ext:46693"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "Antonini:2017ash"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "ext:589655"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "ext:583030"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "ext:1469425"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "Wen:2002km"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "lidov1962evolution"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "ext:2948772"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "kozai1962secular"
+   ],
+   [
+    "Arca-Sedda:2018qgq",
+    "ext:1469395"
+   ],
+   [
+    "Vigna-Gomez:2020fvw",
+    "ext:544130"
+   ],
+   [
+    "Vigna-Gomez:2020fvw",
+    "ext:46693"
+   ],
+   [
+    "Vigna-Gomez:2020fvw",
+    "Antonini:2017ash"
+   ],
+   [
+    "Vigna-Gomez:2020fvw",
+    "ext:2948772"
+   ],
+   [
+    "Stegmann:2021jen",
+    "Antonini:2017ash"
+   ],
+   [
+    "Stegmann:2021jen",
+    "ext:1469425"
+   ]
+  ]
+ },
+ "clusters": {
+  "nodes": [
+   {
+    "id": "heggie1975binary",
+    "label": "Heggie",
+    "year": 1975,
+    "arxiv": null,
+    "title": "Binary Evolution in Stellar Dynamics",
+    "cites": 290,
+    "kind": "cited"
+   },
+   {
+    "id": "Kulkarni:1993fr",
+    "label": "Kulkarni+",
+    "year": 1993,
+    "arxiv": null,
+    "title": "Stellar black holes in globular clusters",
+    "cites": 249,
+    "kind": "cited"
+   },
+   {
+    "id": "sigurdsson1993primordial",
+    "label": "Sigurdsson & Hernquist",
+    "year": 1993,
+    "arxiv": null,
+    "title": "Primordial black holes in globular clusters",
+    "cites": 372,
+    "kind": "cited"
+   },
+   {
+    "id": "Sigurdsson:1993tui",
+    "label": "Sigurdsson & Phinney",
+    "year": 1993,
+    "arxiv": null,
+    "title": "Binary--Single Star Interactions in Globular Clusters",
+    "cites": 184,
+    "kind": "cited"
+   },
+   {
+    "id": "Sigurdsson:1994ju",
+    "label": "Sigurdsson & Phinney",
+    "year": 1994,
+    "arxiv": "astro-ph/9412078",
+    "title": "Dynamics and interactions of binaries and neutron stars in globular clusters",
+    "cites": 151,
+    "kind": "cited"
+   },
+   {
+    "id": "PortegiesZwart:1999nm",
+    "label": "Portegies Zwart & McMillan",
+    "year": 1999,
+    "arxiv": "astro-ph/9910061",
+    "title": "Black hole mergers in the universe",
+    "cites": 681,
+    "kind": "cited"
+   },
+   {
+    "id": "Miller:2001ez",
+    "label": "Miller & Hamilton",
+    "year": 2001,
+    "arxiv": "astro-ph/0106188",
+    "title": "Production of intermediate-mass black holes in globular clusters",
+    "cites": 467,
+    "kind": "cited"
+   },
+   {
+    "id": "Gultekin:2005fd",
+    "label": "Gultekin+",
+    "year": 2005,
+    "arxiv": "astro-ph/0509885",
+    "title": "Three-body dynamics with gravitational wave emission",
+    "cites": 161,
+    "kind": "cited"
+   },
+   {
+    "id": "OLeary:2005vqo",
+    "label": "O'Leary+",
+    "year": 2005,
+    "arxiv": "astro-ph/0508224",
+    "title": "Binary mergers and growth of black holes in dense star clusters",
+    "cites": 328,
+    "kind": "cited"
+   },
+   {
+    "id": "OLeary:2008myb",
+    "label": "O'Leary+",
+    "year": 2008,
+    "arxiv": "0807.2638",
+    "title": "Gravitational waves from scattering of stellar-mass black holes in galactic nuclei",
+    "cites": 552,
+    "kind": "cited"
+   },
+   {
+    "id": "Samsing:2013kua",
+    "label": "Samsing+",
+    "year": 2013,
+    "arxiv": "1308.2964",
+    "title": "The Formation of Eccentric Compact Binary Inspirals and the Role of Gravitational Wave Emission in Binary-Single Stellar Encounters",
+    "cites": 386,
+    "kind": "cited"
+   },
+   {
+    "id": "Samsing:2017rat",
+    "label": "Samsing & Ramirez-Ruiz",
+    "year": 2017,
+    "arxiv": "1703.09703",
+    "title": "On the Assembly Rate of Highly Eccentric Binary Black Hole Mergers",
+    "cites": 159,
+    "kind": "cited"
+   },
+   {
+    "id": "Gondan:2017wzd",
+    "label": "Gondán+",
+    "year": 2017,
+    "arxiv": "1711.09989",
+    "title": "Eccentric Black Hole Gravitational-Wave Capture Sources in Galactic Nuclei: Distribution of Binary Parameters",
+    "cites": 177,
+    "kind": "cited"
+   },
+   {
+    "id": "Zevin:2018kzq",
+    "label": "Zevin+",
+    "year": 2018,
+    "arxiv": "1810.00901",
+    "title": "Eccentric Black Hole Mergers in Dense Star Clusters: The Role of Binary–Binary Encounters",
+    "cites": 310,
+    "kind": "cited"
+   },
+   {
+    "id": "ext:46693",
+    "label": "Peters",
+    "year": 1964,
+    "arxiv": null,
+    "title": "Gravitational Radiation and the Motion of Two Point Masses",
+    "cites": 2041,
+    "kind": "shared",
+    "n": 7
+   },
+   {
+    "id": "ext:644902",
+    "label": "Gultekin+",
+    "year": 2004,
+    "arxiv": "astro-ph/0402532",
+    "title": "Growth of intermediate - mass black holes in globular clusters",
+    "cites": 141,
+    "kind": "shared",
+    "n": 4
+   },
+   {
+    "id": "ext:583030",
+    "label": "Miller & Hamilton",
+    "year": 2002,
+    "arxiv": "astro-ph/0202298",
+    "title": "Four-body effects in globular cluster black hole coalescence",
+    "cites": 244,
+    "kind": "shared",
+    "n": 4
+   },
+   {
+    "id": "ext:33086",
+    "label": "Hut+",
+    "year": 1992,
+    "arxiv": null,
+    "title": "Binaries in globular clusters",
+    "cites": 299,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:674530",
+    "label": "Ivanova+",
+    "year": 2005,
+    "arxiv": "astro-ph/0501131",
+    "title": "The Evolution of binary fractions in globular clusters",
+    "cites": 134,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:642073",
+    "label": "Fregeau+",
+    "year": 2004,
+    "arxiv": "astro-ph/0401004",
+    "title": "Stellar collisions during binary - binary and binary - single star interactions",
+    "cites": 227,
+    "kind": "shared",
+    "n": 3
+   },
+   {
+    "id": "ext:647560",
+    "label": "Belczynski+",
+    "year": 2004,
+    "arxiv": "astro-ph/0404068",
+    "title": "A Comprehensive study of young black hole populations",
+    "cites": 67,
+    "kind": "shared",
+    "n": 3
+   }
+  ],
+  "edges": [
+   [
+    "Sigurdsson:1994ju",
+    "ext:33086"
+   ],
+   [
+    "Sigurdsson:1994ju",
+    "Kulkarni:1993fr"
+   ],
+   [
+    "Sigurdsson:1994ju",
+    "sigurdsson1993primordial"
+   ],
+   [
+    "PortegiesZwart:1999nm",
+    "sigurdsson1993primordial"
+   ],
+   [
+    "PortegiesZwart:1999nm",
+    "Kulkarni:1993fr"
+   ],
+   [
+    "Miller:2001ez",
+    "PortegiesZwart:1999nm"
+   ],
+   [
+    "Miller:2001ez",
+    "Sigurdsson:1994ju"
+   ],
+   [
+    "Miller:2001ez",
+    "ext:46693"
+   ],
+   [
+    "Miller:2001ez",
+    "sigurdsson1993primordial"
+   ],
+   [
+    "Gultekin:2005fd",
+    "PortegiesZwart:1999nm"
+   ],
+   [
+    "Gultekin:2005fd",
+    "Miller:2001ez"
+   ],
+   [
+    "Gultekin:2005fd",
+    "OLeary:2005vqo"
+   ],
+   [
+    "Gultekin:2005fd",
+    "ext:644902"
+   ],
+   [
+    "Gultekin:2005fd",
+    "ext:46693"
+   ],
+   [
+    "Gultekin:2005fd",
+    "ext:583030"
+   ],
+   [
+    "Gultekin:2005fd",
+    "Sigurdsson:1993tui"
+   ],
+   [
+    "Samsing:2013kua",
+    "ext:33086"
+   ],
+   [
+    "Samsing:2013kua",
+    "ext:46693"
+   ],
+   [
+    "Samsing:2013kua",
+    "Kulkarni:1993fr"
+   ],
+   [
+    "Samsing:2013kua",
+    "Sigurdsson:1994ju"
+   ],
+   [
+    "Samsing:2013kua",
+    "sigurdsson1993primordial"
+   ],
+   [
+    "Samsing:2013kua",
+    "ext:583030"
+   ],
+   [
+    "Samsing:2013kua",
+    "Sigurdsson:1993tui"
+   ],
+   [
+    "Samsing:2013kua",
+    "ext:674530"
+   ],
+   [
+    "Samsing:2013kua",
+    "heggie1975binary"
+   ],
+   [
+    "Samsing:2013kua",
+    "Gultekin:2005fd"
+   ],
+   [
+    "Samsing:2013kua",
+    "ext:642073"
+   ],
+   [
+    "Samsing:2013kua",
+    "ext:644902"
+   ],
+   [
+    "Samsing:2013kua",
+    "OLeary:2005vqo"
+   ],
+   [
+    "Samsing:2017rat",
+    "heggie1975binary"
+   ],
+   [
+    "Samsing:2017rat",
+    "Gultekin:2005fd"
+   ],
+   [
+    "Samsing:2017rat",
+    "ext:46693"
+   ],
+   [
+    "Samsing:2017rat",
+    "OLeary:2008myb"
+   ],
+   [
+    "Samsing:2017rat",
+    "Samsing:2013kua"
+   ],
+   [
+    "Zevin:2018kzq",
+    "Gondan:2017wzd"
+   ],
+   [
+    "Zevin:2018kzq",
+    "ext:33086"
+   ],
+   [
+    "Zevin:2018kzq",
+    "ext:46693"
+   ],
+   [
+    "Zevin:2018kzq",
+    "OLeary:2008myb"
+   ],
+   [
+    "Zevin:2018kzq",
+    "ext:583030"
+   ],
+   [
+    "Zevin:2018kzq",
+    "Samsing:2017rat"
+   ],
+   [
+    "Zevin:2018kzq",
+    "ext:674530"
+   ],
+   [
+    "Zevin:2018kzq",
+    "Sigurdsson:1993tui"
+   ],
+   [
+    "Zevin:2018kzq",
+    "heggie1975binary"
+   ],
+   [
+    "Zevin:2018kzq",
+    "Gultekin:2005fd"
+   ],
+   [
+    "Zevin:2018kzq",
+    "ext:642073"
+   ],
+   [
+    "Zevin:2018kzq",
+    "Samsing:2013kua"
+   ],
+   [
+    "OLeary:2005vqo",
+    "PortegiesZwart:1999nm"
+   ],
+   [
+    "OLeary:2005vqo",
+    "Miller:2001ez"
+   ],
+   [
+    "OLeary:2005vqo",
+    "ext:642073"
+   ],
+   [
+    "OLeary:2005vqo",
+    "ext:644902"
+   ],
+   [
+    "OLeary:2005vqo",
+    "ext:46693"
+   ],
+   [
+    "OLeary:2005vqo",
+    "sigurdsson1993primordial"
+   ],
+   [
+    "OLeary:2005vqo",
+    "ext:583030"
+   ],
+   [
+    "OLeary:2005vqo",
+    "Kulkarni:1993fr"
+   ],
+   [
+    "OLeary:2005vqo",
+    "Sigurdsson:1993tui"
+   ],
+   [
+    "OLeary:2005vqo",
+    "ext:674530"
+   ],
+   [
+    "OLeary:2005vqo",
+    "ext:647560"
+   ],
+   [
+    "OLeary:2008myb",
+    "ext:46693"
+   ],
+   [
+    "OLeary:2008myb",
+    "Kulkarni:1993fr"
+   ],
+   [
+    "OLeary:2008myb",
+    "sigurdsson1993primordial"
+   ],
+   [
+    "OLeary:2008myb",
+    "Gultekin:2005fd"
+   ],
+   [
+    "OLeary:2008myb",
+    "ext:644902"
+   ],
+   [
+    "OLeary:2008myb",
+    "ext:647560"
+   ],
+   [
+    "OLeary:2008myb",
+    "PortegiesZwart:1999nm"
+   ],
+   [
+    "OLeary:2008myb",
+    "OLeary:2005vqo"
+   ],
+   [
+    "Gondan:2017wzd",
+    "OLeary:2008myb"
+   ],
+   [
+    "Gondan:2017wzd",
+    "Samsing:2017rat"
+   ],
+   [
+    "Gondan:2017wzd",
+    "Gultekin:2005fd"
+   ],
+   [
+    "Gondan:2017wzd",
+    "Samsing:2013kua"
+   ],
+   [
+    "Gondan:2017wzd",
+    "ext:647560"
+   ],
+   [
+    "Gondan:2017wzd",
+    "OLeary:2005vqo"
+   ]
+  ]
+ },
+ "agn": {
+  "nodes": [
+   {
+    "id": "2012MNRAS.425..460M",
+    "label": "McKernan+",
+    "year": 2012,
+    "arxiv": "1206.2309",
+    "title": "Intermediate mass black holes in AGN disks: I. Production & Growth",
+    "cites": 388,
+    "kind": "cited"
+   },
+   {
+    "id": "McKernan:2014oxa",
+    "label": "McKernan+",
+    "year": 2014,
+    "arxiv": "1403.6433",
+    "title": "Intermediate-mass black holes in AGN discs – II. Model predictions and observational constraints",
+    "cites": 170,
+    "kind": "cited"
+   },
+   {
+    "id": "Bartos:2016dgn",
+    "label": "Bartos+",
+    "year": 2016,
+    "arxiv": "1602.03831",
+    "title": "Rapid and Bright Stellar-mass Binary Black Hole Mergers in Active Galactic Nuclei",
+    "cites": 643,
+    "kind": "cited"
+   },
+   {
+    "id": "Stone:2016wzz",
+    "label": "Stone+",
+    "year": 2016,
+    "arxiv": "1602.04226",
+    "title": "Assisted inspirals of stellar mass black holes embedded in AGN discs: solving the ‘final au problem’",
+    "cites": 542,
+    "kind": "cited"
+   },
+   {
+    "id": "2018ApJ...866...66M",
+    "label": "Mckernan+",
+    "year": 2017,
+    "arxiv": "1702.07818",
+    "title": "Constraining Stellar-mass Black Hole Mergers in AGN Disks Detectable with LIGO",
+    "cites": 339,
+    "kind": "cited"
+   },
+   {
+    "id": "2019PhRvL.123r1101Y",
+    "label": "Yang+",
+    "year": 2019,
+    "arxiv": "1906.09281",
+    "title": "Hierarchical Black Hole Mergers in Active Galactic Nuclei",
+    "cites": 324,
+    "kind": "cited"
+   },
+   {
+    "id": "2020ApJ...898...25T",
+    "label": "Tagawa+",
+    "year": 2019,
+    "arxiv": "1912.08218",
+    "title": "Formation and Evolution of Compact Object Binaries in AGN Disks",
+    "cites": 471,
+    "kind": "cited"
+   },
+   {
+    "id": "McKernan:2020lgr",
+    "label": "McKernan+",
+    "year": 2020,
+    "arxiv": "2002.00046",
+    "title": "Black hole, neutron star, and white dwarf merger rates in AGN discs",
+    "cites": 156,
+    "kind": "cited"
+   },
+   {
+    "id": "Ford:2021kcw",
+    "label": "Ford & McKernan",
+    "year": 2021,
+    "arxiv": "2109.03212",
+    "title": "Binary black hole merger rates in AGN discs versus nuclear star clusters: loud beats quiet",
+    "cites": 104,
+    "kind": "cited"
+   },
+   {
+    "id": "ext:875346",
+    "label": "Baruteau+",
+    "year": 2010,
+    "arxiv": "1011.0360",
+    "title": "Binaries migrating in a gaseous disk: Where are the Galactic center binaries?",
+    "cites": 125,
+    "kind": "shared",
+    "n": 7
+   },
+   {
+    "id": "ext:545069",
+    "label": "Miralda-Escude & Gould",
+    "year": 2000,
+    "arxiv": "astro-ph/0003269",
+    "title": "A cluster of black holes at the galactic center",
+    "cites": 200,
+    "kind": "shared",
+    "n": 6
+   },
+   {
+    "id": "ext:872693",
+    "label": "Morris",
+    "year": 1993,
+    "arxiv": null,
+    "title": "Massive star formation near the Galactic center and the fate of the stellar remnants",
+    "cites": 265,
+    "kind": "shared",
+    "n": 5
+   },
+   {
+    "id": "ext:2948719",
+    "label": "Hailey+",
+    "year": 2018,
+    "arxiv": null,
+    "title": "A density cusp of quiescent X-ray binaries in the central parsec of the Galaxy",
+    "cites": 149,
+    "kind": "shared",
+    "n": 5
+   },
+   {
+    "id": "ext:1666064",
+    "label": "Generozov+",
+    "year": 2018,
+    "arxiv": "1804.01543",
+    "title": "An overabundance of black hole X-ray binaries in the Galactic Centre from tidal captures",
+    "cites": 105,
+    "kind": "shared",
+    "n": 5
+   },
+   {
+    "id": "ext:73651",
+    "label": "Shakura & Sunyaev",
+    "year": 1972,
+    "arxiv": null,
+    "title": "Black holes in binary systems. Observational appearance",
+    "cites": 6825,
+    "kind": "shared",
+    "n": 4
+   },
+   {
+    "id": "ext:674721",
+    "label": "Subr & Karas",
+    "year": 2005,
+    "arxiv": "astro-ph/0501203",
+    "title": "On highly eccentric stellar trajectories interacting with a self-gravitating disc in Sgr A*",
+    "cites": 23,
+    "kind": "shared",
+    "n": 4
+   }
+  ],
+  "edges": [
+   [
+    "2012MNRAS.425..460M",
+    "ext:73651"
+   ],
+   [
+    "2012MNRAS.425..460M",
+    "ext:674721"
+   ],
+   [
+    "2012MNRAS.425..460M",
+    "ext:545069"
+   ],
+   [
+    "2012MNRAS.425..460M",
+    "ext:875346"
+   ],
+   [
+    "2012MNRAS.425..460M",
+    "ext:872693"
+   ],
+   [
+    "McKernan:2014oxa",
+    "2012MNRAS.425..460M"
+   ],
+   [
+    "McKernan:2014oxa",
+    "ext:73651"
+   ],
+   [
+    "McKernan:2014oxa",
+    "ext:674721"
+   ],
+   [
+    "Bartos:2016dgn",
+    "ext:73651"
+   ],
+   [
+    "Bartos:2016dgn",
+    "ext:674721"
+   ],
+   [
+    "Bartos:2016dgn",
+    "ext:545069"
+   ],
+   [
+    "Bartos:2016dgn",
+    "ext:875346"
+   ],
+   [
+    "Bartos:2016dgn",
+    "2012MNRAS.425..460M"
+   ],
+   [
+    "Bartos:2016dgn",
+    "ext:872693"
+   ],
+   [
+    "Stone:2016wzz",
+    "ext:73651"
+   ],
+   [
+    "Stone:2016wzz",
+    "Bartos:2016dgn"
+   ],
+   [
+    "Stone:2016wzz",
+    "ext:875346"
+   ],
+   [
+    "2018ApJ...866...66M",
+    "ext:2948719"
+   ],
+   [
+    "2018ApJ...866...66M",
+    "ext:1666064"
+   ],
+   [
+    "2018ApJ...866...66M",
+    "Bartos:2016dgn"
+   ],
+   [
+    "2018ApJ...866...66M",
+    "ext:875346"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "McKernan:2014oxa"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "ext:2948719"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "ext:545069"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "Stone:2016wzz"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "ext:1666064"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "Bartos:2016dgn"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "ext:875346"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "2012MNRAS.425..460M"
+   ],
+   [
+    "2019PhRvL.123r1101Y",
+    "ext:872693"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "ext:1666064"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "ext:875346"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "2019PhRvL.123r1101Y"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "McKernan:2014oxa"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "Stone:2016wzz"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "Bartos:2016dgn"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "2012MNRAS.425..460M"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "ext:674721"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "ext:2948719"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "ext:545069"
+   ],
+   [
+    "2020ApJ...898...25T",
+    "2018ApJ...866...66M"
+   ],
+   [
+    "McKernan:2020lgr",
+    "McKernan:2014oxa"
+   ],
+   [
+    "McKernan:2020lgr",
+    "ext:2948719"
+   ],
+   [
+    "McKernan:2020lgr",
+    "ext:545069"
+   ],
+   [
+    "McKernan:2020lgr",
+    "ext:1666064"
+   ],
+   [
+    "McKernan:2020lgr",
+    "Bartos:2016dgn"
+   ],
+   [
+    "McKernan:2020lgr",
+    "2012MNRAS.425..460M"
+   ],
+   [
+    "McKernan:2020lgr",
+    "2019PhRvL.123r1101Y"
+   ],
+   [
+    "McKernan:2020lgr",
+    "2018ApJ...866...66M"
+   ],
+   [
+    "McKernan:2020lgr",
+    "ext:872693"
+   ],
+   [
+    "Ford:2021kcw",
+    "McKernan:2014oxa"
+   ],
+   [
+    "Ford:2021kcw",
+    "2020ApJ...898...25T"
+   ],
+   [
+    "Ford:2021kcw",
+    "McKernan:2020lgr"
+   ],
+   [
+    "Ford:2021kcw",
+    "ext:2948719"
+   ],
+   [
+    "Ford:2021kcw",
+    "ext:545069"
+   ],
+   [
+    "Ford:2021kcw",
+    "Stone:2016wzz"
+   ],
+   [
+    "Ford:2021kcw",
+    "ext:1666064"
+   ],
+   [
+    "Ford:2021kcw",
+    "Bartos:2016dgn"
+   ],
+   [
+    "Ford:2021kcw",
+    "ext:875346"
+   ],
+   [
+    "Ford:2021kcw",
+    "2012MNRAS.425..460M"
+   ],
+   [
+    "Ford:2021kcw",
+    "2018ApJ...866...66M"
+   ],
+   [
+    "Ford:2021kcw",
+    "ext:872693"
+   ]
+  ]
+ },
+ "refs": {
+  "1976IAUS...73...75P": {
+   "label": "Paczyński",
+   "title": "Common Envelope Binaries",
+   "year": 1976,
+   "arxiv": null,
+   "doi": null,
+   "cites": 2
+  },
+  "1976ApJ...208L..61O": {
+   "label": "Ostriker+",
+   "title": "A new luminosity limit for spherical accretion onto compact X-ray sources.",
+   "year": 1976,
+   "arxiv": null,
+   "doi": "10.1086/182233",
+   "cites": null
+  },
+  "Bethe:1998bn": {
+   "label": "Bethe & Brown",
+   "title": "Evolution of binary compact objects which merge",
+   "year": 1998,
+   "arxiv": "astro-ph/9802084",
+   "doi": "10.1086/306265",
+   "cites": 313
+  },
+  "Belczynski:2001uc": {
+   "label": "Belczynski+",
+   "title": "A Comprehensive study of binary compact objects as gravitational wave sources: Evolutionary channels, rates, and physical properties",
+   "year": 2001,
+   "arxiv": "astro-ph/0111452",
+   "doi": "10.1086/340304",
+   "cites": 944
+  },
+  "Dominik:2012kk": {
+   "label": "Dominik+",
+   "title": "Double Compact Objects I: The Significance of the Common Envelope on Merger Rates",
+   "year": 2012,
+   "arxiv": "1202.4901",
+   "doi": "10.1088/0004-637X/759/1/52",
+   "cites": 815
+  },
+  "1987ApJ...318..794H": {
+   "label": "Hjellming & Webbink",
+   "title": "Thresholds for Rapid Mass Transfer in Binary System. I. Polytropic Models",
+   "year": 1987,
+   "arxiv": null,
+   "doi": "10.1086/165412",
+   "cites": null
+  },
+  "1997A&A...327..620S": {
+   "label": "Soberman+",
+   "title": "Stability criteria for mass transfer in binary stellar evolution",
+   "year": 1997,
+   "arxiv": "astro-ph/9703016",
+   "doi": null,
+   "cites": 251
+  },
+  "King:1999me": {
+   "label": "King & Begelman",
+   "title": "Radiatively-driven outflows and avoidance of common-envelope evolution in close binaries",
+   "year": 1999,
+   "arxiv": "astro-ph/9904105",
+   "doi": "10.1086/312126",
+   "cites": 64
+  },
+  "Mandel:2015qlu": {
+   "label": "Mandel & de Mink",
+   "title": "Merging binary black holes formed through chemically homogeneous evolution in short-period stellar binaries",
+   "year": 2015,
+   "arxiv": "1601.00007",
+   "doi": "10.1093/mnras/stw379",
+   "cites": 517
+  },
+  "deMink:2016vkw": {
+   "label": "de Mink & Mandel",
+   "title": "The chemically homogeneous evolutionary channel for binary black hole mergers: rates and properties of gravitational-wave events detectable by advanced LIGO",
+   "year": 2016,
+   "arxiv": "1603.02291",
+   "doi": "10.1093/mnras/stw1219",
+   "cites": 374
+  },
+  "1910AN....183..345V": {
+   "label": "von Zeipel",
+   "title": "Sur l'application des séries de M. Lindstedt à l'étude du mouvement des comètes périodiques",
+   "year": 1910,
+   "arxiv": null,
+   "doi": "10.1002/asna.19091832202",
+   "cites": null
+  },
+  "kozai1962secular": {
+   "label": "Kozai",
+   "title": "Secular perturbations of asteroids with high inclination and eccentricity",
+   "year": 1962,
+   "arxiv": null,
+   "doi": "10.1086/108790",
+   "cites": 894
+  },
+  "lidov1962evolution": {
+   "label": "Lidov",
+   "title": "The evolution of orbits of artificial satellites of planets under the action of gravitational perturbations of external bodies",
+   "year": 1962,
+   "arxiv": null,
+   "doi": "10.1016/0032-0633(62)90129-0",
+   "cites": 567
+  },
+  "giacaglia1964notes": {
+   "label": "Giacaglia",
+   "title": "Notes on von Zeipel's method",
+   "year": 1964,
+   "arxiv": null,
+   "doi": "https://doi.org/10.1007/BF01796086",
+   "cites": null
+  },
+  "Wen:2002km": {
+   "label": "Wen",
+   "title": "On the eccentricity distribution of coalescing black hole binaries driven by the Kozai mechanism in globular clusters",
+   "year": 2002,
+   "arxiv": "astro-ph/0211492",
+   "doi": "10.1086/378794",
+   "cites": 407
+  },
+  "Kimpson:2016dgk": {
+   "label": "Kimpson+",
+   "title": "Hierarchical black hole triples in young star clusters: impact of Kozai–Lidov resonance on mergers",
+   "year": 2016,
+   "arxiv": "1608.05422",
+   "doi": "10.1093/mnras/stw2085",
+   "cites": 69
+  },
+  "Silsbee:2016djf": {
+   "label": "Silsbee & Tremaine",
+   "title": "Lidov-Kozai Cycles with Gravitational Radiation: Merging Black Holes in Isolated Triple Systems",
+   "year": 2016,
+   "arxiv": "1608.07642",
+   "doi": "10.3847/1538-4357/aa5729",
+   "cites": 306
+  },
+  "Antonini:2017ash": {
+   "label": "Antonini+",
+   "title": "Binary black hole mergers from field triples: properties, rates and the impact of stellar evolution",
+   "year": 2017,
+   "arxiv": "1703.06614",
+   "doi": "10.3847/1538-4357/aa6f5e",
+   "cites": 353
+  },
+  "Fragione:2020nib": {
+   "label": "Fragione & Silk",
+   "title": "Repeated mergers and ejection of black holes within nuclear star clusters",
+   "year": 2020,
+   "arxiv": "2006.01867",
+   "doi": "10.1093/mnras/staa2629",
+   "cites": 117
+  },
+  "Arca-Sedda:2018qgq": {
+   "label": "Arca-Sedda+",
+   "title": "Order in the chaos - Eccentric black hole binary mergers in triples formed via strong binary–binary scatterings",
+   "year": 2018,
+   "arxiv": "1805.06458",
+   "doi": "10.1051/0004-6361/202038795",
+   "cites": 108
+  },
+  "Vigna-Gomez:2020fvw": {
+   "label": "Vigna-Gómez+",
+   "title": "Massive Stellar Triples Leading to Sequential Binary Black-Hole Mergers in the Field",
+   "year": 2020,
+   "arxiv": "2010.13669",
+   "doi": "10.3847/2041-8213/abd5b7",
+   "cites": 89
+  },
+  "Stegmann:2021jen": {
+   "label": "Stegmann+",
+   "title": "Evolution of massive stellar triples and implications for compact object binary formation",
+   "year": 2021,
+   "arxiv": "2112.10786",
+   "doi": "10.1093/mnras/stac2192",
+   "cites": 39
+  },
+  "heggie1975binary": {
+   "label": "Heggie",
+   "title": "Binary Evolution in Stellar Dynamics",
+   "year": 1975,
+   "arxiv": null,
+   "doi": "https://doi.org/10.1093/mnras/173.3.729",
+   "cites": 290
+  },
+  "Kulkarni:1993fr": {
+   "label": "Kulkarni+",
+   "title": "Stellar black holes in globular clusters",
+   "year": 1993,
+   "arxiv": null,
+   "doi": "10.1038/364421a0",
+   "cites": 249
+  },
+  "sigurdsson1993primordial": {
+   "label": "Sigurdsson & Hernquist",
+   "title": "Primordial black holes in globular clusters",
+   "year": 1993,
+   "arxiv": null,
+   "doi": "10.1038/364423a0",
+   "cites": 372
+  },
+  "Sigurdsson:1993tui": {
+   "label": "Sigurdsson & Phinney",
+   "title": "Binary--Single Star Interactions in Globular Clusters",
+   "year": 1993,
+   "arxiv": null,
+   "doi": "10.1086/173190",
+   "cites": 184
+  },
+  "Sigurdsson:1994ju": {
+   "label": "Sigurdsson & Phinney",
+   "title": "Dynamics and interactions of binaries and neutron stars in globular clusters",
+   "year": 1994,
+   "arxiv": "astro-ph/9412078",
+   "doi": "10.1086/192199",
+   "cites": 151
+  },
+  "PortegiesZwart:1999nm": {
+   "label": "Portegies Zwart & McMillan",
+   "title": "Black hole mergers in the universe",
+   "year": 1999,
+   "arxiv": "astro-ph/9910061",
+   "doi": "10.1086/312422",
+   "cites": 681
+  },
+  "Miller:2001ez": {
+   "label": "Miller & Hamilton",
+   "title": "Production of intermediate-mass black holes in globular clusters",
+   "year": 2001,
+   "arxiv": "astro-ph/0106188",
+   "doi": "10.1046/j.1365-8711.2002.05112.x",
+   "cites": 467
+  },
+  "Gultekin:2005fd": {
+   "label": "Gultekin+",
+   "title": "Three-body dynamics with gravitational wave emission",
+   "year": 2005,
+   "arxiv": "astro-ph/0509885",
+   "doi": "10.1086/499917",
+   "cites": 161
+  },
+  "Samsing:2013kua": {
+   "label": "Samsing+",
+   "title": "The Formation of Eccentric Compact Binary Inspirals and the Role of Gravitational Wave Emission in Binary-Single Stellar Encounters",
+   "year": 2013,
+   "arxiv": "1308.2964",
+   "doi": "10.1088/0004-637X/784/1/71",
+   "cites": 386
+  },
+  "Samsing:2017rat": {
+   "label": "Samsing & Ramirez-Ruiz",
+   "title": "On the Assembly Rate of Highly Eccentric Binary Black Hole Mergers",
+   "year": 2017,
+   "arxiv": "1703.09703",
+   "doi": "10.3847/2041-8213/aa6f0b",
+   "cites": 159
+  },
+  "Zevin:2018kzq": {
+   "label": "Zevin+",
+   "title": "Eccentric Black Hole Mergers in Dense Star Clusters: The Role of Binary–Binary Encounters",
+   "year": 2018,
+   "arxiv": "1810.00901",
+   "doi": "10.3847/1538-4357/aaf6ec",
+   "cites": 310
+  },
+  "OLeary:2005vqo": {
+   "label": "O'Leary+",
+   "title": "Binary mergers and growth of black holes in dense star clusters",
+   "year": 2005,
+   "arxiv": "astro-ph/0508224",
+   "doi": "10.1086/498446",
+   "cites": 328
+  },
+  "OLeary:2008myb": {
+   "label": "O'Leary+",
+   "title": "Gravitational waves from scattering of stellar-mass black holes in galactic nuclei",
+   "year": 2008,
+   "arxiv": "0807.2638",
+   "doi": "10.1111/j.1365-2966.2009.14653.x",
+   "cites": 552
+  },
+  "Gondan:2017wzd": {
+   "label": "Gondán+",
+   "title": "Eccentric Black Hole Gravitational-Wave Capture Sources in Galactic Nuclei: Distribution of Binary Parameters",
+   "year": 2017,
+   "arxiv": "1711.09989",
+   "doi": "10.3847/1538-4357/aabfee",
+   "cites": 177
+  },
+  "2012MNRAS.425..460M": {
+   "label": "McKernan+",
+   "title": "Intermediate mass black holes in AGN disks: I. Production & Growth",
+   "year": 2012,
+   "arxiv": "1206.2309",
+   "doi": "10.1111/j.1365-2966.2012.21486.x",
+   "cites": 388
+  },
+  "McKernan:2014oxa": {
+   "label": "McKernan+",
+   "title": "Intermediate-mass black holes in AGN discs – II. Model predictions and observational constraints",
+   "year": 2014,
+   "arxiv": "1403.6433",
+   "doi": "10.1093/mnras/stu553",
+   "cites": 170
+  },
+  "Bartos:2016dgn": {
+   "label": "Bartos+",
+   "title": "Rapid and Bright Stellar-mass Binary Black Hole Mergers in Active Galactic Nuclei",
+   "year": 2016,
+   "arxiv": "1602.03831",
+   "doi": "10.3847/1538-4357/835/2/165",
+   "cites": 643
+  },
+  "Stone:2016wzz": {
+   "label": "Stone+",
+   "title": "Assisted inspirals of stellar mass black holes embedded in AGN discs: solving the ‘final au problem’",
+   "year": 2016,
+   "arxiv": "1602.04226",
+   "doi": "10.1093/mnras/stw2260",
+   "cites": 542
+  },
+  "2018ApJ...866...66M": {
+   "label": "Mckernan+",
+   "title": "Constraining Stellar-mass Black Hole Mergers in AGN Disks Detectable with LIGO",
+   "year": 2017,
+   "arxiv": "1702.07818",
+   "doi": "10.3847/1538-4357/aadae5",
+   "cites": 339
+  },
+  "2019PhRvL.123r1101Y": {
+   "label": "Yang+",
+   "title": "Hierarchical Black Hole Mergers in Active Galactic Nuclei",
+   "year": 2019,
+   "arxiv": "1906.09281",
+   "doi": "10.1103/PhysRevLett.123.181101",
+   "cites": 324
+  },
+  "2020ApJ...898...25T": {
+   "label": "Tagawa+",
+   "title": "Formation and Evolution of Compact Object Binaries in AGN Disks",
+   "year": 2019,
+   "arxiv": "1912.08218",
+   "doi": "10.3847/1538-4357/ab9b8c",
+   "cites": 471
+  },
+  "McKernan:2020lgr": {
+   "label": "McKernan+",
+   "title": "Black hole, neutron star, and white dwarf merger rates in AGN discs",
+   "year": 2020,
+   "arxiv": "2002.00046",
+   "doi": "10.1093/mnras/staa2681",
+   "cites": 156
+  },
+  "Ford:2021kcw": {
+   "label": "Ford & McKernan",
+   "title": "Binary black hole merger rates in AGN discs versus nuclear star clusters: loud beats quiet",
+   "year": 2021,
+   "arxiv": "2109.03212",
+   "doi": "10.1093/mnras/stac2861",
+   "cites": 104
+  }
+ }
+}

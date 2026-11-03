@@ -1,0 +1,500 @@
+{
+ "axis": {
+  "log_min": -10,
+  "log_max": 0,
+  "reference": "eccentricity at a GW frequency of 10 Hz",
+  "marks": [
+   {
+    "log_e": -1.3,
+    "label": "e ≈ 0.05: LVK can tell it from circular (Lower+ 2018)",
+    "anchor": "end"
+   },
+   {
+    "log_e": -1,
+    "label": "e ≥ 0.1: 'eccentric merger'",
+    "anchor": "start"
+   }
+  ]
+ },
+ "channels": [
+  {
+   "group": "field",
+   "family": "isolated",
+   "row": "circular",
+   "band": [
+    -10,
+    -7
+   ],
+   "peak": -8,
+   "graph": "isolated",
+   "id": "iso-smt",
+   "name": "Stable mass transfer",
+   "sub": "Roche-lobe overflow that stays stable · no envelope ejection",
+   "papers": [
+    "1987ApJ...318..794H",
+    "1997A&A...327..620S",
+    "King:1999me"
+   ],
+   "mechanism": "The donor overflows its Roche lobe but the transfer stays dynamically stable, so the orbit shrinks gradually through non-conservative mass loss rather than through a common envelope. Tides keep the orbit circular throughout; only the supernova kicks can put eccentricity back in.",
+   "prediction": "The resulting BH–BH binaries are wide-ish and circular; forward-propagating the StarTrack population (the 'default model' of Olejak+ 2024, which mixes stable mass transfer and common envelope) to 10 Hz puts the bulk at e ≈ 10⁻¹⁰–10⁻⁷ with a peak near 10⁻⁸ and only a thin kick-fed tail above that (Fumagalli+ 2024, Fig. 1).",
+   "sources": [
+    {
+     "label": "Hjellming & Webbink 1987 — thresholds for rapid mass transfer",
+     "url": "https://doi.org/10.1086/165412"
+    },
+    {
+     "label": "Soberman, Phinney & van den Heuvel 1997 — stability criteria for mass transfer",
+     "arxiv": "astro-ph/9703016"
+    },
+    {
+     "label": "King & Begelman 1999 — avoiding common-envelope evolution",
+     "arxiv": "astro-ph/9907098"
+    },
+    {
+     "label": "Olejak+ 2024 — unequal-mass, highly-spinning mergers from stable mass transfer (StarTrack)",
+     "arxiv": "2404.12426"
+    },
+    {
+     "label": "Belczynski, Kalogera & Bulik 2002 — StarTrack: compact-object binaries, channels and rates",
+     "arxiv": "astro-ph/0111452"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/iso-smt.mp4",
+    "still": "media/iso-smt.png",
+    "candidate": "iso-smt-1.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "The primary swells to fill its Roche lobe (the teardrop outline) and a thin stream leaves through L1 into a disc around the companion; because the transfer stays stable the orbit only changes smoothly. After the stripped donor collapses, the secondary does the same onto the black hole, and the pair ends wide and circular."
+   },
+   "figure": {
+    "src": "figs/fumagalli-2024-fig1.png",
+    "caption": "Fumagalli+ 2024, Fig. 1: residual eccentricity at 10 Hz for representative populations — the isolated-binary channel (StarTrack, red) peaks at e ≈ 10⁻⁸ with support down to 10⁻¹⁰."
+   },
+   "tail": [
+    -7,
+    -4
+   ]
+  },
+  {
+   "group": "field",
+   "family": "isolated",
+   "row": "circular",
+   "band": [
+    -10,
+    -7
+   ],
+   "peak": -8,
+   "graph": "isolated",
+   "id": "iso-ce",
+   "name": "Common envelope",
+   "sub": "unstable mass transfer · the companion spirals in through the envelope",
+   "papers": [
+    "1976IAUS...73...75P",
+    "1976ApJ...208L..61O",
+    "Bethe:1998bn",
+    "Belczynski:2001uc",
+    "Dominik:2012kk"
+   ],
+   "mechanism": "Two massive stars in the field are brought together by a common envelope, by stable mass transfer, or stay compact through chemically homogeneous evolution. Tides and mass transfer circularise the orbit, and the second supernova kick is the only thing that puts eccentricity back in.",
+   "prediction": "Population synthesis with StarTrack (the 'default model' of Olejak+ 2024) puts BH–BH binaries at e ≈ 10⁻¹⁰–10⁻⁷ when they reach 10 Hz, peaking near 10⁻⁸ (Fumagalli+ 2024, Fig. 1). Gravitational radiation has had ~Gyr to act (Peters 1964, eq. 5.11 for de/dt), so nothing from this channel is measurable with current detectors.",
+   "sources": [
+    {
+     "label": "Kowalska+ 2011 — BH–BH: 10⁻⁶ ≲ e₃₀Hz ≲ 10⁻⁴",
+     "arxiv": "1010.0511"
+    },
+    {
+     "label": "Peters 1964 — circularisation by GW emission",
+     "url": "https://doi.org/10.1103/PhysRev.136.B1224"
+    },
+    {
+     "label": "Olejak+ 2024 — StarTrack default model used for the isolated-channel prediction",
+     "arxiv": "2404.12426"
+    },
+    {
+     "label": "Belczynski, Kalogera & Bulik 2002 — StarTrack: compact-object binaries, channels and rates",
+     "arxiv": "astro-ph/0111452"
+    },
+    {
+     "label": "Belczynski+ 2016 — GW150914 from the isolated evolution of two massive stars",
+     "arxiv": "1602.04531"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/iso-ce.mp4",
+    "still": "media/iso-ce.png",
+    "candidate": "iso-ce-2.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "The primary becomes a giant whose envelope — drawn as a swarm of gas — engulfs the companion. Drag inside the envelope makes the companion and the core spiral in, the orbital energy they lose flings the gas away, and the tight core–companion pair collapses to two black holes on a circular orbit."
+   },
+   "figure": {
+    "src": "figs/fumagalli-2024-fig1.png",
+    "caption": "Fumagalli+ 2024, Fig. 1: residual eccentricity at 10 Hz for representative populations — the isolated-binary channel (StarTrack, red) peaks at e ≈ 10⁻⁸ with support down to 10⁻¹⁰."
+   },
+   "tail": [
+    -7,
+    -4
+   ]
+  },
+  {
+   "group": "field",
+   "family": "isolated",
+   "row": "circular",
+   "band": [
+    -10,
+    -7
+   ],
+   "peak": -8,
+   "graph": "isolated",
+   "id": "iso-che",
+   "name": "Chemically homogeneous evolution",
+   "sub": "tidally locked, rapidly rotating stars that never expand",
+   "papers": [
+    "Mandel:2015qlu",
+    "deMink:2016vkw"
+   ],
+   "mechanism": "In a very tight, massive binary the stars are tidally spun up so fast that rotational mixing keeps them chemically homogeneous: they burn helium throughout, shrink instead of expanding, and never overflow their Roche lobes. Both collapse to black holes still in a ~1–2 day orbit.",
+   "prediction": "The binary is tidally circularised before either collapse (Mandel & de Mink 2016, Fig. 1: the stars never overflow their Roche lobes) and the black holes then inspiral for 4–11 Gyr (their Fig. 8 delay-time distribution), so the eccentricity at 10 Hz is negligible — at or below the rest of the isolated channel.",
+   "sources": [
+    {
+     "label": "Mandel & de Mink 2016 — merging BBHs from chemically homogeneous evolution",
+     "arxiv": "1601.00007"
+    },
+    {
+     "label": "de Mink & Mandel 2016 — rates and properties for advanced LIGO",
+     "arxiv": "1603.02291"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/iso-che.mp4",
+    "still": "media/iso-che.png",
+    "candidate": "iso-che-2.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "Two massive stars in a ~1-day orbit are spun up by tides; the swirling currents are the rotational mixing that keeps them chemically homogeneous. The orange ghost is the size an ordinary star would reach — overflowing its Roche lobe — while the real stars stay compact, never touch, and collapse in place on the same tight orbit."
+   },
+   "figure": {
+    "src": "figs/mandel-demink-2016-fig1.png",
+    "caption": "Mandel & de Mink 2016, Fig. 1: chemically homogeneous (left) versus normal (right) evolution of a close massive binary — the mixed star shrinks inside its Roche lobe instead of overflowing it."
+   },
+   "tail": [
+    -7,
+    -4
+   ]
+  },
+  {
+   "id": "cluster-ejected",
+   "name": "Clusters — ejected binaries",
+   "sub": "hardened by binary–single encounters, then kicked out",
+   "group": "dynamical",
+   "graph": "clusters",
+   "papers": [
+    "heggie1975binary",
+    "Kulkarni:1993fr",
+    "sigurdsson1993primordial",
+    "Sigurdsson:1993tui",
+    "Sigurdsson:1994ju",
+    "PortegiesZwart:1999nm",
+    "Miller:2001ez",
+    "Gultekin:2005fd"
+   ],
+   "band": [
+    -8,
+    -5
+   ],
+   "peak": -6.2,
+   "mechanism": "Binaries in a globular cluster core harden through repeated three-body encounters (Heggie 1975) until a recoil ejects them from the cluster. They then inspiral in the field for Gyr.",
+   "prediction": "The dominant peak of the trimodal cluster distribution: ejected binaries reach 10 Hz with e ~ 10⁻⁷–10⁻⁵ — the blue histogram of Rodriguez+ 2018, Fig. 1, and the grey 'ejected' population of Zevin+ 2019, Fig. 6 (left) — indistinguishable from isolated binaries by eccentricity alone.",
+   "sources": [
+    {
+     "label": "Rodriguez+ 2018 — trimodal e₁₀Hz distribution from 24 GC models",
+     "arxiv": "1712.04937"
+    },
+    {
+     "label": "Zevin+ 2019 — ejected / in-cluster / GW-capture populations",
+     "arxiv": "1810.00901"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/cluster-ejected.mp4",
+    "still": "media/cluster-ejected.png",
+    "candidate": "cluster-ejected-2.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "Seen in the binary's own frame. Single black holes from the cluster core fly past one after another; each leaves faster and tightens the binary, and each recoil shifts the cluster past. The last kick exceeds the escape speed — the cluster recedes — and gravitational radiation then rounds the orbit into a circle."
+   },
+   "figure": {
+    "src": "figs/rodriguez-2018-fig1.png",
+    "caption": "Rodriguez+ 2018, Fig. 1: e at 10 Hz for BBHs merging at z < 1 in 24 globular-cluster models — ejected (blue) and in-cluster (orange) mergers, and a third peak at e > 0.1 from GW captures."
+   },
+   "row": "circular"
+  },
+  {
+   "id": "triples",
+   "name": "Field triples",
+   "sub": "von Zeipel–Kozai–Lidov oscillations",
+   "group": "field",
+   "graph": "triples",
+   "papers": [
+    "1910AN....183..345V",
+    "kozai1962secular",
+    "lidov1962evolution",
+    "giacaglia1964notes",
+    "Wen:2002km",
+    "Kimpson:2016dgk",
+    "Silsbee:2016djf",
+    "Antonini:2017ash",
+    "Arca-Sedda:2018qgq",
+    "Vigna-Gomez:2020fvw",
+    "Stegmann:2021jen"
+   ],
+   "band": [
+    -7.5,
+    -1.5
+   ],
+   "peak": -5.5,
+   "tail": [
+    -1.5,
+    0
+   ],
+   "mechanism": "A distant third star exchanges angular momentum with the inner binary, driving secular ZKL cycles in eccentricity and inclination. At the eccentricity maxima GW emission is strong enough to merge the inner binary within a Hubble time.",
+   "prediction": "Broad and bimodal — Rodriguez & Antonini 2018, Fig. 11 (top): most inner binaries decouple early and arrive circularised (e ~ 10⁻⁷–10⁻⁴, blue), while those merging inside an ongoing ZKL cycle sit at 10⁻⁴–10⁻¹ (orange) with a clear break at e₁₀Hz ≈ 2×10⁻⁴. Antonini+ 2017, Fig. 4 (left) shows the same tail: a few per cent enter the band with e ≳ 0.1, and their Fig. 5 contrasts it with the cluster channels.",
+   "sources": [
+    {
+     "label": "Rodriguez & Antonini 2018 — e₁₀Hz distribution, break at 2×10⁻⁴",
+     "arxiv": "1805.08212"
+    },
+    {
+     "label": "Antonini, Toonen & Hamers 2017 — few % with e₁₀Hz > 0.1",
+     "arxiv": "1703.06614"
+    },
+    {
+     "label": "Silsbee & Tremaine 2017",
+     "arxiv": "1608.07642"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/triples.mp4",
+    "still": "media/triples.png",
+    "candidate": "triples-1.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "An inner binary with a distant tertiary on an inclined orbit. Each von Zeipel–Kozai–Lidov cycle stretches the inner ellipse (eccentricity up) while its plane tilts toward the outer orbit (mutual inclination down), then relaxes. At an eccentricity maximum the pericentre is close enough that gravitational waves shrink the orbit and merge it while still eccentric."
+   },
+   "figure": {
+    "src": "figs/rodriguez-antonini-2018-fig11.png",
+    "caption": "Rodriguez & Antonini 2018, Fig. 11 (top): e at 10 Hz for BBH mergers from field triples, split below (blue) and above (orange) e = 2×10⁻⁴."
+   },
+   "row": "eccentric"
+  },
+  {
+   "id": "agn",
+   "name": "AGN disks",
+   "sub": "gas-assisted hardening and disk-confined encounters",
+   "group": "dynamical",
+   "graph": "agn",
+   "papers": [
+    "2012MNRAS.425..460M",
+    "McKernan:2014oxa",
+    "Bartos:2016dgn",
+    "Stone:2016wzz",
+    "2018ApJ...866...66M",
+    "2019PhRvL.123r1101Y",
+    "2020ApJ...898...25T",
+    "McKernan:2020lgr",
+    "Ford:2021kcw"
+   ],
+   "band": [
+    -4,
+    -1.3
+   ],
+   "peak": -2.5,
+   "tail": [
+    -1.3,
+    0
+   ],
+   "mechanism": "Stellar-mass black holes captured in the accretion disk of a supermassive black hole migrate, pile up at migration traps and pair off; gas drag hardens the binaries, and binary–single encounters confined to the disk plane are far more likely to produce eccentric mergers than isotropic ones.",
+   "prediction": "Tagawa+ 2021, Fig. 1 (cumulative, top; differential, bottom, for models M1–M4): 8–30 % of AGN mergers have e₁₀Hz ≳ 0.03 and 5–17 % have e₁₀Hz ≥ 0.3 for isotropic binary–single interactions, rising to 10–70 % if the interactions are disk-confined (their Fig. 3 compares the models). Samsing+ 2022, Fig. 6 finds ~15 % with e > 0.1 for co-planar (2D) scatterings. The bulk of the population sits at 10⁻⁴–10⁻².",
+   "sources": [
+    {
+     "label": "Tagawa+ 2021 — 8–30 % e ≳ 0.03; 5–17 % (10–70 % disk-confined) e ≥ 0.3",
+     "arxiv": "2010.10526"
+    },
+    {
+     "label": "Samsing+ 2022 (Nature) — AGN as eccentric-merger factories",
+     "arxiv": "2010.09765"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/agn.mp4",
+    "still": "media/agn.png",
+    "candidate": "agn-2.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "The AGN disc seen from 60°. Stellar-mass black holes embedded in the gas migrate inward to a trap (dashed ring) and pair off; gas drag keeps hardening the pair. A third black hole on a flyby confined to the disc plane leaves the pair eccentric, and it merges inside the disc."
+   },
+   "figure": {
+    "src": "figs/tagawa-2021-fig1.png",
+    "caption": "Tagawa+ 2021, Fig. 1: cumulative (top) and differential (bottom) detection-rate distributions of e at 10 Hz for four AGN-disk models; GW captures in single–single (orange) and binary–single (red) encounters produce the spike near e = 1."
+   },
+   "row": "eccentric"
+  },
+  {
+   "id": "zkl-smbh",
+   "name": "ZKL near a supermassive BH",
+   "sub": "binaries orbiting the nucleus as the outer body",
+   "group": "dynamical",
+   "graph": "triples",
+   "papers": [
+    "kozai1962secular",
+    "lidov1962evolution",
+    "Wen:2002km",
+    "Fragione:2020nib"
+   ],
+   "band": [
+    -3,
+    0
+   ],
+   "peak": -1.6,
+   "mechanism": "In a nuclear star cluster the supermassive black hole itself plays the tertiary: compact binaries orbiting it undergo ZKL cycles that can drive the inner eccentricity close to one while the merger is still in progress.",
+   "prediction": "Fragione+ 2019, Fig. 6: the e₁₀Hz distribution is bimodal between 10⁻³ and 1, with 10–20 % of these mergers entering the LIGO band at e ≳ 0.1 (the dashed line at e ≈ 0.08 marks where LVK can tell them from circular). Antonini & Perets 2012, Fig. 7 found the same high-eccentricity tail for Kozai-driven mergers in a Milky-Way-like nucleus.",
+   "sources": [
+    {
+     "label": "Fragione+ 2019 — 10–20 % with e ≳ 0.1",
+     "arxiv": "1811.10627"
+    },
+    {
+     "label": "Antonini & Perets 2012 — secular evolution near massive black holes",
+     "arxiv": "1203.2938"
+    },
+    {
+     "label": "Hoang+ 2018 — eccentric ZKL in galactic nuclei",
+     "arxiv": "1706.09896"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/zkl-smbh.mp4",
+    "still": "media/zkl-smbh.png",
+    "candidate": "zkl-smbh-2.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "A compact binary rides a wide orbit around the supermassive black hole of a nuclear star cluster; the magnifier shows its inner orbit. The SMBH drives fast ZKL cycles that push the inner eccentricity close to one, with a burst at each pericentre until the binary merges mid-cycle."
+   },
+   "figure": {
+    "src": "figs/fragione-2019-fig6.png",
+    "caption": "Fragione+ 2019, Fig. 6: e at 10 Hz for BH–BH mergers in a Milky-Way-like nucleus for three models; the dashed line at e ≈ 0.08 is where LVK can distinguish them from circular."
+   },
+   "row": "eccentric"
+  },
+  {
+   "id": "cluster-capture",
+   "name": "Clusters — GW captures in 3- and 4-body encounters",
+   "sub": "binary–single and binary–binary resonant interactions",
+   "group": "dynamical",
+   "graph": "clusters",
+   "papers": [
+    "Samsing:2013kua",
+    "Samsing:2017rat",
+    "Zevin:2018kzq"
+   ],
+   "band": [
+    -1.6,
+    0
+   ],
+   "peak": -1.1,
+   "mechanism": "During a chaotic resonant encounter two of the black holes can pass close enough that GW emission binds them on the spot. Such binaries form with e ≈ 1 and often inside the detector band.",
+   "prediction": "About 5 % of all globular-cluster mergers (Samsing 2018, Fig. 3 — the ratio of eccentric to circular mergers as a function of the binary separation; ~10 % in Rodriguez+ 2018, Fig. 1, the e > 0.1 peak) enter the band with e ≥ 0.1. Binary–binary encounters add 25–45 % of these eccentric mergers: the blue 'GW capture' population of Zevin+ 2019, Fig. 6 (left) peaks at e₁₀Hz ≈ 0.05 with a spike at e ≈ 1 for binaries formed inside the band.",
+   "sources": [
+    {
+     "label": "Samsing 2018 — ~5 % of GC mergers with e ≥ 0.1 at 10 Hz",
+     "arxiv": "1711.07452"
+    },
+    {
+     "label": "Rodriguez+ 2018 — ~10 % with e > 0.1",
+     "arxiv": "1712.04937"
+    },
+    {
+     "label": "Zevin+ 2019 — binary–binary: 25–45 % of eccentric mergers",
+     "arxiv": "1810.00901"
+    },
+    {
+     "label": "Samsing, MacLeod & Ramirez-Ruiz 2014 — eccentric inspirals from GW-capture",
+     "arxiv": "1308.2964"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/cluster-capture.mp4",
+    "still": "media/cluster-capture.png",
+    "candidate": "cluster-capture-2.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "A binary–single encounter goes resonant: the three black holes swap partners chaotically (their paths stay drawn). During one close pass two of them radiate a burst of gravitational waves and are bound on the spot with e ≈ 1; the third is flung away and the new pair shrinks over a few pericentre passages to merger."
+   },
+   "figure": {
+    "src": "figs/zevin-2019-fig6.png",
+    "caption": "Zevin+ 2019, Fig. 6: the GW-capture population (blue) peaks near e ≈ 0.05 at 10 Hz with a spike at e ≈ 1."
+   },
+   "row": "eccentric"
+  },
+  {
+   "id": "single-capture",
+   "name": "Single–single GW captures",
+   "sub": "galactic nuclei · nuclear star clusters",
+   "group": "dynamical",
+   "graph": "clusters",
+   "papers": [
+    "OLeary:2005vqo",
+    "OLeary:2008myb",
+    "Gondan:2017wzd"
+   ],
+   "band": [
+    -1,
+    0
+   ],
+   "peak": -0.05,
+   "mechanism": "Two unbound black holes fly past each other close enough that the GW energy radiated at pericentre exceeds their kinetic energy at infinity. The higher the velocity dispersion, the smaller the pericentre must be — so in galactic nuclei the binary forms inside, or just below, the LVK band.",
+   "prediction": "O'Leary+ 2009, Fig. 6: the eccentricity distribution at the last stable orbit — ~90 % form with a peak GW frequency already above 10 Hz. Gondán+ 2018, Fig. 7: 43–69 % (30+30 M☉) to 68–94 % (10+10 M☉) have e₁₀Hz > 0.1, and Gondán & Kocsis 2021, Fig. 8 (bottom) shows ~50 % with e₁₀Hz ≳ 0.95 and how e₁₀Hz tracks the host's escape speed. Samsing+ 2019 find the same mechanism at work in globular clusters, where the captures form as eccentric deci-Hz sources for DECIGO/Tian-Qin.",
+   "sources": [
+    {
+     "label": "O'Leary, Kocsis & Loeb 2009 — GW captures in galactic nuclei",
+     "arxiv": "0807.2638"
+    },
+    {
+     "label": "Gondán+ 2018 — 43–94 % with e₁₀Hz > 0.1",
+     "arxiv": "1711.09989"
+    },
+    {
+     "label": "Gondán & Kocsis 2021 — ~50 % with e ≳ 0.95",
+     "arxiv": "2011.02507"
+    },
+    {
+     "label": "Samsing+ 2019 — single–single GW captures in globular clusters: eccentric deci-Hz sources",
+     "arxiv": "1907.11231"
+    }
+   ],
+   "media": {
+    "type": "video",
+    "src": "media/single-capture.mp4",
+    "still": "media/single-capture.png",
+    "candidate": "single-capture-4.mp4",
+    "credit": "Schematic animation (Manim), not a simulation",
+    "caption": "Two unbound black holes in a dense cluster pass each other on a hyperbolic flyby. The burst of gravitational waves at closest approach carries away more energy than they had at infinity, so they leave bound on an extremely eccentric orbit that shrinks, with a burst at every pericentre, until they merge."
+   },
+   "figure": {
+    "src": "figs/gondan-2018-fig7.png",
+    "caption": "Gondán+ 2018, Fig. 7: PDF of the residual eccentricity when the GW signal first reaches 10 Hz, for several component-mass pairs in a Milky-Way-like nucleus."
+   },
+   "row": "eccentric"
+  }
+ ],
+ "rows": {
+  "eccentric": "Channels that produce eccentric binaries",
+  "circular": "Channels that produce quasi-circular binaries"
+ },
+ "families": {
+  "isolated": {
+   "label": "Isolated binaries"
+  }
+ }
+}

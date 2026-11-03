@@ -1,0 +1,62 @@
+{% extends "presentations/slide_base.html" %}
+{# The EOB flowchart (after Buonanno & Damour 1999), one box per click. deck.yaml lists it six
+   times as eob-1..eob-6 (`continues: true`), so the step is the last character of the slide id:
+   box n is drawn once step >= n, and arrows carry the step of the box they lead into. #}
+{% block slide %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ deck_static }}eob/eob.css">
+<h1 class="eob-title">How do we model eccentric binaries?</h1>
+<div class="eob" data-step="{{ slide.id|slice:'-1:' }}">
+  <svg class="eob__arrows" viewBox="0 0 1030 455" preserveAspectRatio="none" aria-hidden="true">
+    <defs><marker id="eob-head-{{ slide.id }}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z"/></marker></defs>
+    <path data-n="2" marker-end="url(#eob-head-{{ slide.id }})" d="M392 70H514"/>
+    <path data-n="3" marker-end="url(#eob-head-{{ slide.id }})" d="M716 212V190"/>
+    <path data-n="4" marker-end="url(#eob-head-{{ slide.id }})" d="M522 150H435V211"/>
+    <path data-n="5" marker-end="url(#eob-head-{{ slide.id }})" d="M398 255H362"/>
+    <path data-n="5" marker-end="url(#eob-head-{{ slide.id }})" d="M356 312H912V190"/>
+    <path data-n="6" marker-end="url(#eob-head-{{ slide.id }})" d="M432 288V382H574"/>
+  </svg>
+{# the maths below is LaTeX, whose {{ would collide with Django templating #}
+{% verbatim %}
+
+  <section class="eob__box" data-n="1" style="--x:2.1;--y:3.3;--w:34.9;--h:24.6">
+    <span class="eob__tag">Hamiltonian</span>
+    <div>\( H_{\rm EOB} = M\sqrt{1+2\nu\left(\dfrac{H_{\rm eff}}{\mu}-1\right)} \)</div>
+  </section>
+
+  <section class="eob__box" data-n="2" style="--x:51.2;--y:3.1;--w:41.7;--h:36.7">
+    <span class="eob__tag">Equations of motion</span>
+    <div>\( \dot r = \xi(r)\,\dfrac{\partial \hat H_{\rm EOB}}{\partial p_{r_*}}(r, p_{r_*}, p_\phi) \)</div>
+    <div>\( \dot p_{r_*} = -\xi(r)\,\dfrac{\partial \hat H_{\rm EOB}}{\partial r}(r, p_{r_*}, p_\phi) + \hat{\mathcal F}_r \)</div>
+  </section>
+
+  <section class="eob__box eob__box--small" data-n="3" style="--x:51.7;--y:46.4;--w:35.6;--h:14.5">
+    <span class="eob__tag">Eccentric initial conditions</span>
+    <div class="eob__row">
+      <span>\( r = \dfrac{1}{u_p(1+e\cos\zeta)} \)</span>
+      <span>\( \left[\dfrac{\partial \hat H_{\rm EOB}}{\partial r}\right]_0 = -\big[\dot p_r(p_\phi, e, \zeta)\big]_0 \)</span>
+    </div>
+  </section>
+
+  <section class="eob__box eob__box--mode" data-n="4" style="--x:38.8;--y:47.3;--w:6.9;--h:15.2">
+    <div>\( h_{lm}^{\rm ecc} \)</div>
+  </section>
+
+  <section class="eob__box" data-n="5" style="--x:1.0;--y:36.3;--w:33.3;--h:35.6">
+    <span class="eob__tag">Radiation reaction</span>
+    <div>\( \Phi_E = \dfrac{\omega^2}{16\pi}\displaystyle\sum_{l=2}^{8}\sum_{m=-l}^{l} m^2 \left|\dfrac{D_L}{M}h_{lm}\right|^2 \)</div>
+    <div>\( \hat{\mathcal F}_\phi = -\dfrac{\Phi_E}{\omega}, \quad \hat{\mathcal F}_r = \hat{\mathcal F}_\phi\,\dfrac{p_r}{p_\phi} \)</div>
+  </section>
+
+  <section class="eob__box eob__box--out" data-n="6" style="--x:56;--y:72.5;--w:42;--h:20">
+    <span class="eob__tag">The waveform</span>
+    <div>\( h_+ - i h_\times = \displaystyle\sum_{l=2}^{\infty}\sum_{m=-l}^{l} {}_{-2}Y_{lm}(\varphi, \iota)\, h_{lm}(\boldsymbol\Theta; t) \)</div>
+  </section>
+
+  <p class="eob__cite">Buonanno &amp; Damour 1999</p>
+{% endverbatim %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" defer></script>
+<script src="{{ deck_static }}eob/eob.js" defer></script>
+{% endblock %}

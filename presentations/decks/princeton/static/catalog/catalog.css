@@ -1,0 +1,11 @@
+/* Live embed of the blog's catalog page, framed like a browser window. */
+.slide-page:has(.cat){max-width:none;display:flex;flex-direction:column;padding:1rem 1.5vw 2.6rem;box-sizing:border-box}
+.cat{--ink:#504c44;flex:1 1 0;min-height:0;display:flex;flex-direction:column;border:1px solid #d6d2c8;border-radius:10px;overflow:hidden;box-shadow:0 12px 40px rgba(60,50,30,.18);background:#fff}
+.cat__chrome{display:flex;align-items:center;gap:.9rem;padding:.45rem .8rem;background:#f1efe9;border-bottom:1px solid #d6d2c8;font-size:.9rem}
+.cat__dots{display:flex;gap:.35rem}
+.cat__dots i{width:.7rem;height:.7rem;border-radius:50%;background:#d9d4c9}
+.cat__dots i:first-child{background:#e0796b} .cat__dots i:nth-child(2){background:#e7c06a} .cat__dots i:nth-child(3){background:#86b77b}
+.cat__url{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:.3rem .8rem;border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;border:1px solid #e2ded5}
+.cat__url:hover{border-color:#2a7f7a}
+.cat__open{color:#2a7f7a;text-decoration:none;font-weight:600;white-space:nowrap}
+.cat__frame{flex:1 1 0;min-height:0;width:100%;border:0;background:#fff}

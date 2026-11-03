@@ -1,0 +1,13 @@
+{% extends "presentations/slide_base.html" %}
+{# Mixture of Experts, one step per click: 1 the chi_eff scatter, 2-6 wipe the pipeline figure open
+   panel by panel, 7 the efficiency histogram. deck.yaml lists it as moe-1..moe-7; the step is the
+   last character of the slide id. #}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}moe/moe.css?v=3">
+<h1 class="moe-title">Mixture of Experts for simulation-based inference</h1>
+<div class="moe" data-step="{{ slide.id|slice:'-1:' }}">
+  <img class="moe__scatter" src="{{ deck_static }}moe/chieff-chip.png" alt="Effective precession against effective spin for simulated events over the 50, 90 and 99 percent prior contours, coloured from bad to good performance">
+  <img class="moe__eff" src="{{ deck_static }}moe/efficiency-hard.png" alt="Histogram of sampling efficiency for events inside the hard region: 71 percent of events are above 1 percent with an easy and a hard expert, 48 percent with one network trained longer">
+  <img class="moe__pipeline" src="{{ deck_static }}moe/pipeline.png" alt="The pipeline in five steps: 1. train generalist on the full prior; 2. evaluate, find poor regions; 3. train experts on tilted priors; 4. train classifier on all priors; 5. route event and combine samples">
+</div>
+{% endblock %}

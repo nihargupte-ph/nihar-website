@@ -1,0 +1,24 @@
+/* Mixture of Experts: chi_eff scatter top left, efficiency histogram top right, the pipeline across
+   both bottom quadrants. Revealed in that spoken order: scatter (step 1), pipeline panel by panel
+   (2-6), histogram (7). All three PNGs are cropped to their ink so they fill their cells.
+   .moe's own background gives the figures something to multiply against: container-type makes it
+   a stacking context, so without it their white boxes would show on the near-white slide.
+   Page is a flex column that stops 1.5rem short of the scrollport: the footer is a sibling after it
+   (height 1.5rem, deck.css), so a full-height page overflows by exactly that and shows a scrollbar. */
+.slide-page:has(.moe){max-width:none;display:flex;flex-direction:column;min-height:calc(100% - 1.5rem);padding:1.6vh 2.4vw 1.5rem;box-sizing:border-box}
+.slide-page h1.moe-title{font-size:clamp(1rem,1.65vw,1.7rem);line-height:1.4;margin:0 0 2.6vh;text-transform:uppercase;letter-spacing:.18em;white-space:nowrap;font-weight:400;text-align:left}
+.moe{position:relative;container-type:size;background:var(--bg,#fdfdfd);flex:1 1 0;min-height:0;width:100%;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:1.5cqh 2cqw}
+.moe img{display:block;mix-blend-mode:multiply}
+.moe__scatter,.moe__eff{width:100%;height:100%;min-height:0;object-fit:contain}
+/* box = figure (1555x421), no letterboxing, so the clip percentages below land on the panel edges */
+.moe__pipeline{grid-column:1/-1;justify-self:center;align-self:center;width:min(100%,calc(49cqh * 3.6936));height:auto;
+  clip-path:inset(0 var(--hide,0%) 0 0);transition:clip-path .45s ease}
+/* panel edges, from the covers on the original slide; each falls just before the next arrow */
+.moe[data-step="1"] .moe__pipeline{--hide:100%}
+.moe[data-step="2"] .moe__pipeline{--hide:83.5%}
+.moe[data-step="3"] .moe__pipeline{--hide:66.3%}
+.moe[data-step="4"] .moe__pipeline{--hide:48.5%}
+.moe[data-step="5"] .moe__pipeline{--hide:30.7%}
+.moe__eff{transform:translateX(-5cqw);transition:opacity .35s ease}
+.moe:not([data-step="7"]) .moe__eff{opacity:0}

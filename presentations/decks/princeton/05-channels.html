@@ -1,0 +1,8 @@
+{% extends "presentations/slide_base.html" %}
+{% block slide %}
+<link rel="stylesheet" href="{{ deck_static }}channels/channels.css">
+<h1 class="ch-title">Where would eccentricity come from?</h1>
+<div id="ch-root" class="ch-line" data-src="{{ deck_static }}channels/channels.json" aria-busy="true"></div>
+<div id="ch-popup" class="ch-popup" hidden role="dialog" aria-modal="false"></div>
+<script src="{{ deck_static }}channels/channels.js" defer></script>
+{% endblock %}
