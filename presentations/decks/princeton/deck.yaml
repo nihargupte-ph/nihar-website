@@ -130,8 +130,7 @@ slides:
 - {id: page-28, svg: slides/28-page-28.svg}
 - {id: page-29, svg: slides/29-page-29.svg}
 - {id: page-30, svg: slides/30-page-30.svg}
-# the appendix: prior odds, then the per-event backups
-- {id: page-31, svg: slides/31-page-31.svg}
+# the per-event backups
 - {id: page-32, svg: slides/32-page-32.svg}
 - id: catalog                       # live embed of the blog catalog page (18-catalog.html)
   html: 18-catalog.html
@@ -157,6 +156,8 @@ slides:
 - {id: fwd-9, html: 16-forward.html, continues: true}
 - {id: page-43, svg: slides/43-page-43.svg}
 - {id: page-44, svg: slides/44-page-44.svg}
+# prior odds via population inference, just before the conclusions
+- {id: page-31, svg: slides/31-page-31.svg}
 - {id: page-45, svg: slides/45-page-45.svg}
 - id: timeline                      # after the conclusions, before the appendix
   html: 04-timeline.html
